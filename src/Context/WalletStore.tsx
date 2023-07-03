@@ -35,4 +35,5 @@ export const WalletContextProvider = ({children}:Props) =>{
         </WalletContext.Provider>
     )
 };
+
 export const useWalletContext = () => useContext(WalletContext);

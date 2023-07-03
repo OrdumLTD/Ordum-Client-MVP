@@ -60,7 +60,7 @@ function ConnectWallet() {
   return (
     <main className="flex flex-col items-center justify-around">
         
-        <div>
+        <div className="flex flex-col w-1/3 justify-center align-middle items-center">
             {
               isWallet? 
                 (
@@ -82,16 +82,14 @@ function ConnectWallet() {
                     </Select>
                 </FormControl>
                 ) 
-                : (<Button variant="outlined" disabled>Choose Wallet Account</Button>)
+                : (<Button variant="outlined" disabled>Wallet Account</Button>)
             }
             
         </div>
-        <div className="">
+        <div className="flex flex-col w-100 justify-center align-middle items-center">
         {
             isWallet? (
-                account? <Button variant='outlined' size="large"><Link href="/">Log In</Link></Button>
-                :
-                <Button disabled variant='outlined' size="large"><Link href="/">Log In</Link></Button> 
+              <div></div>       
             )
             : (<h1 className="font-sans font-light text-base">Wallet unavailable? Try out <Button><Link href="/sign-in">Wallet Connect</Link></Button></h1>)
         }
