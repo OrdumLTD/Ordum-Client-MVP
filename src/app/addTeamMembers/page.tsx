@@ -121,6 +121,7 @@ function AddTeamMemberPage() {
             </button>
             <button
                 className="mt-4 border bg-black text-white w-full py-3 text-lg"
+                onClick={() => saveNDone()}
             >
                 Create Profile
             </button>
@@ -130,13 +131,15 @@ function AddTeamMemberPage() {
                <button
                className="mt-2 border border-black w-full py-3 text-lg"
                >
-                Go to Profile
+                <Link href="/profile/about">
+                    Go to Profile
+                </Link>
                </button>
             }
             <button
                 className="mt-4 border bg-gray-400 text-white w-full py-3 text-lg"
             >
-                <Link href="/create-team-profile">
+                <Link href="/createTeamProfile">
                     Back
                 </Link>
             </button>

@@ -1,6 +1,6 @@
 {
     "source": {
-      "hash": "0x8e89bf7c88d9b7e6d3d92c67decada54a5dab9e59f7dca06ca942a3f12203688",
+      "hash": "0xcdd118230b4914dd3a9e8589328fc5db9b4ce7277a0820e7ed64d78e3001edcc",
       "language": "ink! 4.0.0",
       "compiler": "rustc 1.68.0",
       "build_info": {
@@ -170,6 +170,66 @@
       },
       "messages": [
         {
+          "args": [],
+          "docs": [],
+          "label": "get_issuer_profile",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "ink",
+              "MessageResult"
+            ],
+            "type": 31
+          },
+          "selector": "0xc0de1002"
+        },
+        {
+          "args": [],
+          "docs": [],
+          "label": "get_applicant_profile",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "ink",
+              "MessageResult"
+            ],
+            "type": 35
+          },
+          "selector": "0xc0de1001"
+        },
+        {
+          "args": [],
+          "docs": [],
+          "label": "get_all_applicants",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "ink",
+              "MessageResult"
+            ],
+            "type": 38
+          },
+          "selector": "0xc0de1003"
+        },
+        {
+          "args": [],
+          "docs": [],
+          "label": "get_all_issuers",
+          "mutates": false,
+          "payable": false,
+          "returnType": {
+            "displayName": [
+              "ink",
+              "MessageResult"
+            ],
+            "type": 40
+          },
+          "selector": "0xc0de1004"
+        },
+        {
           "args": [
             {
               "label": "name",
@@ -186,7 +246,7 @@
                 "displayName": [
                   "Option"
                 ],
-                "type": 31
+                "type": 42
               }
             },
             {
@@ -204,7 +264,7 @@
                 "displayName": [
                   "Option"
                 ],
-                "type": 32
+                "type": 43
               }
             },
             {
@@ -244,7 +304,7 @@
               "ink",
               "MessageResult"
             ],
-            "type": 33
+            "type": 44
           },
           "selector": "0xc0de0001"
         },
@@ -332,7 +392,7 @@
               "ink",
               "MessageResult"
             ],
-            "type": 33
+            "type": 44
           },
           "selector": "0xc0de0002"
         },
@@ -353,7 +413,7 @@
                 "displayName": [
                   "KeyAction"
                 ],
-                "type": 36
+                "type": 46
               }
             }
           ],
@@ -366,7 +426,7 @@
               "ink",
               "MessageResult"
             ],
-            "type": 33
+            "type": 44
           },
           "selector": "0xc0de0003"
         },
@@ -378,7 +438,7 @@
                 "displayName": [
                   "Option"
                 ],
-                "type": 37
+                "type": 47
               }
             },
             {
@@ -396,7 +456,7 @@
                 "displayName": [
                   "Option"
                 ],
-                "type": 38
+                "type": 48
               }
             },
             {
@@ -405,7 +465,7 @@
                 "displayName": [
                   "Option"
                 ],
-                "type": 39
+                "type": 49
               }
             }
           ],
@@ -418,7 +478,7 @@
               "ink",
               "MessageResult"
             ],
-            "type": 33
+            "type": 44
           },
           "selector": "0xc0de0004"
         }
@@ -1549,75 +1609,9 @@
             "variant": {
               "variants": [
                 {
-                  "index": 0,
-                  "name": "None"
-                },
-                {
                   "fields": [
                     {
-                      "type": 8
-                    }
-                  ],
-                  "index": 1,
-                  "name": "Some"
-                }
-              ]
-            }
-          },
-          "params": [
-            {
-              "name": "T",
-              "type": 8
-            }
-          ],
-          "path": [
-            "Option"
-          ]
-        }
-      },
-      {
-        "id": 32,
-        "type": {
-          "def": {
-            "variant": {
-              "variants": [
-                {
-                  "index": 0,
-                  "name": "None"
-                },
-                {
-                  "fields": [
-                    {
-                      "type": 27
-                    }
-                  ],
-                  "index": 1,
-                  "name": "Some"
-                }
-              ]
-            }
-          },
-          "params": [
-            {
-              "name": "T",
-              "type": 27
-            }
-          ],
-          "path": [
-            "Option"
-          ]
-        }
-      },
-      {
-        "id": 33,
-        "type": {
-          "def": {
-            "variant": {
-              "variants": [
-                {
-                  "fields": [
-                    {
-                      "type": 34
+                      "type": 32
                     }
                   ],
                   "index": 0,
@@ -1638,7 +1632,7 @@
           "params": [
             {
               "name": "T",
-              "type": 34
+              "type": 32
             },
             {
               "name": "E",
@@ -1651,7 +1645,7 @@
         }
       },
       {
-        "id": 34,
+        "id": 32,
         "type": {
           "def": {
             "variant": {
@@ -1659,7 +1653,7 @@
                 {
                   "fields": [
                     {
-                      "type": 29
+                      "type": 33
                     }
                   ],
                   "index": 0,
@@ -1668,7 +1662,7 @@
                 {
                   "fields": [
                     {
-                      "type": 35
+                      "type": 34
                     }
                   ],
                   "index": 1,
@@ -1680,11 +1674,11 @@
           "params": [
             {
               "name": "T",
-              "type": 29
+              "type": 33
             },
             {
               "name": "E",
-              "type": 35
+              "type": 34
             }
           ],
           "path": [
@@ -1693,7 +1687,40 @@
         }
       },
       {
-        "id": 35,
+        "id": 33,
+        "type": {
+          "def": {
+            "variant": {
+              "variants": [
+                {
+                  "index": 0,
+                  "name": "None"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 14
+                    }
+                  ],
+                  "index": 1,
+                  "name": "Some"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "T",
+              "type": 14
+            }
+          ],
+          "path": [
+            "Option"
+          ]
+        }
+      },
+      {
+        "id": 34,
         "type": {
           "def": {
             "variant": {
@@ -1736,7 +1763,442 @@
         }
       },
       {
+        "id": 35,
+        "type": {
+          "def": {
+            "variant": {
+              "variants": [
+                {
+                  "fields": [
+                    {
+                      "type": 36
+                    }
+                  ],
+                  "index": 0,
+                  "name": "Ok"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 30
+                    }
+                  ],
+                  "index": 1,
+                  "name": "Err"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "T",
+              "type": 36
+            },
+            {
+              "name": "E",
+              "type": 30
+            }
+          ],
+          "path": [
+            "Result"
+          ]
+        }
+      },
+      {
         "id": 36,
+        "type": {
+          "def": {
+            "variant": {
+              "variants": [
+                {
+                  "fields": [
+                    {
+                      "type": 37
+                    }
+                  ],
+                  "index": 0,
+                  "name": "Ok"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 34
+                    }
+                  ],
+                  "index": 1,
+                  "name": "Err"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "T",
+              "type": 37
+            },
+            {
+              "name": "E",
+              "type": 34
+            }
+          ],
+          "path": [
+            "Result"
+          ]
+        }
+      },
+      {
+        "id": 37,
+        "type": {
+          "def": {
+            "variant": {
+              "variants": [
+                {
+                  "index": 0,
+                  "name": "None"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 22
+                    }
+                  ],
+                  "index": 1,
+                  "name": "Some"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "T",
+              "type": 22
+            }
+          ],
+          "path": [
+            "Option"
+          ]
+        }
+      },
+      {
+        "id": 38,
+        "type": {
+          "def": {
+            "variant": {
+              "variants": [
+                {
+                  "fields": [
+                    {
+                      "type": 39
+                    }
+                  ],
+                  "index": 0,
+                  "name": "Ok"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 30
+                    }
+                  ],
+                  "index": 1,
+                  "name": "Err"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "T",
+              "type": 39
+            },
+            {
+              "name": "E",
+              "type": 30
+            }
+          ],
+          "path": [
+            "Result"
+          ]
+        }
+      },
+      {
+        "id": 39,
+        "type": {
+          "def": {
+            "variant": {
+              "variants": [
+                {
+                  "fields": [
+                    {
+                      "type": 21
+                    }
+                  ],
+                  "index": 0,
+                  "name": "Ok"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 34
+                    }
+                  ],
+                  "index": 1,
+                  "name": "Err"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "T",
+              "type": 21
+            },
+            {
+              "name": "E",
+              "type": 34
+            }
+          ],
+          "path": [
+            "Result"
+          ]
+        }
+      },
+      {
+        "id": 40,
+        "type": {
+          "def": {
+            "variant": {
+              "variants": [
+                {
+                  "fields": [
+                    {
+                      "type": 41
+                    }
+                  ],
+                  "index": 0,
+                  "name": "Ok"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 30
+                    }
+                  ],
+                  "index": 1,
+                  "name": "Err"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "T",
+              "type": 41
+            },
+            {
+              "name": "E",
+              "type": 30
+            }
+          ],
+          "path": [
+            "Result"
+          ]
+        }
+      },
+      {
+        "id": 41,
+        "type": {
+          "def": {
+            "variant": {
+              "variants": [
+                {
+                  "fields": [
+                    {
+                      "type": 13
+                    }
+                  ],
+                  "index": 0,
+                  "name": "Ok"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 34
+                    }
+                  ],
+                  "index": 1,
+                  "name": "Err"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "T",
+              "type": 13
+            },
+            {
+              "name": "E",
+              "type": 34
+            }
+          ],
+          "path": [
+            "Result"
+          ]
+        }
+      },
+      {
+        "id": 42,
+        "type": {
+          "def": {
+            "variant": {
+              "variants": [
+                {
+                  "index": 0,
+                  "name": "None"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 8
+                    }
+                  ],
+                  "index": 1,
+                  "name": "Some"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "T",
+              "type": 8
+            }
+          ],
+          "path": [
+            "Option"
+          ]
+        }
+      },
+      {
+        "id": 43,
+        "type": {
+          "def": {
+            "variant": {
+              "variants": [
+                {
+                  "index": 0,
+                  "name": "None"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 27
+                    }
+                  ],
+                  "index": 1,
+                  "name": "Some"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "T",
+              "type": 27
+            }
+          ],
+          "path": [
+            "Option"
+          ]
+        }
+      },
+      {
+        "id": 44,
+        "type": {
+          "def": {
+            "variant": {
+              "variants": [
+                {
+                  "fields": [
+                    {
+                      "type": 45
+                    }
+                  ],
+                  "index": 0,
+                  "name": "Ok"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 30
+                    }
+                  ],
+                  "index": 1,
+                  "name": "Err"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "T",
+              "type": 45
+            },
+            {
+              "name": "E",
+              "type": 30
+            }
+          ],
+          "path": [
+            "Result"
+          ]
+        }
+      },
+      {
+        "id": 45,
+        "type": {
+          "def": {
+            "variant": {
+              "variants": [
+                {
+                  "fields": [
+                    {
+                      "type": 29
+                    }
+                  ],
+                  "index": 0,
+                  "name": "Ok"
+                },
+                {
+                  "fields": [
+                    {
+                      "type": 34
+                    }
+                  ],
+                  "index": 1,
+                  "name": "Err"
+                }
+              ]
+            }
+          },
+          "params": [
+            {
+              "name": "T",
+              "type": 29
+            },
+            {
+              "name": "E",
+              "type": 34
+            }
+          ],
+          "path": [
+            "Result"
+          ]
+        }
+      },
+      {
+        "id": 46,
         "type": {
           "def": {
             "variant": {
@@ -1763,7 +2225,7 @@
         }
       },
       {
-        "id": 37,
+        "id": 47,
         "type": {
           "def": {
             "variant": {
@@ -1796,7 +2258,7 @@
         }
       },
       {
-        "id": 38,
+        "id": 48,
         "type": {
           "def": {
             "variant": {
@@ -1829,7 +2291,7 @@
         }
       },
       {
-        "id": 39,
+        "id": 49,
         "type": {
           "def": {
             "variant": {
