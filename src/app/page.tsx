@@ -1,4 +1,4 @@
-import LogIn from '@/Component/login/page'
+import LogIn from '@/Components/login/page'
 import Image from 'next/image'
 
 export default function Home() {

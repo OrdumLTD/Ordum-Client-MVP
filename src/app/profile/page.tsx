@@ -1,15 +1,11 @@
-'use client'
+"use client";
 
-
-
-import Layout from '@/Component/layout/page';
-import Activity from '@/Component/profileAbout/activity/activity';
-import Summary from '@/Component/profileAbout/summary';
-import Team from '@/Component/profileAbout/team/team';
-import BookmarkIcon from '@mui/icons-material/Bookmark';
-import { useState } from 'react';
-
-
+import Layout from "@/Components/ui/Layout/";
+import Activity from "@/Components/profileAbout/activity/activity";
+import Summary from "@/Components/profileAbout/summary";
+import Team from "@/Components/profileAbout/team/team";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
+import { useState } from "react";
 
 enum About {
   Summary,
@@ -23,11 +19,11 @@ const TeamMembersProfile = () => {
   return (
     <Layout>
       {" "}
-      <div className="font-space-grotesk flex flex-col w-screen ">
+      <div className="font-space-grotesk flex flex-col ">
         {/* Banner */}
         <div className="h-40 md:h-60 bg-emerald-500"></div>
         {/* Company info and social */}
-        <nav className="flex navbar bg-white relative mb-8 md:mb-16">
+        <nav className="flex navbar relative mb-8 md:mb-16">
           <div className="ml-2 md:ml-16 w-full flex ">
             <div
               className="
@@ -79,9 +75,9 @@ const TeamMembersProfile = () => {
               Team
             </button>
           </div>
-          {(aboutMenu === About.Summary) ? <Summary /> : null}
-          {(aboutMenu === About.Activity) ? <Activity /> : null}
-          {(aboutMenu === About.Team) ? <Team /> : null}
+          {aboutMenu === About.Summary ? <Summary /> : null}
+          {aboutMenu === About.Activity ? <Activity /> : null}
+          {aboutMenu === About.Team ? <Team /> : null}
         </div>
       </div>{" "}
     </Layout>

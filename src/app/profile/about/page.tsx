@@ -1,8 +1,8 @@
 'use client';
 
-import Layout from '@/Component/layout/page';
-import Activity from '@/Component/profileAbout/activity/activity';
-import Summary from '@/Component/profileAbout/summary';
+import Layout from '@/Components/Layout/page';
+import Activity from '@/Components/profileAbout/activity/activity';
+import Summary from '@/Components/profileAbout/summary';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useState } from 'react';
 
