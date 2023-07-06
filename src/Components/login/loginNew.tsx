@@ -1,10 +1,21 @@
-import React from "react";
+"use client";
+
+import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import OrdumLogoBlack from "@/assets/logos/ordum-logo-black.svg";
-// import { Connect } from "../wallet/polkadotjs/connect";
+import ConnectWallet from "../ConnectWallet/page";
+import { useWalletContext } from "@/Context/WalletStore";
+import { useChainApiContext } from "@/Context/ChainApiStore";
 
 const LogIn = () => {
+  const { account } = useWalletContext();
+  const { fetchPoc5Api } = useChainApiContext();
+
+  useEffect(() => {
+    fetchPoc5Api();
+  });
+
   return (
     <div className="grid h-screen place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-cover text-sm md:text-base">
       <div className="border border-black rounded-lg p-5 md:p-10 w-5/12 grid bg-white">
@@ -21,9 +32,10 @@ const LogIn = () => {
         <div className="grid place-items-center">
           <div className="text-lg md:text-4xl font-light mt-5">Log in</div>
           <div className="mt-5 w-full grid gap-4">
+            {/* Make pretty later */}
             <button className="w-full border border-black rounded-full border-2 py-4">
               {" "}
-              {/* <Connect /> */}
+              <ConnectWallet />
             </button>
             <button className="w-full border border-black rounded-full border-2 py-4">
               {" "}
@@ -33,6 +45,16 @@ const LogIn = () => {
               {" "}
               Wallet Connect{" "}
             </button>
+            {account ? (
+              <div>
+                <Link href={"/home"}>
+                  <button className="w-full border border-black rounded-full border-2 py-4">
+                    {" "}
+                    Sign IN
+                  </button>
+                </Link>
+              </div>
+            ) : null}
           </div>
         </div>
       </div>
