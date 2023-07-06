@@ -19,7 +19,7 @@ function Header(props: { title: string | number | boolean | ReactElement<any, st
       <nav className="">
         {/* Nav Elements */}
         <div className="flex justify-between">
-          <div className="basis 3/12 flex gap-5 text-2xl">{props.title}</div>
+          <div className="ml-4 basis 3/12 flex gap-5 text-2xl">{props.title}</div>
           <div className="md:mr-10 basis 3/12 flex gap-5">
             <SearchBar />
             <div className="flex gap-5 mt-1.5">
