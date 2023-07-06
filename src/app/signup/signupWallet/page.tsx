@@ -1,7 +1,7 @@
 'use client'
 
 
-import ConnectWallet from '@/Component/connectWallet/page'
+import ConnectWallet from '@/Components/ConnectWallet/page'
 import { useChainApiContext } from '@/Context/ChainApiStore'
 import { usePhalaContractContext } from '@/Context/PhalaContractApiStore'
 import { useWalletContext } from '@/Context/WalletStore'

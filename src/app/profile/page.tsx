@@ -2,10 +2,10 @@
 
 
 
-import Layout from '@/Component/layout/page';
-import Activity from '@/Component/profileAbout/activity/activity';
-import Summary from '@/Component/profileAbout/summary';
-import Team from '@/Component/profileAbout/team/team';
+import Layout from '@/Components/ui/Layout/';
+import Activity from '@/Components/profileAbout/activity/activity';
+import Summary from '@/Components/profileAbout/summary';
+import Team from '@/Components/profileAbout/team/team';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import { useState } from 'react';
 
