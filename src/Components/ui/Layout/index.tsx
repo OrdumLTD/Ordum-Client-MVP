@@ -94,7 +94,7 @@ const Layout: React.FC<Props> = props => {
        
         </div>}
       </div>
-      <div className="flex flex-col w-full px-10">
+      <div className="flex flex-col w-full">
         <div className="mt-8">
           <Header title={props.title} />
         </div>

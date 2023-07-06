@@ -8,7 +8,7 @@ export default function ActiveGrants() {
         <div>
           <select
             className="
-            ml-2 mt-1 block px-2 md:px-6 md:py-2 bg-white border border-slate-300 rounded-md text-sm md:text-base shadow-sm placeholder-slate-400
+            ml-2 mt-1 block px-2 md:px-6 md:py-2  border border-slate-300 rounded-md text-sm md:text-base shadow-sm placeholder-slate-400
             focus:outline-none focus:border-sky-500"
           >
             <option value="" className="" disabled  hidden>

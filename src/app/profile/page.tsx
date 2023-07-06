@@ -19,7 +19,7 @@ const TeamMembersProfile = () => {
   return (
     <Layout>
       {" "}
-      <div className="font-space-grotesk flex flex-col w-screen ">
+      <div className="font-space-grotesk flex flex-col ">
         {/* Banner */}
         <div className="h-40 md:h-60 bg-emerald-500"></div>
         {/* Company info and social */}
