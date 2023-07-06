@@ -1,14 +1,17 @@
 import { WalletContextProvider } from '@/Context/WalletStore'
 import './globals.css'
-import { Inter, Space_Grotesk } from 'next/font/google'
+
+import { Work_Sans } from "next/font/google";
 import { ChainApiContextProvider } from '@/Context/ChainApiStore'
 import { PhalaContractContextProvider } from '@/Context/PhalaContractApiStore'
 import { ProfileContextProvider } from '@/Context/ProfileStore'
 
 
-const space_Grotesk = Space_Grotesk({
-   subsets: ['latin'] 
-})
+
+
+const workSans = Work_Sans({
+  subsets: ["latin"],
+});
 
 export const metadata = {
   title: 'Ordum MVP',
@@ -22,7 +25,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={space_Grotesk.className}>
+      <body className={workSans.className}>
         <WalletContextProvider>
           <ChainApiContextProvider>
             <PhalaContractContextProvider>
