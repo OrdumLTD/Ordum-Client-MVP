@@ -44,7 +44,7 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
           type="text"
         />
         <div className="text-sm mt-4 border-t border-tr" />
-        
+
         <span className="text-sm mt-">Click the title to edit</span>
 
         <div className="mt-10 py-3 max-w-[33rem] bg-gray-300 flex justify-around">
@@ -162,6 +162,32 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
             type="text"
           />
 
+          {/* <label className="mt-4 text-xl flex">
+            <span>Recieve Date</span>
+          </label>
+          <input
+            className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
+            placeholder="When do you want to recieve the funding?"
+            value={tldrCtx.recieveDate}
+            onChange={(e) => {
+              handleTLDRchange({ recieveDate: e.target.value });
+            }}
+            type="date"
+          /> */}
+
+          <label className="mt-4 text-xl flex">
+            <span>Starting Date</span>
+          </label>
+          <input
+            className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
+            placeholder="When do you plan to start your project?"
+            value={tldrCtx.startingDate}
+            onChange={(e) => {
+              handleTLDRchange({ startingDate: e.target.value });
+            }}
+            type="date"
+          />
+
           <label className="mt-4 text-xl flex">
             <span>Funding Amount</span>
           </label>
@@ -178,33 +204,7 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
           </div>
 
           <label className="mt-4 text-xl flex">
-            <span>Recieve Date</span>
-          </label>
-          <input
-            className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
-            placeholder="When do you want to recieve the funding?"
-            value={tldrCtx.recieveDate}
-            onChange={(e) => {
-              handleTLDRchange({ recieveDate: e.target.value });
-            }}
-            type="date"
-          />
-
-          <label className="mt-4 text-xl flex">
-            <span>Starting Date</span>
-          </label>
-          <input
-            className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
-            placeholder="When do you plan to start your project?"
-            value={tldrCtx.startingDate}
-            onChange={(e) => {
-              handleTLDRchange({ startingDate: e.target.value });
-            }}
-            type="date"
-          />
-
-          <label className="mt-4 text-xl flex">
-            <span>Deadline</span>
+            <span>Delivery Date</span>
           </label>
           <input
             className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
@@ -226,31 +226,7 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
               handleTLDRchange({ shortDescription: e.target.value });
             }}
             className="mt-2 w-full text-sm bg-white placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]"
-            placeholder="Describe your project in a few sentences. Max XXXX characters.&#10; 
-            Suggested format:&#10; 
-            
-            #Problem 
-            
-            #Solution 
-            
-            #How you aim to get there? 
-            
-            #Deliverables(what will you deliver?)
-            
-            ---> TBC with surveys and community "
-          />
-
-          <label className="mt-4 text-xl flex">
-            <span>If you have seen similar before: why is yours different</span>
-          </label>
-          {/* ToDo fix line break for plaeholder */}
-          <textarea
-            value={tldrCtx.whyDifferentDescription}
-            onChange={(e) => {
-              handleTLDRchange({ whyDifferentDescription: e.target.value });
-            }}
-            className="mt-2 w-full text-sm bg-white placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]"
-            placeholder="Are there any similar or competing projects in the ecosystem or outside of it? If so, how is yours different. "
+            placeholder="Describe your procet in 800 characters max"
           />
 
           {/* TODO Allow the user to add multiple links */}
@@ -267,7 +243,7 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
               placeholder="eg Gihub, Figma"
               type="text"
             />
-            <button className="mt-4 border border-black rounded-xl py-2">
+            <button className="mt-4 border border-black rounded-xl py-2 bg-ordum-blue">
               + Add Link
             </button>
           </div>
@@ -277,14 +253,14 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
             <button
               className="bg-black text-white py-2 md:py-4"
               onClick={() =>
-                changePropolsalSubPage(2, "/submitproposal/context")
+                changePropolsalSubPage(2, "/submitproposal/theproposal")
               }
             >
               Save and continue
             </button>
             <button
               className="bg-black text-white py-2 md:py-4"
-              onClick={() => changePropolsalSubPage(1, "/")}
+              onClick={() => changePropolsalSubPage(1, "/home")}
             >
               Save draft and Close
             </button>
