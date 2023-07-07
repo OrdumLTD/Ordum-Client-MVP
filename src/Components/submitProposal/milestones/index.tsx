@@ -1,11 +1,11 @@
 import Image from "next/image";
-import { useContext , useEffect} from "react";
+import { useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 // import ChainApiContext from "@/store/apiContext";
 
 import SubmitPropolsalContext from "@/Context/submitPropolsal";
 // import WalletContext from "@/store/walletContext";
-import Milestone from "./milestone";
+import  Milestone  from "./milestone";
 
 type Props = {
   className?: string;
@@ -17,18 +17,18 @@ const SubmitPropolsalMilestones: React.FC<Props> = (props) => {
   const router = useRouter();
   const changeStep = submitCtx.changeToStep;
 
-// Proposal submission
-// APIContext
-// const apiCTX = useContext(ChainApiContext);
-// const chainAPI = apiCTX.api;
-// const fetchChainApi = apiCTX.fetchChainApi;
+  // Proposal submission
+  // APIContext
+  // const apiCTX = useContext(ChainApiContext);
+  // const chainAPI = apiCTX.api;
+  // const fetchChainApi = apiCTX.fetchChainApi;
 
-useEffect(()=>{
-  const run = () =>{
-    // fetchChainApi?.();
-  }
-  run()
-},[])
+  useEffect(() => {
+    const run = () => {
+      // fetchChainApi?.();
+    };
+    run();
+  }, []);
 
   const changePropolsalSubPage = async (step: number, route: string) => {
     changeStep(step);
