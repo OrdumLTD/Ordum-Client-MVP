@@ -49,24 +49,10 @@ const SubmitPropolsalSidePanel: React.FC<Props> = (props) => {
               (step === 2 ? "font-bold" : "")
             }
             onClick={() => {
-                changePropolsalSubPage(2, "/submitproposal/context");
+                changePropolsalSubPage(2, "/submitproposal/theproposal");
             }}
           >
-            2. Context
-          </span>
-        </button>{" "}
-        <button className="flex">
-          <span
-            className={
-              " mt-0.5 pl-0.5 md:pl-4 text-xs md:text-base xl:text-xl text-gray-400 " +
-              (step === 3 ? "font-bold" : "")
-            }
-            onClick={() => {
-              changeStep(3);
-              router.push("/submitproposal/problem-solution");
-            }}
-          >
-            3. Problem/Solution
+            2. The Proposal
           </span>
         </button>{" "}
         <button className="flex">
@@ -80,7 +66,7 @@ const SubmitPropolsalSidePanel: React.FC<Props> = (props) => {
               router.push("/submitproposal/team");
             }}
           >
-            4. Team
+            3. Team
           </span>
         </button>
         <button className="flex">
@@ -94,7 +80,7 @@ const SubmitPropolsalSidePanel: React.FC<Props> = (props) => {
               router.push("/submitproposal/milestones");
             }}
           >
-            5. Milestones
+            4. Milestones
           </span>
         </button>
         <button className="flex">
@@ -105,24 +91,10 @@ const SubmitPropolsalSidePanel: React.FC<Props> = (props) => {
             }
             onClick={() => {
               changeStep(6);
-              router.push("/submitproposal/preview");
+              router.push("/submitproposal/review");
             }}
           >
-            6. Preview
-          </span>
-        </button>
-        <button className="flex">
-          <span
-            className={
-              " mt-0.5 pl-0.5 md:pl-4 text-xs md:text-base xl:text-xl text-gray-400 " +
-              (step === 7 ? "font-bold" : "")
-            }
-            onClick={() => {
-              changeStep(7);
-              router.push("/submitproposal/feedback");
-            }}
-          >
-            7. Feedback
+            5. Review
           </span>
         </button>
       </div>

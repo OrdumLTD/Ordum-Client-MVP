@@ -13,7 +13,7 @@ const submitProposalContext = () => {
   //   dispatch(logInTestUser())
   // }
   return (
-    <Layout>
+    <Layout hideSidePanel>
       <div className="flex scrollbar-hide">
         <SubmitPropolsalSidePanel />
         <SubmitProposalContext />

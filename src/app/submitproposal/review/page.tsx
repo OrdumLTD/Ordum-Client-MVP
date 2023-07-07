@@ -7,7 +7,7 @@ import SubmitPropolsalSidePanel from "@/components/submitProposal/sidePanel";
 const submitProposalPreview = () => {
 
   return (
-    <Layout>
+    <Layout hideSidePanel>
       <div className="flex">
         <SubmitPropolsalSidePanel />
         <SubmitPropolsalPreview />

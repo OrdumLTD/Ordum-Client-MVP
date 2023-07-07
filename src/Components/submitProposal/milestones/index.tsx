@@ -38,11 +38,10 @@ const SubmitPropolsalMilestones: React.FC<Props> = (props) => {
   return (
     <div className="xl:ml-48 2xl:ml-60 p-10">
       <div className="max-w-[33rem] flex flex-col">
-        <h1 className="text-4xl xl:text-6xl font-medium">Submit Proposal</h1>
 
-        <h2 className="mt-8 text-4xl">5. Milestones</h2>
+        <h2 className="mt-8 text-4xl font-semibold">Milestones</h2>
 
-        <p className="mt-2">
+        <p className="mt-4">
           Please provide a list of milestone deliverables. This list should
           closely reflect the list of deliverables agreed by your team to reach
           the solution, along with resources needed for development and
@@ -50,7 +49,7 @@ const SubmitPropolsalMilestones: React.FC<Props> = (props) => {
           item in the list should include a link to the deliverable itself:
         </p>
 
-        <div className="mt-4">
+        <div className="mt-10">
           <label className="mt-4 text-xl flex">
             <span>Milestone Name</span>
           </label>

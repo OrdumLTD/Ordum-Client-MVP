@@ -7,7 +7,7 @@ import SubmitPropolsalTeam from "@/Components/submitProposal/team";
 const submitProposalTeam = () => {
 
   return (
-    <Layout>
+    <Layout hideSidePanel>
       <div className="flex">
         <SubmitPropolsalSidePanel />
         <SubmitPropolsalTeam />
