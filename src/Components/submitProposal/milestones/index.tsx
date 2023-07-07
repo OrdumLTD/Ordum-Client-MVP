@@ -1,21 +1,24 @@
+'use client';
+
 import Image from "next/image";
 import { useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
 // import ChainApiContext from "@/store/apiContext";
 
-import SubmitPropolsalContext from "@/Context/submitPropolsal";
 // import WalletContext from "@/store/walletContext";
 import  Milestone  from "./milestone";
+import { useProfileContext } from "@/Context/ProfileStore";
+import { useProposalContext } from "@/Context/submitPropolsal";
 
 type Props = {
   className?: string;
 };
 
 const SubmitPropolsalMilestones: React.FC<Props> = (props) => {
-  const submitCtx = useContext(SubmitPropolsalContext);
+  const {changeToStep} = useProposalContext();
   // const walletCtx = useContext(WalletContext);
   const router = useRouter();
-  const changeStep = submitCtx.changeToStep;
+  
 
   // Proposal submission
   // APIContext
@@ -31,7 +34,7 @@ const SubmitPropolsalMilestones: React.FC<Props> = (props) => {
   }, []);
 
   const changePropolsalSubPage = async (step: number, route: string) => {
-    changeStep(step);
+    changeToStep(step);
     router.push(route);
   };
 

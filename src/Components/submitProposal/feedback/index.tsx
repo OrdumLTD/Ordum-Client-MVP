@@ -1,3 +1,4 @@
+'use client';
 
 import Image from "next/image";
 
@@ -9,10 +10,10 @@ import '@polkadot/types-augment/lookup/types-kusama'
 import * as kTypes from '@polkadot/types-augment/lookup/kusama';
 
 
-import SubmitPropolsalContext from "@/store/submitPropolsal";
-import WalletContext from "@/store/walletContext";
 
 import '@polkadot/api-augment/kusama';
+import { useWalletContext } from "@/Context/WalletStore";
+import { useProposalContext } from "@/Context/submitPropolsal";
 
 type Props = {
   className?: string;
@@ -24,10 +25,9 @@ type Props = {
 //api.tx.send()
 
 const SubmitPropolsalFeedback: React.FC<Props> = (props) => {
-  const submitCtx = useContext(SubmitPropolsalContext);
-  const walletCtx = useContext(WalletContext)
+  const {changeToStep} = useProposalContext();
   const router = useRouter();
-  const changeStep = submitCtx.changeToStep;
+
 
   
 
@@ -35,7 +35,7 @@ const SubmitPropolsalFeedback: React.FC<Props> = (props) => {
    
   //-------------------**------------------------------------------------//
   const changePropolsalSubPage = async (step: number, route: string) => {
-    changeStep(step);
+    changeToStep(step);
     router.push(route);
   };
 
@@ -69,7 +69,7 @@ const SubmitPropolsalFeedback: React.FC<Props> = (props) => {
           <div className="mt-10 flex flex-col gap-4">
             <button
               className="bg-black text-white py-2 md:py-4"
-              onClick={() => propose()}
+              
             >
               Submit Discussion
             </button>

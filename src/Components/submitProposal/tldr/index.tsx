@@ -5,10 +5,10 @@ import Image from "next/image";
 import { useContext } from "react";
 import { useRouter } from "next/navigation";
 
-import SubmitPropolsalContext from "@/Context/submitPropolsal";
 // import WalletContext from "@/store/walletContext";
 
 import infoIcon from "@/assets/svg-icons/info-icon.svg";
+import { useProposalContext } from "@/Context/submitPropolsal";
 
 type Props = {
   className?: string;
@@ -17,13 +17,14 @@ type Props = {
 const SubmitProposalTLDR: React.FC<Props> = (props) => {
   // const walletCtx = useContext(WalletContext);
 
-  const submitCtx = useContext(SubmitPropolsalContext);
-  const tldrCtx = { ...submitCtx.tldr };
+  const {tldr,changeTLDR,proposalStep,changeToStep} = useProposalContext();
+  const tldrCtx = { ...tldr };
+
   console.log(tldrCtx);
-  const handleTLDRchange = submitCtx.changeTLDR;
+  const handleTLDRchange = changeTLDR;
   const router = useRouter();
-  const step = submitCtx.propolsalStep;
-  const changeStep = submitCtx.changeToStep;
+  const step = proposalStep;
+  const changeStep = changeToStep;
 
   const changePropolsalSubPage = async (step: number, route: string) => {
     changeStep(step);
@@ -39,6 +40,7 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
           value={tldrCtx.propolsalName}
           onChange={(e) => {
             console.log(e.target.value);
+            //@ts-ignore
             handleTLDRchange({ propolsalName: e.target.value });
           }}
           type="text"
@@ -113,6 +115,7 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
           <select
             onChange={(e) => {
               const selected = e.target.value;
+              //@ts-ignore
               handleTLDRchange({ projectType: selected });
             }}
             className="mt-2  text-gray-500
@@ -144,6 +147,7 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
             type="email"
             value={tldrCtx.contact}
             onChange={(e) => {
+              //@ts-ignore
               handleTLDRchange({ contact: e.target.value });
             }}
           />
@@ -157,6 +161,7 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
             value={tldrCtx.propolsalName}
             onChange={(e) => {
               console.log(e.target.value);
+              //@ts-ignore
               handleTLDRchange({ propolsalName: e.target.value });
             }}
             type="text"
@@ -183,6 +188,7 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
             placeholder="When do you plan to start your project?"
             value={tldrCtx.startingDate}
             onChange={(e) => {
+              //@ts-ignore
               handleTLDRchange({ startingDate: e.target.value });
             }}
             type="date"
@@ -197,6 +203,7 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
               placeholder="$"
               value={tldrCtx.fundingAmount}
               onChange={(e) => {
+                //@ts-ignore
                 handleTLDRchange({ fundingAmount: e.target.value });
               }}
               type="text"
@@ -211,6 +218,7 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
             placeholder="Eg. 4 months"
             value={tldrCtx.deadLine}
             onChange={(e) => {
+              //@ts-ignore
               handleTLDRchange({ deadLine: e.target.value });
             }}
             type="date"
@@ -223,6 +231,7 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
           <textarea
             value={tldrCtx.shortDescription}
             onChange={(e) => {
+              //@ts-ignore
               handleTLDRchange({ shortDescription: e.target.value });
             }}
             className="mt-2 w-full text-sm bg-white placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]"
@@ -237,6 +246,7 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
             <input
               value={tldrCtx.externalLinks}
               onChange={(e) => {
+                //@ts-ignore
                 handleTLDRchange({ externalLinks: e.target.value });
               }}
               className="text-gray-500 text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"

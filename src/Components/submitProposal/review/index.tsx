@@ -1,10 +1,12 @@
+'use client'
+
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { InjectedAccountWithMeta , InjectedExtension} from "@polkadot/extension-inject/types";
-import SubmitPropolsalContext from "@/Context/submitPropolsal";
 import OrdumPreview from "@/Components/preview";
 
 import '@polkadot/api-augment/kusama';
+import { useProposalContext } from "@/Context/submitPropolsal";
 
 type Props = {
   className?: string;
@@ -13,21 +15,19 @@ type Props = {
 const SubmitPropolsalPreview: React.FC<Props> = (props) => {
   const [wallet, setWallet] = useState<InjectedExtension>();
   const [hash, setHash] = useState<string>();
-
-  const submitCtx = useContext(SubmitPropolsalContext);
+  const {changeToStep, setProposalIndex,proposalIndex,tldr,context} =  useProposalContext()
 
   const router = useRouter();
-  const changeStep = submitCtx.changeToStep;
 
   const changePropolsalSubPage = async (step: number, route: string) => {
-    changeStep(step);
+    changeToStep(step);
     router.push(route);
   };
 
 
   // callBack fn
   const fetchIndex = (index:number) =>[
-    submitCtx.setProposalIndex(index)
+    setProposalIndex(index)
   ]
 
   // Preimage test
@@ -58,20 +58,30 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
       <div className="max-w-[33rem] flex flex-col">
         Preview
         {/* Context */}
+        
         <div className="mt-10 ">
           <OrdumPreview
-            teamName={submitCtx.tldr.teamName}
-            propolsalName={submitCtx.tldr.propolsalName}
-            date={submitCtx.tldr.recieveDate}
-            fundingAmount={submitCtx.tldr.fundingAmount}
-            deadline={submitCtx.tldr.deadLine}
-            startDate={submitCtx.tldr.startingDate}
-            propolsalDescription={submitCtx.tldr.shortDescription}
-            problem={submitCtx.tldr.shortDescription}
-            solution={submitCtx.context.goal}
-            ifYouHaveSeenSimilar={submitCtx.tldr.whyDifferentDescription}
+          //@ts-ignore
+            teamName={tldr?.teamName}
+            //@ts-ignore
+            propolsalName={tldr?.propolsalName}
+            //@ts-ignore
+            date={tldr?.recieveDate}
+            //@ts-ignore
+            fundingAmount={tldr?.fundingAmount}
+            //@ts-ignore
+            deadline={tldr?.deadLine}
+            //@ts-ignore
+            startDate={tldr?.startingDate}
+            //@ts-ignore
+            propolsalDescription={tldr?.shortDescription}
+            //@ts-ignore
+            problem={tldr?.shortDescription}
+            //@ts-ignore
+            solution={context?.goal}
+            ifYouHaveSeenSimilar={tldr?.whyDifferentDescription}
           />
-          <h3>Index: {submitCtx?.proposalIndex}</h3>
+          <h3>Index: {proposalIndex}</h3>
         </div>
         <div className="mt-10 flex flex-col gap-4">
           {/* Buttons and whatnot */}
