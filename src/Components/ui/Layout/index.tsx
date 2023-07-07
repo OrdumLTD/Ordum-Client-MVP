@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 import KittyIcon from "@/assets/svg-icons/kitty-icon.svg";
 import OrdumIcon from "@/assets/svg-icons/ordum-icon.svg";
@@ -82,7 +83,7 @@ const Layout: React.FC<Props> = (props) => {
               <Image src={Devider} alt="diveder" className="mt-4 scale-125" />
 
               <Link
-                href="#"
+                href="/explore"
                 className="-ml-2 mt-3 nav-link block hover:underline transition duration-150 ease-in-out flex"
               >
                 <div className="w-5 h-5 bg-[#1A1F37]">
