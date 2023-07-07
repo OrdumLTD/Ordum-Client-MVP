@@ -1,7 +1,7 @@
 'use client'
 
 import Layout from "@/Components/ui/Layout";
-import SubmitPropolsalSidePanel from "@/components/submitProposal/sidePanel"; 
+import SubmitPropolsalSidePanel from "@/Components/submitProposal/sidePanel"; 
 
 import SubmitProposalContext from "@/Components/submitProposal/theproposal";
 
