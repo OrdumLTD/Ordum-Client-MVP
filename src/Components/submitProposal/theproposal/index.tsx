@@ -222,7 +222,7 @@ WIP ~ would be good to add example text here from a previous proposal.
             <button
               className="bg-black text-white py-2 md:py-4 rounded"
               onClick={() =>
-                changePropolsalSubPage(3, "/submitproposal/problem-solution")
+                changePropolsalSubPage(3, "/submitproposal/team")
               }
             >
               Save and continue

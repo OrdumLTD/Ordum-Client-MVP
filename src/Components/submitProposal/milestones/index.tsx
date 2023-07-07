@@ -162,10 +162,10 @@ const SubmitPropolsalMilestones: React.FC<Props> = (props) => {
             <button
               className="bg-black text-white py-2 md:py-4"
               onClick={() =>
-                changePropolsalSubPage(6, "/submitproposal/preview")
+                changePropolsalSubPage(5, "/submitproposal/review")
               }
             >
-              Priview
+              Review
             </button>
             <button className="bg-black text-white py-2 md:py-4">
               Add Another milestone

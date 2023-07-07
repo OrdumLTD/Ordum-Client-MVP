@@ -81,7 +81,7 @@ const SubmitPropolsalTeam: React.FC<Props> = (props) => {
           <div className="mt-10 flex flex-col gap-4">
             <button
               className="bg-black text-white py-2 md:py-4"
-              onClick={() => changePropolsalSubPage(5, "/submitproposal/milestones")}
+              onClick={() => changePropolsalSubPage(4, "/submitproposal/milestones")}
             >
               Save and continue
             </button>
