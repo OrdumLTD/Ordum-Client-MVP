@@ -4,7 +4,7 @@ import SubmitProposalTLDR from "@/Components/submitProposal/tldr";
 
 const submitProposalTLDRPage = () => {
   return (
-    <Layout>
+    <Layout hideSidePanel>
       <div className="flex">
         <SubmitPropolsalSidePanel />
         <SubmitProposalTLDR />
