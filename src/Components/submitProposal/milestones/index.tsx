@@ -1,10 +1,10 @@
 import Image from "next/image";
 import { useContext , useEffect} from "react";
-import { useRouter } from "next/router";
-import ChainApiContext from "@/store/apiContext";
+import { useRouter } from "next/navigation";
+// import ChainApiContext from "@/store/apiContext";
 
-import SubmitPropolsalContext from "@/store/submitPropolsal";
-import WalletContext from "@/store/walletContext";
+import SubmitPropolsalContext from "@/Context/submitPropolsal";
+// import WalletContext from "@/store/walletContext";
 import Milestone from "./milestone";
 
 type Props = {
@@ -13,19 +13,19 @@ type Props = {
 
 const SubmitPropolsalMilestones: React.FC<Props> = (props) => {
   const submitCtx = useContext(SubmitPropolsalContext);
-  const walletCtx = useContext(WalletContext);
+  // const walletCtx = useContext(WalletContext);
   const router = useRouter();
   const changeStep = submitCtx.changeToStep;
 
 // Proposal submission
 // APIContext
-const apiCTX = useContext(ChainApiContext);
-const chainAPI = apiCTX.api;
-const fetchChainApi = apiCTX.fetchChainApi;
+// const apiCTX = useContext(ChainApiContext);
+// const chainAPI = apiCTX.api;
+// const fetchChainApi = apiCTX.fetchChainApi;
 
 useEffect(()=>{
   const run = () =>{
-    fetchChainApi?.();
+    // fetchChainApi?.();
   }
   run()
 },[])
@@ -36,7 +36,7 @@ useEffect(()=>{
   };
 
   return (
-    <div className="p-10">
+    <div className="xl:ml-48 2xl:ml-60 p-10">
       <div className="max-w-[33rem] flex flex-col">
         <h1 className="text-4xl xl:text-6xl font-medium">Submit Proposal</h1>
 
@@ -159,7 +159,7 @@ useEffect(()=>{
           {/* Button Row - take one level up */}
 
           {/* ToDo Indexing on the menu show Context, even after weswitch to Problem Solution */}
-          <div className="xl:ml-48 2xl:ml-60 flex flex-col gap-4">
+          <div className="mt-10 mb-20 flex flex-col gap-4">
             <button
               className="bg-black text-white py-2 md:py-4"
               onClick={() =>
@@ -176,14 +176,6 @@ useEffect(()=>{
               onClick={() => changePropolsalSubPage(1, "/")}
             >
               Save draft and Close
-            </button>
-            <button
-              className="bg-gray-400 text-white py-2 md:py-4"
-              onClick={() =>
-                changePropolsalSubPage(3, "/submitproposal/team")
-              }
-            >
-              Back
             </button>
           </div>
         </div>
