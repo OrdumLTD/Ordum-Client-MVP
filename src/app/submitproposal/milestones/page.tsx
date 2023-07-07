@@ -2,7 +2,7 @@
 
 import Layout from "@/Components/ui/Layout";
 import SubmitPropolsalMilestones from "@/Components/submitProposal/milestones";
-import SubmitPropolsalSidePanel from "@/components/submitProposal/sidePanel";
+import SubmitPropolsalSidePanel from "@/Components/submitProposal/sidePanel";
 
 const submitProposalMilestones = () => {
 

@@ -1,7 +1,7 @@
 // import { PropolsalContextProvider } from "@/store/submitPropolsal";
 
 import Layout from "@/Components/ui/Layout";
-import SubmitPropolsalSidePanel from "@/components/submitProposal/sidePanel";
+import SubmitPropolsalSidePanel from "@/Components/submitProposal/sidePanel";
 
 const submitProposalIndex = () => {
  return (
