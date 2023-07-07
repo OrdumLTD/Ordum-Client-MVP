@@ -1,8 +1,9 @@
-import { PropolsalContextProvider } from "@/store/submitPropolsal";
+'use client'
 
-import Layout from "@/components/layout";
-import SubmitPropolsalSidePanel from "@/components/submitProposal/sidePanel";
-import SubmitProposalContext from "@/components/submitProposal/context";
+import Layout from "@/Components/ui/Layout";
+import SubmitPropolsalSidePanel from "@/components/submitProposal/sidePanel"; 
+
+import SubmitProposalContext from "@/Components/submitProposal/theproposal";
 
 const submitProposalContext = () => {
   // const { user } = useSelector((state: RootState) => state.user);
@@ -13,7 +14,7 @@ const submitProposalContext = () => {
   // }
   return (
     <Layout>
-      <div className="flex">
+      <div className="flex scrollbar-hide">
         <SubmitPropolsalSidePanel />
         <SubmitProposalContext />
       </div>
