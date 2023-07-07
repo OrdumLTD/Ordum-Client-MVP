@@ -1,6 +1,8 @@
-import Layout from "@/components/layout";
-import SubmitPropolsalSidePanel from "@/components/submitProposal/sidePanel";
-import SubmitPropolsalTeam from "@/components/submitProposal/team";
+'use client'
+
+import Layout from "@/Components/ui/Layout";
+import SubmitPropolsalSidePanel from "@/components/submitProposal/sidePanel"; 
+import SubmitPropolsalTeam from "@/Components/submitProposal/team";
 
 const submitProposalTeam = () => {
 

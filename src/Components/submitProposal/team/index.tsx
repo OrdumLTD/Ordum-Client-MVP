@@ -1,21 +1,21 @@
 import Image from "next/image";
 
 import { useContext } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
-import SubmitPropolsalContext from "@/store/submitPropolsal";
+// import SubmitPropolsalContext from "@/store/submitPropolsal";
 
 type Props = {
   className?: string;
 };
 
 const SubmitPropolsalTeam: React.FC<Props> = (props) => {
-  const submitCtx = useContext(SubmitPropolsalContext);
+  // const submitCtx = useContext(SubmitPropolsalContext);
   const router = useRouter();
-  const changeStep = submitCtx.changeToStep;
+  // const changeStep = submitCtx.changeToStep;
 
   const changePropolsalSubPage = async (step: number, route: string) => {
-    changeStep(step);
+    // changeStep(step);
     router.push(route);
   };
 
