@@ -1,5 +1,5 @@
 import Layout from "@/Components/ui/Layout";
-import SubmitPropolsalSidePanel from "@/components/submitProposal/sidePanel";
+import SubmitPropolsalSidePanel from "@/Components/submitProposal/sidePanel";
 import SubmitProposalTLDR from "@/Components/submitProposal/tldr";
 
 const submitProposalTLDRPage = () => {
