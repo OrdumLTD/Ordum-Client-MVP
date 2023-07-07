@@ -102,7 +102,7 @@ const Layout: React.FC<Props> = (props) => {
         <div className="mt-8">
           <Header title={props.title} />
         </div>
-        <div className="mt-16 h-full fixed top-5 overflow-y-auto">
+        <div className="mt-16 h-full fixed top-5 overflow-y-auto scrollbar-hide">
           {props.children}
         </div>
       </div>
