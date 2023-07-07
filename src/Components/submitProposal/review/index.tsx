@@ -1,17 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { InjectedAccountWithMeta , InjectedExtension} from "@polkadot/extension-inject/types";
-import SubmitPropolsalContext from "@/store/submitPropolsal";
-import WalletContext from "@/store/walletContext";
-import ChainApiContext from "@/store/apiContext";
-import OrdumPreview from "@/components/preview";
-import { web3FromSource } from "@polkadot/extension-dapp";
+import SubmitPropolsalContext from "@/Context/submitPropolsal";
+import OrdumPreview from "@/Components/preview";
 
-import { ApiPromise } from "@polkadot/api";
-import { getTrackKsm, convertToBlockNumber } from "@/utils/submit/submit";
 import '@polkadot/api-augment/kusama';
-import { submitProposal, PreimageAndReferendum } from "@/components/Kusama/ApiTxn";
-
 
 type Props = {
   className?: string;
@@ -22,8 +15,7 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
   const [hash, setHash] = useState<string>();
 
   const submitCtx = useContext(SubmitPropolsalContext);
-  const WalletCtx = useContext(WalletContext);
-  const ChainAPICtx = useContext(ChainApiContext);
+
   const router = useRouter();
   const changeStep = submitCtx.changeToStep;
 
@@ -32,40 +24,34 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
     router.push(route);
   };
 
-  // Connect to the chain
-
-  useEffect(() => {
-   
-  }, []);
 
   // callBack fn
   const fetchIndex = (index:number) =>[
     submitCtx.setProposalIndex(index)
   ]
-    
-  const chainAPI = ChainAPICtx.api;
-  // Preimage test
-  const submit = async () => {
-    console.log(WalletCtx.wallet)
-    if(WalletCtx.wallet){
-      setWallet(WalletCtx.wallet)
-    }
-    if(submitCtx.tldr.fundingAmount && submitCtx.tldr.recieveDate){
 
-      await PreimageAndReferendum(
-        fetchIndex,
-        WalletCtx.wallet,
-        WalletCtx.selectedAccount,
-        submitCtx.tldr.fundingAmount,
-        submitCtx.tldr.account,
-        chainAPI,
-        submitCtx?.tldr.recieveDate
-        )
-    }else{
-      console.log("Missing some field")
-    }
+  // Preimage test
+  // const submit = async () => {
+  //   console.log(WalletCtx.wallet)
+  //   if(WalletCtx.wallet){
+  //     setWallet(WalletCtx.wallet)
+  //   }
+  //   if(submitCtx.tldr.fundingAmount && submitCtx.tldr.recieveDate){
+
+  //     await PreimageAndReferendum(
+  //       fetchIndex,
+  //       WalletCtx.wallet,
+  //       WalletCtx.selectedAccount,
+  //       submitCtx.tldr.fundingAmount,
+  //       submitCtx.tldr.account,
+  //       chainAPI,
+  //       submitCtx?.tldr.recieveDate
+  //       )
+  //   }else{
+  //     console.log("Missing some field")
+  //   }
    
-  };
+  // };
 
   return (
     <div className="xl:ml-48 2xl:ml-60 p-10">
@@ -96,7 +82,6 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
             className="bg-black text-white py-2 md:py-4 rounded"
             onClick={() => {
               // Call functions here
-              submit()
             }}
           >
             Submit

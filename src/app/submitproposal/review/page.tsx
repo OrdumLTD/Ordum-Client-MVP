@@ -1,6 +1,7 @@
+'use client'
 
-import Layout from "@/components/layout";
-import SubmitPropolsalPreview from "@/components/submitProposal/preview";
+import Layout from "@/Components/ui/Layout";
+import SubmitPropolsalPreview from "@/Components/submitProposal/review";
 import SubmitPropolsalSidePanel from "@/components/submitProposal/sidePanel";
 
 const submitProposalPreview = () => {
