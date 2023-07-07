@@ -1,7 +1,8 @@
-'use client'
-
+"use client";
 
 import Link from "next/link";
+import Image from "next/image";
+import OrdumLogoBlack from "@/assets/logos/ordum-logo-black.svg";
 
 const SignUp = () => {
   // const { user } = useSelector((state: RootState) => state.user);
@@ -11,14 +12,50 @@ const SignUp = () => {
   //   dispatch(logInTestUser())
   // }
   return (
-    <div className="font-space-grotesk grid h-screen place-items-center">
-      <div className="-mt-96 grid place-items-center border px-10 py-5 md:px-40 md:py-20">
-        <h1 className="md:text-5xl mb-10">Sign Up</h1>
+    <div className="grid h-screen place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-cover text-sm md:text-base">
+      <div className="border border-black rounded-lg p-5 md:p-10 w-5/12 grid bg-white">
+        <div className="flex flex-col sm:flex-row justify-between border-b border-black pb-2 md:pb-5">
+          <Image
+            src={OrdumLogoBlack}
+            alt="Ordum's log in black"
+            className="scale-50 sm:scale-75 lg:scale-100 mb-4 sm:mb-0"
+          />
+        </div>
+        <div className="text-lg md:text-3xl font-base mt-5">Connect Wallet</div>
+        <p className="mt-5 md:text-lg">
+          In order to get paid in cryptocurrency you will need a wallet. If you
+          don’t have one:
+        </p>
+        <div className="grid place-items-center">
+          <div className="mt-5 w-full grid gap-4">
+            <button className="w-full border border-black rounded-full border-2 py-4">
+              {" "}
+              Polkadot JS
+            </button>
 
-        <Link href="signup/signupWallet"><button className="w-60 border border-gray-400 hover:bg-gray-200 py-2.5">Wallet</button></Link>
-        <div className="my-1 md:my-2"></div>
-        <Link href="signup/walletLess"><button className="w-60 border border-gray-400 hover:bg-gray-200 py-2.5">Passcode & Username</button></Link>
-        <div className="my-1 md:my-2"></div>
+            <button className="w-full border border-black rounded-full border-2 py-4">
+              {" "}
+              Talisman{" "}
+            </button>
+
+            <button className="w-full border border-black rounded-full border-2 py-4">
+              {" "}
+              Wallet Connect{" "}
+            </button>
+
+            <button className="w-full border border-black rounded-full border-2 py-4 bg-black text-white text-sm md:text-lg font-thin md:font-medium">
+              {" "}
+              Connect Wallet Later
+            </button>
+
+            <Link href={"/signup/chooseprofile"}>
+              <button className="w-full border border-black rounded-full border-2 py-4 bg-black text-white text-sm md:text-lg font-thin md:font-medium">
+                {" "}
+                Sign up!
+              </button>
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );

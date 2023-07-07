@@ -1,4 +1,6 @@
-import Link from "next/link";
+"use client";
+
+// import Link from "next/link";
 import Image from "next/image";
 
 import { Mail, GitHub } from "react-feather";
@@ -6,6 +8,7 @@ import Discord from "@/assets/svg-icons/discord.svg";
 import Twitter from "@/assets/svg-icons/twitter-icon.svg";
 import Matrix from "@/assets/svg-icons/matrix.png";
 import Website from "@/assets/svg-icons/global.png";
+import Link from "next/link";
 
 const CreateTeam = () => {
   // const { user } = useSelector((state: RootState) => state.user);
@@ -130,64 +133,64 @@ const CreateTeam = () => {
             placeholder="What does your team want to achieve? "
           />
 
-        <div className="mt-5 justify-self-start w-full">
-        <h3 className="mb-4">Links</h3>
-          <div className="flex">
-            <Mail size="40" color="#fff"/>{" "}
-            <input
-              className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
+          <div className="mt-5 justify-self-start w-full">
+            <h3 className="mb-4">Links</h3>
+            <div className="flex">
+              <Mail size="40" color="#fff" />{" "}
+              <input
+                className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit "
-              placeholder="Email"
-              type="text"
-            />
-          </div>
-          <div className="mt-4 flex">
-            <Image src={Discord} alt="Discord" height={25} />{" "}
-            <input
-              className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
+                placeholder="Email"
+                type="text"
+              />
+            </div>
+            <div className="mt-4 flex">
+              <Image src={Discord} alt="Discord" height={25} />{" "}
+              <input
+                className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit"
-              placeholder="Discord"
-              type="text"
-            />
-          </div>
-          <div className="mt-4 flex">
-            <Image src={Twitter} alt="Twitter" />{" "}
-            <input
-              className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
+                placeholder="Discord"
+                type="text"
+              />
+            </div>
+            <div className="mt-4 flex">
+              <Image src={Twitter} alt="Twitter" />{" "}
+              <input
+                className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit"
-              placeholder="Twitter"
-              type="text"
-            />
-          </div>
+                placeholder="Twitter"
+                type="text"
+              />
+            </div>
 
-          <div className="mt-4 flex">
-            <Image src={Matrix} alt="Matrix" />{" "}
-            <input
-              className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
+            <div className="mt-4 flex">
+              <Image src={Matrix} alt="Matrix" />{" "}
+              <input
+                className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit"
-              placeholder="Matrix"
-              type="text"
-            />
-          </div>
-          <div className="mt-4 flex">
-            <Image src={Website} alt="Website" />{" "}
-            <input
-              className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
+                placeholder="Matrix"
+                type="text"
+              />
+            </div>
+            <div className="mt-4 flex">
+              <Image src={Website} alt="Website" />{" "}
+              <input
+                className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit"
-              placeholder="Website/Portfolio"
-              type="text"
-            />
-          </div>
-          <div className="mt-4 flex">
-            <GitHub size="40" />
-            <input
-              className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
+                placeholder="Website/Portfolio"
+                type="text"
+              />
+            </div>
+            <div className="mt-4 flex">
+              <GitHub size="40" />
+              <input
+                className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit"
-              placeholder="Github"
-              type="text"
-            />
+                placeholder="Github"
+                type="text"
+              />
+            </div>
           </div>
-        </div>
 
           <div
             className="mt-5
@@ -195,7 +198,7 @@ const CreateTeam = () => {
             flex flex-col gap-4"
           >
             <button className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl">
-              Save and continue
+              <Link href={"/home"}>Save and continue</Link>
             </button>
             <button className="rounded-full py-2.5 md:py-3 bg-ordum-purple font-semibold shadow-md shadow-md hover:shadow-2xl">
               Back
