@@ -87,9 +87,9 @@ const ExploreContent: React.FC<Props> = (props) => {
           </div>
         </div> */}
       </div>
-      <button onClick={() => getRefInfo()}>
+      {/* <button onClick={() => getRefInfo()}>
         Query
-      </button>
+      </button> */}
     </div>
   );
 };
