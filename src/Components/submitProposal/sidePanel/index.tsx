@@ -2,8 +2,8 @@
 
 import { useContext } from "react";
 import { useRouter } from "next/navigation";
+import { useProposalContext } from "@/Context/submitPropolsal";
 
-import SubmitPropolsalContext from "@/Context/submitPropolsal";
 
 type Props = {
   className?: string;
@@ -15,16 +15,15 @@ type Props = {
 // };
 
 const SubmitPropolsalSidePanel: React.FC<Props> = (props) => {
-  const submitCtx = useContext(SubmitPropolsalContext);
+  const{proposalStep,changeToStep}= useProposalContext();
   const router = useRouter();
 
   const changePropolsalSubPage = async (step: number, route: string) => {
-    changeStep(step);
+    changeToStep(step);
    await router.push(route);
   };
 
-  const step = submitCtx.propolsalStep;
-  const changeStep = submitCtx.changeToStep;
+
 
   return (
     <div className={"pt-16 " + props.className}>
@@ -33,7 +32,7 @@ const SubmitPropolsalSidePanel: React.FC<Props> = (props) => {
           <span
             className={
               " mt-0.5 pl-0.5 md:pl-4 text-xs md:text-base xl:text-xl text-gray-400 " +
-              (step === 1 ? "font-bold" : "")
+              (proposalStep === 1 ? "font-bold" : "")
             }
             onClick={() => {
               changePropolsalSubPage(1, "/submitproposal/tldr");
@@ -46,7 +45,7 @@ const SubmitPropolsalSidePanel: React.FC<Props> = (props) => {
           <span
             className={
               " mt-0.5 pl-0.5 md:pl-4 text-xs md:text-base xl:text-xl text-gray-400 " +
-              (step === 2 ? "font-bold" : "")
+              (proposalStep === 2 ? "font-bold" : "")
             }
             onClick={() => {
                 changePropolsalSubPage(2, "/submitproposal/theproposal");
@@ -59,10 +58,10 @@ const SubmitPropolsalSidePanel: React.FC<Props> = (props) => {
           <span
             className={
               " mt-0.5 pl-0.5 md:pl-4 text-xs md:text-base xl:text-xl text-gray-400 " +
-              (step === 4 ? "font-bold" : "")
+              (proposalStep === 4 ? "font-bold" : "")
             }
             onClick={() => {
-              changeStep(4);
+              changeToStep(4);
               router.push("/submitproposal/team");
             }}
           >
@@ -73,10 +72,10 @@ const SubmitPropolsalSidePanel: React.FC<Props> = (props) => {
           <span
             className={
               " mt-0.5 pl-0.5 md:pl-4 text-xs md:text-base xl:text-xl text-gray-400 " +
-              (step === 5 ? "font-bold" : "")
+              (proposalStep === 5 ? "font-bold" : "")
             }
             onClick={() => {
-              changeStep(5);
+              changeToStep(5);
               router.push("/submitproposal/milestones");
             }}
           >
@@ -87,10 +86,10 @@ const SubmitPropolsalSidePanel: React.FC<Props> = (props) => {
           <span
             className={
               " mt-0.5 pl-0.5 md:pl-4 text-xs md:text-base xl:text-xl text-gray-400 " +
-              (step === 6 ? "font-bold" : "")
+              (proposalStep === 6 ? "font-bold" : "")
             }
             onClick={() => {
-              changeStep(6);
+              changeToStep(6);
               router.push("/submitproposal/review");
             }}
           >

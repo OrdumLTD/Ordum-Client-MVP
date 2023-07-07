@@ -47,12 +47,14 @@ const LogIn = () => {
             </button>
             {account ? (
               <div>
-                <Link href={"/home"}>
+               
                   <button className="w-full border border-black rounded-full border-2 py-4">
+                  <Link href={"/home"}>
                     {" "}
                     Sign IN
+                    </Link>
                   </button>
-                </Link>
+                
               </div>
             ) : null}
           </div>

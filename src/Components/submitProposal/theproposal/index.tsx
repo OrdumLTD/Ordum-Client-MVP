@@ -1,23 +1,24 @@
+'use client'
+
 import Image from "next/image";
 
 import { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useProposalContext } from "@/Context/submitPropolsal";
 
-import SubmitPropolsalContext from "@/Context/submitPropolsal";
 
 type Props = {
   className?: string;
 };
 
 const SubmitProposalContext: React.FC<Props> = (props) => {
-  const submitCtx = useContext(SubmitPropolsalContext);
-  const contextCtx = submitCtx.context;
-  const handleSubmitCtxChange = submitCtx.changeContext;
+  const {context,changeToStep,changeContext} =useProposalContext();
+
   const router = useRouter();
-  const changeStep = submitCtx.changeToStep;
+  
 
   const changePropolsalSubPage = async (step: number, route: string) => {
-    changeStep(step);
+    changeToStep(step);
     router.push(route);
   };
 

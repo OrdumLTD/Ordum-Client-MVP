@@ -1,23 +1,23 @@
+'use client'
+
 import Image from "next/image";
 
 import { useContext } from "react";
 import { useRouter } from "next/router";
+import { useProposalContext } from "@/Context/submitPropolsal";
 
-import SubmitPropolsalContext from "@/store/submitPropolsal";
 
 type Props = {
   className?: string;
 };
 
 const SubmitPropolsalProblemSolution: React.FC<Props> = (props) => {
-  const submitCtx = useContext(SubmitPropolsalContext);
-  const problemCtx =  submitCtx.problemSolution;
-  const changeProblemSolution = submitCtx.changeProblemSolution
+  const {changeToStep,changeProblemSolution,problemSolution} = useProposalContext()
   const router = useRouter();
-  const changeStep = submitCtx.changeToStep;
+
 
   const changePropolsalSubPage = async (step: number, route: string) => {
-    changeStep(step);
+    changeToStep(step);
     router.push(route);
   };
 
@@ -52,7 +52,8 @@ const SubmitPropolsalProblemSolution: React.FC<Props> = (props) => {
             className="mt-2 w-full text-sm bg-white placeholder:font-italitc placeholder:text-xs border border-black rounded
              py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]"
             placeholder="What is the poing of life (42?)"
-            value={problemCtx.problem}
+            //@ts-ignore be careful here
+            value={problemSolution}
             onChange={(e) => {
               changeProblemSolution({ problem: e.target.value });
             }}

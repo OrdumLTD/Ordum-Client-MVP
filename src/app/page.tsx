@@ -1,6 +1,8 @@
+'use client'
+
 import LogIn from '@/Components/login/loginNew'
 // import LogIn from '@/Components/login/'
-import Image from 'next/image'
+
 
 export default function Home() {
   return (
@@ -11,9 +13,3 @@ export default function Home() {
 }
 
 
-{/*
-Use this one instead
-
-<main className="">
-<LogIn/>
-</main> */}

@@ -1,3 +1,5 @@
+'use client'
+
 import Image from "next/image";
 
 import EditIcon from "@/assets/svg-icons/edit.svg";
