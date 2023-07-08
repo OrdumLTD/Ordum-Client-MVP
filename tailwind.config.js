@@ -19,6 +19,8 @@ module.exports = {
         "ordum-blue": "#467EEE",
         "ordum-purple": "#0A1D47",
         "ordum-grey": "#CAC9C9",
+        "ordum-light-green": "#E7FFDF",
+        "ordum-light-blue": "#0395C2"
       },
     },
   },
