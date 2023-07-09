@@ -1,19 +1,25 @@
 "use client";
 
-import Layout from "@/Components/ui/Layout";
-import { ClassNames } from "@emotion/react";
 import { useState } from "react";
 
 type Props = {
+  name?: string;
+  role?: string;
+  contact?: string;
+  linkToPortfolio?: string;
+  bio?: string;
+  // ToDo
+  handleSumbit?: any;
+
   className?: string;
 };
 
 const MemberCreate: React.FC<Props> = (props) => {
-  const [name, setName] = useState("");
-  const [role, setRole] = useState("");
-  const [contact, setContact] = useState("");
-  const [linkToPortfolio, setlinkToPortfolio] = useState("");
-  const [bio, setBio] = useState("");
+  const [name, setName] = useState(props.name);
+  const [role, setRole] = useState(props.role);
+  const [contact, setContact] = useState(props.contact);
+  const [linkToPortfolio, setlinkToPortfolio] = useState(props.linkToPortfolio);
+  const [bio, setBio] = useState(props.bio);
 
   return (
     <div className={"flex flex-col w-[33rem] " + props.className}>
@@ -77,19 +83,37 @@ const MemberCreate: React.FC<Props> = (props) => {
       />
 
       <label className="mt-4 text-xl flex">
-        <span className="text-sm">Send an Email invitation {`(unsuported yet)`}</span>
+        <span className="text-sm">
+          Send an Email invitation {`(unsuported yet)`}
+        </span>
       </label>
       <input
         className="mt-4 text-gray-500 text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
-        placeholder="Eg. Front End Developer"
+        placeholder="unsuported yet"
         type="text"
-        value={role}
-        onChange={(e) => setRole(e.target.value)}
+        disabled
       />
 
       <div className="mt-8 flex flex-row justify-around gap-2">
-        <button className="border border-white rounded-md py-4 w-full bg-ordum-purple">
-          Done
+        <button
+          className="border border-white rounded-md py-4 w-full bg-ordum-purple"
+          onClick={() => {
+            props.handleSumbit({
+              name: name,
+              role: role,
+              contact: contact,
+              linkToPortfolio: linkToPortfolio,
+              bio: bio,
+            });
+
+            setName("");
+            setRole("");
+            setContact("");
+            setlinkToPortfolio("");
+            setBio("");
+          }}
+        >
+          Add
         </button>
 
         <button className="border border-white rounded-md py-4 w-full bg-ordum-blue">
