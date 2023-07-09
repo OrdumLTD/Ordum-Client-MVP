@@ -45,7 +45,7 @@ const LogIn = () => {
           <div className="text-lg md:text-4xl font-light mt-5">Log in</div>
           <div className="mt-5 w-full grid gap-4">
             {/* Make pretty later */}
-            <button className="w-full border border-black rounded-full border-2 py-4">
+            <div className="w-full border border-black rounded-full border-2 py-4">
               {" "}
               <ConnectWallet />
             </button>
