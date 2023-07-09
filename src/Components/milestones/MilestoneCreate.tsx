@@ -10,7 +10,7 @@ type Props = {
   className?: string;
 };
 
-const MilestoneEdit: React.FC<Props> = (props) => {
+const MilestoneCreate: React.FC<Props> = (props) => {
   return (
     <div className={" " + props.className}>
       <div>Milestone Name: {props.name}</div>
@@ -20,4 +20,4 @@ const MilestoneEdit: React.FC<Props> = (props) => {
   );
 };
 
-export default MilestoneEdit;
+export default MilestoneCreate;
