@@ -48,11 +48,7 @@ const LogIn = () => {
             <div className="w-full border border-black rounded-full border-2 py-4">
               {" "}
               <ConnectWallet />
-            </button>
-            {/* <button className="w-full border border-black rounded-full border-2 py-4">
-              {" "}
-              Talisman{" "}
-            </button> */}
+            
             <button className="w-full border border-black rounded-full border-2 py-4">
               {" "}
               Wallet Connect{" "}
@@ -73,6 +69,7 @@ const LogIn = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };
