@@ -21,6 +21,7 @@ export const createApplicantProfile = async(
     categories: Array<Categories>,
     members: Array<[AccountId,MemberRole]>|null,
     role: UserRole
+    
 ) =>{
 
     // Query txn

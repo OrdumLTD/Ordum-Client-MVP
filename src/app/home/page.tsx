@@ -13,6 +13,7 @@ enum About {
   Team,
 }
 
+
 const TeamMembersProfile = () => {
   const [aboutMenu, setAboutMenu] = useState(About.Summary);
 

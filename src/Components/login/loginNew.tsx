@@ -7,13 +7,25 @@ import OrdumLogoBlack from "@/assets/logos/ordum-logo-black.svg";
 import ConnectWallet from "../ConnectWallet/page";
 import { useWalletContext } from "@/Context/WalletStore";
 import { useChainApiContext } from "@/Context/ChainApiStore";
+import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
 
 const LogIn = () => {
   const { account } = useWalletContext();
-  const { fetchPoc5Api } = useChainApiContext();
+  const {loadContractApi,contractApi} = usePhalaContractContext()
+  const { fetchPoc5Api,poc5 } = useChainApiContext();
 
   useEffect(() => {
     fetchPoc5Api();
+    if(poc5){
+      if(contractApi){
+          
+      }else{
+          loadContractApi()
+      }
+  }else{
+      fetchPoc5Api();
+      loadContractApi()
+  }
   });
 
   return (
@@ -37,10 +49,10 @@ const LogIn = () => {
               {" "}
               <ConnectWallet />
             </button>
-            <button className="w-full border border-black rounded-full border-2 py-4">
+            {/* <button className="w-full border border-black rounded-full border-2 py-4">
               {" "}
               Talisman{" "}
-            </button>
+            </button> */}
             <button className="w-full border border-black rounded-full border-2 py-4">
               {" "}
               Wallet Connect{" "}
@@ -49,9 +61,10 @@ const LogIn = () => {
               <div>
                
                   <button className="w-full border border-black rounded-full border-2 py-4">
-                  <Link href={"/home"}>
+                    {/* Should be home page */}
+                  <Link href={"/profile"}>
                     {" "}
-                    Sign IN
+                    Sign In
                     </Link>
                   </button>
                 

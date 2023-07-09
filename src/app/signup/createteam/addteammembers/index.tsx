@@ -1,3 +1,5 @@
+'use client'
+
 import Link from "next/link";
 import Image from "next/image";
 
@@ -6,8 +8,8 @@ import Discord from "@/assets/svg-icons/discord.svg";
 import Twitter from "@/assets/svg-icons/twitter-icon.svg";
 import Matrix from "@/assets/svg-icons/matrix.png";
 import Website from "@/assets/svg-icons/global.png";
-import TeamMember from "./TeamMember";
 import { useState } from "react";
+import TeamMember from "./TeamMember";
 
 const AddTeamMembers = () => {
 

@@ -9,8 +9,8 @@ export enum Categories {
 }
 
 export enum UserRole {
-	applicant = 'Applicant',
-	foundation = 'Grant Issuer'
+	individual = 'Individual',
+	foundation = 'Foundation'
 }
 
 export enum MemberRole {

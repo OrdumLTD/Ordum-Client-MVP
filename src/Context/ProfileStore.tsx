@@ -72,3 +72,71 @@ export const ProfileContextProvider = ({ children }: Props) => {
 
 
 export const useProfileContext =()=> useContext(ProfileContext);
+
+
+
+// Fetched Profile data
+
+export interface FetchedProfileData{
+  teamType:string, //If its an individual or Organization
+  userType:string, // If its an applicant or Issuer
+  teamName: string;
+  description: string;
+  mission: string;
+  projectType: Categories[];
+  residentChain:string,
+  teamMembers: Array<[AccountId,MemberRole]>|null;
+  allowedAccounts:Array<AccountId>|null
+}
+
+const defaultFetchedProfileData:FetchedProfileData ={
+  teamType:"",
+  userType:"",
+  teamName:"",
+  description:"",
+  mission:"",
+  projectType:[],
+  residentChain:"",
+  teamMembers:null,
+  allowedAccounts:null
+}
+
+interface FetchedProfile {
+  profileData: FetchedProfileData,
+  fetchedStatus:boolean;
+  setProfile:Dispatch<FetchedProfileData>;
+  setFetchedStatus:Dispatch<boolean>
+}
+
+const defaultFetchedProfile:FetchedProfile ={
+  profileData:defaultProfileData,
+  fetchedStatus:false,
+  setProfile:(value:FetchedProfileData) =>{return},
+  setFetchedStatus:(v:boolean) => {return}
+}
+
+
+const FetchedProfileContext = createContext<FetchedProfile>(defaultFetchedProfile);
+
+export const FetchedProfileContextProvider = ({ children }: Props) => {
+  const [profileData, setProfileData] = useState<FetchedProfileData>(defaultProfileData);
+  const [fetchedStatus, setFetchedStatus] = useState<boolean>(false)
+
+  const setProfile =(v:createProfileData)=>{
+      setProfileData({...profileData,...v})
+  }
+
+ 
+  return (
+    <FetchedProfileContext.Provider value={{
+      profileData,
+      fetchedStatus,
+      setProfile,
+      setFetchedStatus
+    }}
+    >{children}</FetchedProfileContext.Provider>
+  );
+};
+
+
+export const useFetchedProfileContext =()=> useContext(FetchedProfileContext);

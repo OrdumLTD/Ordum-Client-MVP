@@ -8,14 +8,79 @@ import Discord from "@/assets/svg-icons/discord.svg";
 import Twitter from "@/assets/svg-icons/twitter-icon.svg";
 import Matrix from "@/assets/svg-icons/matrix.png";
 import Website from "@/assets/svg-icons/global.png";
+import { useProfileContext } from "@/Context/ProfileStore";
+import { useChainApiContext } from "@/Context/ChainApiStore";
+import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
+import { useEffect } from "react";
+import { useWalletContext } from "@/Context/WalletStore";
+import { createApplicantProfile } from "@/lib/PhalaContract/Txn/createProfile";
+import { UserRole } from "@/lib/PhalaContract/Types/types";
 
 const CreateIndividualProfile = () => {
-  // const { user } = useSelector((state: RootState) => state.user);
-  // const dispatch = useDispatch()
+  //Context
+  const {profileData, setProfile,setCreationStatus,creationStatus} = useProfileContext()
+  const {teamType, teamName, userType} = profileData
+  const {account,signer} = useWalletContext()
+  
+  const {fetchPoc5Api,poc5} = useChainApiContext()
+  const {loadContractApi, contractApi,cache} = usePhalaContractContext()
+  
 
-  // const logInTest = () => {
-  //   dispatch(logInTestUser())
-  // }
+  useEffect(()=>{
+      if(poc5){
+          if(contractApi){
+              
+          }else{
+              loadContractApi()
+          }
+      }else{
+          fetchPoc5Api();
+          loadContractApi()
+      }
+      
+  })
+
+      const saveNDone = async () => {
+        //@ts-ignore
+        setProfile({ teamMembers: membersNRole })
+        await createProfile()
+      }
+
+      // Contract Call for Crreating Profile
+      const createProfile = async () => {
+        const profileCreationStatus =(v:boolean)=>{
+            setCreationStatus(v)
+        }
+    
+        const { teamType, userType } = profileData
+        if(account && signer && cache && contractApi && account.meta.name){
+    
+           //1. (Individual && Applicant)
+            if (teamType === "Individual" && userType === "Applicant") {
+              await createApplicantProfile(
+                //utill fn
+                 profileCreationStatus,
+                //---------
+                  account,
+                  signer,
+                  cache,
+                  contractApi,
+                  //Params
+                  account.meta.name,
+                  account.address,
+                  profileData.description,
+                  profileData.allowedAccounts,
+                  [],
+                  //ProfileCtx.profileData.projectType, // Work on this
+                  profileData.teamMembers,
+                  UserRole.individual
+                )
+            }
+              
+        }
+     }
+
+
   return (
     <div className="grid place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-contain text-sm md:text-base">
       <div
@@ -30,6 +95,10 @@ const CreateIndividualProfile = () => {
 
           <h3 className="mt-5 justify-self-start font-medium">About</h3>
           <textarea
+            onChange={(e) => {
+              //@ts-ignore
+              setProfile({description:e.target.value})
+           }}
             className="
         justify-self-start mt-4
         resize-none
@@ -42,70 +111,14 @@ const CreateIndividualProfile = () => {
             placeholder="What does your team want to achieve? "
           />
 
-          <h3 className="mt-5 justify-self-start font-medium">Project type</h3>
-
-          <div
-            className=" \
-          justify-self-start mt-4
-           flex justify-between
-           w-full
-           "
-          >
-            <select
-              className=" 
-             mr-4 
-            w-full
-            block pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
-            focus:outline-none bg-inherit
-            text-[#CAC9C9]"
-            >
-              <option value="" className="" disabled hidden>
-                All
-              </option>
-              <option value="All">
-                What are you creating? Chooce a category
-              </option>
-              <option value="Option 1">Option 1</option>
-              <option value="Option 2">Option 2</option>
-            </select>
-
-            <button className="w-40 rounded py-2.5 md:py-3 bg-ordum-purple font-semibold shadow shadow-md hover:shadow-2xl">
-              + Add More
-            </button>
-          </div>
-
-          <h3 className="mt-5 justify-self-start font-medium">Blockchain</h3>
-
-          <div
-            className=" \
-         justify-self-start mt-4
-          flex justify-between
-          w-full
-          "
-          >
-            <select
-              className=" 
-            mr-4 
-           w-full
-           block pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
-           focus:outline-none bg-inherit
-           text-[#CAC9C9]"
-            >
-              <option value="" className="" disabled hidden>
-                All
-              </option>
-              <option value="All">What chain are you building on?</option>
-              <option value="Option 1">Option 1</option>
-              <option value="Option 2">Option 2</option>
-            </select>
-
-            <button className="w-40 rounded py-2.5 md:py-3 bg-ordum-purple font-semibold shadow shadow-md hover:shadow-2xl">
-              + Add More
-            </button>
-          </div>
+        
 
           <h3 className="mt-5 justify-self-start font-medium">Mission</h3>
           <textarea
+            onChange={(e) => {
+              //@ts-ignore
+              setProfile({mission:e.target.value})
+           }}
             className="
         justify-self-start mt-4
         resize-none
@@ -182,9 +195,18 @@ const CreateIndividualProfile = () => {
             w-full
             flex flex-col gap-4"
           >
-            <button className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl">
-              <Link href={"/home"}>Save and continue</Link>
+            <button
+            onClick={()=>saveNDone()}
+             className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl">
+              create profile
             </button>
+          {
+            creationStatus && 
+            ( <button className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl">
+              <Link href={"/home"}>create profile</Link>
+              </button>
+            )
+          }
 
             <button className="rounded-full py-2.5 md:py-3 bg-ordum-purple font-semibold shadow-md shadow-md hover:shadow-2xl">
               Back

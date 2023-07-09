@@ -49,7 +49,7 @@ export const PhalaContractContextProvider = ({ children }: Props) => {
 
   const loadContract =  async():Promise<ContractPromise|null> =>{
     if(poc5){
-      const contractId:string = '0x231e2b0ec450b53f270de7b0af60f7e9ac8ec26bc87ad84f2dde45d6bcc925d8';
+      const contractId:string = '0x2904744f761f00baef92614c04aeadf8b9dbe68a759dc50fb787b198c34d1754';
       const pruntime:string = 'https://poc5.phala.network/tee-api-1';
   
       // check for undefined Erros

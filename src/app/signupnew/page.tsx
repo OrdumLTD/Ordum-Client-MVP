@@ -27,7 +27,7 @@ const SignUp = () => {
         <div className="grid place-items-center">
           <div className="mt-5 w-full grid gap-4">
 
-            <button className="w-full border border-black rounded-full border-2 py-4">
+            {/* <button className="w-full border border-black rounded-full border-2 py-4">
               {" "}
               Polkadot JS
             </button>
@@ -35,7 +35,7 @@ const SignUp = () => {
             <button className="w-full border border-black rounded-full border-2 py-4">
               {" "}
               Talisman{" "}
-            </button>
+            </button> */}
 
             <button className="w-full border border-black rounded-full border-2 py-4">
               {" "}

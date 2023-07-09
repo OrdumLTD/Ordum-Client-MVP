@@ -1,4 +1,4 @@
-'useclient'
+'use client'
 
 import Link from "next/link";
 import Image from "next/image";
@@ -18,10 +18,11 @@ const ChooseProfile = () => {
             displayed, unless you have set an on-chain identity.
           </p>
           <div className="mt-5 text-xs sm:text-base grid grid-flow-col gap-2 xl:gap-3 2xl:gap-5">
+            {/*  Should go directly to dashboard */}
             <button className="w-[5rem] sm:w-[8rem] md:w-[12rem] xl:w-[16rem] 2xl:w-[20rem] rounded-full py-2.5 bg-[#467EEE] shadow-md hover:bg-blue-700 shadow-md hover:shadow-2xl">
               Anon (unsoported)
             </button>
-            <Link href="/signup/chooseprofile/2">
+            <Link href="/signup/chooseProfile/2">
               <button className="w-[5rem] sm:w-[8rem] md:w-[12rem] xl:w-[16rem] 2xl:w-[20rem] rounded-full py-2.5 bg-[#0A1D47] shadow-md hover:bg-purple-700 shadow-md hover:shadow-2xl">
                 Create Profile
               </button>
