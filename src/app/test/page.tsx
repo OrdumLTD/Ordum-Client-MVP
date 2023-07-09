@@ -7,22 +7,32 @@ import Team from "@/Components/Team";
 import Task from "@/Components/tast/task";
 import Layout from "@/Components/ui/Layout";
 import MemberCreate from "@/Components/Member/MemberCreate";
+import TaskPreview from "@/Components/tast/TestPreview";
+import MilestoneCreate from "@/Components/milestones/MilestoneCreate";
 
 const Test = () => {
   return (
     <div>
       <Layout>
-        <div className="m-10 w-full">
-          <h1 className="text-2xl font-bold">MILSTONE CREATE</h1>
-          <Milestone name="1st milestone" description="Testing" />
+        <div className="m-10">
+ 
 
           <div className="mt-10">
-            <h1 className="text-2xl font-bold">Task</h1>
+
+            <h1 className="text-2xl font-bold">MILSTONE CREATE</h1>
+            <MilestoneCreate />
+
+            <h1 className="mt-10 text-2xl font-bold">Task</h1>
             <Task
-              name="1st tast"
-              description="Task testing"
-              taskType="Research"
+            // name="1st tast"
+            // description="Task testing"
+            // taskType="Research"
             />
+
+            <div className="mt-10">
+              <h1 className="text-2xl font-bold">Task preview</h1>
+              <TaskPreview name="Test Work" type="Type test" />
+            </div>
 
             <div className="mt-10">
               <h1 className="text-2xl font-bold">Member Create</h1>
