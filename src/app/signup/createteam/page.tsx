@@ -198,7 +198,7 @@ const CreateTeam = () => {
             flex flex-col gap-4"
           >
             <button className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl">
-              <Link href={"/home"}>Save and continue</Link>
+              <Link href={"/addteammembers"}>Save and continue</Link>
             </button>
             <button className="rounded-full py-2.5 md:py-3 bg-ordum-purple font-semibold shadow-md shadow-md hover:shadow-2xl">
               Back
