@@ -14,7 +14,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { blue } from '@mui/material/colors';
 import { enablePolkadotExtension ,getSigner} from '@/Components/wallet/pjs';
 import { useWalletContext } from '@/Context/WalletStore';
-
+import { web3Accounts } from '@polkadot/extension-dapp';
 
 function ConnectWallet() {
 
@@ -31,9 +31,6 @@ function ConnectWallet() {
     const wallet:boolean = await enablePolkadotExtension();
     setIsWallet(wallet);
     // Get Accounts
-    const { web3Accounts, web3AccountsSubscribe } = await import(
-      "@polkadot/extension-dapp"
-    );
 
     const accounts = await web3Accounts();
     setAccounts(accounts);

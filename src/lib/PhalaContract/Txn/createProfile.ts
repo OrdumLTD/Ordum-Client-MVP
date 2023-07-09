@@ -18,9 +18,11 @@ export const createApplicantProfile = async(
     accountId:AccountId,
     description: string,
     allowedAccounts: Array<AccountId>|null,
-    categories: Array<Categories>,
+    categories: Array<Categories>|null,
     members: Array<[AccountId,MemberRole]>|null,
+    links:Array<string>|null,
     role: UserRole
+    
 ) =>{
 
     // Query txn
@@ -33,6 +35,7 @@ export const createApplicantProfile = async(
         allowedAccounts,
         categories,
         members,
+        links,
         role
     )
     
@@ -51,6 +54,7 @@ export const createApplicantProfile = async(
         allowedAccounts,
         categories,
         members,
+        links,
         role
     );
 

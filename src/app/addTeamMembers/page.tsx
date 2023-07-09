@@ -74,7 +74,8 @@ function AddTeamMemberPage() {
               [],
               //ProfileCtx.profileData.projectType, // Work on this
               profileData.teamMembers,
-              UserRole.applicant
+              [],
+              UserRole.individual
             )
         }
         //2. (Individual && Grant Issuer)

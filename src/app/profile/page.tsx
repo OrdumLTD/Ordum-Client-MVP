@@ -5,7 +5,14 @@ import Activity from "@/Components/profileAbout/activity/activity";
 import Summary from "@/Components/profileAbout/summary";
 import Team from "@/Components/profileAbout/team/team";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getApplicant } from "@/lib/PhalaContract/Query";
+import { useWalletContext } from "@/Context/WalletStore";
+import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
+import { useChainApiContext } from "@/Context/ChainApiStore";
+import { useFetchedProfileContext } from "@/Context/ProfileStore";
+import { FetchedProfileData } from "@/Context/ProfileStore";
+
 
 enum About {
   Summary,
@@ -14,6 +21,35 @@ enum About {
 }
 
 const TeamMembersProfile = () => {
+
+  //Context
+  const {account,signer} = useWalletContext();
+  const {loadContractApi,cache,contractApi} = usePhalaContractContext();
+  const {poc5} = useChainApiContext();
+  const {fetchedStatus,} = useFetchedProfileContext()
+
+  {/* Handle the error */}
+  const fetchApplicantProfile =async()=>{
+    if(contractApi && poc5 && signer && account){
+      const profile = await getApplicant(
+        contractApi,
+        poc5,
+        signer,
+        account,
+        cache
+      )
+      console.log(profile.output?.toHuman())
+    }else{
+      {/* SignUp page */}
+      <div></div>
+    }
+   
+  }
+
+  useEffect(()=>{
+      fetchApplicantProfile()
+  })
+
   const [aboutMenu, setAboutMenu] = useState(About.Summary);
 
   return (
