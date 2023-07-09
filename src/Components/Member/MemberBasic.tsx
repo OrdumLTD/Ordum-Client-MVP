@@ -12,7 +12,7 @@ type Props = {
 
 const MemberBasic: React.FC<Props> = (props) => {
   return (
-    <div className={"border border-white rounded-full w-7/12 p-1.5  backdrop-blur-sm bg-white/30 " + props.className}>
+    <div className={"border border-white rounded-full w-[33rem] p-1.5  backdrop-blur-sm bg-white/30 " + props.className}>
       <div className="flex justify-between">
         <div className="m-2 flex gap-3">
           <div className="rounded-full bg-green-500 w-10 h-10 self-center p-1.5">
