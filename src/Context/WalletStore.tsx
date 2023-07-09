@@ -16,6 +16,8 @@ interface WalletInfo {
     setSigner: Dispatch<Signer>
 }
 
+// Add Account caching
+
 const defaultStateWallet:WalletInfo = {
     account: undefined,
     setAccount: (account:InjectedAccountWithMeta) =>{return },

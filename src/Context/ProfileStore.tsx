@@ -18,7 +18,8 @@ export interface createProfileData{
   projectType: Categories[];
   residentChain:string,
   teamMembers: Array<[AccountId,MemberRole]>|null;
-  allowedAccounts:Array<AccountId>|null
+  allowedAccounts:Array<AccountId>|null,
+  links: Array<string>|null
 }
 
 const defaultProfileData:createProfileData ={
@@ -30,7 +31,8 @@ const defaultProfileData:createProfileData ={
   projectType:[],
   residentChain:"",
   teamMembers:null,
-  allowedAccounts:null
+  allowedAccounts:null,
+  links:null
 }
 
 interface createProfile {
@@ -86,7 +88,8 @@ export interface FetchedProfileData{
   projectType: Categories[];
   residentChain:string,
   teamMembers: Array<[AccountId,MemberRole]>|null;
-  allowedAccounts:Array<AccountId>|null
+  allowedAccounts:Array<AccountId>|null,
+  links:Array<string>|null
 }
 
 const defaultFetchedProfileData:FetchedProfileData ={
@@ -98,7 +101,8 @@ const defaultFetchedProfileData:FetchedProfileData ={
   projectType:[],
   residentChain:"",
   teamMembers:null,
-  allowedAccounts:null
+  allowedAccounts:null,
+  links: null
 }
 
 interface FetchedProfile {
@@ -109,7 +113,7 @@ interface FetchedProfile {
 }
 
 const defaultFetchedProfile:FetchedProfile ={
-  profileData:defaultProfileData,
+  profileData:defaultFetchedProfileData,
   fetchedStatus:false,
   setProfile:(value:FetchedProfileData) =>{return},
   setFetchedStatus:(v:boolean) => {return}
@@ -119,7 +123,7 @@ const defaultFetchedProfile:FetchedProfile ={
 const FetchedProfileContext = createContext<FetchedProfile>(defaultFetchedProfile);
 
 export const FetchedProfileContextProvider = ({ children }: Props) => {
-  const [profileData, setProfileData] = useState<FetchedProfileData>(defaultProfileData);
+  const [profileData, setProfileData] = useState<FetchedProfileData>(defaultFetchedProfileData);
   const [fetchedStatus, setFetchedStatus] = useState<boolean>(false)
 
   const setProfile =(v:createProfileData)=>{

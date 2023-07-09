@@ -14,6 +14,9 @@ import { useProfileContext } from "@/Context/ProfileStore";
 import { useChainApiContext } from "@/Context/ChainApiStore";
 import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
 import { useEffect } from "react";
+import ConnectWallet from "@/Components/ConnectWallet/page";
+import { onSignCertificate } from "@/lib/PhalaContract/Utils/phalaCertificate";
+import { useWalletContext } from "@/Context/WalletStore";
 
 const ChooseProfileStep2 = () => {
    //Context
@@ -21,7 +24,8 @@ const ChooseProfileStep2 = () => {
    const {teamType, teamName, userType} = profileData
    
    const {fetchPoc5Api,poc5} = useChainApiContext()
-   const {loadContractApi, contractApi} = usePhalaContractContext()
+   const {loadContractApi, contractApi,setCertificate,cache} = usePhalaContractContext();
+   const {account,signer} = useWalletContext()
 
    useEffect(()=>{
        if(poc5){
@@ -36,6 +40,36 @@ const ChooseProfileStep2 = () => {
        }
        
    })
+
+   const handleIndividual =async()=>{
+      if(poc5 && signer && account){
+        const certData =await onSignCertificate(
+          poc5,
+          signer,
+          account
+        );
+        setCertificate(certData);
+        //@ts-ignore
+        setProfile({teamType:"Individual"})
+      }else{
+        console.log("Failing to sign certificate due to missing params")
+      }
+   }
+
+   const handleTeam =async()=>{
+    if(poc5 && signer && account){
+      const certData =await onSignCertificate(
+        poc5,
+        signer,
+        account
+      );
+      setCertificate(certData);
+      //@ts-ignore
+      setProfile({teamType:"Foundation"})
+    }else{
+      console.log("Failing to sign certificate due to missing params")
+    }
+ }
 
 
   return (
@@ -58,7 +92,7 @@ const ChooseProfileStep2 = () => {
             <Link href="/signup/createTeam">
               <button
               //@ts-ignore
-              onClick={() => setProfile({teamType:"Foundation"})}
+              onClick={() => handleTeam()}
                className="w-[5rem] sm:w-[7rem] md:w-[12rem] lg:w-[16rem] 2xl:w-[18rem] rounded-full py-2.5 md:py-4 bg-[#467EEE] hover:bg-blue-700 shadow-md hover:shadow-2xl font-semibold">
                 Team
               </button>
@@ -66,14 +100,14 @@ const ChooseProfileStep2 = () => {
             <Link href="/signup/createIndividual">
             <button
              //@ts-ignore
-             onClick={() => setProfile({teamType:"Individual"})}
+             onClick={() => handleIndividual()}
              className="w-[5rem] sm:w-[7rem] md:w-[12rem] lg:w-[16rem] 2xl:w-[18rem] rounded-full py-2.5 md:py-4 bg-[#0A1D47] hover:bg-purple-700 shadow-md hover:shadow-2xl font-semibold"
              >
               Indvidual
             </button>
             </Link>
           </div>
-
+          <ConnectWallet/>
           <div
             className="mt-10
           w-full

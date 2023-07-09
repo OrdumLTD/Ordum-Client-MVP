@@ -74,6 +74,7 @@ function AddTeamMemberPage() {
               [],
               //ProfileCtx.profileData.projectType, // Work on this
               profileData.teamMembers,
+              [],
               UserRole.individual
             )
         }

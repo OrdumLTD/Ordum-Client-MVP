@@ -3,8 +3,28 @@
 import Link from "next/link";
 import Image from "next/image";
 import OrdumLogoBlack from "@/assets/logos/ordum-logo-black.svg";
+import { useWalletContext } from "@/Context/WalletStore";
+import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
+import { useChainApiContext } from "@/Context/ChainApiStore";
+import { useRouter } from "next/navigation";
+import { onSignCertificate } from "@/lib/PhalaContract/Utils/phalaCertificate";
+
+
 
 const ChooseProfile = () => {
+  const router =useRouter();
+  const {account,signer} = useWalletContext();
+  const {setCertificate} = usePhalaContractContext();
+  const {poc5} = useChainApiContext();
+
+  const signCertificate =async()=>{
+    if(account && signer && poc5){
+      const certData = await onSignCertificate(poc5,signer,account)
+      setCertificate(certData);
+      router.push("/createTeamProfile")
+    }  
+  }
+
   return (
     <div className="grid h-screen place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-cover text-sm md:text-base">
       <div className="border border-2 border-white backdrop-blur-md rounded-lg p-5 md:p-10 w-7/12 xl:w-6/12 2xl:w-5/12 grid">
@@ -27,6 +47,7 @@ const ChooseProfile = () => {
                 Create Profile
               </button>
             </Link>
+            
           </div>
 
           <div></div>

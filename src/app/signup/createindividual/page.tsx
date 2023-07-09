@@ -11,7 +11,7 @@ import Website from "@/assets/svg-icons/global.png";
 import { useProfileContext } from "@/Context/ProfileStore";
 import { useChainApiContext } from "@/Context/ChainApiStore";
 import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useWalletContext } from "@/Context/WalletStore";
 import { createApplicantProfile } from "@/lib/PhalaContract/Txn/createProfile";
 import { UserRole } from "@/lib/PhalaContract/Types/types";
@@ -24,7 +24,19 @@ const CreateIndividualProfile = () => {
   
   const {fetchPoc5Api,poc5} = useChainApiContext()
   const {loadContractApi, contractApi,cache} = usePhalaContractContext()
+
+  // Local state
+  const [links,setLinks] = useState<string[]>([])
   
+  const updateLink = (i:number,v:string)=>{
+    setLinks(prevState => {
+      const updatedState = [...prevState];
+      updatedState[i] = v;
+      return updatedState;
+    });
+  }
+  console.log("State link "+links)
+  console.log("Links "+profileData.links)
 
   useEffect(()=>{
       if(poc5){
@@ -41,8 +53,8 @@ const CreateIndividualProfile = () => {
   })
 
       const saveNDone = async () => {
-        //@ts-ignore
-        setProfile({ teamMembers: membersNRole })
+         //@ts-ignore
+        setProfile({links:links})
         await createProfile()
       }
 
@@ -56,7 +68,7 @@ const CreateIndividualProfile = () => {
         if(account && signer && cache && contractApi && account.meta.name){
     
            //1. (Individual && Applicant)
-            if (teamType === "Individual" && userType === "Applicant") {
+           
               await createApplicantProfile(
                 //utill fn
                  profileCreationStatus,
@@ -70,12 +82,12 @@ const CreateIndividualProfile = () => {
                   account.address,
                   profileData.description,
                   profileData.allowedAccounts,
-                  [],
+                  profileData.projectType,
                   //ProfileCtx.profileData.projectType, // Work on this
                   profileData.teamMembers,
+                  profileData.links,
                   UserRole.individual
                 )
-            }
               
         }
      }
@@ -140,6 +152,12 @@ const CreateIndividualProfile = () => {
               focus:outline-none bg-inherit "
                 placeholder="Email"
                 type="text"
+                value={links[0]||""}
+                onChange={(e)=> 
+                  //@ts-ignore
+                  updateLink(0,e.target.value)
+                }
+                
               />
             </div>
             <div className="mt-4 flex">
@@ -149,6 +167,11 @@ const CreateIndividualProfile = () => {
               focus:outline-none bg-inherit"
                 placeholder="Discord"
                 type="text"
+                value={links[1]||""}
+                onChange={(e)=> 
+                  //@ts-ignore
+                  updateLink(1,e.target.value)
+                }
               />
             </div>
             <div className="mt-4 flex">
@@ -158,6 +181,11 @@ const CreateIndividualProfile = () => {
               focus:outline-none bg-inherit"
                 placeholder="Twitter"
                 type="text"
+                value={links[2]||""}
+                onChange={(e)=> 
+                  //@ts-ignore
+                  updateLink(2,e.target.value)
+                }
               />
             </div>
 
@@ -168,6 +196,11 @@ const CreateIndividualProfile = () => {
               focus:outline-none bg-inherit"
                 placeholder="Matrix"
                 type="text"
+                value={links[3]||""}
+                onChange={(e)=> 
+                  //@ts-ignore
+                  updateLink(3,e.target.value)
+                }
               />
             </div>
             <div className="mt-4 flex">
@@ -177,6 +210,11 @@ const CreateIndividualProfile = () => {
               focus:outline-none bg-inherit"
                 placeholder="Website/Portfolio"
                 type="text"
+                value={links[4]||""}
+                onChange={(e)=> 
+                  //@ts-ignore
+                  updateLink(4,e.target.value)
+                }
               />
             </div>
             <div className="mt-4 flex">
@@ -186,6 +224,11 @@ const CreateIndividualProfile = () => {
               focus:outline-none bg-inherit"
                 placeholder="Github"
                 type="text"
+                value={links[5]||""}
+                onChange={(e)=> 
+                  //@ts-ignore
+                  updateLink(5,e.target.value)
+                }
               />
             </div>
           </div>
@@ -203,7 +246,7 @@ const CreateIndividualProfile = () => {
           {
             creationStatus && 
             ( <button className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl">
-              <Link href={"/home"}>create profile</Link>
+              <Link href={"/home"}>continue</Link>
               </button>
             )
           }

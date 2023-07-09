@@ -44,12 +44,13 @@ export const PhalaContractContextProvider = ({ children }: Props) => {
   const [contractApi, setContractApi] = useState<ContractPromise|null>(null);
 
   const setCertificate = (cert?: CertificateData) => {
+    console.log("Certificate signed")
     setCache(cert);
   };
 
   const loadContract =  async():Promise<ContractPromise|null> =>{
     if(poc5){
-      const contractId:string = '0x2904744f761f00baef92614c04aeadf8b9dbe68a759dc50fb787b198c34d1754';
+      const contractId:string = '0xce25074286b8a42077536cca2e55d2c95d84151d48cec3a6e261fad55a31db65';
       const pruntime:string = 'https://poc5.phala.network/tee-api-1';
   
       // check for undefined Erros
