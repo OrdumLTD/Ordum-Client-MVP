@@ -25,7 +25,7 @@ interface Props {
 const Layout: React.FC<Props> = (props) => {
   return (
     // <main className="flex h-screen bg-[url('/background/dashboard.png')] text-white">
-    <main className="flex h-screen bg-gradient-to-b from-purple-900 to-ordum-purple text-white">
+    <main className="flex h-screen bg-gradient-to-b from-blue-900 to-ordum-purple text-white">
       <div className="flex h-screen ">
         <div className=" w-20 h-full border-r border-r-[#6e7182] border-r-2 flex-col pt-2 px-3">
           <Image src={KittyIcon} alt="You personal profile" className="mt-2" />
