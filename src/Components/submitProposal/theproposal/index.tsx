@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import Image from "next/image";
 
@@ -6,16 +6,14 @@ import { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useProposalContext } from "@/Context/submitPropolsal";
 
-
 type Props = {
   className?: string;
 };
 
 const SubmitProposalContext: React.FC<Props> = (props) => {
-  const {context,changeToStep,changeContext} =useProposalContext();
+  const { context, changeToStep, changeContext } = useProposalContext();
 
   const router = useRouter();
-  
 
   const changePropolsalSubPage = async (step: number, route: string) => {
     changeToStep(step);
@@ -187,24 +185,10 @@ WIP ~ would be good to add example text here from a previous proposal.
           <textarea className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]" />
 
           <div className="mt-10 border border-black py-5 px-4">
-            <h2 className="text-xl">4. Why Kusama</h2>
-            <p className="mt-4 text-gray-400">
-              Why did you choose to build in Kusama? What is it about this
-              network that encourages you to submit this proposal?
-            </p>
-          </div>
-
-          <div className="mt-5">
-            <p className="hover:cursor-pointer text-gray-400">
-              Click here to type and open text editor.
-            </p>
-          </div>
-
-          {/* Add context handler */}
-          <textarea className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]" />
-
-          <div className="mt-10 border border-black py-5 px-4">
-            <h2 className="text-xl">5. If you have seen similar proposals before: why is yours different?</h2>
+            <h2 className="text-xl">
+              5. If you have seen similar proposals before: why is yours
+              different?
+            </h2>
           </div>
 
           <div className="mt-5">
@@ -222,9 +206,7 @@ WIP ~ would be good to add example text here from a previous proposal.
           <div className="mt-10 mb-20 flex flex-col gap-4">
             <button
               className="bg-black text-white py-2 md:py-4 rounded"
-              onClick={() =>
-                changePropolsalSubPage(3, "/submitproposal/team")
-              }
+              onClick={() => changePropolsalSubPage(3, "/submitproposal/team")}
             >
               Save and continue
             </button>
