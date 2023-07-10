@@ -89,7 +89,7 @@ const ChooseProfileStep2 = () => {
             text-xs sm:text-base
             flex justify-around gap-2"
           >
-            <Link href="/signup/createTeam">
+            <Link href="/signup/createteam">
               <button
               //@ts-ignore
               onClick={() => handleTeam()}

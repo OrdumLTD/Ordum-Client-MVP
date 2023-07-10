@@ -23,8 +23,22 @@ function ProjectType() {
               <option value="All">
                 What are you creating? Chooce a category
               </option>
-              <option value="Option 1">Option 1</option>
-              <option value="Option 2">Option 2</option>
+              DeFi 
+
+Privacy 
+Infrastructure 
+Network Changes
+Art
+Media 
+Gaming 
+Events 
+Education
+NFTs
+Translations
+Other
+
+              <option value="DeFi">DeFi</option>
+              <option value="Identity ">Identity </option>
             </select>
 
             <button className="w-40 rounded py-2.5 md:py-3 bg-ordum-purple font-semibold shadow shadow-md hover:shadow-2xl">

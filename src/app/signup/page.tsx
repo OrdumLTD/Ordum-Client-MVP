@@ -48,7 +48,7 @@ const SignUp = () => {
               Connect Wallet Later
             </button>
 
-            <Link href={"/signup/chooseProfile"}>
+            <Link href={"/signup/chooseprofile"}>
               <button className="w-full border border-black rounded-full border-2 py-4 bg-black text-white text-sm md:text-lg font-thin md:font-medium">
                 {" "}
                 Sign up!
