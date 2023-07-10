@@ -1,8 +1,11 @@
+"use client"
+
+import { AccountId, Categories } from '@/lib/PhalaContract/Types/types';
 import React, {createContext, useState, ReactNode, useContext} from 'react';
 
 export type tldr = {
-  account: string,
-  projectType: string,
+  account: AccountId,
+  projectType: Categories[],
   teamName: string,
   track: string,
   contact: string,
@@ -37,6 +40,8 @@ export type submitContext = {
     tldr?: tldr,
     context?: context,
     problemSolution?: problemSolution,
+    readyToSubmit:boolean,
+    setReadyToSubmit:(v:boolean) => void,
     changeTLDR: (tldr:tldr) => void,
     changeContext: (changeCtx: context) => void,
     changeProblemSolution: (problem: problemSolution) => void
@@ -51,6 +56,8 @@ const defaultState = {
   tldr: undefined ,
   context: undefined,
   problemSolution: undefined,
+  readyToSubmit:false,
+  setReadyToSubmit:(v:boolean) => {return},
   changeTLDR: (tldr:tldr) => {return},
   changeContext: (changeCtx: context) => {return},
   changeProblemSolution: (problem: problemSolution) => {return}
@@ -60,14 +67,15 @@ type Props = {
   children: ReactNode;
 };
 
-const PropolsalContext = createContext<submitContext>(defaultState);
+const ProposalContext = createContext<submitContext>(defaultState);
 
-export const PropolsalContextProvider =({ children }: Props)=> {
+export const ProposalContextProvider =({ children }: Props)=> {
   const [step, setStep] = useState<number>(1);
   const [proposalIndex, setProposalIndex] = useState<number>()
   const [tldr, setTldr] = useState<tldr>()
   const [propolsalContext, setPropolsalContext] = useState<context>();
-  const [propolsalProblemSolution, setPropolsalProblemSolution] = useState<problemSolution>()
+  const [propolsalProblemSolution, setPropolsalProblemSolution] = useState<problemSolution>();
+  const [readyToSubmit,setReadyToSubmit] = useState<boolean>(false);
 
   const changeTLDR = (itemToChange:tldr) => {
     setTldr({ ...tldr, ...itemToChange });
@@ -98,15 +106,16 @@ export const PropolsalContextProvider =({ children }: Props)=> {
     changeTLDR: changeTLDR,
     context: propolsalContext,
     problemSolution: propolsalProblemSolution,
+    readyToSubmit,setReadyToSubmit,
     changeProblemSolution: changeProblemSolution,
     changeContext,
   };
 
   return (
-    <PropolsalContext.Provider value={context}>
+    <ProposalContext.Provider value={context}>
       {children}
-    </PropolsalContext.Provider>
+    </ProposalContext.Provider>
   );
 }
 
-export const useProposalContext =()=> useContext(PropolsalContext);
+export const useProposalContext =()=> useContext(ProposalContext);

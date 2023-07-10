@@ -5,6 +5,7 @@ import { Work_Sans } from "next/font/google";
 import { ChainApiContextProvider } from '@/Context/ChainApiStore'
 import { PhalaContractContextProvider } from '@/Context/PhalaContractApiStore'
 import { FetchedProfileContextProvider, ProfileContextProvider } from '@/Context/ProfileStore'
+import { ProposalContextProvider } from '@/Context/submitPropolsal';
 
 
 
@@ -31,7 +32,9 @@ export default function RootLayout({
             <PhalaContractContextProvider>
               <ProfileContextProvider>
                 <FetchedProfileContextProvider>
-                  {children}
+                  <ProposalContextProvider>
+                    {children}
+                  </ProposalContextProvider>
                 </FetchedProfileContextProvider>
               </ProfileContextProvider>
             </PhalaContractContextProvider>

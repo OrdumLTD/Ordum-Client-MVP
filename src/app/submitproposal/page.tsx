@@ -1,5 +1,5 @@
 // import { PropolsalContextProvider } from "@/store/submitPropolsal";
-
+'use client'
 import Layout from "@/Components/ui/Layout";
 import SubmitPropolsalSidePanel from "@/Components/submitProposal/sidePanel";
 

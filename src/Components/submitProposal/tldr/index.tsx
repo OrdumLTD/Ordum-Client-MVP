@@ -2,25 +2,46 @@
 
 import Image from "next/image";
 
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 // import WalletContext from "@/store/walletContext";
 
 import infoIcon from "@/assets/svg-icons/info-icon.svg";
 import { useProposalContext } from "@/Context/submitPropolsal";
+import { fetchKsmPrice, receiveDateSuggest } from "@/lib/Kusama/Utils";
+import ConnectWallet from "@/Components/ConnectWallet/page";
+import { useWalletContext } from "@/Context/WalletStore";
+import { Categories } from "@/lib/PhalaContract/Types/types";
+import AlertTitle from '@mui/material/AlertTitle';
+import Alert from '@mui/material/Alert';
+
 
 type Props = {
   className?: string;
 };
 
 const SubmitProposalTLDR: React.FC<Props> = (props) => {
+  // Function for fetching latest KSM exchange rate
+
   // const walletCtx = useContext(WalletContext);
 
-  const {tldr,changeTLDR,proposalStep,changeToStep} = useProposalContext();
+  const {tldr,changeTLDR,proposalStep,changeToStep,readyToSubmit,setReadyToSubmit} = useProposalContext();
   const tldrCtx = { ...tldr };
+  const {accounts,account} = useWalletContext()
 
-  console.log(tldrCtx);
+  // Local state
+  const [accountBalance, setAccountBalance] = useState<number>(0.00);
+  const [suggestDate , setSuggestDate] = useState<Date>();
+  
+
+  console.log("tldr "+
+   tldr?.teamName, tldr?.account, tldr?.contact,
+   tldr?.fundingAmount, tldr?.recieveDate,
+   tldr?.projectType, tldr?.shortDescription,
+   tldr?.startingDate, tldr?.exchangeRate
+  )
+
   const handleTLDRchange = changeTLDR;
   const router = useRouter();
   const step = proposalStep;
@@ -31,17 +52,44 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
     router.push(route);
   };
 
+  const handleSuggestion = (param?:number)=>{
+    if(param){
+      const date = receiveDateSuggest(param);
+      console.log(date)
+      setSuggestDate(date);
+    }else{
+
+    }
+
+  }
+
+  // Solve CORS issue in localhost
+  const storeKsmPrice =async()=>{
+    const ksmPrice = await fetchKsmPrice();
+    //@ts-ignore
+    changeTLDR({exchangeRate:ksmPrice})
+  }
+
+  useEffect(()=>{
+    // if(tldr?.exchangeRate){
+
+    // }else{
+    //   storeKsmPrice()
+    // }
+    
+  })
+
   return (
+    
     <div className="xl:ml-48 2xl:ml-60 p-10">
       <div className="max-w-[33rem] flex flex-col">
         <input
           placeholder="Name your project"
           className="bg-inherit text-2xl "
-          value={tldrCtx.propolsalName}
+          value={tldrCtx.teamName}
           onChange={(e) => {
-            console.log(e.target.value);
             //@ts-ignore
-            handleTLDRchange({ propolsalName: e.target.value });
+            handleTLDRchange({ teamName: e.target.value });
           }}
           type="text"
         />
@@ -49,11 +97,16 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
 
         <span className="text-sm mt-">Click the title to edit</span>
 
+          {/* Need reflective UI when clicked */}
         <div className="mt-10 py-3 max-w-[33rem] bg-gray-300 flex justify-around">
-          <button className="text-white border rounded bg-clack py-2 px-20 bg-black">
+          <button
+          onClick={() =>setReadyToSubmit(false)}
+          className="text-white border rounded bg-clack py-2 px-20 bg-black">
             Discussion
           </button>
-          <button className="text-white border rounded bg-clack py-2 px-20 bg-gray-500">
+          <button className="text-white border rounded bg-clack py-2 px-20 bg-gray-500"
+          onClick={() => setReadyToSubmit(true)}
+          >
             On-Chain
           </button>
         </div>
@@ -66,28 +119,36 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
               <span>Choose Beneficiary Account </span>
               <Image src={infoIcon} width={12} alt="" className="-mt-4 mr-2" />
             </label>
-            <span>Transfarable 00.00</span>
+            {/* Fetch tokens for this Account */}
+            <span>Transfarable {accountBalance}</span>
           </div>
           {/* Add PJS accoutns */}
-          <select
-            // onChange={(e) => {
-            //   const selected = e.target.value;
-            //   handleTLDRchange({ account: selected });
-            // }}
-            className="mt-2  text-gray-500
-            w-[33rem] pl-2  md:py-2 border border-black rounded-md text-xs md:text-sm shadow-sm bg-white focus:outline-none focus:border-sky-500"
-          >
-            {/* {walletCtx.accounts?.map((account) =>
-              <option
-                onClick={() => {
-                  handleTLDRchange({ account: account.address});
-                }}
-              key={account.address}
-                value={account.address}>
-                {account.meta?.name}
-              </option>
-            )} */}
-          </select>
+          {
+            accounts? 
+            ( <select
+              // onChange={(e) => {
+              //   const selected = e.target.value;
+              //   handleTLDRchange({ account: selected });
+              // }}
+              className="mt-2  text-gray-500
+              w-[33rem] pl-2  md:py-2 border border-black rounded-md text-xs md:text-sm shadow-sm bg-white focus:outline-none focus:border-sky-500"
+            >
+             {accounts.map(acc => 
+             //@ts-ignore
+              <option value={tldr?.account}>{acc}</option>
+             )}
+            </select>
+            )
+            :
+            (
+              <input
+              className="mt-2  text-gray-500
+              w-[33rem] pl-2  md:py-2 border border-black rounded-md text-xs md:text-sm shadow-sm bg-white focus:outline-none focus:border-sky-500" 
+             //@ts-ignore
+              type="text" value={tldr?.account} />
+            )
+          }
+         
 
           <span className="mt-1.5 block text-xs max-w-[26rem]">
             This account does not have a verified identity. Please visit
@@ -116,7 +177,7 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
             onChange={(e) => {
               const selected = e.target.value;
               //@ts-ignore
-              handleTLDRchange({ projectType: selected });
+              handleTLDRchange({ projectType: [...selected,selected] });
             }}
             className="mt-2  text-gray-500
             w-[33rem] pl-2  md:py-2 border border-black rounded-md text-xs md:text-sm shadow-sm bg-white focus:outline-none focus:border-sky-500"
@@ -124,17 +185,11 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
             <option value="" className="" disabled hidden>
               All
             </option>
-            <option value="Governance">Governance</option>
-            <option value="Defi">Defi</option>
-            <option value="Communication">Communication</option>
-            <option value="Privacy">Privacy</option>
-            <option value="Education">Education</option>
-            <option value="Events">Events</option>
-            <option value="Infrastracture">Infrastracture</option>
-            <option value="Art">Art</option>
-            <option value="Media">Media</option>
-            <option value="NFT">NFT</option>
-            <option value="Other">Other</option>
+            <option value={Categories.governance}>Governance</option>
+            <option value={Categories.publicGood}>Public Good</option>
+            <option value={Categories.infrastructure}>Infranstructure</option>
+            <option value={Categories.mediaArt}>Media Art</option>
+            <option value={Categories.gameFi}>GameFi</option>
           </select>
 
           <label className="mt-4 text-xl flex">
@@ -203,12 +258,38 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
               placeholder="$"
               value={tldrCtx.fundingAmount}
               onChange={(e) => {
+                e.preventDefault()
+                
                 //@ts-ignore
                 handleTLDRchange({ fundingAmount: e.target.value });
+                handleSuggestion(tldr?.fundingAmount)
               }}
               type="text"
             />
           </div>
+          <label className="mt-4 text-xl flex">
+            <span>Receive Date</span>
+          </label>
+          <input
+            className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
+            placeholder="When do you plan to start your project?"
+            value={tldrCtx.startingDate}
+            onChange={(e) => {
+              e.preventDefault()
+              //@ts-ignore
+              handleTLDRchange({ recieveDate: e.target.value });
+            }}
+            type="date"
+          />
+          {
+            suggestDate && (
+            <Alert severity="info">
+              <AlertTitle>Suggestion</AlertTitle>
+                Early receiving date should be <strong>{suggestDate.toJSON()}</strong>
+            </Alert>
+            )
+          }
+          
 
           <label className="mt-4 text-xl flex">
             <span>Delivery Date</span>
@@ -284,6 +365,7 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
         </div>
       </div>
     </div>
+   
   );
 };
 

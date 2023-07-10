@@ -20,7 +20,8 @@ export enum MemberRole {
 
 export enum Chains {
 	polkadot = 'Polkadot',
-	offChain = 'OffChain'
+	offChain = 'OffChain',
+	kusama = 'Kusama'
 }
 
 

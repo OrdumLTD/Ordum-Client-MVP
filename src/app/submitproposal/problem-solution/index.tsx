@@ -1,8 +1,7 @@
-import { PropolsalContextProvider } from "@/store/submitPropolsal";
 
-import Layout from "@/components/layout";
-import SubmitPropolsalSidePanel from "@/components/submitProposal/sidePanel";
-import SubmitPropolsalProblemSolution from "@/components/submitProposal/problemSolution";
+import Layout from "@/Components/Layout/page";
+import SubmitPropolsalProblemSolution from "@/Components/submitProposal/problemSolution";
+import SubmitPropolsalSidePanel from "@/Components/submitProposal/sidePanel";
 
 const submitProposalProblemSolution = () => {
   // const { user } = useSelector((state: RootState) => state.user);

@@ -7,15 +7,20 @@ import OrdumPreview from "@/Components/preview";
 
 import '@polkadot/api-augment/kusama';
 import { useProposalContext } from "@/Context/submitPropolsal";
+import { useWalletContext } from "@/Context/WalletStore";
+import { PreimageAndReferendum } from "@/lib/Kusama/Txn/submitReferenda";
+import { useChainApiContext } from "@/Context/ChainApiStore";
 
 type Props = {
   className?: string;
 };
 
 const SubmitPropolsalPreview: React.FC<Props> = (props) => {
-  const [wallet, setWallet] = useState<InjectedExtension>();
   const [hash, setHash] = useState<string>();
-  const {changeToStep, setProposalIndex,proposalIndex,tldr,context} =  useProposalContext()
+  // Context
+  const {changeToStep, setProposalIndex,proposalIndex,tldr,context} =  useProposalContext();
+  const {account,signer} = useWalletContext();
+  const {api} = useChainApiContext();
 
   const router = useRouter();
 
@@ -30,28 +35,26 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
     setProposalIndex(index)
   ]
 
-  // Preimage test
-  // const submit = async () => {
-  //   console.log(WalletCtx.wallet)
-  //   if(WalletCtx.wallet){
-  //     setWallet(WalletCtx.wallet)
-  //   }
-  //   if(submitCtx.tldr.fundingAmount && submitCtx.tldr.recieveDate){
+  // Referenda Test
+  const submit = async () => {
+    console.log(account)
+    
+    if(tldr?.fundingAmount && tldr.recieveDate){
 
-  //     await PreimageAndReferendum(
-  //       fetchIndex,
-  //       WalletCtx.wallet,
-  //       WalletCtx.selectedAccount,
-  //       submitCtx.tldr.fundingAmount,
-  //       submitCtx.tldr.account,
-  //       chainAPI,
-  //       submitCtx?.tldr.recieveDate
-  //       )
-  //   }else{
-  //     console.log("Missing some field")
-  //   }
+      await PreimageAndReferendum(
+        fetchIndex,
+        signer,
+        account,
+        tldr.fundingAmount,
+        tldr.account,
+        api,
+        tldr.recieveDate
+      )
+    }else{
+      console.log("Missing some field")
+    }
    
-  // };
+  };
 
   return (
     <div className="xl:ml-48 2xl:ml-60 p-10">
@@ -91,7 +94,7 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
           <button
             className="bg-black text-white py-2 md:py-4 rounded"
             onClick={() => {
-              // Call functions here
+              submit()
             }}
           >
             Submit

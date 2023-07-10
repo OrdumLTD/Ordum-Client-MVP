@@ -1,6 +1,7 @@
-import Layout from "@/components/layout";
-import SubmitPropolsalReport from "@/components/submitProposal/report";
-import SubmitPropolsalSidePanel from "@/components/submitProposal/sidePanel";
+import Layout from "@/Components/Layout/page";
+import SubmitPropolsalReport from "@/Components/submitProposal/report";
+import SubmitPropolsalSidePanel from "@/Components/submitProposal/sidePanel";
+
 
 const submitProposalReport = () => {
 
