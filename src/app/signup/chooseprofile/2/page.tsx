@@ -97,7 +97,7 @@ const ChooseProfileStep2 = () => {
                 Team
               </button>
             </Link>
-            <Link href="/signup/createIndividual">
+            <Link href="/signup/createindividual">
             <button
              //@ts-ignore
              onClick={() => handleIndividual()}
@@ -113,7 +113,7 @@ const ChooseProfileStep2 = () => {
           w-full
            flex flex-col gap-4"
           >
-            <Link href={"/createProfile"}>
+            <Link href={"/createprofile"}>
             <button
              className="rounded-full py-2.5 md:py-3 bg-ordum-purple font-semibold shadow-md shadow-md hover:shadow-2xl">
               Back
