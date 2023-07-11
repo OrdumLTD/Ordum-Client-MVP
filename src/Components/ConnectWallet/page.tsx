@@ -19,10 +19,9 @@ import { web3Accounts } from '@polkadot/extension-dapp';
 function ConnectWallet() {
 
   //Context
-  const {account,setAccount,signer,setSigner} = useWalletContext();
+  const {account,setAccount,signer,setSigner,accounts,setAccounts} = useWalletContext();
   //----------------------------------------------
 
-  const [accounts, setAccounts] = useState<InjectedAccountWithMeta[]>();
   const [isWallet, setIsWallet] = useState<boolean>();
   const [selectedAcc, setSelectedAcc] = useState<InjectedAccountWithMeta>();
 
@@ -32,8 +31,9 @@ function ConnectWallet() {
     setIsWallet(wallet);
     // Get Accounts
 
-    const accounts = await web3Accounts();
-    setAccounts(accounts);
+    const availableAccounts = await web3Accounts();
+    
+    setAccounts(availableAccounts);
     
   }
   const getTheSigner = async(account:InjectedAccountWithMeta) =>{
@@ -52,22 +52,22 @@ function ConnectWallet() {
   useEffect(()=>{
     getAccounts()
 
-  },[])
+  })
 
   return (
-    <main className="flex flex-col items-center justify-around">
+    <div className="flex flex-col items-center justify-around">
         
         <div className="flex flex-col w-1/3 justify-center align-middle items-center">
             {
               isWallet? 
                 (
-                <FormControl sx={{ m: 1, minWidth: 120,width:300,borderColor:'lightblue' }} size="medium">
-                    <InputLabel id="wallet">Choose Wallet Account</InputLabel>
+                <FormControl sx={{ m: 1, minWidth: 120,width:300,borderColor:'lightblue',border:"1px solid" }} size="medium">
+                    <InputLabel id="wallet">Choose Account</InputLabel>
                     <Select
                     labelId="Choose-Wallet"
                     id="wallet"
                     //@ts-ignore
-                    value={selectedAcc}
+                    value={}
                     label="account"
                     onChange={handleChange}
                     >
@@ -79,20 +79,13 @@ function ConnectWallet() {
                     </Select>
                 </FormControl>
                 ) 
-                : (<Button variant="outlined" disabled>Wallet Account</Button>)
+                : (<h1 className="font-sans font-light text-base">Wallet unavailable? Try out <button><Link href="/sign-in">Wallet Connect</Link></button></h1>)
             }
             
         </div>
-        <div className="flex flex-col w-100 justify-center align-middle items-center">
-        {
-            isWallet? (
-              <div></div>       
-            )
-            : (<h1 className="font-sans font-light text-base">Wallet unavailable? Try out <button><Link href="/sign-in">Wallet Connect</Link></button></h1>)
-        }
-        </div>
+       
 
-    </main>
+    </div>
   )
 }
 
