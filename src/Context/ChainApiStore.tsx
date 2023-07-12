@@ -32,7 +32,7 @@ export const ChainApiContextProvider = ({children}:Props) =>{
 
 
     const fetchChainApi = async() =>{
-        let wsProvider = new WsProvider('ws://127.0.0.1:9944');
+        let wsProvider = new WsProvider('ws://127.0.0.1:8000');
         let chain_api = await ApiPromise.create({provider:wsProvider});
         chain_api.isReady
         setChainApi(chain_api);

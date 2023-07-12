@@ -20,7 +20,7 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
   // Context
   const {changeToStep, setProposalIndex,proposalIndex,tldr,context} =  useProposalContext();
   const {account,signer} = useWalletContext();
-  const {api} = useChainApiContext();
+  const {api,fetchChainApi} = useChainApiContext();
 
   const router = useRouter();
 
@@ -28,6 +28,12 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
     changeToStep(step);
     router.push(route);
   };
+
+  useEffect(()=>{
+    if(!api){
+      fetchChainApi()
+    }
+  },[])
 
 
   // callBack fn
@@ -37,12 +43,12 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
 
   // Referenda Test
   const submit = async () => {
-    console.log(account)
     
     if(tldr?.fundingAmount && tldr.recieveDate){
-
+      const rate = tldr.exchangeRate || 24;
       await PreimageAndReferendum(
         fetchIndex,
+        rate,
         signer,
         account,
         tldr.fundingAmount,
@@ -51,7 +57,7 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
         tldr.recieveDate
       )
     }else{
-      console.log("Missing some field")
+      console.log("Missing some field Funding "+tldr?.fundingAmount + "ReceiveData "+tldr?.recieveDate)
     }
    
   };

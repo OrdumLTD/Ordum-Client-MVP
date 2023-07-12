@@ -16,6 +16,19 @@ type TrackInfoType = {
 }
 
 const AllTrackInfo = {
+    "SmallTipper":{
+        prepPeriod: 10, // 60 sec
+        confPeriod: 100, // 10 mins
+        decPeriod: 109440, // 7 days + 1 day
+        decDeposit: 0.33
+    },
+    "BigTipper":{
+        prepPeriod: 100, // 10 mins
+        confPeriod: 600, // 1 hr
+        decPeriod: 109440, // 7 days + 1 day
+        decDeposit: 0.33
+    },
+    //The above needs to be in Unix
     "SmallSpender": {
         prepPeriod: 14400, // 4 hrs
         confPeriod: 43200, // 12 hrs
@@ -49,9 +62,9 @@ const spendingPeriodDuration = 518400; // 6 days
 
 // To be called before recieving date in tl dr;
 // But this account when you place decision deposit right after preparation period
-export const receiveDateSuggest = (amount:number):Date =>{
+export const receiveDateSuggest = (amount:number,rate:number):Date =>{
     // get the track name
-    const {Track} = getTrackKsm(amount);
+    const {Track} = getTrackKsm(amount,rate);
     //@ts-ignore
     const Info:TrackInfoType = AllTrackInfo[Track];
     // Convert to date 
@@ -61,7 +74,6 @@ export const receiveDateSuggest = (amount:number):Date =>{
     // Take Spending Period into consideration
 
     let reccomended = 0; // newly recommended time
-    let durCount = 0; // Keeping track of how many spending period have past;
 
     let diff = suggestDate - refLatestSpending;
     if( diff < spendingPeriodDuration){
@@ -88,32 +100,46 @@ const previewCheck = (preview:tldr):boolean => {
 
 
 // Convert to KSM
-const convert = (usd: number) => usd * 0.04;
+const convert = (usd: number,rate:number) => {
+    return usd / rate
+};
 
 // Track Hardcoded<=
 const Tracks = {
+    SmallTipper:8,
+    BigTipper:33,
     SmallSpender: 333,
     MediumSpender: 3333,
     BigSpender: 33333,
     Treasurer: 33334
 }
 
-export const getTrackKsm = (amount: number): TrackKsm => {
+export const getTrackKsm = (amount: number,rate:number): TrackKsm => {
 
-    const ksm = convert(amount);
+    const ksm = convert(amount,rate);
     let track = "";
     let trackNumber:number =0;
     // Compute the track
-    if(ksm <= Tracks.SmallSpender){
+    if(ksm <= Tracks.SmallTipper){
+        track = "SmallTipper";
+        trackNumber = 30
+
+    }else if(ksm <=Tracks.BigTipper){
+        track = "BigTipper";
+        trackNumber = 31;
+    }
+    else if(ksm <= Tracks.SmallSpender){
         track = "SmallSpender";
         trackNumber = 32;
 
     }else if(ksm <= Tracks.MediumSpender){
         track = "MediumSpender";
         trackNumber = 33;
+
     }else if(ksm <= Tracks.BigSpender){
         track = "BigSpender";
         trackNumber= 34;
+
     }else{
         track = "Treasurer";
         trackNumber = 11;

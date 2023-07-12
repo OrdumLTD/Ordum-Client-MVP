@@ -4,6 +4,8 @@ import { AccountId, Categories } from '@/lib/PhalaContract/Types/types';
 import { InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
 import React, {createContext, useState, ReactNode, useContext} from 'react';
 
+
+// tldr of the proposal
 export type tldr = {
   account: AccountId,
   projectType: Categories[],
@@ -21,6 +23,7 @@ export type tldr = {
   externalLinks: string,
 };
 
+// The context of the proposal
 export type context = {
   contextOfTheProposal:{
     data: string,
@@ -34,6 +37,11 @@ export type context = {
   };
   whyKSM: string;
   similarSolution:string;
+}
+
+// Adding team members in the proposal
+export type teamMembers = {
+  
 }
 
 

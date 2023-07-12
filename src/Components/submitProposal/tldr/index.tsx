@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState,useMemo } from "react";
 import { useRouter } from "next/navigation";
 
 // import WalletContext from "@/store/walletContext";
@@ -57,8 +57,9 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
   };
 
   const handleSuggestion = (param?:number)=>{
-    if(param){
-      const date = receiveDateSuggest(param);
+    if(param ){
+      const rate = tldr?.exchangeRate || 24;
+      const date = receiveDateSuggest(param,rate);
       console.log(date)
       setSuggestDate(date);
     }else{
@@ -82,6 +83,11 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
     // }
     
   })
+
+  useMemo(()=>{ 
+    handleSuggestion(tldr?.fundingAmount)
+  },[tldr?.fundingAmount])
+
 
   return (
     
@@ -263,7 +269,7 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
                 
                 //@ts-ignore
                 handleTLDRchange({ fundingAmount: e.target.value });
-                handleSuggestion(tldr?.fundingAmount)
+                
               }}
               type="text"
             />
@@ -283,7 +289,7 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
             type="date"
           />
           {
-            suggestDate && (
+            suggestDate && tldr?.fundingAmount && (
             <Alert severity="info">
               <AlertTitle>Suggestion</AlertTitle>
                 Early receiving date should be <strong>{suggestDate.toJSON()}</strong>

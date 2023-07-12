@@ -13,6 +13,7 @@ import { AccountId } from "@/lib/PhalaContract/Types/types";
 // Preimage
 export const PreimageAndReferendum = async (
    setIndexToStore:(index:number)=>void,
+   rate: number,
    signer?: Signer,
    account?: InjectedAccountWithMeta,
    amount?: number,
@@ -23,10 +24,11 @@ export const PreimageAndReferendum = async (
    // Get the signer from the account
  
    if(signer && account && amount && beneficiary && chainAPI){
- 
+      const amountKsm = getTrackKsm(amount,rate);
+
       const tx_preimage_hex = chainAPI?.tx.treasury
       //@ts-ignore
-     .spend(amount, beneficiary)
+     .spend(amountKsm, beneficiary)
      .toHex()
      .slice(2);
      
@@ -56,6 +58,7 @@ export const PreimageAndReferendum = async (
          
          submitProposal(
            setIndexToStore,
+           rate,
            account,chainAPI,
            amount,
            preimageData,
@@ -72,7 +75,7 @@ export const PreimageAndReferendum = async (
 
 
 export const submitProposal = async(
-    setIndexToStore:(index:number)=>void,
+    setIndexToStore:(index:number)=>void,rate:number,
     account?: InjectedAccountWithMeta,chainAPI?:ApiPromise,amount?:number,
     preimage_data?:string, signer?: Signer,date?:string
     ) =>{
@@ -81,7 +84,7 @@ export const submitProposal = async(
         console.log("On referendum submit")
       
          // Calculate track 
-      const {Track} = getTrackKsm(amount);
+      const {Track} = getTrackKsm(amount,rate);
 
       const blockNumber = convertToBlockNumber(date);
       
