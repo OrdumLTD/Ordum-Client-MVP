@@ -15,6 +15,7 @@ import { useWalletContext } from "@/Context/WalletStore";
 import { Categories } from "@/lib/PhalaContract/Types/types";
 import AlertTitle from '@mui/material/AlertTitle';
 import Alert from '@mui/material/Alert';
+import { useChainApiContext } from "@/Context/ChainApiStore";
 
 
 type Props = {
@@ -28,7 +29,8 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
 
   const {tldr,changeTLDR,proposalStep,changeToStep,readyToSubmit,setReadyToSubmit} = useProposalContext();
   const tldrCtx = { ...tldr };
-  const {accounts,account} = useWalletContext()
+  const {accounts,account} = useWalletContext();
+  const {fetchChainApi,api} = useChainApiContext();
 
   accounts?.map(acc =>{
     console.log("Accounts "+ acc.address)
@@ -40,7 +42,7 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
   
 
   console.log("tldr "+
-   tldr?.teamName, tldr?.account, tldr?.contact,
+   tldr?.teamName, tldr?.beneficiary, tldr?.contact,
    tldr?.fundingAmount, tldr?.recieveDate,
    tldr?.projectType, tldr?.shortDescription,
    tldr?.startingDate, tldr?.exchangeRate
@@ -76,13 +78,20 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
   }
 
   useEffect(()=>{
-    // if(tldr?.exchangeRate){
+    if(!api){
+      fetchChainApi()
+    }
+  },[])
 
-    // }else{
-    //   storeKsmPrice()
-    // }
+
+  // useEffect(()=>{
+  //   // if(tldr?.exchangeRate){
+
+  //   // }else{
+  //   //   storeKsmPrice()
+  //   // }
     
-  })
+  // })
 
   useMemo(()=>{ 
     handleSuggestion(tldr?.fundingAmount)
@@ -136,10 +145,12 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
           
             
             <input
+              //@ts-ignore
+              value={tldr?.beneficiary}
               onChange={(e) => {
                 const selected = e.target.value;
                 //@ts-ignore
-                handleTLDRchange({ account: selected });
+                handleTLDRchange({ beneficiary: selected });
               }}
               className="mt-2  text-gray-500
               w-[33rem] pl-2  md:py-2 border border-black rounded-md text-xs md:text-sm shadow-sm bg-white focus:outline-none focus:border-sky-500"
@@ -280,7 +291,7 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
           <input
             className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
             placeholder="When do you plan to start your project?"
-            value={tldrCtx.startingDate}
+            value={tldr?.startingDate}
             onChange={(e) => {
               e.preventDefault()
               //@ts-ignore

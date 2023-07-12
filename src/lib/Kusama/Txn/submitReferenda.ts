@@ -1,9 +1,9 @@
 'use client'
-
+import '@polkadot/api-augment/kusama';
 import type { InjectedAccountWithMeta, InjectedExtension } from "@polkadot/extension-inject/types";
 import { ApiPromise } from "@polkadot/api";
 import { useContext } from "react";
-import '@polkadot/api-augment/kusama';
+
 import { convertToBlockNumber, getTrackKsm } from "../Utils";
 import { Signer } from "@polkadot/types/types";
 import { AccountId } from "@/lib/PhalaContract/Types/types";
@@ -26,15 +26,21 @@ export const PreimageAndReferendum = async (
    if(signer && account && amount && beneficiary && chainAPI){
       const amountKsm = getTrackKsm(amount,rate);
 
-      const tx_preimage_hex = chainAPI?.tx.treasury
+      console.log("Amount KSM "+amountKsm.Ksm
+      + "Beneficiary "+ beneficiary
+ )
+
+      const tx_preimage_hex = chainAPI.tx.treasury
       //@ts-ignore
-     .spend(amountKsm, beneficiary)
+     .spend(amountKsm.Ksm, beneficiary)
      .toHex()
      .slice(2);
+
+     console.log("Preimage Data "+ tx_preimage_hex)
      
    const preimageData = tx_preimage_hex;
  
-   const call_preimage = chainAPI.tx.preimage.notePreimage(tx_preimage_hex);
+   const call_preimage = chainAPI.tx.preimage.notePreimage(preimageData);
    console.log("Submitting Preimage")
  
    await call_preimage.signAndSend(

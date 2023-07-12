@@ -101,7 +101,7 @@ const previewCheck = (preview:tldr):boolean => {
 
 // Convert to KSM
 const convert = (usd: number,rate:number) => {
-    return usd / rate
+    return Math.ceil(usd / rate)
 };
 
 // Track Hardcoded<=

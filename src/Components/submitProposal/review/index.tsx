@@ -52,12 +52,12 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
         signer,
         account,
         tldr.fundingAmount,
-        tldr.account,
+        tldr.beneficiary,
         api,
         tldr.recieveDate
       )
     }else{
-      console.log("Missing some field Funding "+tldr?.fundingAmount + "ReceiveData "+tldr?.recieveDate)
+      console.log("Missing some field Funding "+ tldr?.fundingAmount + "ReceiveData "+ tldr?.recieveDate)
     }
    
   };

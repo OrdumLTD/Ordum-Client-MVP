@@ -7,7 +7,7 @@ import React, {createContext, useState, ReactNode, useContext} from 'react';
 
 // tldr of the proposal
 export type tldr = {
-  account: AccountId,
+  beneficiary: AccountId,
   projectType: Categories[],
   teamName: string,
   track: string,
@@ -41,7 +41,7 @@ export type context = {
 
 // Adding team members in the proposal
 export type teamMembers = {
-  
+
 }
 
 
