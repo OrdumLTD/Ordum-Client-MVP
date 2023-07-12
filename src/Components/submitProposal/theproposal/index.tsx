@@ -12,7 +12,7 @@ type Props = {
 };
 
 const SubmitProposalContext: React.FC<Props> = (props) => {
-  const {context,changeToStep,changeContext} =useProposalContext();
+  const {context,changeToStep,changeContext,tldr} =useProposalContext();
 
   const router = useRouter();
   
@@ -25,7 +25,7 @@ const SubmitProposalContext: React.FC<Props> = (props) => {
   return (
     <div className="xl:ml-48 2xl:ml-60 p-10">
       <div className="max-w-[33rem] flex flex-col">
-        <h2 className="mt-8 text-4xl">Name of organizaiton</h2>
+        <h2 className="mt-8 text-4xl">{tldr?.teamName}</h2>
 
         <div className="mt-4">
           {/* <label className="mt-4 text-xs md:text-sm flex">
@@ -49,7 +49,7 @@ WIP ~ would be good to add example text here from a previous proposal.
           /> */}
 
           <div className="border border-black py-5 px-4">
-            <h2 className="text-xl">1. Context of the porosal</h2>
+            <h2 className="text-xl">1. Context of the proposal</h2>
             <p className="mt-4 text-gray-400">
               we aim to have as much context as possible to understand how a
               proposal came to the proponent’s mind, Please include here:
@@ -67,7 +67,12 @@ WIP ~ would be good to add example text here from a previous proposal.
           </div>
 
           {/* Add context handler */}
-          <textarea className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]" />
+          <textarea
+          onChange={(e)=> 
+            //@ts-ignore
+            changeContext({contextOfTheProposal:{data:e.target.value}})
+          }        
+          className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]" />
 
           <div className="mt-8 border border-black py-5 px-4">
             <p className="mt-4 ">
@@ -88,7 +93,12 @@ WIP ~ would be good to add example text here from a previous proposal.
           </div>
 
           {/* Add context handler */}
-          <textarea className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]" />
+          <textarea
+            onChange={(e)=>
+              //@ts-ignore
+              changeContext({contextOfTheProposal:{knownBackups:e.target.value}})
+            }
+          className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]" />
 
           <div className="border border-black py-5 px-4 mt-10">
             <h2 className="text-xl">2. Problem Statement</h2>
@@ -106,7 +116,12 @@ WIP ~ would be good to add example text here from a previous proposal.
           </div>
 
           {/* Add context handler */}
-          <textarea className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]" />
+          <textarea
+            onChange={(e)=>
+              //@ts-ignore
+              changeContext({problemStatement:e.target.value})
+            }
+          className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]" />
 
           <div className="mt-10 border border-black py-5 px-4">
             <h2 className="text-xl">3. The Solution</h2>
@@ -126,7 +141,12 @@ WIP ~ would be good to add example text here from a previous proposal.
           </div>
 
           {/* Add context handler */}
-          <textarea className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]" />
+          <textarea
+            onChange={(e)=>
+              //@ts-ignore
+              changeContext({solution:{data:e.target.value}})
+            }
+          className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]" />
 
           <div className="mt-10 border border-black py-5 px-4">
             <h2 className="text-xl">
@@ -150,7 +170,12 @@ WIP ~ would be good to add example text here from a previous proposal.
           </div>
 
           {/* Add context handler */}
-          <textarea className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]" />
+          <textarea 
+            onChange={(e)=>
+              //@ts-ignore
+              changeContext({solution:{ksmImprovements:e.target.value}})
+            }
+          className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]" />
 
           <div className="mt-10 border border-black py-5 px-4">
             <h2 className="text-xl">b. Who does this solution help?</h2>
@@ -167,7 +192,13 @@ WIP ~ would be good to add example text here from a previous proposal.
           </div>
 
           {/* Add context handler */}
-          <textarea className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]" />
+          <textarea
+            onChange={(e)=>
+              //@ts-ignore
+              changeContext({solution:{targetAudience:e.target.value}})
+            }
+          className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]" />
+
 
           <div className="mt-10 border border-black py-5 px-4">
             <h2 className="text-xl">4. Why Kusama</h2>
@@ -184,24 +215,12 @@ WIP ~ would be good to add example text here from a previous proposal.
           </div>
 
           {/* Add context handler */}
-          <textarea className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]" />
-
-          <div className="mt-10 border border-black py-5 px-4">
-            <h2 className="text-xl">4. Why Kusama</h2>
-            <p className="mt-4 text-gray-400">
-              Why did you choose to build in Kusama? What is it about this
-              network that encourages you to submit this proposal?
-            </p>
-          </div>
-
-          <div className="mt-5">
-            <p className="hover:cursor-pointer text-gray-400">
-              Click here to type and open text editor.
-            </p>
-          </div>
-
-          {/* Add context handler */}
-          <textarea className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]" />
+          <textarea
+            onChange={(e)=>
+              //@ts-ignore
+              changeContext({whyKSM:e.target.value})
+            }
+          className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]" />
 
           <div className="mt-10 border border-black py-5 px-4">
             <h2 className="text-xl">5. If you have seen similar proposals before: why is yours different?</h2>
@@ -214,7 +233,12 @@ WIP ~ would be good to add example text here from a previous proposal.
           </div>
 
           {/* Add context handler */}
-          <textarea className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]" />
+          <textarea
+            onChange={(e)=>
+              //@ts-ignore
+              changeContext({similarSolution:e.target.value})
+            }
+          className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]" />
 
           {/* Button Row - take one level up */}
 

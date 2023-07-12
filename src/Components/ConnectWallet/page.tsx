@@ -52,7 +52,7 @@ function ConnectWallet() {
   useEffect(()=>{
     getAccounts()
 
-  })
+  },[])
 
   return (
     <div className="flex flex-col items-center justify-around">
@@ -67,7 +67,7 @@ function ConnectWallet() {
                     labelId="Choose-Wallet"
                     id="wallet"
                     //@ts-ignore
-                    value={}
+                    value={account}
                     label="account"
                     onChange={handleChange}
                     >

@@ -30,6 +30,10 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
   const tldrCtx = { ...tldr };
   const {accounts,account} = useWalletContext()
 
+  accounts?.map(acc =>{
+    console.log("Accounts "+ acc.address)
+  })
+  
   // Local state
   const [accountBalance, setAccountBalance] = useState<number>(0.00);
   const [suggestDate , setSuggestDate] = useState<Date>();
@@ -123,33 +127,21 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
             <span>Transfarable {accountBalance}</span>
           </div>
           {/* Add PJS accoutns */}
-          {
-            accounts? 
-            ( <select
-              // onChange={(e) => {
-              //   const selected = e.target.value;
-              //   handleTLDRchange({ account: selected });
-              // }}
+          
+            
+            <input
+              onChange={(e) => {
+                const selected = e.target.value;
+                //@ts-ignore
+                handleTLDRchange({ account: selected });
+              }}
               className="mt-2  text-gray-500
               w-[33rem] pl-2  md:py-2 border border-black rounded-md text-xs md:text-sm shadow-sm bg-white focus:outline-none focus:border-sky-500"
             >
-             {accounts.map(acc => 
-             //@ts-ignore
-              <option value={tldr?.account}>{acc}</option>
-             )}
-            </select>
-            )
-            :
-            (
-              <input
-              className="mt-2  text-gray-500
-              w-[33rem] pl-2  md:py-2 border border-black rounded-md text-xs md:text-sm shadow-sm bg-white focus:outline-none focus:border-sky-500" 
-             //@ts-ignore
-              type="text" value={tldr?.account} />
-            )
-          }
-         
-
+           
+            </input>
+            
+          
           <span className="mt-1.5 block text-xs max-w-[26rem]">
             This account does not have a verified identity. Please visit
             <span className="underline"> this link</span> to learn how to do so,
@@ -188,8 +180,17 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
             <option value={Categories.governance}>Governance</option>
             <option value={Categories.publicGood}>Public Good</option>
             <option value={Categories.infrastructure}>Infranstructure</option>
-            <option value={Categories.mediaArt}>Media Art</option>
-            <option value={Categories.gameFi}>GameFi</option>
+            <option value={Categories.media}>Media</option>
+            <option value={Categories.gaming}>Gaming</option>
+            <option value={Categories.defi}>Defi</option>
+            <option value={Categories.identity}>Identity</option>
+            <option value={Categories.privacy}>Privacy</option>
+            <option value={Categories.networkChanges}>NetworkChanges</option>
+            <option value={Categories.events}>Events</option>
+            <option value={Categories.education}>Education</option>
+            <option value={Categories.nfts}>NFTs</option>
+            <option value={Categories.translation}>Translation</option>
+            <option value={Categories.gaming}>Gaming</option>
           </select>
 
           <label className="mt-4 text-xl flex">

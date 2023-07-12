@@ -1,6 +1,7 @@
 "use client"
 
 import { AccountId, Categories } from '@/lib/PhalaContract/Types/types';
+import { InjectedAccountWithMeta } from '@polkadot/extension-inject/types';
 import React, {createContext, useState, ReactNode, useContext} from 'react';
 
 export type tldr = {
@@ -21,15 +22,21 @@ export type tldr = {
 };
 
 export type context = {
-  howDidItComeToMind: string,
-  howDoesItHelp: string,
-  goal: string,
-  whyKSM: string,
+  contextOfTheProposal:{
+    data: string,
+    knownBackups:string
+  };
+  problemStatement:string;
+  solution:{
+    data:string;
+    ksmImprovements:string;
+    targetAudience:string;
+  };
+  whyKSM: string;
+  similarSolution:string;
 }
 
-type problemSolution = {
-  problem: string
-}
+
 
 export type submitContext = {
 
@@ -39,12 +46,10 @@ export type submitContext = {
     changeToStep: (number:number) => void,
     tldr?: tldr,
     context?: context,
-    problemSolution?: problemSolution,
     readyToSubmit:boolean,
     setReadyToSubmit:(v:boolean) => void,
     changeTLDR: (tldr:tldr) => void,
     changeContext: (changeCtx: context) => void,
-    changeProblemSolution: (problem: problemSolution) => void
 
 }
 
@@ -55,12 +60,11 @@ const defaultState = {
   changeToStep: (number:number) => {return},
   tldr: undefined ,
   context: undefined,
-  problemSolution: undefined,
   readyToSubmit:false,
   setReadyToSubmit:(v:boolean) => {return},
   changeTLDR: (tldr:tldr) => {return},
   changeContext: (changeCtx: context) => {return},
-  changeProblemSolution: (problem: problemSolution) => {return}
+
 }
 
 type Props = {
@@ -74,7 +78,6 @@ export const ProposalContextProvider =({ children }: Props)=> {
   const [proposalIndex, setProposalIndex] = useState<number>()
   const [tldr, setTldr] = useState<tldr>()
   const [propolsalContext, setPropolsalContext] = useState<context>();
-  const [propolsalProblemSolution, setPropolsalProblemSolution] = useState<problemSolution>();
   const [readyToSubmit,setReadyToSubmit] = useState<boolean>(false);
 
   const changeTLDR = (itemToChange:tldr) => {
@@ -85,10 +88,7 @@ export const ProposalContextProvider =({ children }: Props)=> {
     setPropolsalContext({ ...propolsalContext, ...itemToChange });
   };
 
-  const changeProblemSolution = (itemToChange:problemSolution) => {
-    setPropolsalProblemSolution({ ...propolsalProblemSolution, ...itemToChange });
-  };
-
+  
   function changeStepHandler(num:number) {
     setStep(num);
   }
@@ -105,9 +105,7 @@ export const ProposalContextProvider =({ children }: Props)=> {
     tldr: tldr,
     changeTLDR: changeTLDR,
     context: propolsalContext,
-    problemSolution: propolsalProblemSolution,
     readyToSubmit,setReadyToSubmit,
-    changeProblemSolution: changeProblemSolution,
     changeContext,
   };
 

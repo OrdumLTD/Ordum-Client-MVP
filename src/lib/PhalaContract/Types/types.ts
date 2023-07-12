@@ -1,11 +1,20 @@
 import type BN from 'bn.js';
 
 export enum Categories {
-	publicGood = 'PublicGood',
-	infrastructure = 'Infrastructure',
-	mediaArt = 'MediaArt',
-	governance = 'Governance',
-	gameFi = 'GameFi'
+	defi = "Defi",
+   	identity = "Identity",
+   	privacy = "Privacy",
+    infrastructure = "Infrastructure",
+   	networkChanges= "NetworkChanges",
+    art = "Art",
+   	media = "Media",
+   	gaming = "Gaming",
+   	events = "Events",
+    education = "Education",
+   	nfts = "NFTs",
+   	translation= "Translation",
+    governance = "Governance",
+   	publicGood = "PublicGood"
 }
 
 export enum UserRole {
