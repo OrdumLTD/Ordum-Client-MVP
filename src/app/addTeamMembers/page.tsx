@@ -12,7 +12,7 @@ import {
   UserRole,
 } from "@/lib/PhalaContract/Types/types";
 import { createApplicantProfile } from "@/lib/PhalaContract/Txn/createProfile";
-import TeamMemberBasic from "./teamMember/TeamMeberBasic";
+import TeamMemberBasic from "./teamMember/TeamMemberBasic";
 
 export interface Member {
   acc: AccountId;
@@ -36,6 +36,8 @@ function AddTeamMemberPage() {
   >([]);
   const [members, setMembers] = useState<Member>(defaultMember);
 
+  const [teamMembers, setTeamMembers] = useState<[]>([]);
+
   const addMember = (v: Member) => {
     setMembers({ ...members, ...v });
   };
@@ -47,7 +49,20 @@ function AddTeamMemberPage() {
     setMemberCount(memberCount + 1);
   };
 
-//   const addNewMember = (newMember: { acc: AccountId; role: MemberRole }) => {};
+  const removeMember = (toRemove:string) => {
+    teamMembers.forEach( (member, index, object) =>{
+        if(toRemove === member.address){
+            console.log("?")
+        }
+    })
+  }
+
+  const addNewMember = (member: {}) => {
+    //@ts-ignore
+    setTeamMembers([...teamMembers, member]);
+  };
+
+  //   const addNewMember = (newMember: { acc: AccountId; role: MemberRole }) => {};
 
   const saveNDone = async () => {
     //@ts-ignore
@@ -119,17 +134,28 @@ function AddTeamMemberPage() {
             </li>
           ))}
         </ul> */}
-        
 
         <div className="mt-4">
-            {membersNRole.map( (member) => {
-                // return <TeamMemberBasic account={member}/>
-                return <p key="">{member[0]}</p>
+          <ul className="flex flex-col gap-2 mb-4">
+            {teamMembers.map((member) => {
+              // return <TeamMemberBasic account={member}/>
+              return (
+                <li key={member.address}>
+                  <TeamMemberBasic
+                    address={member.address}
+                    role={member.role}
+                  />
+                </li>
+              );
             })}
+          </ul>
         </div>
-       
 
-        <AddTeamMember member={membersNRole} setMember={addTeamMember} />
+        <AddTeamMember
+          member={membersNRole}
+          setMember={addTeamMember}
+          addnewMemberToState={addNewMember}
+        />
 
         <div
           className="mt-10

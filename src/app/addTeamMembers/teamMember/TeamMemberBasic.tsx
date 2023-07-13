@@ -1,7 +1,7 @@
 "use client";
 
 type Props = {
-  account: string;
+  address: string;
   role: string | undefined;
 
   className?: string;
@@ -19,7 +19,7 @@ const TeamMemberBasic: React.FC<Props> = (props) => {
         <div className="m-2 flex gap-3">
           <div className="flex gap-1">
             <span className="basis-6/12">Address:</span>
-            <span className="font-semibold"> {props.account}</span>
+            <span className="font-semibold"> {props.address}</span>
           </div>
           <div className="flex gap-1">
             <span className="">Role:</span>
