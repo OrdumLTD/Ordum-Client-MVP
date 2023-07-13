@@ -303,18 +303,18 @@ const CreateIndividualProfile = () => {
             <button
             onClick={()=>saveNDone()}
              className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl">
-              create profile
+              Create Profile
             </button>
           {
             creationStatus? 
             (
               <button className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl">
-              <Link href={"/home"}>continue</Link>
+              <Link href={"/home"}>Continue</Link>
               </button>
             )
             :
             (<button disabled className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl">
-            <Link href={"/home"}>continue</Link>
+            <Link href={"/home"}>Continue</Link>
             </button>)
           }
 

@@ -1,5 +1,7 @@
+"use client";
+
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 import KittyIcon from "@/assets/svg-icons/kitty-icon.svg";
 import OrdumIcon from "@/assets/svg-icons/ordum-icon.svg";
@@ -23,12 +25,20 @@ interface Props {
 }
 
 const Layout: React.FC<Props> = (props) => {
+  const pathName = usePathname();
+
+  console.log(pathName);
+
   return (
     // <main className="flex h-screen bg-[url('/background/dashboard.png')] text-white">
     <main className="flex h-screen bg-gradient-to-b from-blue-900  to-ordum-purple  text-white">
       <div className="flex h-screen ">
         <div className=" w-20 h-full border-r border-r-[#6e7182] border-r-2 flex-col pt-2 px-3">
-          <Image src={KittyIcon} alt="You personal profile" className="mt-2" />
+          <Image
+            src={KittyIcon}
+            alt="You personal profile"
+            className={"mt-2 "}
+          />
           <Image src={OrdumIcon} alt="You team profile" className="mt-2" />
           <Image src={PlusIcon} alt="Add more" className="mt-2" />
         </div>
@@ -44,7 +54,9 @@ const Layout: React.FC<Props> = (props) => {
             <nav className="flex flex-col">
               <Link
                 href="/home/dashboard"
-                className="-ml-2 mt-3 nav-link block hover:underline transition duration-150 ease-in-out flex"
+                className={
+                  "-ml-2 mt-3 nav-link block hover:underline transition duration-150 ease-in-out flex "
+                  }
               >
                 <div className="w-5 h-5 bg-[#1A1F37]">
                   <Image
@@ -53,7 +65,7 @@ const Layout: React.FC<Props> = (props) => {
                     className="ml-0.5 mt-0.5"
                   />
                 </div>
-                <span className="ml-2 text-[0.9rem]">Dashboard</span>
+                <span className={"ml-2 text-[0.9rem] " + (pathName == "/home/dashboard" ? " underline" : " ")}>Dashboard</span>
               </Link>
               <Link
                 href="#"
@@ -66,7 +78,7 @@ const Layout: React.FC<Props> = (props) => {
                     className="ml-0.5 mt-0.5"
                   />
                 </div>
-                <span className="ml-2 text-[0.9rem]">My Grants</span>
+                <span className={"ml-2 text-[0.9rem] " + (pathName == "/home/mygrants" ? " underline" : " ")}>My Grants</span>
               </Link>
               <Link
                 href="/home/manageteams"
@@ -79,7 +91,7 @@ const Layout: React.FC<Props> = (props) => {
                     className="ml-0.5 mt-0.5"
                   />
                 </div>
-                <span className="ml-2 text-[0.9rem]">Manage Teams</span>
+                <span className={"ml-2 text-[0.9rem] " + (pathName == "/home/manageteams" ? " underline" : " ")}>Manage Teams</span>
               </Link>
               <Image src={Devider} alt="diveder" className="mt-4 scale-125" />
 
@@ -94,7 +106,7 @@ const Layout: React.FC<Props> = (props) => {
                     className="ml-0.5 mt-0.5"
                   />
                 </div>
-                <span className="ml-2 text-[0.9rem]">Explore Grants</span>
+                <span className={"ml-2 text-[0.9rem] " + (pathName.includes("explore") ? " underline" : " ")}>Explore Grants</span>
               </Link>
             </nav>
           </div>

@@ -9,7 +9,7 @@ type Props = {
 
 const TeamDashboard: React.FC<Props> = (props) => {
   return (
-    <div className={"flex flex-col  " + props.className}>
+    <div className={"w-11/12 flex flex-col  " + props.className}>
       <div className="w-full flex flex justify-between gap-20">
         <div
           className="border border-teal-800 py-4 px-28 
