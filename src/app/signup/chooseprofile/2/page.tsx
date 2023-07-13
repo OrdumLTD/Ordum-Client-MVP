@@ -107,7 +107,7 @@ const ChooseProfileStep2 = () => {
             </button>
             </Link>
           </div>
-          <ConnectWallet/>
+          {/* <ConnectWallet/> */}
           <div
             className="mt-10
           w-full
@@ -115,7 +115,7 @@ const ChooseProfileStep2 = () => {
           >
             <Link href={"/createprofile"}>
             <button
-             className="rounded-full py-2.5 md:py-3 bg-ordum-purple font-semibold shadow-md shadow-md hover:shadow-2xl">
+             className="w-full rounded-full py-2.5 md:py-3 bg-ordum-purple font-semibold shadow-md shadow-md hover:shadow-2xl">
               Back
             </button>
             </Link>
