@@ -32,18 +32,18 @@ const ChooseProfile = () => {
           <div className="text-xl lg:text-2x xl:text-3xl 2xl:text-4xl place-self-auto">
             To create or not to create a profile!
           </div>
-          <p className="mt-5 justify-self-start text-sm sm:text-base font-base xl:font-medium xl:text-lg 2xl:font-medium 2xl:text-lg">
+          <p className="mt-5 justify-self-start text-sm sm:text-base font-bold xl:font-old xl:text-lg 2xl:font-bold 2xl:text-lg">
             Would you like to create a profile or stay anon, human? If you don’t
             opt into creating a profile, only the wallet address will be
             displayed, unless you have set an on-chain identity.
           </p>
           <div className="mt-5 text-xs sm:text-base grid grid-flow-col gap-2 xl:gap-3 2xl:gap-5">
             {/*  Should go directly to dashboard */}
-            <button className="disabled w-[5rem] sm:w-[8rem] md:w-[12rem] xl:w-[16rem] 2xl:w-[20rem] rounded-full py-2.5 bg-[#467EEE] shadow-md hover:bg-blue-700 shadow-md hover:shadow-2xl">
-              Anon (soon to come)
+            <button className="disabled font-medium w-[5rem] sm:w-[8rem] md:w-[12rem] xl:w-[16rem] 2xl:w-[20rem] rounded-full py-2.5 bg-[#467EEE] shadow-md hover:bg-blue-700 shadow-md hover:shadow-2xl">
+              Anon (comming soon)
             </button>
             <Link href="/signup/chooseprofile/2">
-              <button className="w-[5rem] sm:w-[8rem] md:w-[12rem] xl:w-[16rem] 2xl:w-[20rem] rounded-full py-2.5 bg-[#0A1D47] shadow-md hover:bg-purple-700 shadow-md hover:shadow-2xl">
+              <button className="font-medium w-[5rem] sm:w-[8rem] md:w-[12rem] xl:w-[16rem] 2xl:w-[20rem] rounded-full py-2.5 bg-[#0A1D47] shadow-md hover:bg-ordum-blue shadow-md hover:shadow-2xl">
                 Create Profile
               </button>
             </Link>
