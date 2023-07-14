@@ -53,8 +53,8 @@ const Test = () => {
               <h1 className="text-2xl font-bold">Team page</h1>
               <Team
                 members={[
-                  { name: "Jane Doe1", role: "The boss" },
                   { name: "Jane Doe", role: "The boss" },
+                  { name: "Crypto Joe", role: "The tech guy" },
                 ]}
               />
             </div>

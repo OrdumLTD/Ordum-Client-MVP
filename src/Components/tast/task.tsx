@@ -9,9 +9,12 @@ const Task: React.FC<Props> = (props) => {
   const [numberOfHours, setNumberOfHours] = useState(0);
   const [totalCost, setTotalCost] = useState("");
 
-  const calucalteTotal = (costPerHour: number | string, totalCost : number | string) => {
-    return (+costPerHour * +totalCost)
-  }
+  const calucalteTotal = (
+    costPerHour: number | string,
+    totalCost: number | string
+  ) => {
+    return +costPerHour * +totalCost;
+  };
 
   return (
     <div className={"flex flex-col w-[33rem] " + props.className}>
@@ -60,10 +63,14 @@ const Task: React.FC<Props> = (props) => {
       />
 
       <label className="mt-4 text-xl flex">
-        <span className="text-sm">Assigne a team member</span>
+        <span className="text-sm">Assign a team member (commign soon)</span>
       </label>
 
       <p>Dropdow with team members</p>
+
+      <label className="mt-4 text-xl flex">
+        <span className="text-sm">Assign a team member (commign soon)</span>
+      </label>
 
       <button className="mt-4 border border-white rounded-full py-4 w-full ">
         + Add member to this task (soon)
@@ -111,6 +118,47 @@ const Task: React.FC<Props> = (props) => {
           onChange={(e) => setTotalCost(e.target.value)}
         />
       </div>
+
+      <label className="mt-4 text-xl flex">
+        <span className="text-sm">Task Dedline</span>
+      </label>
+      <input
+        className="mt-4 text-gray-500 text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
+        placeholder="10/10/25"
+        type="text"
+        // value={name}
+        // onChange={(e) => setName(e.target.value)}
+      />
+
+      <label className="mt-4 text-xl flex">
+        <span className="text-sm">Link to deliverable</span>
+      </label>
+      <input
+        className="mt-4 text-gray-500 text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
+        placeholder="Github, Figma, Video ... "
+        type="text"
+        // value={name}
+        // onChange={(e) => setName(e.target.value)}
+      />
+
+      <label className="mt-4 text-xl flex">
+        <span className="text-sm">Deliverable name</span>
+      </label>
+      <input
+        className="mt-4 text-gray-500 text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
+        placeholder="Github, Figma, Video ... "
+        type="text"
+        // value={name}
+        // onChange={(e) => setName(e.target.value)}
+      />
+
+      <button className="mt-4 border border-white rounded-full py-3 w-full ">
+        + Add link
+      </button>
+
+      <button className="mt-4 border border-white rounded-full fons py-4 w-full ">
+        + Add Task
+      </button>
     </div>
   );
 };

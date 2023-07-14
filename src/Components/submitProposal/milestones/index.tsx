@@ -1,12 +1,14 @@
-'use client';
+"use client";
 
 import Image from "next/image";
 import { useContext, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Task from "@/Components/tast/task";
+
 // import ChainApiContext from "@/store/apiContext";
 
 // import WalletContext from "@/store/walletContext";
-import  Milestone  from "./milestone";
+import Milestone from "./milestone";
 import { useProfileContext } from "@/Context/ProfileStore";
 import { useProposalContext } from "@/Context/submitPropolsal";
 
@@ -15,10 +17,9 @@ type Props = {
 };
 
 const SubmitPropolsalMilestones: React.FC<Props> = (props) => {
-  const {changeToStep} = useProposalContext();
+  const { changeToStep } = useProposalContext();
   // const walletCtx = useContext(WalletContext);
   const router = useRouter();
-  
 
   // Proposal submission
   // APIContext
@@ -41,16 +42,7 @@ const SubmitPropolsalMilestones: React.FC<Props> = (props) => {
   return (
     <div className="xl:ml-48 2xl:ml-60 p-10">
       <div className="max-w-[33rem] flex flex-col">
-
         <h2 className="mt-8 text-4xl font-semibold">Milestones</h2>
-
-        <p className="mt-4">
-          Please provide a list of milestone deliverables. This list should
-          closely reflect the list of deliverables agreed by your team to reach
-          the solution, along with resources needed for development and
-          timelines. If your project includes any technical development, each
-          item in the list should include a link to the deliverable itself:
-        </p>
 
         <div className="mt-10">
           <label className="mt-4 text-xl flex">
@@ -59,89 +51,6 @@ const SubmitPropolsalMilestones: React.FC<Props> = (props) => {
           <input
             className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
             placeholder="Eg 1.1. Research"
-            type="text"
-          />
-
-          <label className="mt-4 text-xl flex">
-            <span>Deliverable</span>
-          </label>
-          <input
-            className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
-            placeholder="Eg. Report"
-            type="text"
-          />
-
-          <label className="mt-4 text-xl flex">
-            <span>Duration</span>
-          </label>
-          <input
-            className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
-            placeholder="Eg. 1 months"
-            type="text"
-          />
-
-          <label className="mt-4 text-xl flex">
-            <span>Link to deliverable</span>
-          </label>
-          <input
-            className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
-            placeholder="Eg. git repo"
-            type="text"
-          />
-
-          <label className="mt-4 text-xl flex">
-            <span>Assigned</span>
-          </label>
-          <input
-            className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
-            placeholder="Which team memer is responsible for this"
-            type="text"
-          />
-
-          <label className="mt-4 text-xl flex">
-            <span>Deadline</span>
-          </label>
-          <input
-            className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
-            placeholder="DD/MM/YY"
-            type="text"
-          />
-
-          <label className="mt-4 text-xl flex">
-            <span>Total Cost</span>
-          </label>
-          <input
-            className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
-            placeholder="Eg. 10,000usd"
-            type="text"
-          />
-
-          <label className="mt-4 text-xl flex">
-            <span>Cost breakbown</span>
-          </label>
-          <input
-            className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
-            placeholder="Eg. amount of hours, cost per hour, link to sheet"
-            type="text"
-          />
-
-          <label className="mt-4 text-xl flex">
-            <span>Payment conditions</span>
-          </label>
-          <input
-            className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
-            placeholder="Upfront/upon delivery"
-            type="text"
-          />
-
-          <label className="mt-4 text-xl flex">
-            <span>
-              Recipient Address(leave blank if the same as applicant).
-            </span>
-          </label>
-          <input
-            className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
-            placeholder="Wallet address"
             type="text"
           />
 
@@ -156,7 +65,16 @@ const SubmitPropolsalMilestones: React.FC<Props> = (props) => {
             placeholder="Describe your deliverable, feel free to break it down in points. "
           />
 
-          <Milestone />
+          <label className="mt-4 text-xl flex">
+            <span>Milestone Deadlin</span>
+          </label>
+          <input
+            className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
+            placeholder="When do you think you'll be done with all tasks"
+            type="text"
+          />
+
+          <Task />
 
           {/* Button Row - take one level up */}
 

@@ -79,7 +79,7 @@ function ConnectWallet() {
                     </Select>
                 </FormControl>
                 ) 
-                : (<h1 className="font-sans font-light text-base">Wallet unavailable? Try out <button><Link href="/sign-in">Wallet Connect</Link></button></h1>)
+                : (<p></p>)
             }
             
         </div>

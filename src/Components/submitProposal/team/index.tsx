@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 
 import MemberCreate from "@/Components/Member/MemberCreate";
 import MemberBasic from "@/Components/Member/MemberBasic";
+import ProposalName from "../ProposalName";
 
 type Props = {
   className?: string;
@@ -35,6 +36,7 @@ const SubmitPropolsalTeam: React.FC<Props> = (props) => {
   return (
     <div className="xl:ml-48 2xl:ml-60 p-10">
       <div className="max-w-[33rem] flex flex-col">
+        <ProposalName />
         <h2 className="mt-8 text-4xl">Team Members</h2>
         <div className="mt-8 flex flex-col gap-4">
           {teamMembers.length !== 0

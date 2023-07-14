@@ -37,6 +37,8 @@ const ChooseProfile = () => {
             opt into creating a profile, only the wallet address will be
             displayed, unless you have set an on-chain identity.
           </p>
+
+          {/* Name and BIo and Picture */}
           <div className="mt-5 text-xs sm:text-base grid grid-flow-col gap-2 xl:gap-3 2xl:gap-5">
             {/*  Should go directly to dashboard */}
             <button className="disabled font-medium w-[5rem] sm:w-[8rem] md:w-[12rem] xl:w-[16rem] 2xl:w-[20rem] rounded-full py-2.5 bg-[#467EEE] shadow-md hover:bg-blue-700 shadow-md hover:shadow-2xl">
