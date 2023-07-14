@@ -3,7 +3,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { InjectedAccountWithMeta , InjectedExtension} from "@polkadot/extension-inject/types";
-import OrdumPreview from "@/Components/preview";
+import OrdumPreview from "@/Components/preview/milestones";
 
 import '@polkadot/api-augment/kusama';
 import { useProposalContext } from "@/Context/submitPropolsal";

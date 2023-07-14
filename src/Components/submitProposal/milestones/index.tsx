@@ -65,8 +65,17 @@ const SubmitPropolsalMilestones: React.FC<Props> = (props) => {
             placeholder="Describe your deliverable, feel free to break it down in points. "
           />
 
+          <label className="mt-4 text-xl flex">
+            <span>Milestone Deadlin</span>
+          </label>
+          <input
+            className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
+            placeholder="When do you think you'll be done with all tasks"
+            type="text"
+          />
+
           <Task />
-          
+
           {/* Button Row - take one level up */}
 
           {/* ToDo Indexing on the menu show Context, even after weswitch to Problem Solution */}

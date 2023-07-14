@@ -19,7 +19,7 @@ type Props = {
   ifYouHaveSeenSimilar?: string;
 };
 
-const OrdumPreview: React.FC<Props> = (props) => {
+const MilestonesPreview: React.FC<Props> = (props) => {
   return (
     <div className="flex flex-col">
       <div className="">
@@ -48,7 +48,7 @@ const OrdumPreview: React.FC<Props> = (props) => {
         <div className="mt-10 flex flex-row gap-2">
           <div className="flex gap-1">
             <span className="text-sm font-bold">Posted by</span>
-            <span className="-mt-0.5">Xylo Drone</span>
+            <span className="-mt-0.5">Name</span>
           </div>
 
           <div className="flex gap-1">
@@ -69,7 +69,7 @@ const OrdumPreview: React.FC<Props> = (props) => {
 
         <div className="mt-5 flex flex-row gap-5">
           <Link href="/submitproposal/review">
-            <button className="w-[10rem] font-medium text-sm px-5 bg-ordum-blue py-2 rounded-full border border-ordum-blue">
+            <button className="w-[10rem] font-medium text-sm px-5  py-2 rounded-full border border-ordum-blue">
               Summary
             </button>
           </Link>
@@ -80,7 +80,7 @@ const OrdumPreview: React.FC<Props> = (props) => {
             Team
           </button>
           <Link href="/submitproposal/review-milestones">
-            <button className="w-[10rem] font-medium text-sm px-5 py-2  rounded-full border border-ordum-blue">
+            <button className="w-[10rem] font-medium text-sm px-5 py-2 bg-ordum-blue rounded-full border border-ordum-blue">
               Milestones
             </button>
           </Link>
@@ -127,61 +127,51 @@ const OrdumPreview: React.FC<Props> = (props) => {
         </div>
 
         <div className="mt-10">
-          <h2 className="font-medium text-xl">Short Descripton</h2>
-          <div className="mt-0.5 border-t" />
+          <div className="mt-5 border rounded-full px-2 py-4 flex gap-10">
+            <div className="mt-3">#1: KILT Intergration</div>
+            <div className="flex flex-col ">
+              <div>Total Cost</div>
+              <div>XXXXXXXXX USD</div>
+            </div>
+            <div className="flex flex-col ">
+              <div>Dead Line</div>
+              <div>04/02/25</div>
+            </div>
+            <button className="border rounded-full px-5 ">Pivot</button>
+            <button className="border rounded-full px-5 ">View</button>
+          </div>
 
-          <div className="my-4 font-medium text-lg">Introduction</div>
-          <p>
-            Quantum computers represent a groundbreaking paradigm shift in
-            computing technology, harnessing the principles of quantum mechanics
-            to unlock immense computational power. Unlike classical computers
-            that use bits to represent information as 0s and 1s, quantum
-            computers employ qubits, which can exist in multiple states
-            simultaneously. This fundamental property, known as superposition,
-            allows quantum computers to perform parallel computations and
-            explore numerous solutions simultaneously.
-          </p>
-          <div className="my-4 font-medium text-lg">Problem</div>
-          <p>
-            By leveraging superposition and another key quantum phenomenon
-            called entanglement, quantum computers can solve complex problems
-            with incredible speed and efficiency. They have the potential to
-            revolutionize various fields, including cryptography, optimization,
-            and scientific simulations. For example, quantum algorithms such as
-            Shor's algorithm can efficiently factor large numbers, posing a
-            significant threat to current encryption methods. Moreover, quantum
-            computers excel at optimization problems, enabling faster and more
-            effective solutions for logistical challenges, financial modeling,
-            and supply chain management. They can analyze vast amounts of data
-            and identify optimal solutions in ways that are currently infeasible
-            for classical computers.
-          </p>
-          <div className="my-4 font-medium text-lg">Solution</div>
-          <p>
-            Scientific simulations stand to benefit immensely from quantum
-            computers as well. They can simulate quantum systems more
-            accurately, allowing scientists to explore molecular interactions,
-            chemical reactions, and material properties in unprecedented detail.
-            This capability has the potential to revolutionize drug discovery,
-            material design, and quantum physics research. However, building and
-            operating quantum computers is incredibly challenging due to the
-            delicate nature of qubits. Maintaining coherence—the stability of
-            qubits' quantum states—is a persistent obstacle. Quantum error
-            correction techniques are being developed to mitigate errors and
-            enhance the reliability of quantum computations.
-          </p>
-          <div className="my-4 font-medium text-lg">Team Credentials</div>
-          <p>
-            Researchers and companies worldwide, including IBM, Google, and
-            Microsoft, are actively working on advancing quantum computing
-            technologies. They are exploring various qubit implementations, such
-            as superconducting circuits, trapped ions, topological qubits, and
-            more, aiming to develop robust and scalable quantum systems.
-          </p>
+          <div className="mt-5 border rounded-full px-2 py-4 flex gap-10">
+            <div className="mt-3">#2: Smart Contracts</div>
+            <div className="flex flex-col ">
+              <div>Total Cost</div>
+              <div>XXXXXXXXX USD</div>
+            </div>
+            <div className="flex flex-col ">
+              <div>Dead Line</div>
+              <div>04/02/25</div>
+            </div>
+            <button className="border rounded-full px-5 ">Pivot</button>
+            <button className="border rounded-full px-5 ">View</button>
+          </div>
+
+          <div className="mt-5 border rounded-full px-2 py-4 flex gap-10">
+            <div className="mt-3">#3: New Design</div>
+            <div className="flex flex-col ">
+              <div>Total Cost</div>
+              <div>XXXXXXXXX USD</div>
+            </div>
+            <div className="flex flex-col ">
+              <div>Dead Line</div>
+              <div>04/02/25</div>
+            </div>
+            <button className="border rounded-full px-5 ">Pivot</button>
+            <button className="border rounded-full px-5 ">View</button>
+          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default OrdumPreview;
+export default MilestonesPreview;

@@ -152,8 +152,12 @@ const Task: React.FC<Props> = (props) => {
         // onChange={(e) => setName(e.target.value)}
       />
 
-      <button className="mt-4 border border-white rounded-full py-4 w-full ">
+      <button className="mt-4 border border-white rounded-full py-3 w-full ">
         + Add link
+      </button>
+
+      <button className="mt-4 border border-white rounded-full fons py-4 w-full ">
+        + Add Task
       </button>
     </div>
   );
