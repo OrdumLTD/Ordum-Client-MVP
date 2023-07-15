@@ -3,11 +3,13 @@
 // import Link from "next/link";
 import Image from "next/image";
 
-import { Mail, GitHub } from "react-feather";
-import Discord from "@/assets/svg-icons/discord.svg";
-import Twitter from "@/assets/svg-icons/twitter-icon.svg";
-import Matrix from "@/assets/svg-icons/matrix.png";
-import Website from "@/assets/svg-icons/global.png";
+// import { Mail, GitHub } from "react-feather";
+import GitHubIcon from "@/assets/svg-icons/github-light-icon.svg";
+import Email from "@/assets/svg-icons/email-light-icon.svg";
+import Discord from "@/assets/svg-icons/discord-light-icon.svg";
+import Twitter from "@/assets/svg-icons/twitter-light-icon.svg";
+import Matrix from "@/assets/svg-icons/matric-light-icon.svg";
+import Website from "@/assets/svg-icons/web-light-icon.svg";
 import Link from "next/link";
 
 const CreateTeam = () => {
@@ -136,7 +138,7 @@ const CreateTeam = () => {
           <div className="mt-5 justify-self-start w-full">
             <h3 className="mb-4">Links</h3>
             <div className="flex">
-              <Mail size="40" color="#fff" />{" "}
+            <Image src={Email} alt="Email" height={36} />{" "}
               <input
                 className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit "
@@ -145,7 +147,7 @@ const CreateTeam = () => {
               />
             </div>
             <div className="mt-4 flex">
-              <Image src={Discord} alt="Discord" height={25} />{" "}
+              <Image src={Discord} alt="Discord" height={36} />{" "}
               <input
                 className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit"
@@ -154,7 +156,7 @@ const CreateTeam = () => {
               />
             </div>
             <div className="mt-4 flex">
-              <Image src={Twitter} alt="Twitter" />{" "}
+              <Image src={Twitter} alt="Twitter" height={36}/>{" "}
               <input
                 className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit"
@@ -164,7 +166,7 @@ const CreateTeam = () => {
             </div>
 
             <div className="mt-4 flex">
-              <Image src={Matrix} alt="Matrix" />{" "}
+              <Image src={Matrix} alt="Matrix" height={36}/>{" "}
               <input
                 className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit"
@@ -173,7 +175,7 @@ const CreateTeam = () => {
               />
             </div>
             <div className="mt-4 flex">
-              <Image src={Website} alt="Website" />{" "}
+              <Image src={Website} alt="Website" height={36}/>{" "}
               <input
                 className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit"
@@ -182,7 +184,7 @@ const CreateTeam = () => {
               />
             </div>
             <div className="mt-4 flex">
-              <GitHub size="40" />
+            <Image src={GitHubIcon} alt="Discord" height={36} />{" "}
               <input
                 className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit"
