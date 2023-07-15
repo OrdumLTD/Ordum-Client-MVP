@@ -72,7 +72,7 @@ const CreateTeam = () => {
               className=" 
              mr-4 
             w-full
-            block pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
+            pl-2 md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
             focus:outline-none bg-inherit
             text-[#CAC9C9]"
             >

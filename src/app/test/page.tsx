@@ -10,6 +10,7 @@ import MemberCreate from "@/Components/Member/MemberCreate";
 import TaskPreview from "@/Components/tast/TestPreview";
 import MilestoneCreate from "@/Components/milestones/MilestoneCreate";
 import Button from "@/Components/ui/buttons/Button";
+import Dropdown from "@/Components/ui/Dropdown";
 
 const Test = () => {
   return (
@@ -19,6 +20,9 @@ const Test = () => {
           </Button>
       <Layout>
         <div className="m-10">
+
+          <Dropdown />
+
           <Button className="" primeColor>
             Hi there buddy
           </Button>
