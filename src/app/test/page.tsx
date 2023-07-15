@@ -9,16 +9,28 @@ import Layout from "@/Components/ui/Layout";
 import MemberCreate from "@/Components/Member/MemberCreate";
 import TaskPreview from "@/Components/tast/TestPreview";
 import MilestoneCreate from "@/Components/milestones/MilestoneCreate";
+import Button from "@/Components/ui/buttons/Button";
 
 const Test = () => {
   return (
     <div>
+      <Button className="" primeColor>
+            Hi there buddy
+          </Button>
       <Layout>
         <div className="m-10">
- 
+          <Button className="" primeColor>
+            Hi there buddy
+          </Button>
 
-          <div className="mt-10">
+          <Button className="block my-10" secondaryColor>
+            Hi there buddy
+          </Button>
 
+          <Button className="block my-10" primeColor>
+            Hi there buddy
+          </Button>
+          <div className="">
             <h1 className="text-2xl font-bold">MILSTONE CREATE</h1>
             <MilestoneCreate />
 

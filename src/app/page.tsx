@@ -1,6 +1,6 @@
 'use client'
 
-import LogIn from '@/Components/login/loginNew'
+import LogIn from '@/Components/login/login'
 // import LogIn from '@/Components/login/'
 
 
