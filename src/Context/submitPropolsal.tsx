@@ -34,10 +34,21 @@ export type context = {
   similarSolution: string;
 };
 
-// Context (/theproposal) update
+// Teammember 
+interface teamMember {
+  name: string;
+  contact: string;
+  portfolio?: string;
+  role: string;
+  bio: string;
+  // NOT STORED 
+  email?: string
+};
 
 // Adding team members in the proposal
-export type teamMembers = {};
+export type teamMembers = {
+  teammembers: teamMember[]
+};
 
 export type submitContext = {
   proposalStep?: number;

@@ -23,9 +23,9 @@ const Test = () => {
             <TextEditorDropdown />
           </div>
 
-          <div className="mt-10 text-black w-8/12">
+          {/* <div className="mt-10 text-black w-8/12">
             <TextEditor />
-          </div>
+          </div> */}
 
           <Dropdown />
 
