@@ -13,7 +13,6 @@ import { useChainApiContext } from "@/Context/ChainApiStore";
 import { useFetchedProfileContext } from "@/Context/ProfileStore";
 import { FetchedProfileData } from "@/Context/ProfileStore";
 
-
 enum About {
   Summary,
   Activity,
@@ -21,34 +20,36 @@ enum About {
 }
 
 const TeamMembersProfile = () => {
-
   //Context
-  const {account,signer} = useWalletContext();
-  const {loadContractApi,cache,contractApi} = usePhalaContractContext();
-  const {poc5} = useChainApiContext();
-  const {fetchedStatus,} = useFetchedProfileContext()
+  const { account, signer } = useWalletContext();
+  const { loadContractApi, cache, contractApi } = usePhalaContractContext();
+  const { poc5 } = useChainApiContext();
+  const { fetchedStatus } = useFetchedProfileContext();
 
-  {/* Handle the error */}
-  const fetchApplicantProfile =async()=>{
-    if(contractApi && poc5 && signer && account){
+  {
+    /* Handle the error */
+  }
+  const fetchApplicantProfile = async () => {
+    if (contractApi && poc5 && signer && account) {
       const profile = await getApplicant(
         contractApi,
         poc5,
         signer,
         account,
         cache
-      )
-      console.log(profile.output?.toHuman())
-    }else{
-      {/* SignUp page */}
-      <div></div>
+      );
+      console.log(profile.output?.toHuman());
+    } else {
+      {
+        /* SignUp page */
+      }
+      <div></div>;
     }
-   
-  }
+  };
 
-  useEffect(()=>{
-      fetchApplicantProfile()
-  })
+  useEffect(() => {
+    fetchApplicantProfile();
+  });
 
   const [aboutMenu, setAboutMenu] = useState(About.Summary);
 
@@ -58,7 +59,6 @@ const TeamMembersProfile = () => {
       <div className="font-space-grotesk flex flex-col ">
         {/* Banner */}
         <div className="h-40 md:h-60 bg-emerald-500"></div>
-        {/* Company info and social */}
         <nav className="flex navbar relative mb-8 md:mb-16">
           <div className="ml-2 md:ml-16 w-full flex ">
             <div
@@ -71,21 +71,6 @@ const TeamMembersProfile = () => {
             <div className="ml-1 md:ml-5 md:mt-2 flex flex-col">
               <span className="md:text-xl">ORG Name</span>
               <span className="text-xs md:text-sm">Project type</span>
-            </div>
-            <div className="absolute mt-2 right-16 md:mt-4 md:right-32 flex flex-row items-center">
-              <span>...</span>
-              <span className="mr-1">
-                <BookmarkIcon />
-              </span>
-              <button
-                className="
-          rounded
-          px-2 md:px-16 md:py-0.5 md:py-1
-          bg-black text-white
-          text-sm md:text-base"
-              >
-                Follow
-              </button>
             </div>
           </div>
         </nav>
@@ -102,13 +87,13 @@ const TeamMembersProfile = () => {
               className={aboutMenu === About.Activity ? "font-bold" : ""}
               onClick={() => setAboutMenu(About.Activity)}
             >
-              Activity
+              Work
             </button>
             <button
               className={aboutMenu === About.Team ? "font-bold" : ""}
               onClick={() => setAboutMenu(About.Team)}
             >
-              Team
+              Skills
             </button>
           </div>
           {aboutMenu === About.Summary ? <Summary /> : null}

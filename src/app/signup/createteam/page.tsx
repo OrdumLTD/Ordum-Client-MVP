@@ -82,8 +82,19 @@ const CreateTeam = () => {
               <option value="All">
                 What are you creating? Chooce a category
               </option>
-              <option value="Option 1">Option 1</option>
-              <option value="Option 2">Option 2</option>
+              <option value="All">What chain are you building on?</option>
+              <option value="DeFi">DeFi </option>
+              <option value="Privacy ">Privacy </option>
+              <option value="Infrastructure">Infrastructure</option>
+              <option value="Network Changes">IdNetwork Changesentity</option>
+              <option value="Art">Art</option>
+              <option value="Media">Media</option>
+              <option value="Gaming">Gaming</option>
+              <option value="Events">Events</option>
+              <option value="Educationtity">Education</option>
+              <option value="NFTs">NFTs</option>
+              <option value="Translations">Translations</option>
+              <option value="Other">Other</option>
             </select>
 
             <button className="w-40 rounded py-2.5 md:py-3 bg-ordum-purple font-semibold shadow shadow-md hover:shadow-2xl">
@@ -111,9 +122,9 @@ const CreateTeam = () => {
               <option value="" className="" disabled hidden>
                 All
               </option>
-              <option value="All">What chain are you building on?</option>
-              <option value="Option 1">Option 1</option>
-              <option value="Option 2">Option 2</option>
+              <option value="Kusama">What chain are you building on?</option>
+              <option value="DeFi">DeFi </option>
+              <option value="Privacy ">Privacy </option>
             </select>
 
             <button className="w-40 rounded py-2.5 md:py-3 bg-ordum-purple font-semibold shadow shadow-md hover:shadow-2xl">
@@ -138,7 +149,7 @@ const CreateTeam = () => {
           <div className="mt-5 justify-self-start w-full">
             <h3 className="mb-4">Links</h3>
             <div className="flex">
-            <Image src={Email} alt="Email" height={36} />{" "}
+              <Image src={Email} alt="Email" height={36} />{" "}
               <input
                 className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit "
@@ -156,7 +167,7 @@ const CreateTeam = () => {
               />
             </div>
             <div className="mt-4 flex">
-              <Image src={Twitter} alt="Twitter" height={36}/>{" "}
+              <Image src={Twitter} alt="Twitter" height={36} />{" "}
               <input
                 className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit"
@@ -166,7 +177,7 @@ const CreateTeam = () => {
             </div>
 
             <div className="mt-4 flex">
-              <Image src={Matrix} alt="Matrix" height={36}/>{" "}
+              <Image src={Matrix} alt="Matrix" height={36} />{" "}
               <input
                 className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit"
@@ -175,7 +186,7 @@ const CreateTeam = () => {
               />
             </div>
             <div className="mt-4 flex">
-              <Image src={Website} alt="Website" height={36}/>{" "}
+              <Image src={Website} alt="Website" height={36} />{" "}
               <input
                 className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit"
@@ -184,7 +195,7 @@ const CreateTeam = () => {
               />
             </div>
             <div className="mt-4 flex">
-            <Image src={GitHubIcon} alt="Discord" height={36} />{" "}
+              <Image src={GitHubIcon} alt="Discord" height={36} />{" "}
               <input
                 className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit"

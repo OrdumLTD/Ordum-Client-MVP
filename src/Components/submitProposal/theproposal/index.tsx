@@ -6,6 +6,7 @@ import { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useProposalContext } from "@/Context/submitPropolsal";
 import ProposalName from "../ProposalName";
+import TextEditorDropdown from "@/Components/TextEditor/TextEditorDropdown";
 
 type Props = {
   className?: string;
@@ -16,10 +17,21 @@ const SubmitProposalContext: React.FC<Props> = (props) => {
 
   const router = useRouter();
 
+  const [contextxOfProposalA, setContextOfProposalA] = useState("");
+  const [contextxOfProposalB, setContextOfProposalB] = useState("");
+  const [problemStatement, setProblemStatement] = useState("");
+  const [theSolution, setTheSolution] = useState("");
+  const [theSolutionA, setTheSolutionA] = useState("");
+  const [theSolutionB, setTheSolutionB] = useState("");
+  const [whyKusama, setWhyKusama] = useState("");
+  const [similarProposal, setSimilarProposal] = useState("");
+
   const changePropolsalSubPage = async (step: number, route: string) => {
     changeToStep(step);
     router.push(route);
   };
+
+  console.log("text: " + contextxOfProposalA)
 
   return (
     <div className="xl:ml-48 2xl:ml-60 p-10">
@@ -27,25 +39,6 @@ const SubmitProposalContext: React.FC<Props> = (props) => {
         {/* <h2 className="mt-8 text-4xl">{tldr?.teamName}</h2> */}
         <ProposalName />
         <div className="mt-4">
-          {/* <label className="mt-4 text-xs md:text-sm flex">
-            <span>
-              How did the proposal come to the proponent&apos;s mind? Feel free
-              to link any previous conversations from external channels.
-            </span>
-          </label> */}
-          {/* ToDo fix line break for plaeholder */}
-          {/* <textarea
-            className="mt-2 w-full text-sm bg-white placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]"
-            placeholder="Which problems did you encounter? What inspired you to create this proposal and initiate your project? Did you have any discussions with community members so far? What are their opinions on the matter? 
-WIP ~ would be good to add example text here from a previous proposal. 
-
-
---> enable image upload, and decide on editing tools "
-            value={contextCtx.howDidItComeToMind}
-            onChange={(e) => {
-              handleSubmitCtxChange({ howDidItComeToMind: e.target.value });
-            }}
-          /> */}
 
           <div className="border border-black py-5 px-4">
             <h2 className="text-xl">1. Context of the proposal</h2>
@@ -58,6 +51,8 @@ WIP ~ would be good to add example text here from a previous proposal.
               proposal and background research for your project.
             </p>
           </div>
+
+          <TextEditorDropdown text={contextxOfProposalA} changeText={setContextOfProposalA} className="text-black"/>
 
           <div className="mt-5">
             <p className="hover:cursor-pointer text-gray-400">

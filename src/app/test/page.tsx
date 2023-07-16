@@ -11,15 +11,21 @@ import TaskPreview from "@/Components/tast/TestPreview";
 import MilestoneCreate from "@/Components/milestones/MilestoneCreate";
 import Button from "@/Components/ui/buttons/Button";
 import Dropdown from "@/Components/ui/Dropdown";
+import TextEditor from "@/Components/TextEditor";
+import TextEditorDropdown from "@/Components/TextEditor/TextEditorDropdown";
 
 const Test = () => {
   return (
     <div>
-      <Button className="" primeColor>
-            Hi there buddy
-          </Button>
       <Layout>
         <div className="m-10">
+          <div>
+            <TextEditorDropdown />
+          </div>
+
+          <div className="mt-10 text-black w-8/12">
+            <TextEditor />
+          </div>
 
           <Dropdown />
 

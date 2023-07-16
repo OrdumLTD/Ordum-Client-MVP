@@ -20,25 +20,23 @@ const Button: React.FC<Button> = ({
   primeColor,
   secondaryColor,
 }) => {
+  let btnClass = " p-2 px-6 rounded-full drop-shadow-lg ";
 
-  let btnClass = " border p-2 drop-shadow-lg ";
+  const defineStyle = (style: string) => {
+    if (primeColor && secondaryColor) {
+      throw new Error(
+        "Button element can have either primeColor and/or a secondaryColor, but not both"
+      );
+    }
 
-  const defineStyle = (style:string) =>{
+    if (primeColor) style += " bg-ordum-blue hover:bg-blue-900 ";
+    if (secondaryColor) style += " bg-ordum-purple hover:bg-blue-900 ";
+    if (borderWhite) style += "   border border-white rounded-full border-2  ";
+    if (borderBlack) style += "  border border-black rounded-full border-2 ";
+    if (className) style = style + " " + className + " ";
 
-  if (primeColor && secondaryColor) {
-    throw new Error(
-      "Button element can have either primeColor and/or a secondaryColor, but not both"
-    );
-  }
-
-  if (className) style = style + " " + className + " ";
-  if (primeColor) style += " bg-ordum-purple hover:bg-blue-900 ";
-  if (secondaryColor) style += " bg-ordum-blue hover:bg-blue-900 ";
-  if (borderWhite) style += "   border border-white rounded-full border-2  ";
-  if (borderBlack) style += "  border border-black rounded-full border-2 ";
-
-  return style
-}
+    return style;
+  };
 
   return <button className={defineStyle(btnClass)}>{children}</button>;
 };
