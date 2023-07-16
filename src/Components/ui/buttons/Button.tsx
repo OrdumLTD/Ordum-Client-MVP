@@ -2,6 +2,7 @@ import * as React from "react";
 
 type Button = {
   children: React.ReactNode;
+  onClick?: ((event: React.MouseEvent<HTMLButtonElement>) => void) | undefined;
   className?: string;
   buttonBasic?: boolean;
   borderWhite?: boolean;
@@ -13,6 +14,7 @@ type Button = {
 // export default function Button(props:Button) {
 const Button: React.FC<Button> = ({
   children,
+  onClick,
   className,
   buttonBasic,
   borderWhite,
@@ -38,7 +40,7 @@ const Button: React.FC<Button> = ({
     return style;
   };
 
-  return <button className={defineStyle(btnClass)}>{children}</button>;
+  return <button className={defineStyle(btnClass)} onClick={onClick}>{children}</button>;
 };
 
 export default Button;

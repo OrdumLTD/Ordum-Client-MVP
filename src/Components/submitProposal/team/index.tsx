@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 import { useRouter } from "next/navigation";
 
 import MemberCreate from "@/Components/Member/MemberCreate";
 import MemberBasic from "@/Components/Member/MemberBasic";
 import ProposalName from "../ProposalName";
+import Button from "@/Components/ui/buttons/Button";
+import Modal from "@/Components/ui/Modal";
 
 type Props = {
   className?: string;
@@ -14,6 +16,7 @@ type Props = {
 
 const SubmitPropolsalTeam: React.FC<Props> = (props) => {
   const [teamMembers, setTeamMembers] = useState<[]>([]);
+  const [modalOpen, setModalOpen] = useState(false);
 
   // const submitCtx = useContext(SubmitPropolsalContext);
   const router = useRouter();
@@ -34,11 +37,11 @@ const SubmitPropolsalTeam: React.FC<Props> = (props) => {
   };
 
   return (
-    <div className="xl:ml-48 2xl:ml-60 p-10">
-      <div className="max-w-[33rem] flex flex-col">
+    <div className="xl:ml-48 2xl:ml-60 p-10 ">
+      <div className="w-[33rem] flex flex-col">
         <ProposalName />
         <h2 className="mt-8 text-4xl">Team Members</h2>
-        <div className="mt-8 flex flex-col gap-4">
+        <div className="mt-8 flex flex-col gap-4 w-[33rem]">
           {teamMembers.length !== 0
             ? teamMembers.map((member) => (
                 <MemberBasic
@@ -49,7 +52,11 @@ const SubmitPropolsalTeam: React.FC<Props> = (props) => {
               ))
             : null}
         </div>
+        {/* <MemberCreate handleSumbit={addNewMember} /> */}
+
+        {/* <Modal isOpen={modalOpen} handleIsOpen={setModalOpen}> */}
         <MemberCreate handleSumbit={addNewMember} />
+        {/* </Modal> */}
       </div>
 
       <div className="mt-10 flex flex-col gap-4">
@@ -68,7 +75,7 @@ const SubmitPropolsalTeam: React.FC<Props> = (props) => {
           Save draft and Close
         </button>
         <button
-          className="bg-gray-400 text-white py-2 md:py-4"
+          className=" bg-gray-400 text-white py-2 md:py-4 "
           onClick={() =>
             changePropolsalSubPage(3, "/submitproposal/problem-solution")
           }

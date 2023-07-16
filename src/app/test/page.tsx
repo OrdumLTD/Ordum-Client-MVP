@@ -13,8 +13,12 @@ import Button from "@/Components/ui/buttons/Button";
 import Dropdown from "@/Components/ui/Dropdown";
 import TextEditor from "@/Components/TextEditor";
 import TextEditorDropdown from "@/Components/TextEditor/TextEditorDropdown";
+import Modal from "@/Components/ui/Modal";
+import { useState } from "react";
 
 const Test = () => {
+  const [modalIsOpen, setModalisOpen] = useState(false);
+
   return (
     <div>
       <Layout>
@@ -22,6 +26,16 @@ const Test = () => {
           <div>
             <TextEditorDropdown />
           </div>
+          <button onClick={() => setModalisOpen(!modalIsOpen)}>Show modal</button>
+          <Modal isOpen={modalIsOpen} handleIsOpen={setModalisOpen}>
+            {" "}
+            <p className="text-black">Test</p>{" "}
+          </Modal>
+          {/* <Modal>
+            <div className="flex flex-col overflow-auto">
+              <MemberCreate />
+            </div>
+          </Modal> */}
 
           {/* <div className="mt-10 text-black w-8/12">
             <TextEditor />
