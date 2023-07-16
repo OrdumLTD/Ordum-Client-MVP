@@ -17,21 +17,42 @@ const SubmitProposalContext: React.FC<Props> = (props) => {
 
   const router = useRouter();
 
-  const [contextxOfProposalA, setContextOfProposalA] = useState("");
-  const [contextxOfProposalB, setContextOfProposalB] = useState("");
-  const [problemStatement, setProblemStatement] = useState("");
-  const [theSolution, setTheSolution] = useState("");
-  const [theSolutionA, setTheSolutionA] = useState("");
-  const [theSolutionB, setTheSolutionB] = useState("");
-  const [whyKusama, setWhyKusama] = useState("");
-  const [similarProposal, setSimilarProposal] = useState("");
-
   const changePropolsalSubPage = async (step: number, route: string) => {
     changeToStep(step);
     router.push(route);
   };
 
-  console.log("text: " + contextxOfProposalA)
+  const handleContextOfProposal = (text: string) => {
+    changeContext({ contextOfTheProposal: text });
+  };
+
+  const handleKnownBackups = (text: string) => {
+    changeContext({ knownBackups: text });
+  };
+
+  const handleProblemStatement = (text: string) => {
+    changeContext({ problemStatement: text });
+  };
+
+  const handleSolution = (text: string) => {
+    changeContext({ solution: text });
+  };
+
+  const handleKsmImprovements = (text: string) => {
+    changeContext({ ksmImprovements: text });
+  };
+
+  const handleTargetAudience = (text: string) => {
+    changeContext({ targetAudience: text });
+  };
+
+  const handleWhyKSM = (text: string) => {
+    changeContext({ whyKSM: text });
+  };
+
+  const handleSimilalSolution = (text: string) => {
+    changeContext({ similarSolution: text });
+  };
 
   return (
     <div className="xl:ml-48 2xl:ml-60 p-10">
@@ -39,7 +60,6 @@ const SubmitProposalContext: React.FC<Props> = (props) => {
         {/* <h2 className="mt-8 text-4xl">{tldr?.teamName}</h2> */}
         <ProposalName />
         <div className="mt-4">
-
           <div className="border border-black py-5 px-4">
             <h2 className="text-xl">1. Context of the proposal</h2>
             <p className="mt-4 text-gray-400">
@@ -52,22 +72,26 @@ const SubmitProposalContext: React.FC<Props> = (props) => {
             </p>
           </div>
 
-          <TextEditorDropdown text={contextxOfProposalA} changeText={setContextOfProposalA} className="text-black"/>
+          <TextEditorDropdown
+            text={context?.contextOfTheProposal}
+            changeText={handleContextOfProposal}
+            className="text-black mt-5"
+          />
 
-          <div className="mt-5">
+          {/* <div className="mt-5">
             <p className="hover:cursor-pointer text-gray-400">
               Click here to type and open text editor.
             </p>
-          </div>
+          </div> */}
 
           {/* Add context handler */}
-          <textarea
+          {/* <textarea
+            value={context?.contextOfTheProposal}
             onChange={(e) =>
-              //@ts-ignore
-              changeContext({ contextOfTheProposal: { data: e.target.value } })
+              changeContext({ contextOfTheProposal: e.target.value })
             }
             className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]"
-          />
+          /> */}
 
           <div className="mt-8 border border-black py-5 px-4">
             <p className="mt-4 ">
@@ -81,21 +105,10 @@ const SubmitProposalContext: React.FC<Props> = (props) => {
             </p>
           </div>
 
-          <div className="mt-5">
-            <p className="hover:cursor-pointer text-gray-400">
-              Click here to type and open text editor.
-            </p>
-          </div>
-
-          {/* Add context handler */}
-          <textarea
-            onChange={(e) =>
-              //@ts-ignore
-              changeContext({
-                contextOfTheProposal: { knownBackups: e.target.value },
-              })
-            }
-            className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]"
+          <TextEditorDropdown
+            text={context?.knownBackups}
+            changeText={handleKnownBackups}
+            className="text-black mt-5"
           />
 
           <div className="border border-black py-5 px-4 mt-10">
@@ -107,19 +120,10 @@ const SubmitProposalContext: React.FC<Props> = (props) => {
             </p>
           </div>
 
-          <div className="mt-5">
-            <p className="hover:cursor-pointer text-gray-400">
-              Click here to type and open text editor.
-            </p>
-          </div>
-
-          {/* Add context handler */}
-          <textarea
-            onChange={(e) =>
-              //@ts-ignore
-              changeContext({ problemStatement: e.target.value })
-            }
-            className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]"
+          <TextEditorDropdown
+            text={context?.problemStatement}
+            changeText={handleProblemStatement}
+            className="text-black mt-5"
           />
 
           <div className="mt-10 border border-black py-5 px-4">
@@ -133,19 +137,10 @@ const SubmitProposalContext: React.FC<Props> = (props) => {
             </p>
           </div>
 
-          <div className="mt-5">
-            <p className="hover:cursor-pointer text-gray-400">
-              Click here to type and open text editor.
-            </p>
-          </div>
-
-          {/* Add context handler */}
-          <textarea
-            onChange={(e) =>
-              //@ts-ignore
-              changeContext({ solution: { data: e.target.value } })
-            }
-            className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]"
+          <TextEditorDropdown
+            text={context?.solution}
+            changeText={handleSolution}
+            className="text-black mt-5"
           />
 
           <div className="mt-10 border border-black py-5 px-4">
@@ -163,19 +158,10 @@ const SubmitProposalContext: React.FC<Props> = (props) => {
             </p>
           </div>
 
-          <div className="mt-5">
-            <p className="hover:cursor-pointer text-gray-400">
-              Click here to type and open text editor.
-            </p>
-          </div>
-
-          {/* Add context handler */}
-          <textarea
-            onChange={(e) =>
-              //@ts-ignore
-              changeContext({ solution: { ksmImprovements: e.target.value } })
-            }
-            className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]"
+          <TextEditorDropdown
+            text={context?.ksmImprovements}
+            changeText={handleKsmImprovements}
+            className="text-black mt-5"
           />
 
           <div className="mt-10 border border-black py-5 px-4">
@@ -186,19 +172,10 @@ const SubmitProposalContext: React.FC<Props> = (props) => {
             </p>
           </div>
 
-          <div className="mt-5">
-            <p className="hover:cursor-pointer text-gray-400">
-              Click here to type and open text editor.
-            </p>
-          </div>
-
-          {/* Add context handler */}
-          <textarea
-            onChange={(e) =>
-              //@ts-ignore
-              changeContext({ solution: { targetAudience: e.target.value } })
-            }
-            className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]"
+          <TextEditorDropdown
+            text={context?.targetAudience}
+            changeText={handleTargetAudience}
+            className="text-black mt-5"
           />
 
           <div className="mt-10 border border-black py-5 px-4">
@@ -209,19 +186,10 @@ const SubmitProposalContext: React.FC<Props> = (props) => {
             </p>
           </div>
 
-          <div className="mt-5">
-            <p className="hover:cursor-pointer text-gray-400">
-              Click here to type and open text editor.
-            </p>
-          </div>
-
-          {/* Add context handler */}
-          <textarea
-            onChange={(e) =>
-              //@ts-ignore
-              changeContext({ whyKSM: e.target.value })
-            }
-            className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]"
+          <TextEditorDropdown
+            text={context?.whyKSM}
+            changeText={handleWhyKSM}
+            className="text-black mt-5"
           />
 
           <div className="mt-10 border border-black py-5 px-4">
@@ -231,19 +199,10 @@ const SubmitProposalContext: React.FC<Props> = (props) => {
             </h2>
           </div>
 
-          <div className="mt-5">
-            <p className="hover:cursor-pointer text-gray-400">
-              Click here to type and open text editor.
-            </p>
-          </div>
-
-          {/* Add context handler */}
-          <textarea
-            onChange={(e) =>
-              //@ts-ignore
-              changeContext({ similarSolution: e.target.value })
-            }
-            className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]"
+          <TextEditorDropdown
+            text={context?.similarSolution}
+            changeText={handleSimilalSolution}
+            className="text-black mt-5"
           />
 
           {/* Button Row - take one level up */}

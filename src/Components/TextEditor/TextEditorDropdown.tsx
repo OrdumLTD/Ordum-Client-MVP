@@ -1,16 +1,16 @@
-import { SetStateAction, useState } from "react";
+import { ChangeEvent, useState } from "react";
 
 import { Tiptap } from "./TipTap";
 import Details from "./Details";
 
 type TextEditor = {
   text?: string;
-  changeText?: React.Dispatch<SetStateAction<string>>;
+  changeText?: (text:string) => void;
   className?: string;
 };
 
 const TextEditorDropdown: React.FC<TextEditor> = (props) => {
-  const [visible, setVisilble] = useState(true);
+  const [visible, setVisilble] = useState(false);
   const [description, setDescription] = useState(props.text);
 
   const setVisibility = (visible: boolean) => {
@@ -21,7 +21,7 @@ const TextEditorDropdown: React.FC<TextEditor> = (props) => {
   return (
     <div className={"text-black " + props.className}>
       <button
-        className="hover:cursor-pointer text-gray-400"
+        className="hover:cursor-pointer text-gray-400 mb-3"
         onClick={() => {
           setVisilble(!visible);
         }}
@@ -29,7 +29,7 @@ const TextEditorDropdown: React.FC<TextEditor> = (props) => {
         Click here to type and open text editor.
       </button>
       <div className={setVisibility(visible)}>
-        <Tiptap setDescription={setDescription} changeText={props.changeText} />
+        <Tiptap text={props.text} setDescription={setDescription} changeText={props.changeText} />
         {/* <Details description={description} /> */}
       </div>
     </div>
