@@ -34,20 +34,46 @@ export type context = {
   similarSolution: string;
 };
 
-// Teammember 
+// Teammember
 interface teamMember {
   name: string;
   contact: string;
   portfolio?: string;
   role: string;
   bio: string;
-  // NOT STORED 
-  email?: string
-};
+  // NOT STORED
+  email?: string;
+}
 
 // Adding team members in the proposal
 export type teamMembers = {
-  teammembers: teamMember[]
+  teammembers: teamMember[];
+};
+
+interface task {
+  name: string;
+  type: string;
+  taskDescription: string;
+  teammembers: {
+    teamMember: teamMember;
+    cost: {
+      typeOfUnit: string;
+      costPerUnit: number;
+      units: number;
+    }[];
+    deliverable: {
+      name: string;
+      link: string;
+    };
+  };
+  taskDeadline: string;
+}
+
+export type milestone = {
+  name: string;
+  description: string;
+  tasks: task[]
+
 };
 
 export type submitContext = {

@@ -4,29 +4,51 @@ import MemberEdit from "@/Components/Member/MemberEdit";
 import MemberBasic from "@/Components/Member/MemberBasic";
 import Milestone from "@/Components/milestones/Milestone/milestone";
 import Team from "@/Components/Team";
-import Task from "@/Components/tast/task";
+import Task from "@/Components/task/Task";
 import Layout from "@/Components/ui/Layout";
 import MemberCreate from "@/Components/Member/MemberCreate";
-import TaskPreview from "@/Components/tast/TestPreview";
+import TaskPreview from "@/Components/task/TestPreview";
 import MilestoneCreate from "@/Components/milestones/MilestoneCreate";
 import Button from "@/Components/ui/buttons/Button";
 import Dropdown from "@/Components/ui/Dropdown";
 import TextEditor from "@/Components/TextEditor";
 import TextEditorDropdown from "@/Components/TextEditor/TextEditorDropdown";
 import Modal from "@/Components/ui/Modal";
-import { useState } from "react";
+import { v4 } from "uuid";
+import { useEffect, useState } from "react";
 
 const Test = () => {
   const [modalIsOpen, setModalisOpen] = useState(false);
+  const [uuid, setUuid] = useState("");
+
+  const [milestones, setMilestones] = useState<any>([]);
+
+  const AddMileStone = (milestone: any) => {
+    setMilestones([...milestones, milestone])
+  } 
 
   return (
     <div>
       <Layout>
         <div className="m-10">
+          <div className="mt-10 mb-20">
+            <h1 className="text-3xl font-bold">NEW MILESTONES</h1>
+            <div className="mt-10">
+              <MilestoneCreate addMilestone={setMilestones}/>
+            </div>
+          </div>
+
+          <div className="mt-10 mb-20">
+            <h1 className="text-3xl font-bold">TEST UUID</h1>
+            <button onClick={() => setUuid(v4())}> Create a new UUID</button>
+            <p>New UUID: {uuid}</p>
+          </div>
           <div>
             <TextEditorDropdown />
           </div>
-          <button onClick={() => setModalisOpen(!modalIsOpen)}>Show modal</button>
+          <button onClick={() => setModalisOpen(!modalIsOpen)}>
+            Show modal
+          </button>
           <Modal isOpen={modalIsOpen} handleIsOpen={setModalisOpen}>
             {" "}
             <p className="text-black">Test</p>{" "}
