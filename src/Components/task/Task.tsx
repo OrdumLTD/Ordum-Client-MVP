@@ -47,8 +47,6 @@ const Task: React.FC<Props> = (props) => {
   };
 
   const removeTask = (id: any) => {
-    console.log(id);
-    console.log(deliverables);
     for (let i = 0; i < deliverables.length; i++) {
       if (deliverables[i]?.id === id) {
         const newArray = [...deliverables];
@@ -211,7 +209,7 @@ const Task: React.FC<Props> = (props) => {
       />
 
       <button
-        className="mt-4 border border-white rounded-full py-3 w-full"
+        className="mt-4 border border-black rounded-full py-1.5 w-full"
         onClick={() => {
           setDeliverables([
             ...deliverables,
@@ -225,7 +223,7 @@ const Task: React.FC<Props> = (props) => {
       </button>
 
       <button
-        className="mt-4 border border-white rounded-full fons py-4 w-full "
+        className="mt-4 border border-black rounded-full fons py-2.5 w-full "
         onClick={() => {
           const total = numberOfHours * costPerHour;
           props.addTask({
@@ -261,6 +259,8 @@ const Task: React.FC<Props> = (props) => {
       >
         + Add Task
       </button>
+
+     
     </div>
   );
 };

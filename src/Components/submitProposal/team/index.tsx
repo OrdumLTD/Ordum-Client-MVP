@@ -2,6 +2,8 @@
 
 import { use, useEffect, useState } from "react";
 
+'use client'
+
 import { useRouter } from "next/navigation";
 
 import MemberCreate from "@/Components/Member/MemberCreate";

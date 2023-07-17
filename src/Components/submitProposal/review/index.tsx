@@ -63,7 +63,7 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
   };
 
   return (
-    <div className="ml-10 p-10">
+    <div className="xl:ml-36 2xl:ml-48 p-10 ">
       <div className="w-full flex flex-col">
         Preview
         {/* Context */}

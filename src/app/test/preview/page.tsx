@@ -4,7 +4,7 @@ import Preview from "@/Components/preview";
 const preview = () => {
   return (
     <Layout hideSidePanel>
-      <Preview teamName="Test"  />
+      <Preview teamName="Test" />
     </Layout>
   );
 };

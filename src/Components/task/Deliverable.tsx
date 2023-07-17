@@ -17,7 +17,7 @@ const Deliverable: React.FC<Props> = (props) => {
   return (
     <div
       className={
-        "border border-white rounded-full px-1.5 py-0.5  backdrop-blur-sm bg-white/30 " +
+        "border border-black rounded-full px-1.5 py-0.5  backdrop-blur-sm bg-white/30 " +
         props.className
       }
     >
