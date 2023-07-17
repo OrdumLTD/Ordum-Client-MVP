@@ -2,7 +2,7 @@
 
 export default function GoverenceActivity() {
   return (
-    <div className="mt-4 md:mt-0 p-1 md:px-5 flex flex-col  border rounded border-black w-[16rem] md:w-[28rem] 2xl:w-[36rem]">
+    <div className="mt-4 md:mt-0 p-1 md:px-5 flex flex-col  border rounded border-black ">
       <div className="flex justify-between mb-2">
         <span className="text-sm md:text-base md:font-semibold">Governance Activity</span>{" "}
         {/* ToDo Add logic */}

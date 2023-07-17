@@ -56,17 +56,18 @@ const Layout: React.FC<Props> = (props) => {
                 href="/home/dashboard"
                 className={
                   "-ml-2 mt-3 nav-link block hover:underline transition duration-150 ease-in-out flex "
-                  }
+                  + (pathName == "/home/dashboard" ? "" : " ")}
               >
                 <div className="w-5 h-5 bg-[#1A1F37]">
                   <Image
                     src={HouseIcon}
                     alt="Ordum's cool logo"
-                    className="ml-0.5 mt-0.5"
+                    className={"ml-0.5 mt-0.5 " + (pathName == "/home/dashboard" ? "bg-ordum-blue" : " ")}
                   />
                 </div>
-                <span className={"ml-2 text-[0.9rem] " + (pathName == "/home/dashboard" ? " underline" : " ")}>Dashboard</span>
+                <span className={"ml-2 text-[0.9rem] " + (pathName == "/home/dashboard" ? "underline" : " ")}>Dashboard</span>
               </Link>
+              
               <Link
                 href="#"
                 className="-ml-2 mt-3 nav-link block hover:underline transition duration-150 ease-in-out flex"
@@ -75,11 +76,12 @@ const Layout: React.FC<Props> = (props) => {
                   <Image
                     src={BankIcon}
                     alt="Ordum's cool logo"
-                    className="ml-0.5 mt-0.5"
+                    className={"ml-0.5 mt-0.5 " + (pathName == "/home/mygrants" ? "bg-ordum-blue" : " ")}
                   />
                 </div>
                 <span className={"ml-2 text-[0.9rem] " + (pathName == "/home/mygrants" ? " underline" : " ")}>My Grants</span>
               </Link>
+
               <Link
                 href="/home/manageteams"
                 className="-ml-2 mt-3 nav-link block hover:underline transition duration-150 ease-in-out flex"
@@ -88,11 +90,12 @@ const Layout: React.FC<Props> = (props) => {
                   <Image
                     src={PeopleIcon}
                     alt="Ordum's cool logo"
-                    className="ml-0.5 mt-0.5"
+                    className={"ml-0.5 mt-0.5 " + (pathName == "/home/manageteams" ? "bg-ordum-blue" : " ")}
                   />
                 </div>
                 <span className={"ml-2 text-[0.9rem] " + (pathName == "/home/manageteams" ? " underline" : " ")}>Manage Teams</span>
               </Link>
+
               <Image src={Devider} alt="diveder" className="mt-4 scale-125" />
 
               <Link

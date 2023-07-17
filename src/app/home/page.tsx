@@ -34,7 +34,7 @@ const TeamMembersProfile = () => {
        bg-black rounded-full text-white"
             ></div>
             <div className="ml-1 md:ml-5 md:mt-2 flex flex-col">
-              <span className="md:text-xl">ORG Name</span>
+              <span className="md:text-xl">Ordum User</span>
               <span className="text-xs md:text-sm">Project type</span>
             </div>
             <div className="absolute mt-2 right-16 md:mt-4 md:right-32 flex flex-row items-center">

@@ -82,7 +82,7 @@ export const useProfileContext =()=> useContext(ProfileContext);
 export interface FetchedProfileData{
   teamType:string, //If its an individual or Organization
   userType:string, // If its an applicant or Issuer
-  teamName: string;
+  teamName: string; // ISSUE - Should this be a profileName, just for clarity
   description: string;
   mission: string;
   projectType: Categories[];
