@@ -13,6 +13,9 @@ import { useChainApiContext } from "@/Context/ChainApiStore";
 import { useFetchedProfileContext } from "@/Context/ProfileStore";
 import { FetchedProfileData } from "@/Context/ProfileStore";
 
+import KittyIcon from "@/assets/svg-icons/kitty-icon.svg"
+import Image from "next/image";
+
 enum About {
   Summary,
   Activity,
@@ -58,18 +61,23 @@ const TeamMembersProfile = () => {
       {" "}
       <div className="font-space-grotesk flex flex-col ">
         {/* Banner */}
-        <div className="h-40 md:h-60 bg-emerald-500"></div>
+        <div className="h-40 md:h-60 bg-[url('/background/ordum-banner.jpeg')]"></div>
         <nav className="flex navbar relative mb-8 md:mb-16">
           <div className="ml-2 md:ml-16 w-full flex ">
-            <div
+            {/* <div
               className="
        -mt-5 h-14 w-14
        md:-mt-8 md:h-24 md:w-24
        border-2
        bg-black rounded-full text-white"
-            ></div>
+            ></div> */}
+            <Image src={KittyIcon} alt="user icon" className="
+       -mt-5 h-14 w-14
+       md:-mt-8 md:h-24 md:w-24
+       backdrop-blur-md
+       "/>
             <div className="ml-1 md:ml-5 md:mt-2 flex flex-col">
-              <span className="md:text-xl">ORG Name</span>
+              <span className="md:text-xl">Ordum Name</span>
               <span className="text-xs md:text-sm">Project type</span>
             </div>
           </div>
