@@ -1,0 +1,38 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>90</x><y>90</y><w>270</w><h>140</h></coordinates><panel_attributes>_object: Ordum User
+--
+id: uuid="36548"
+address: (either wallet or email)
+type: (Organzation | Individual)
+role: (designes etc...)
+adminStatus: (SuperUser, Admin, Regular)
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>200</x><y>220</y><w>90</w><h>130</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>30;110;70;50;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>370</x><y>380</y><w>240</w><h>110</h></coordinates><panel_attributes>_object: Milesotne
+--
+id: uuid
+hash: string
+name: string
+description: string
+completed: True
+tasks: task[ ]</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>190</x><y>370</y><w>200</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>180;10;130;20;10;70</additional_attributes></element><element><id>UMLClass</id><coordinates><x>770</x><y>390</y><w>270</w><h>140</h></coordinates><panel_attributes>_object: Task
+--
+id: uuid
+name: string
+type: string
+stringDescription
+teamMemmbersWithPrice:  teamMember[ ]
+[waiting for message]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>960</x><y>120</y><w>360</w><h>130</h></coordinates><panel_attributes>_object: TeamMember
+--
+id: uuid
+nme: string
+contact: string
+role: string
+bilo:
+[waiting for message]</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>430</x><y>410</y><w>360</w><h>80</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>340;10;10;60</additional_attributes></element><element><id>Relation</id><coordinates><x>990</x><y>150</y><w>40</w><h>350</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;10;20;330</additional_attributes></element><element><id>UMLClass</id><coordinates><x>60</x><y>330</y><w>210</w><h>140</h></coordinates><panel_attributes> Proposal
+--
+id: uuid
+team: (FK to Team)
+tldr;
+proposal;
+teamMembers;
+milestones: milestone[ ]
+</panel_attributes><additional_attributes></additional_attributes></element></diagram>
