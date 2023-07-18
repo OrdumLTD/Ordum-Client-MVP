@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import OrdumLogoBlack from "@/assets/logos/ordum-logo-black.svg";
@@ -11,12 +11,16 @@ import { useWalletContext } from "@/Context/WalletStore";
 import { useChainApiContext } from "@/Context/ChainApiStore";
 import Button from "../ui/buttons/Button";
 
-
-// Enum walletType = {
-
-// }
+enum LogInWalletType {
+  NONE,
+  POLKADOTJS,
+  TALISMAN,
+  WALLETCONNECT,
+}
 
 const LogIn = () => {
+  const [walletType, setWalletType] = useState(LogInWalletType.NONE);
+
   const { account } = useWalletContext();
   const { fetchPoc5Api } = useChainApiContext();
 
@@ -68,27 +72,52 @@ const LogIn = () => {
             <div className="basis-4/12 border-b border-b-white" />
           </div>
 
-          <div className="mt-5 w-full grid gap-4">
-            <ConnectWallet />
+          {walletType === LogInWalletType.NONE ? (
+            <div className="mt-5 w-full grid gap-4">
+              {/* <ConnectWallet /> */}
+              <Button
+                borderWhite
+                className="py-4 font-semibold"
+                onClick={() => {
+                  setWalletType(LogInWalletType.POLKADOTJS);
+                }}
+              >
+                Polkadot JS
+              </Button>
+              <Button
+                borderWhite
+                className="py-4 font-semibold"
+                onClick={() => {
+                  setWalletType(LogInWalletType.TALISMAN);
+                }}
+              >
+                Talisman
+              </Button>
+              <Button borderWhite className="py-4 font-semibold">
+                Wallet Connect
+              </Button>
+            </div>
+          ) : (
+            <div className="mt-5 w-full grid gap-4">
+              <Button
+                onClick={() => {
+                  setWalletType(LogInWalletType.NONE);
+                }}
+              >
+                Choose another wallet{" "}
+              </Button>
 
-            <Button borderWhite className="py-4 font-semibold">
-              Polkadot JS
-            </Button>
-            <Button borderWhite className="py-4 font-semibold">
-              Talisman
-            </Button>
-            <Button borderWhite className="py-4 font-semibold">
-              Wallet Connect
-            </Button>
+              <ConnectWallet />
 
-            {account ? (
-              <div>
-                <button className="w-full border border-black rounded-full border-2 py-4">
-                  <Link href={"/home"}> Sign IN</Link>
-                </button>
-              </div>
-            ) : null}
-          </div>
+              {account ? (
+                <Button borderWhite className="py-4 font-semibold">
+                  <Link href={"/home"}> Log in with Wallet</Link>
+                </Button>
+              ) : null}
+            </div>
+          )}
+
+          <div></div>
         </div>
       </div>
     </div>
