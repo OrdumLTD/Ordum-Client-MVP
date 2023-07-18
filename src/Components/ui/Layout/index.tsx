@@ -20,6 +20,7 @@ import Link from "next/link";
 
 interface Props {
   title?: string;
+  grant?: boolean;
   hideSidePanel?: boolean | undefined;
   children: string | JSX.Element | JSX.Element[] | any;
 }
@@ -55,19 +56,30 @@ const Layout: React.FC<Props> = (props) => {
               <Link
                 href="/home/dashboard"
                 className={
-                  "-ml-2 mt-3 nav-link block hover:underline transition duration-150 ease-in-out flex "
-                  + (pathName == "/home/dashboard" ? "" : " ")}
+                  "-ml-2 mt-3 nav-link block hover:underline transition duration-150 ease-in-out flex " +
+                  (pathName == "/home/dashboard" ? "" : " ")
+                }
               >
                 <div className="w-5 h-5 bg-[#1A1F37]">
                   <Image
                     src={HouseIcon}
                     alt="Ordum's cool logo"
-                    className={"ml-0.5 mt-0.5 " + (pathName == "/home/dashboard" ? "bg-ordum-blue" : " ")}
+                    className={
+                      "ml-0.5 mt-0.5 " +
+                      (pathName == "/home/dashboard" ? "bg-ordum-blue" : " ")
+                    }
                   />
                 </div>
-                <span className={"ml-2 text-[0.9rem] " + (pathName == "/home/dashboard" ? "underline" : " ")}>Dashboard</span>
+                <span
+                  className={
+                    "ml-2 text-[0.9rem] " +
+                    (pathName == "/home/dashboard" ? "underline" : " ")
+                  }
+                >
+                  Dashboard
+                </span>
               </Link>
-              
+
               <Link
                 href="#"
                 className="-ml-2 mt-3 nav-link block hover:underline transition duration-150 ease-in-out flex"
@@ -76,10 +88,20 @@ const Layout: React.FC<Props> = (props) => {
                   <Image
                     src={BankIcon}
                     alt="Ordum's cool logo"
-                    className={"ml-0.5 mt-0.5 " + (pathName == "/home/mygrants" ? "bg-ordum-blue" : " ")}
+                    className={
+                      "ml-0.5 mt-0.5 " +
+                      (pathName == "/home/mygrants" ? "bg-ordum-blue" : " ")
+                    }
                   />
                 </div>
-                <span className={"ml-2 text-[0.9rem] " + (pathName == "/home/mygrants" ? " underline" : " ")}>My Grants</span>
+                <span
+                  className={
+                    "ml-2 text-[0.9rem] " +
+                    (pathName == "/home/mygrants" ? " underline" : " ")
+                  }
+                >
+                  My Grants
+                </span>
               </Link>
 
               <Link
@@ -90,10 +112,20 @@ const Layout: React.FC<Props> = (props) => {
                   <Image
                     src={PeopleIcon}
                     alt="Ordum's cool logo"
-                    className={"ml-0.5 mt-0.5 " + (pathName == "/home/manageteams" ? "bg-ordum-blue" : " ")}
+                    className={
+                      "ml-0.5 mt-0.5 " +
+                      (pathName == "/home/manageteams" ? "bg-ordum-blue" : " ")
+                    }
                   />
                 </div>
-                <span className={"ml-2 text-[0.9rem] " + (pathName == "/home/manageteams" ? " underline" : " ")}>Manage Teams</span>
+                <span
+                  className={
+                    "ml-2 text-[0.9rem] " +
+                    (pathName == "/home/manageteams" ? " underline" : " ")
+                  }
+                >
+                  Manage Teams
+                </span>
               </Link>
 
               <Image src={Devider} alt="diveder" className="mt-4 scale-125" />
@@ -109,8 +141,33 @@ const Layout: React.FC<Props> = (props) => {
                     className="ml-0.5 mt-0.5"
                   />
                 </div>
-                <span className={"ml-2 text-[0.9rem] " + (pathName.includes("explore") ? " underline" : " ")}>Explore Grants</span>
+                <span
+                  className={
+                    "ml-2 text-[0.9rem] " +
+                    (pathName.includes("explore") ? " underline" : " ")
+                  }
+                >
+                  Explore Grants
+                </span>
               </Link>
+
+              {/* Chaing Specific for the explore menu */}
+              {props.grant ? (
+                <div>
+                  <h3 className="-mr-2 mt-4 font-bold text-ordum-blue text-sm ">
+                    Kusama Treasury
+                  </h3>
+
+                  <ul className="mt-2 ml-2 list-disc text-sm flex flex-col gap-1">
+                    <li>Overview</li>
+                    <li>Discussions</li>
+                    <li>Treasurer</li>
+                    <li>Small Spender</li>
+                    <li>Medium Spender</li>
+                    <li>Big Spender</li>
+                  </ul>
+                </div>
+              ) : null}
             </nav>
           </div>
         )}
@@ -119,9 +176,15 @@ const Layout: React.FC<Props> = (props) => {
         <div className="mt-8">
           <Header title={props.title} />
         </div>
-        <div className="mt-16 h-full top-5 overflow-y-auto scrollbar-hide">
-          {props.children}
-        </div>
+        {props.grant ? (
+          <div className="mt-12 h-full top-5 overflow-y-auto scrollbar-hide">
+            {props.children}
+          </div>
+        ) : (
+          <div className="mt-16 h-full top-5 overflow-y-auto scrollbar-hide">
+            {props.children}
+          </div>
+        )}
       </div>
     </main>
 
