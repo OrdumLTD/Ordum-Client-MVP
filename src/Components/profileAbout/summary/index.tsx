@@ -2,7 +2,7 @@
 
 import AccountInfo from "./AccountInfo";
 import Mission from "./Mission";
-import Bio from "./Bio";
+import Bio from "@/Components/profileAbout/summary/Bio";
 // import GoverenceActivity from "./governanceActivity";
 
 
