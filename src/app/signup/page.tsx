@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import OrdumLogoLight from "@/assets/svg-icons/ordum-logo-light.svg"
-import ConnectWallet from "@/Components/ConnectWallet/page";
+import ConnectWallet from "@/Components/ConnectWallet";
 
 const SignUp = () => {
   // const { user } = useSelector((state: RootState) => state.user);
@@ -52,14 +52,14 @@ const SignUp = () => {
 
             {/* <ConnectWallet /> */}
 
-            <Link href={"/signup/chooseProfile"}>
+            <Link href={"/signup/chooseprofile"}>
               <button className="w-full border border-white rounded-full py-4 text-white text-sm md:text-lg ">
                 {" "}
                 Sign up!
               </button>
             </Link>
 
-            <Link href={"/signup/chooseProfile"}>
+            <Link href={"/signup/chooseprofile"}>
               <button className="mt-4 w-full border border-white rounded-full py-4 text-white text-sm md:text-lg ">
                 {" "}
                 Go back to Login

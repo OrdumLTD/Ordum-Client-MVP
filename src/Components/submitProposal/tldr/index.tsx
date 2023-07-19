@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 import infoIcon from "@/assets/svg-icons/info-icon.svg";
 import { useProposalContext } from "@/Context/submitPropolsal";
 import { fetchKsmPrice, receiveDateSuggest } from "@/lib/Kusama/Utils";
-import ConnectWallet from "@/Components/ConnectWallet/page";
+import ConnectWallet from "@/Components/ConnectWallet";
 import { useWalletContext } from "@/Context/WalletStore";
 import { Categories } from "@/lib/PhalaContract/Types/types";
 import AlertTitle from "@mui/material/AlertTitle";

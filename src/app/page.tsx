@@ -8,7 +8,7 @@ import AccountInfo from "@/Components/profileAbout/summary/AccountInfo";
 export default function Home() {
   return (
     <main className="">
-      <AccountInfo />
+      <LogIn />
     </main>
   );
 }

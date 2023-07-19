@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import OrdumLogoLight from "@/assets/svg-icons/ordum-logo-light.svg";
-import ConnectWallet from "../ConnectWallet/page";
+import ConnectWallet from "../ConnectWallet";
 import { useWalletContext } from "../../Context/WalletStore";
 import { useChainApiContext } from "../../Context/ChainApiStore";
 import Button from "../ui/buttons/Button";
@@ -16,7 +16,7 @@ enum LogInWalletType {
   WALLETCONNECT,
 }
 
-const LogIn = () => {
+const LogIn: React.FC = () => {
   const [walletType, setWalletType] = useState(LogInWalletType.NONE);
 
   const { account } = useWalletContext();
