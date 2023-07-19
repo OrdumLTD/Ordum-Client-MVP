@@ -63,8 +63,8 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
   };
 
   return (
-    <div className="xl:ml-48 2xl:ml-60 p-10">
-      <div className="max-w-[33rem] flex flex-col">
+    <div className="xl:ml-36 2xl:ml-48 p-10 ">
+      <div className="w-full flex flex-col">
         Preview
         {/* Context */}
         
@@ -90,15 +90,15 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
             solution={context?.goal}
             ifYouHaveSeenSimilar={tldr?.whyDifferentDescription}
           />
-          <h3>Index: {proposalIndex}</h3>
+
         </div>
         <div className="mt-10 flex flex-col gap-4">
           {/* Buttons and whatnot */}
-          <button className="bg-black text-white py-2 md:py-4 px-2 rounded">
+          <button className="bg-ordum-blue text-white py-2 md:py-4 px-2 rounded">
             Go Back And Edit
           </button>
           <button
-            className="bg-black text-white py-2 md:py-4 rounded"
+            className="bg-ordum-purple text-white py-2 md:py-4 rounded"
             onClick={() => {
               submit()
             }}

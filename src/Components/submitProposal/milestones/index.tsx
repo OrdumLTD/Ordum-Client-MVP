@@ -1,24 +1,32 @@
-'use client';
+"use client";
 
 import Image from "next/image";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+
+import Modal from "@/Components/ui/Modal";
+
 // import ChainApiContext from "@/store/apiContext";
 
 // import WalletContext from "@/store/walletContext";
-import  Milestone  from "./milestone";
+import Milestone from "./milestone";
 import { useProfileContext } from "@/Context/ProfileStore";
 import { useProposalContext } from "@/Context/submitPropolsal";
+import ProposalName from "../ProposalName";
+import MilestoneCreate from "@/Components/milestones/MilestoneCreate";
+import MilestoneBasic from "@/Components/milestones/MilestoneBasic";
 
 type Props = {
   className?: string;
 };
 
 const SubmitPropolsalMilestones: React.FC<Props> = (props) => {
-  const {changeToStep} = useProposalContext();
+  const { changeToStep } = useProposalContext();
   // const walletCtx = useContext(WalletContext);
   const router = useRouter();
-  
+
+  const [modalIsOpen, setModalisOpen] = useState(false);
+  const [milestones, setMilestones] = useState<any>([]);
 
   // Proposal submission
   // APIContext
@@ -26,164 +34,159 @@ const SubmitPropolsalMilestones: React.FC<Props> = (props) => {
   // const chainAPI = apiCTX.api;
   // const fetchChainApi = apiCTX.fetchChainApi;
 
-  useEffect(() => {
-    const run = () => {
-      // fetchChainApi?.();
-    };
-    run();
-  }, []);
+  // useEffect(() => {
+  //   const run = () => {
+  //     // fetchChainApi?.();
+  //   };
+  //   run();
+  // }, []);
 
   const changePropolsalSubPage = async (step: number, route: string) => {
     changeToStep(step);
     router.push(route);
   };
 
+  const addMilestone = (milestone: any) => {
+    setMilestones([...milestones, milestone]);
+  };
+
+  console.log(milestones);
+
+  const removeMilestone = (id: any) => {
+    for (let i = 0; i < milestones.length; i++) {
+      if (milestones[i]?.id === id) {
+        const newArray = [...milestones];
+        newArray.splice(i, 1);
+        setMilestones(newArray);
+        return;
+      }
+    }
+  };
+
   return (
     <div className="xl:ml-48 2xl:ml-60 p-10">
-      <div className="max-w-[33rem] flex flex-col">
+      <div className="w-[33rem] flex flex-col">
+        <ProposalName />
 
-        <h2 className="mt-8 text-4xl font-semibold">Milestones</h2>
+        <ul className="mt-8 flex flex-col gap-4">
+          {milestones.map((item: any) => {
+            return (
+              <MilestoneBasic
+                name={item.name}
+                description={item.description}
+                id={item.id}
+                key={item.id}
+                remove={removeMilestone}
+              />
+            );
+          })}
+        </ul>
 
-        <p className="mt-4">
-          Please provide a list of milestone deliverables. This list should
-          closely reflect the list of deliverables agreed by your team to reach
-          the solution, along with resources needed for development and
-          timelines. If your project includes any technical development, each
-          item in the list should include a link to the deliverable itself:
-        </p>
+        <MilestoneBasic
+          name={"tem.name"}
+          description={
+            "aysay dsiosda nd aosndas ondas ndand ajsn dasndjadsnadsndsaj djsajdajs aysay dsiosda nd aosndas ondas ndand ajsn dasndjadsnadsndsaj djsajdajs aysay dsiosda nd aosndas ondas ndand ajsn dasndjadsnadsndsaj djsajdajs "
+          }
+          id={"12"}
+          // key={item.id}
+          remove={removeMilestone}
+        />
 
-        <div className="mt-10">
-          <label className="mt-4 text-xl flex">
-            <span>Milestone Name</span>
-          </label>
-          <input
-            className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
-            placeholder="Eg 1.1. Research"
-            type="text"
-          />
+        <MilestoneCreate
+          isOpen={modalIsOpen}
+          handleIsOpen={setModalisOpen}
+          addMilestone={addMilestone}
+        />
+      </div>
 
-          <label className="mt-4 text-xl flex">
-            <span>Deliverable</span>
-          </label>
-          <input
-            className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
-            placeholder="Eg. Report"
-            type="text"
-          />
+      <div className="mt-10 mb-20 flex flex-col gap-4">
+        <button
+          className="bg-black text-white py-2 md:py-4"
+          onClick={() => setModalisOpen(true)}
+        >
+          Add Another milestone
+        </button>
 
-          <label className="mt-4 text-xl flex">
-            <span>Duration</span>
-          </label>
-          <input
-            className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
-            placeholder="Eg. 1 months"
-            type="text"
-          />
+        <button
+          className="bg-black text-white py-2 md:py-4"
+          onClick={() => changePropolsalSubPage(5, "/submitproposal/review")}
+        >
+          Review
+        </button>
 
-          <label className="mt-4 text-xl flex">
-            <span>Link to deliverable</span>
-          </label>
-          <input
-            className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
-            placeholder="Eg. git repo"
-            type="text"
-          />
-
-          <label className="mt-4 text-xl flex">
-            <span>Assigned</span>
-          </label>
-          <input
-            className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
-            placeholder="Which team memer is responsible for this"
-            type="text"
-          />
-
-          <label className="mt-4 text-xl flex">
-            <span>Deadline</span>
-          </label>
-          <input
-            className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
-            placeholder="DD/MM/YY"
-            type="text"
-          />
-
-          <label className="mt-4 text-xl flex">
-            <span>Total Cost</span>
-          </label>
-          <input
-            className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
-            placeholder="Eg. 10,000usd"
-            type="text"
-          />
-
-          <label className="mt-4 text-xl flex">
-            <span>Cost breakbown</span>
-          </label>
-          <input
-            className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
-            placeholder="Eg. amount of hours, cost per hour, link to sheet"
-            type="text"
-          />
-
-          <label className="mt-4 text-xl flex">
-            <span>Payment conditions</span>
-          </label>
-          <input
-            className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
-            placeholder="Upfront/upon delivery"
-            type="text"
-          />
-
-          <label className="mt-4 text-xl flex">
-            <span>
-              Recipient Address(leave blank if the same as applicant).
-            </span>
-          </label>
-          <input
-            className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
-            placeholder="Wallet address"
-            type="text"
-          />
-
-          <label className="mt-4 text-xl flex">
-            <span>Description</span>
-          </label>
-          {/* ToDo fix line break for plaeholder */}
-          <textarea
-            className="mt-2 w-full text-sm bg-white placeholder:font-italitc placeholder:text-xs border border-black
-             rounded py-2 pl-2 pr-4 focus:outline-none resize-none
-              min-h-[10rem]"
-            placeholder="Describe your deliverable, feel free to break it down in points. "
-          />
-
-          <Milestone />
-
-          {/* Button Row - take one level up */}
-
-          {/* ToDo Indexing on the menu show Context, even after weswitch to Problem Solution */}
-          <div className="mt-10 mb-20 flex flex-col gap-4">
-            <button
-              className="bg-black text-white py-2 md:py-4"
-              onClick={() =>
-                changePropolsalSubPage(5, "/submitproposal/review")
-              }
-            >
-              Review
-            </button>
-            <button className="bg-black text-white py-2 md:py-4">
-              Add Another milestone
-            </button>
-            <button
-              className="bg-black text-white py-2 md:py-4"
-              onClick={() => changePropolsalSubPage(1, "/")}
-            >
-              Save draft and Close
-            </button>
-          </div>
-        </div>
+        <button
+          className="bg-black text-white py-2 md:py-4"
+          onClick={() => changePropolsalSubPage(1, "/")}
+        >
+          Save draft and Close
+        </button>
       </div>
     </div>
   );
 };
 
 export default SubmitPropolsalMilestones;
+
+{
+  /* <div className="mt-10">
+<label className="mt-4 text-xl flex">
+  <span>Milestone Name</span>
+</label>
+<input
+  className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
+  placeholder="Eg 1.1. Research"
+  type="text"
+/>
+
+<label className="mt-4 text-xl flex">
+  <span>Description</span>
+</label>
+{/* ToDo fix line break for plaeholder */
+}
+{
+  /*<textarea
+  className="mt-2 w-full text-sm bg-white placeholder:font-italitc placeholder:text-xs border border-black
+   rounded py-2 pl-2 pr-4 focus:outline-none resize-none
+    min-h-[10rem]"
+  placeholder="Describe your deliverable, feel free to break it down in points. "
+/>
+
+<label className="mt-4 text-xl flex">
+  <span>Milestone Deadlin</span>
+</label>
+<input
+  className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
+  placeholder="When do you think you'll be done with all tasks"
+  type="text"
+/>
+
+<Task />
+
+{/* Button Row - take one level up */
+}
+
+{
+  /* ToDo Indexing on the menu show Context, even after weswitch to Problem Solution */
+}
+{
+  /* <div className="mt-10 mb-20 flex flex-col gap-4">
+  <button
+    className="bg-black text-white py-2 md:py-4"
+    onClick={() =>
+      changePropolsalSubPage(5, "/submitproposal/review")
+    }
+  >
+    Review
+  </button>
+  <button className="bg-black text-white py-2 md:py-4">
+    Add Another milestone
+  </button>
+  <button
+    className="bg-black text-white py-2 md:py-4"
+    onClick={() => changePropolsalSubPage(1, "/")}
+  >
+    Save draft and Close
+  </button>
+</div>
+</div> */
+}

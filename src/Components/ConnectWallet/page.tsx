@@ -12,8 +12,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { blue } from '@mui/material/colors';
-import { enablePolkadotExtension ,getSigner} from '@/Components/wallet/pjs';
-import { useWalletContext } from '@/Context/WalletStore';
+import { enablePolkadotExtension ,getSigner} from '../../Components//wallet/pjs';
+import { useWalletContext } from '../../Context/WalletStore';
 import { web3Accounts } from '@polkadot/extension-dapp';
 
 function ConnectWallet() {

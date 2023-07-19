@@ -3,6 +3,8 @@
 import Link from "next/link";
 import Image from "next/image";
 import OrdumLogoBlack from "@/assets/logos/ordum-logo-black.svg";
+import OrdumLogoLight from "@/assets/svg-icons/ordum-logo-light.svg"
+import ConnectWallet from "@/Components/ConnectWallet/page";
 
 const SignUp = () => {
   // const { user } = useSelector((state: RootState) => state.user);
@@ -13,20 +15,21 @@ const SignUp = () => {
   // }
   return (
     <div className="grid h-screen place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-cover text-sm md:text-base">
-      <div className="border border-black rounded-lg p-5 md:p-10 w-5/12 grid bg-white">
+      <div className="border border-black rounded-lg p-5 md:p-10 w-5/12 grid backdrop-blur-md text-white">
         <div className="flex flex-col sm:flex-row justify-between border-b border-black pb-2 md:pb-5">
           <Image
-            src={OrdumLogoBlack}
+            src={OrdumLogoLight}
             alt="Ordum's log in black"
             className="scale-50 sm:scale-75 lg:scale-100 mb-4 sm:mb-0"
           />
         </div>
-        <div className="text-lg md:text-3xl font-base mt-5">Connect Wallet</div>
-        <p className="mt-5 md:text-lg">
+      
+        {/* <p className="mt-5 md:text-lg">
           In order to get paid in cryptocurrency you will need a wallet. If you
           don’t have one:
-        </p>
+        </p> */}
         <div className="grid place-items-center">
+        <div className="text-lg md:text-3xl font-base mt-5">Sign Up</div>
           <div className="mt-5 w-full grid gap-4">
             {/* <button className="w-full border border-black rounded-full border-2 py-4">
               {" "}
@@ -38,20 +41,29 @@ const SignUp = () => {
               Talisman{" "}
             </button> */}
 
-            <button className="w-full border border-black rounded-full border-2 py-4">
+            {/* <button className="w-full border border-black rounded-full border-2 py-4">
               {" "}
               Wallet Connect{" "}
-            </button>
+            </button> */}
 
-            <button className="w-full border border-black rounded-full border-2 py-4 bg-black text-white text-sm md:text-lg font-thin md:font-medium">
+            {/* <button className="w-full border border-white rounded-full py-4 text-white text-sm md:text-lg ">
               {" "}
-              Connect Wallet Later
-            </button>
+              "Wallet Conect"
+            </button> */}
+
+            <ConnectWallet />
 
             <Link href={"/signup/chooseprofile"}>
-              <button className="w-full border border-black rounded-full border-2 py-4 bg-black text-white text-sm md:text-lg font-thin md:font-medium">
+              <button className="w-full border border-white rounded-full py-4 text-white text-sm md:text-lg ">
                 {" "}
                 Sign up!
+              </button>
+            </Link>
+
+            <Link href={"/signup/chooseprofile"}>
+              <button className="mt-4 w-full border border-white rounded-full py-4 text-white text-sm md:text-lg ">
+                {" "}
+                Go back to Login
               </button>
             </Link>
           </div>

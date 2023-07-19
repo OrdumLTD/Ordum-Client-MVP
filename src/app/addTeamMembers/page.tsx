@@ -36,7 +36,7 @@ function AddTeamMemberPage() {
   >([]);
   const [members, setMembers] = useState<Member>(defaultMember);
 
-  const [teamMembers, setTeamMembers] = useState<[]>([]);
+  const [teamMembers, setTeamMembers] = useState<any[]>([]);
 
   const addMember = (v: Member) => {
     setMembers({ ...members, ...v });
@@ -50,7 +50,7 @@ function AddTeamMemberPage() {
   };
 
   const removeMember = (toRemove:string) => {
-    teamMembers.forEach( (member, index, object) =>{
+    teamMembers.forEach( (member) =>{
         if(toRemove === member.address){
             console.log("?")
         }
@@ -162,12 +162,14 @@ function AddTeamMemberPage() {
             w-full
             flex flex-col gap-4"
         >
+     
           <button
             className="rounded-full py-2.5 md:py-3 bg-ordum-purple  font-semibold shadow-md shadow-md hover:shadow-2xl"
             onClick={() => saveNDone()}
           >
-            Create Profile
+             <Link href="/home/manageteams">Create Profile</Link>
           </button>
+          
           {/* If the Profile is created render the below UI */}
           {creationStatus && (
             <button className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl">

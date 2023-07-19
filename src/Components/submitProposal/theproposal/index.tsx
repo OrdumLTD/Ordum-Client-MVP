@@ -1,53 +1,65 @@
-'use client'
+"use client";
 
 import Image from "next/image";
 
 import { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useProposalContext } from "@/Context/submitPropolsal";
-
+import ProposalName from "../ProposalName";
+import TextEditorDropdown from "@/Components/TextEditor/TextEditorDropdown";
 
 type Props = {
   className?: string;
 };
 
 const SubmitProposalContext: React.FC<Props> = (props) => {
-  const {context,changeToStep,changeContext,tldr} =useProposalContext();
+  const { context, changeToStep, changeContext, tldr } = useProposalContext();
 
   const router = useRouter();
-  
 
   const changePropolsalSubPage = async (step: number, route: string) => {
     changeToStep(step);
     router.push(route);
   };
 
+  const handleContextOfProposal = (text: string) => {
+    changeContext({ contextOfTheProposal: text });
+  };
+
+  const handleKnownBackups = (text: string) => {
+    changeContext({ knownBackups: text });
+  };
+
+  const handleProblemStatement = (text: string) => {
+    changeContext({ problemStatement: text });
+  };
+
+  const handleSolution = (text: string) => {
+    changeContext({ solution: text });
+  };
+
+  const handleKsmImprovements = (text: string) => {
+    changeContext({ ksmImprovements: text });
+  };
+
+  const handleTargetAudience = (text: string) => {
+    changeContext({ targetAudience: text });
+  };
+
+  const handleWhyKSM = (text: string) => {
+    changeContext({ whyKSM: text });
+  };
+
+  const handleSimilalSolution = (text: string) => {
+    changeContext({ similarSolution: text });
+  };
+
   return (
     <div className="xl:ml-48 2xl:ml-60 p-10">
       <div className="max-w-[33rem] flex flex-col">
-        <h2 className="mt-8 text-4xl">{tldr?.teamName}</h2>
-
+        {/* <h2 className="mt-8 text-4xl">{tldr?.teamName}</h2> */}
+        <ProposalName />
         <div className="mt-4">
-          {/* <label className="mt-4 text-xs md:text-sm flex">
-            <span>
-              How did the proposal come to the proponent&apos;s mind? Feel free
-              to link any previous conversations from external channels.
-            </span>
-          </label> */}
-          {/* ToDo fix line break for plaeholder */}
-          {/* <textarea
-            className="mt-2 w-full text-sm bg-white placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]"
-            placeholder="Which problems did you encounter? What inspired you to create this proposal and initiate your project? Did you have any discussions with community members so far? What are their opinions on the matter? 
-WIP ~ would be good to add example text here from a previous proposal. 
-
-
---> enable image upload, and decide on editing tools "
-            value={contextCtx.howDidItComeToMind}
-            onChange={(e) => {
-              handleSubmitCtxChange({ howDidItComeToMind: e.target.value });
-            }}
-          /> */}
-
           <div className="border border-black py-5 px-4">
             <h2 className="text-xl">1. Context of the proposal</h2>
             <p className="mt-4 text-gray-400">
@@ -60,19 +72,26 @@ WIP ~ would be good to add example text here from a previous proposal.
             </p>
           </div>
 
-          <div className="mt-5">
+          <TextEditorDropdown
+            text={context?.contextOfTheProposal}
+            changeText={handleContextOfProposal}
+            className="text-black mt-5"
+          />
+
+          {/* <div className="mt-5">
             <p className="hover:cursor-pointer text-gray-400">
               Click here to type and open text editor.
             </p>
-          </div>
+          </div> */}
 
           {/* Add context handler */}
-          <textarea
-          onChange={(e)=> 
-            //@ts-ignore
-            changeContext({contextOfTheProposal:{data:e.target.value}})
-          }        
-          className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]" />
+          {/* <textarea
+            value={context?.contextOfTheProposal}
+            onChange={(e) =>
+              changeContext({ contextOfTheProposal: e.target.value })
+            }
+            className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]"
+          /> */}
 
           <div className="mt-8 border border-black py-5 px-4">
             <p className="mt-4 ">
@@ -86,19 +105,11 @@ WIP ~ would be good to add example text here from a previous proposal.
             </p>
           </div>
 
-          <div className="mt-5">
-            <p className="hover:cursor-pointer text-gray-400">
-              Click here to type and open text editor.
-            </p>
-          </div>
-
-          {/* Add context handler */}
-          <textarea
-            onChange={(e)=>
-              //@ts-ignore
-              changeContext({contextOfTheProposal:{knownBackups:e.target.value}})
-            }
-          className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]" />
+          <TextEditorDropdown
+            text={context?.knownBackups}
+            changeText={handleKnownBackups}
+            className="text-black mt-5"
+          />
 
           <div className="border border-black py-5 px-4 mt-10">
             <h2 className="text-xl">2. Problem Statement</h2>
@@ -109,19 +120,11 @@ WIP ~ would be good to add example text here from a previous proposal.
             </p>
           </div>
 
-          <div className="mt-5">
-            <p className="hover:cursor-pointer text-gray-400">
-              Click here to type and open text editor.
-            </p>
-          </div>
-
-          {/* Add context handler */}
-          <textarea
-            onChange={(e)=>
-              //@ts-ignore
-              changeContext({problemStatement:e.target.value})
-            }
-          className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]" />
+          <TextEditorDropdown
+            text={context?.problemStatement}
+            changeText={handleProblemStatement}
+            className="text-black mt-5"
+          />
 
           <div className="mt-10 border border-black py-5 px-4">
             <h2 className="text-xl">3. The Solution</h2>
@@ -134,19 +137,11 @@ WIP ~ would be good to add example text here from a previous proposal.
             </p>
           </div>
 
-          <div className="mt-5">
-            <p className="hover:cursor-pointer text-gray-400">
-              Click here to type and open text editor.
-            </p>
-          </div>
-
-          {/* Add context handler */}
-          <textarea
-            onChange={(e)=>
-              //@ts-ignore
-              changeContext({solution:{data:e.target.value}})
-            }
-          className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]" />
+          <TextEditorDropdown
+            text={context?.solution}
+            changeText={handleSolution}
+            className="text-black mt-5"
+          />
 
           <div className="mt-10 border border-black py-5 px-4">
             <h2 className="text-xl">
@@ -163,19 +158,11 @@ WIP ~ would be good to add example text here from a previous proposal.
             </p>
           </div>
 
-          <div className="mt-5">
-            <p className="hover:cursor-pointer text-gray-400">
-              Click here to type and open text editor.
-            </p>
-          </div>
-
-          {/* Add context handler */}
-          <textarea 
-            onChange={(e)=>
-              //@ts-ignore
-              changeContext({solution:{ksmImprovements:e.target.value}})
-            }
-          className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]" />
+          <TextEditorDropdown
+            text={context?.ksmImprovements}
+            changeText={handleKsmImprovements}
+            className="text-black mt-5"
+          />
 
           <div className="mt-10 border border-black py-5 px-4">
             <h2 className="text-xl">b. Who does this solution help?</h2>
@@ -185,20 +172,11 @@ WIP ~ would be good to add example text here from a previous proposal.
             </p>
           </div>
 
-          <div className="mt-5">
-            <p className="hover:cursor-pointer text-gray-400">
-              Click here to type and open text editor.
-            </p>
-          </div>
-
-          {/* Add context handler */}
-          <textarea
-            onChange={(e)=>
-              //@ts-ignore
-              changeContext({solution:{targetAudience:e.target.value}})
-            }
-          className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]" />
-
+          <TextEditorDropdown
+            text={context?.targetAudience}
+            changeText={handleTargetAudience}
+            className="text-black mt-5"
+          />
 
           <div className="mt-10 border border-black py-5 px-4">
             <h2 className="text-xl">4. Why Kusama</h2>
@@ -208,37 +186,24 @@ WIP ~ would be good to add example text here from a previous proposal.
             </p>
           </div>
 
-          <div className="mt-5">
-            <p className="hover:cursor-pointer text-gray-400">
-              Click here to type and open text editor.
-            </p>
-          </div>
-
-          {/* Add context handler */}
-          <textarea
-            onChange={(e)=>
-              //@ts-ignore
-              changeContext({whyKSM:e.target.value})
-            }
-          className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]" />
+          <TextEditorDropdown
+            text={context?.whyKSM}
+            changeText={handleWhyKSM}
+            className="text-black mt-5"
+          />
 
           <div className="mt-10 border border-black py-5 px-4">
-            <h2 className="text-xl">5. If you have seen similar proposals before: why is yours different?</h2>
+            <h2 className="text-xl">
+              5. If you have seen similar proposals before: why is yours
+              different?
+            </h2>
           </div>
 
-          <div className="mt-5">
-            <p className="hover:cursor-pointer text-gray-400">
-              Click here to type and open text editor.
-            </p>
-          </div>
-
-          {/* Add context handler */}
-          <textarea
-            onChange={(e)=>
-              //@ts-ignore
-              changeContext({similarSolution:e.target.value})
-            }
-          className="mt-2 w-full text-sm bg-inherit placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]" />
+          <TextEditorDropdown
+            text={context?.similarSolution}
+            changeText={handleSimilalSolution}
+            className="text-black mt-5"
+          />
 
           {/* Button Row - take one level up */}
 
@@ -246,9 +211,7 @@ WIP ~ would be good to add example text here from a previous proposal.
           <div className="mt-10 mb-20 flex flex-col gap-4">
             <button
               className="bg-black text-white py-2 md:py-4 rounded"
-              onClick={() =>
-                changePropolsalSubPage(3, "/submitproposal/team")
-              }
+              onClick={() => changePropolsalSubPage(3, "/submitproposal/team")}
             >
               Save and continue
             </button>
