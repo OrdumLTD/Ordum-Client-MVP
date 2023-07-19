@@ -3,6 +3,7 @@
 import { OnChainRegistry} from "@phala/sdk";
 import { ApiPromise, WsProvider } from "@polkadot/api";
 import { createContext, useContext, useState, ReactNode } from "react";
+import {typesBundleForPolkadot} from '@crustio/type-definitions';
 
 
 type Props = {
@@ -14,13 +15,17 @@ interface ChainApiInterface {
     fetchChainApi: () => void;
     poc5?:ApiPromise;
     fetchPoc5Api:() => void;
+    crustApi?: ApiPromise;
+    fetchCrustApi:() => void;
 }
 
 const defaultChainApiState:ChainApiInterface = {
     api: undefined,
     fetchChainApi:()=>{return},
     poc5:undefined,
-    fetchPoc5Api: () => {return}
+    fetchPoc5Api: () => {return},
+    crustApi:undefined,
+    fetchCrustApi:() =>{return}
 
 }
 
@@ -29,6 +34,7 @@ const ChainApiContext = createContext<ChainApiInterface>(defaultChainApiState);
 export const ChainApiContextProvider = ({children}:Props) =>{
     const [chainApi, setChainApi] = useState<ApiPromise>();
     const [poc5,setPoc5] = useState<ApiPromise>();
+    const [crustApi,setCrustApi] = useState<ApiPromise>();
 
 
 
@@ -48,8 +54,19 @@ export const ChainApiContextProvider = ({children}:Props) =>{
         console.log("Connected to Poc5")
     }
 
+    const fetchCrustApi = async() =>{
+        let wsProvider = new WsProvider('wss://rpc-rocky.crust.network');
+        let chain_api = await ApiPromise.create({
+            provider:wsProvider,
+            typesBundle: typesBundleForPolkadot
+        });
+        chain_api.isReady
+        setChainApi(chain_api);
+        console.log("Connected to Crust Rocky")
+    }
+
     return (
-        <ChainApiContext.Provider value={{fetchChainApi,api:chainApi,poc5,fetchPoc5Api}}>
+        <ChainApiContext.Provider value={{fetchChainApi,api:chainApi,poc5,fetchPoc5Api,crustApi,fetchCrustApi}}>
             {children}
         </ChainApiContext.Provider>
     )
