@@ -1,5 +1,4 @@
 "use client";
-//ToDo - Add props for links and
 
 import Link from "next/link";
 
@@ -42,7 +41,7 @@ const Bio: React.FC<BioType> = ({ className }) => {
               <LanguageIcon />
             </Link>
           </div>
-          <button className="mt-2 md:mt-0 border-2 rounded border-black hover:bg-gray-200 px-1 md:px-14 md:font-bold">
+          <button className="mt-2 md:mt-0 border-2 rounded border-black hover:bg-gray-200 px-1  pmd:px-14 md:font-bold">
             Docs
           </button>
         </div>
