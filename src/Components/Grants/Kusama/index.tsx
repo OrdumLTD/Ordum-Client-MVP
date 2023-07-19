@@ -3,6 +3,7 @@
 import Layout from "@/Components/ui/Layout/";
 import Activity from "@/Components/profileAbout/activity/activity";
 import Summary from "@/Components/profileAbout/summary";
+import GrantDetails from "./Overview/subpages/Grants";
 import Team from "@/Components/profileAbout/team/team";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { useEffect, useState } from "react";
@@ -13,12 +14,12 @@ import { useChainApiContext } from "@/Context/ChainApiStore";
 import { useFetchedProfileContext } from "@/Context/ProfileStore";
 import { FetchedProfileData } from "@/Context/ProfileStore";
 
-
 import KusamaAvatar from "@/assets/svg-icons/kusama-avatar.svg";
 import Image from "next/image";
 
 import ApplicationProcess from "./Overview/subpages/AppicationProcess";
-
+import Button from "@/Components/ui/buttons/Button";
+import Link from "next/link";
 
 enum About {
   Summary,
@@ -64,7 +65,7 @@ const GrantPage = () => {
     <div className="font-space-grotesk flex flex-col ">
       {/* Banner */}
       <div className="justify-center bg-no-repeat bg-cover bg-center h-[23rem] bg-[url('/banners/kusama-banner.webp')]"></div>
-      <nav className="flex navbar relative mb-8 md:mb-16">
+      <nav className=" flex  navbar relative mb-8 md:mb-16">
         <div className="ml-2 md:ml-16 w-full flex ">
           {/* <div
               className="
@@ -81,10 +82,19 @@ const GrantPage = () => {
        md:-mt-14 md:h-32 md:w-32
        "
           />
-          <div className="ml-1 md:ml-5 md:mt-2 flex flex-col">
-            <span className="md:text-xl">Ordum Name</span>
-            <span className="text-xs md:text-sm">Project type</span>
+          <div className="ml-1 md:ml-5 md:mt-2 flex flex-col ">
+            <span className="md:text-3xl">Kusama Treasury </span>
+            <span className="text-xs md:text-sm">
+              Grants for the Kusama ecosystem
+            </span>
           </div>
+        </div>
+        <div className="mr-16 mt-5">
+          <Link href="/submitproposal/tldr">
+            <Button primeColor className="w-[20rem]">
+              Apply
+            </Button>
+          </Link>
         </div>
       </nav>
       <div className="flex flex-col ">
@@ -109,10 +119,14 @@ const GrantPage = () => {
             Wiki
           </button>
         </div>
-
-        {aboutMenu === About.Summary ? <Summary /> : null}
-        {aboutMenu === About.Activity ? <ApplicationProcess /> : null}
-        {aboutMenu === About.Team ? <Team /> : null}
+        {/* Content */}
+        <div className="md:mx-10 md:ml-16 md:mr-32 h-screen flex flex-row">
+          <div className="pl-0.5 md:pl-16 flex flex-1 flex-col overflow-y-auto paragraph">
+            {aboutMenu === About.Summary ? <GrantDetails /> : null}
+            {aboutMenu === About.Activity ? <ApplicationProcess /> : null}
+            {aboutMenu === About.Team ? <Team /> : null}
+          </div>
+        </div>
       </div>
     </div>
   );
