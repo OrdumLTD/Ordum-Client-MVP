@@ -1,7 +1,7 @@
 'use client'
 
+import ExploreContent from "@/Components/explore/exploreContent";
 // import ExploreSideFilters from "@/Components/explore/exploreSideFilters";
-import ExploreContent from "@/Components/explore/ExploreContent";
 import Layout from "../../Components/ui/Layout"
 import { useState } from "react";
 

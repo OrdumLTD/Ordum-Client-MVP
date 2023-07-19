@@ -23,6 +23,7 @@ export const onSignCertificate = async(
         certificate = await signCertificate({
             api,
             signer,
+            //@ts-ignore
             account:account
         })
         return certificate

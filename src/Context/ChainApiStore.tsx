@@ -1,8 +1,9 @@
 'use client';
 
-import { options } from "@phala/sdk";
+import { OnChainRegistry} from "@phala/sdk";
 import { ApiPromise, WsProvider } from "@polkadot/api";
-import { createContext, useContext, Dispatch, SetStateAction, useState, ReactNode } from "react";
+import { createContext, useContext, useState, ReactNode } from "react";
+
 
 type Props = {
     children: ReactNode
@@ -41,7 +42,7 @@ export const ChainApiContextProvider = ({children}:Props) =>{
 
     const fetchPoc5Api = async() =>{
         let wsProvider = new WsProvider('wss://poc5.phala.network/ws');
-        let chain_api = await ApiPromise.create(options({provider:wsProvider}));
+        let chain_api = await ApiPromise.create({provider:wsProvider});
         chain_api.isReady
         setPoc5(chain_api);
         console.log("Connected to Poc5")

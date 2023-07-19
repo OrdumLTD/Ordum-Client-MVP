@@ -660,7 +660,7 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@phala/sdk@^0.4.1-nightly-20230616":
+"@phala/sdk@^0.4.1":
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/@phala/sdk/-/sdk-0.4.1.tgz#ba65e2fcd47ffeeb930a098978af0cd03f8b7cee"
   integrity sha512-VC5JECONKxjBNgh3OvAjxQzTZsCJ1rwvfvB8iJGCAPWHKW0WiPLZt3XTEH9FAYDUh1scFMyZwWJMNAJv2XJZOg==

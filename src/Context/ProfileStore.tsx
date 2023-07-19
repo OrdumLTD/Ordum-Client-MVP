@@ -1,7 +1,7 @@
 'use client';
 
 
-import { AccountId, Categories, MemberRole } from "@/lib/PhalaContract/Types/types";
+import { AccountId, Categories, Chains, MemberRole } from "@/lib/PhalaContract/Types/types";
 import React, { createContext, useState, ReactNode, Dispatch, useContext } from "react";
 
 
@@ -16,7 +16,7 @@ export interface createProfileData{
   description: string;
   mission: string;
   projectType: Categories[];
-  residentChain:string,
+  residentChain:Chains[],
   teamMembers: Array<[AccountId,MemberRole]>|null;
   allowedAccounts:Array<AccountId>|null,
   links: Array<string>|null
@@ -29,7 +29,7 @@ const defaultProfileData:createProfileData ={
   description:"",
   mission:"",
   projectType:[],
-  residentChain:"",
+  residentChain:[],
   teamMembers:null,
   allowedAccounts:null,
   links:null
@@ -86,7 +86,7 @@ export interface FetchedProfileData{
   description: string;
   mission: string;
   projectType: Categories[];
-  residentChain:string,
+  residentChain:Chains[],
   teamMembers: Array<[AccountId,MemberRole]>|null;
   allowedAccounts:Array<AccountId>|null,
   links:Array<string>|null
@@ -99,7 +99,7 @@ const defaultFetchedProfileData:FetchedProfileData ={
   description:"",
   mission:"",
   projectType:[],
-  residentChain:"",
+  residentChain:[],
   teamMembers:null,
   allowedAccounts:null,
   links: null

@@ -1,8 +1,8 @@
 'use client'
 
 import AccountInfo from "./AccountInfo";
-import Bio from "./Bio";
 import Mission from "./Mission";
+import Bio from "./bio";
 // import GoverenceActivity from "./governanceActivity";
 
 

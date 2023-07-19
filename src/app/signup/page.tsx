@@ -53,14 +53,14 @@ const SignUp = () => {
 
             <ConnectWallet />
 
-            <Link href={"/signup/chooseprofile"}>
+            <Link href={"/signup/chooseProfile"}>
               <button className="w-full border border-white rounded-full py-4 text-white text-sm md:text-lg ">
                 {" "}
                 Sign up!
               </button>
             </Link>
 
-            <Link href={"/signup/chooseprofile"}>
+            <Link href={"/signup/chooseProfile"}>
               <button className="mt-4 w-full border border-white rounded-full py-4 text-white text-sm md:text-lg ">
                 {" "}
                 Go back to Login
