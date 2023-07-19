@@ -3,11 +3,12 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import { Mail, GitHub } from "react-feather";
-import Discord from "@/assets/svg-icons/discord.svg";
-import Twitter from "@/assets/svg-icons/twitter-icon.svg";
-import Matrix from "@/assets/svg-icons/matrix.png";
-import Website from "@/assets/svg-icons/global.png";
+import GitHubIcon from "@/assets/svg-icons/github-light-icon.svg";
+import Email from "@/assets/svg-icons/email-light-icon.svg";
+import Discord from "@/assets/svg-icons/discord-light-icon.svg";
+import Twitter from "@/assets/svg-icons/twitter-light-icon.svg";
+import Matrix from "@/assets/svg-icons/matric-light-icon.svg";
+import Website from "@/assets/svg-icons/web-light-icon.svg";
 import { useProfileContext } from "@/Context/ProfileStore";
 import { useChainApiContext } from "@/Context/ChainApiStore";
 import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
@@ -18,80 +19,76 @@ import { UserRole } from "@/lib/PhalaContract/Types/types";
 
 const CreateIndividualProfile = () => {
   //Context
-  const {profileData, setProfile,setCreationStatus,creationStatus} = useProfileContext()
-  const {teamType, teamName, userType} = profileData
-  const {account,signer} = useWalletContext()
-  
-  const {fetchPoc5Api,poc5} = useChainApiContext()
-  const {loadContractApi, contractApi,cache} = usePhalaContractContext()
+  const { profileData, setProfile, setCreationStatus, creationStatus } =
+    useProfileContext();
+  const { teamType, teamName, userType } = profileData;
+  const { account, signer } = useWalletContext();
+
+  const { fetchPoc5Api, poc5 } = useChainApiContext();
+  const { loadContractApi, contractApi, cache } = usePhalaContractContext();
 
   // Local state
-  const [links,setLinks] = useState<string[]>([])
-  
-  const updateLink = (i:number,v:string)=>{
-    setLinks(prevState => {
+  const [links, setLinks] = useState<string[]>([]);
+
+  const updateLink = (i: number, v: string) => {
+    setLinks((prevState) => {
       const updatedState = [...prevState];
       updatedState[i] = v;
       return updatedState;
     });
-  }
-  console.log("State link "+links)
-  console.log("Links "+profileData.links)
+  };
+  console.log("State link " + links);
+  console.log("Links " + profileData.links);
 
-  useEffect(()=>{
-      if(poc5){
-          if(contractApi){
-              
-          }else{
-              loadContractApi()
-          }
-      }else{
-          fetchPoc5Api();
-          loadContractApi()
+  useEffect(() => {
+    if (poc5) {
+      if (contractApi) {
+      } else {
+        loadContractApi();
       }
-      
-  })
+    } else {
+      fetchPoc5Api();
+      loadContractApi();
+    }
+  });
 
-      const saveNDone = async () => {
-         //@ts-ignore
-        setProfile({links:links})
-        await createProfile()
-      }
+  const saveNDone = async () => {
+    //@ts-ignore
+    setProfile({ links: links });
+    await createProfile();
+  };
 
-      // Contract Call for Crreating Profile
-      const createProfile = async () => {
-        const profileCreationStatus =(v:boolean)=>{
-            setCreationStatus(v)
-        }
-    
-        const { teamType, userType } = profileData
-        if(account && signer && cache && contractApi && account.meta.name){
-    
-           //1. (Individual && Applicant)
-           
-              await createApplicantProfile(
-                //utill fn
-                 profileCreationStatus,
-                //---------
-                  account,
-                  signer,
-                  cache,
-                  contractApi,
-                  //Params
-                  account.meta.name,
-                  account.address,
-                  profileData.description,
-                  profileData.allowedAccounts,
-                  profileData.projectType,
-                  //ProfileCtx.profileData.projectType, // Work on this
-                  profileData.teamMembers,
-                  profileData.links,
-                  UserRole.individual
-                )
-              
-        }
-     }
+  // Contract Call for Crreating Profile
+  const createProfile = async () => {
+    const profileCreationStatus = (v: boolean) => {
+      setCreationStatus(v);
+    };
 
+    const { teamType, userType } = profileData;
+    if (account && signer && cache && contractApi && account.meta.name) {
+      //1. (Individual && Applicant)
+
+      await createApplicantProfile(
+        //utill fn
+        profileCreationStatus,
+        //---------
+        account,
+        signer,
+        cache,
+        contractApi,
+        //Params
+        account.meta.name,
+        account.address,
+        profileData.description,
+        profileData.allowedAccounts,
+        profileData.projectType,
+        //ProfileCtx.profileData.projectType, // Work on this
+        profileData.teamMembers,
+        profileData.links,
+        UserRole.individual
+      );
+    }
+  };
 
   return (
     <div className="grid place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-contain text-sm md:text-base">
@@ -109,8 +106,8 @@ const CreateIndividualProfile = () => {
           <textarea
             onChange={(e) => {
               //@ts-ignore
-              setProfile({description:e.target.value})
-           }}
+              setProfile({ description: e.target.value });
+            }}
             className="
         justify-self-start mt-4
         resize-none
@@ -123,76 +120,74 @@ const CreateIndividualProfile = () => {
             placeholder="What does your team want to achieve? "
           />
 
-            <h3 className="mt-5 justify-self-start font-medium">Project type</h3>
+          <h3 className="mt-5 justify-self-start font-medium">Project type</h3>
 
-            <div
-              className=" \
+          <div
+            className=" \
             justify-self-start mt-4
             flex justify-between
             w-full
             "
-            >
-              <select
-                className=" 
+          >
+            <select
+              className=" 
               mr-4 
               w-full
               block pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit
               text-[#CAC9C9]"
-              >
-                <option value="" className="" disabled hidden>
-                  All
-                </option>
-                <option value="All">
-                  What are you creating? Chooce a category
-                </option>
-                <option value="Option 1">Option 1</option>
-                <option value="Option 2">Option 2</option>
-              </select>
+            >
+              <option value="" className="" disabled hidden>
+                All
+              </option>
+              <option value="All">
+                What are you creating? Chooce a category
+              </option>
+              <option value="Option 1">Option 1</option>
+              <option value="Option 2">Option 2</option>
+            </select>
 
-              <button className="w-40 rounded py-2.5 md:py-3 bg-ordum-purple font-semibold shadow shadow-md hover:shadow-2xl">
-                + Add More
-              </button>
-            </div>
+            <button className="w-40 rounded py-2.5 md:py-3 bg-ordum-purple font-semibold shadow shadow-md hover:shadow-2xl">
+              + Add More
+            </button>
+          </div>
 
-            <h3 className="mt-5 justify-self-start font-medium">Blockchain</h3>
+          <h3 className="mt-5 justify-self-start font-medium">Blockchain</h3>
 
-            <div
-              className=" \
+          <div
+            className=" \
             justify-self-start mt-4
             flex justify-between
             w-full
             "
-            >
-              <select
-                className=" 
+          >
+            <select
+              className=" 
               mr-4 
             w-full
             block pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
             focus:outline-none bg-inherit
             text-[#CAC9C9]"
-              >
-                <option value="" className="" disabled hidden>
-                  All
-                </option>
-                <option value="All">What chain are you building on?</option>
-                <option value="Option 1">Option 1</option>
-                <option value="Option 2">Option 2</option>
-              </select>
+            >
+              <option value="" className="" disabled hidden>
+                All
+              </option>
+              <option value="All">What chain are you building on?</option>
+              <option value="Option 1">Option 1</option>
+              <option value="Option 2">Option 2</option>
+            </select>
 
-              <button className="w-40 rounded py-2.5 md:py-3 bg-ordum-purple font-semibold shadow shadow-md hover:shadow-2xl">
-                + Add More
-              </button>
-            </div>
-
-        
+            <button className="w-40 rounded py-2.5 md:py-3 bg-ordum-purple font-semibold shadow shadow-md hover:shadow-2xl">
+              + Add More
+            </button>
+          </div>
 
           <h3 className="mt-5 justify-self-start font-medium">Mission</h3>
           <textarea
             onChange={(e) => {
               //@ts-ignore
-              setProfile({mission:e.target.value})
-           }}
+              setProfile({ mission: e.target.value });
+            }}
             className="
         justify-self-start mt-4
         resize-none
@@ -208,89 +203,58 @@ const CreateIndividualProfile = () => {
           <div className="mt-5 justify-self-start w-full">
             <h3 className="mb-4">Links</h3>
             <div className="flex">
-              <Mail size="40" color="#fff" />{" "}
+              <Image src={Email} alt="Email" height={36} />{" "}
               <input
                 className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit "
                 placeholder="Email"
                 type="text"
-                value={links[0]||""}
-                onChange={(e)=> 
-                  //@ts-ignore
-                  updateLink(0,e.target.value)
-                }
-                
               />
             </div>
             <div className="mt-4 flex">
-              <Image src={Discord} alt="Discord" height={25} />{" "}
+              <Image src={Discord} alt="Discord" height={36} />{" "}
               <input
                 className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit"
                 placeholder="Discord"
                 type="text"
-                value={links[1]||""}
-                onChange={(e)=> 
-                  //@ts-ignore
-                  updateLink(1,e.target.value)
-                }
               />
             </div>
             <div className="mt-4 flex">
-              <Image src={Twitter} alt="Twitter" />{" "}
+              <Image src={Twitter} alt="Twitter" height={36} />{" "}
               <input
                 className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit"
                 placeholder="Twitter"
                 type="text"
-                value={links[2]||""}
-                onChange={(e)=> 
-                  //@ts-ignore
-                  updateLink(2,e.target.value)
-                }
               />
             </div>
 
             <div className="mt-4 flex">
-              <Image src={Matrix} alt="Matrix" />{" "}
+              <Image src={Matrix} alt="Matrix" height={36} />{" "}
               <input
                 className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit"
                 placeholder="Matrix"
                 type="text"
-                value={links[3]||""}
-                onChange={(e)=> 
-                  //@ts-ignore
-                  updateLink(3,e.target.value)
-                }
               />
             </div>
             <div className="mt-4 flex">
-              <Image src={Website} alt="Website" />{" "}
+              <Image src={Website} alt="Website" height={36} />{" "}
               <input
                 className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit"
                 placeholder="Website/Portfolio"
                 type="text"
-                value={links[4]||""}
-                onChange={(e)=> 
-                  //@ts-ignore
-                  updateLink(4,e.target.value)
-                }
               />
             </div>
             <div className="mt-4 flex">
-              <GitHub size="40" />
+              <Image src={GitHubIcon} alt="Discord" height={36} />{" "}
               <input
                 className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit"
                 placeholder="Github"
                 type="text"
-                value={links[5]||""}
-                onChange={(e)=> 
-                  //@ts-ignore
-                  updateLink(5,e.target.value)
-                }
               />
             </div>
           </div>
@@ -301,22 +265,23 @@ const CreateIndividualProfile = () => {
             flex flex-col gap-4"
           >
             <button
-            onClick={()=>saveNDone()}
-             className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl">
+              onClick={() => saveNDone()}
+              className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl"
+            >
               Create Profile
             </button>
-          {
-            creationStatus? 
-            (
+            {creationStatus ? (
               <button className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl">
-              <Link href={"/home"}>Continue</Link>
+                <Link href={"/home"}>Continue</Link>
               </button>
-            )
-            :
-            (<button disabled className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl">
-            <Link href={"/home"}>Continue</Link>
-            </button>)
-          }
+            ) : (
+              <button
+                disabled
+                className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl"
+              >
+                <Link href={"/home"}>Continue</Link>
+              </button>
+            )}
 
             <button className="rounded-full py-2.5 md:py-3 bg-ordum-purple font-semibold shadow-md shadow-md hover:shadow-2xl">
               Back

@@ -1,6 +1,6 @@
-import MilestoneBasic from "@/Components/milestones/MilestoneBasic";
-import MilestonesPreview from "@/Components/preview/milestones";
+
 import { useState } from "react";
+import MileStoneReview from "./MileStoneReview";
 
 const Milestones = () => {
   const [milestones, setMilestones] = useState<any>([]);
@@ -18,16 +18,16 @@ const Milestones = () => {
   return (
     <div>
       <div className="mt-10 flex flex-col gap-8">
-        <MilestoneBasic
+        <MileStoneReview
           name={"Kilt Integration"}
           description="Testng"
           id="1235325"
           remove={removeMilestone}
         />
-        <MilestoneBasic
-          name={"Designing UI"}
+        <MileStoneReview
+          name={"Kilt Integration"}
           description="Testng"
-          id="1225325"
+          id="1235325"
           remove={removeMilestone}
         />
       </div>

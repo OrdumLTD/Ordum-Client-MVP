@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import OrdumLogoBlack from "@/assets/logos/ordum-logo-black.svg";
@@ -11,7 +11,16 @@ import { useWalletContext } from "@/Context/WalletStore";
 import { useChainApiContext } from "@/Context/ChainApiStore";
 import Button from "../ui/buttons/Button";
 
+enum LogInWalletType {
+  NONE,
+  POLKADOTJS,
+  TALISMAN,
+  WALLETCONNECT,
+}
+
 const LogIn = () => {
+  const [walletType, setWalletType] = useState(LogInWalletType.NONE);
+
   const { account } = useWalletContext();
   const { fetchPoc5Api } = useChainApiContext();
 
@@ -20,8 +29,12 @@ const LogIn = () => {
   }, []);
 
   return (
-    <div className="grid h-screen place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-cover text-sm md:text-base text-white">
-      <div className="backdrop-blur-md border border-white rounded-lg p-5 md:p-10 w-5/12 grid">
+    <div className="grid place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-contain text-sm md:text-base text-white">
+      <div
+        className="
+       my-10 xl:my-28
+       border border-2 border-white backdrop-blur-md rounded-lg p-5 xl:p-16 w-7/12 xl:w-6/12 2xl:w-5/12 grid"
+      >
         <div className="flex flex-col sm:flex-row justify-between border-b border-white pb-2 md:pb-5">
           <Image
             src={OrdumLogoLight}
@@ -29,7 +42,7 @@ const LogIn = () => {
             className="scale-50 sm:scale-75 lg:scale-100 mb-4 sm:mb-0"
           />
           <Button primeColor className="py-4 font-semibold">
-            Sign Up
+            <Link href="/signup">Sign up</Link>
           </Button>
           {/* <button className="rounded-full bg-black text-white px-2 lg:px-10 py-0.5 md:py-3 mb-2 sm:mb-0">
             <Link href="/signup">Sign up</Link>
@@ -54,32 +67,57 @@ const LogIn = () => {
           </div>
 
           <div className="mt-5 w-full flex place-items-center justify-between">
-            <div className="basis-4/12 border-b border-b-white"/>
+            <div className="basis-4/12 border-b border-b-white" />
             <span className="self-center font-bold text-xl">OR LOG WITH</span>
-            <div className="basis-4/12 border-b border-b-white"/>
+            <div className="basis-4/12 border-b border-b-white" />
           </div>
 
-          <div className="mt-5 w-full grid gap-4">
-            <ConnectWallet />
+          {walletType === LogInWalletType.NONE ? (
+            <div className="mt-5 w-full grid gap-4">
+              {/* <ConnectWallet /> */}
+              <Button
+                borderWhite
+                className="py-4 font-semibold"
+                onClick={() => {
+                  setWalletType(LogInWalletType.POLKADOTJS);
+                }}
+              >
+                Polkadot JS
+              </Button>
+              <Button
+                borderWhite
+                className="py-4 font-semibold"
+                onClick={() => {
+                  setWalletType(LogInWalletType.TALISMAN);
+                }}
+              >
+                Talisman
+              </Button>
+              <Button borderWhite className="py-4 font-semibold">
+                Wallet Connect
+              </Button>
+            </div>
+          ) : (
+            <div className="mt-5 w-full grid gap-4">
+              <Button
+                onClick={() => {
+                  setWalletType(LogInWalletType.NONE);
+                }}
+              >
+                Choose another wallet{" "}
+              </Button>
 
-            <Button borderWhite className="py-4 font-semibold">
-              Polkadot JS
-            </Button>
-            <Button borderWhite className="py-4 font-semibold">
-              Talisman
-            </Button>
-            <Button borderWhite className="py-4 font-semibold">
-              Wallet Connect
-            </Button>
+              <ConnectWallet />
 
-            {account ? (
-              <div>
-                <button className="w-full border border-black rounded-full border-2 py-4">
-                  <Link href={"/home"}> Sign IN</Link>
-                </button>
-              </div>
-            ) : null}
-          </div>
+              {account ? (
+                <Button borderWhite className="py-4 font-semibold">
+                  <Link href={"/home"}> Log in with Wallet</Link>
+                </Button>
+              ) : null}
+            </div>
+          )}
+
+          <div></div>
         </div>
       </div>
     </div>
