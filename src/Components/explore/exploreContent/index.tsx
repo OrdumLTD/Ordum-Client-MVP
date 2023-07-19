@@ -1,4 +1,5 @@
-import { useRouter } from "next/navigation";
+'use client'
+
 import Image from "next/image";
 import Link from "next/link";
 
@@ -19,7 +20,7 @@ const ExploreContent: React.FC<Props> = (props) => {
   //   getReferendumInfo(180, ChainAPICtx.api)
   // }
 
-  const router = useRouter();
+
   return (
     <div className={"mx-10 " + props.className}>
       <Link href={"/explore/kusamatreasury"}>
