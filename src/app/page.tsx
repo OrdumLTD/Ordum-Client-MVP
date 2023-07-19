@@ -1,17 +1,17 @@
-'use client'
+"use client";
 
-import LogIn from "../Components/login/login"
+import { useEffect } from "react";
 
-// import LogIn from "@/Components"
-// import LogIn from '@/Components/login/'
-
+import LogIn from "@/Components/Login/";
 
 export default function Home() {
+  useEffect(() => {
+    console.log("Ordum App");
+  }, []);
+
   return (
     <main className="">
       <LogIn />
     </main>
-  )
+  );
 }
-
-

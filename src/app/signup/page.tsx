@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import OrdumLogoBlack from "@/assets/logos/ordum-logo-black.svg";
 import OrdumLogoLight from "@/assets/svg-icons/ordum-logo-light.svg"
 import ConnectWallet from "@/Components/ConnectWallet/page";
 
@@ -51,7 +50,7 @@ const SignUp = () => {
               "Wallet Conect"
             </button> */}
 
-            <ConnectWallet />
+            {/* <ConnectWallet /> */}
 
             <Link href={"/signup/chooseProfile"}>
               <button className="w-full border border-white rounded-full py-4 text-white text-sm md:text-lg ">

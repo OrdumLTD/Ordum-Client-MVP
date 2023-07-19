@@ -12,7 +12,7 @@ import React from 'react'
 
 
 
-function SignupWallet() {
+const SignupWallet = () => {
   const router = useRouter()
   //Context
   const {account,signer} = useWalletContext()

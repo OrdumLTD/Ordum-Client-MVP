@@ -4,7 +4,7 @@ import Layout from "@/Components/ui/Layout";
 import SubmitPropolsalSidePanel from "@/Components/submitProposal/sidePanel";
 import SubmitProposalTLDR from "@/Components/submitProposal/tldr";
 
-const submitProposalTLDRPage = () => {
+const SubmitProposalTLDRPage = () => {
   return (
     <Layout hideSidePanel>
       <div className="flex">
@@ -15,4 +15,4 @@ const submitProposalTLDRPage = () => {
   );
 };
 
-export default submitProposalTLDRPage;
+export default SubmitProposalTLDRPage;

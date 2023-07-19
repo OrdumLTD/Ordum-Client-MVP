@@ -5,13 +5,16 @@ import SubmitPropolsalSidePanel from "@/Components/submitProposal/sidePanel";
 
 import SubmitProposalContext from "@/Components/submitProposal/theproposal";
 
-const submitProposalContext = () => {
+const SubmitProposal: React.FC = () =>  {
   // const { user } = useSelector((state: RootState) => state.user);
   // const dispatch = useDispatch()
 
   // const logInTest = () => {
   //   dispatch(logInTestUser())
   // }
+  
+  
+  
   return (
     <Layout hideSidePanel>
       <div className="flex scrollbar-hide">
@@ -22,4 +25,4 @@ const submitProposalContext = () => {
   );
 };
 
-export default submitProposalContext;
+export default SubmitProposal;

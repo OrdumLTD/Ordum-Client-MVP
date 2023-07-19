@@ -2,7 +2,7 @@
 
 import AccountInfo from "./AccountInfo";
 import Mission from "./Mission";
-import Bio from "./bio";
+import Bio from "./Bio";
 // import GoverenceActivity from "./governanceActivity";
 
 
