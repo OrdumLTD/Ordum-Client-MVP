@@ -10,7 +10,7 @@ import Matrix from "@/assets/svg-icons/matrix.png";
 import LanguageIcon from "@mui/icons-material/Language";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
-type Bio = {
+type BioType = {
   children?: React.ReactNode;
   className?: string;
   buttonBasic?: boolean;
@@ -20,7 +20,7 @@ type Bio = {
   secondaryColor?: boolean;
 };
 
-const Bio: React.FC<Bio> = ({ className }) => {
+const Bio: React.FC<BioType> = ({ className }) => {
   return (
     <div className={" " + className}>
       <div className="flex justify-between md:gap-16">
