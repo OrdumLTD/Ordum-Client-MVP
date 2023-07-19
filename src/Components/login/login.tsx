@@ -7,8 +7,8 @@ import OrdumLogoBlack from "@/assets/logos/ordum-logo-black.svg";
 import OrdumLogoLight from "@/assets/svg-icons/ordum-logo-light.svg";
 import ConnectWallet from "../ConnectWallet/page";
 import Devider from "@/assets/other/devider.svg";
-import { useWalletContext } from "@/Context/WalletStore";
-import { useChainApiContext } from "@/Context/ChainApiStore";
+import { useWalletContext } from "../../Context/WalletStore";
+import { useChainApiContext } from "../../Context/ChainApiStore";
 import Button from "../ui/buttons/Button";
 
 enum LogInWalletType {
