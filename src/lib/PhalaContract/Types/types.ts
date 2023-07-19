@@ -75,16 +75,17 @@ export type IssuerProfile = {
 
 export type ApplicantProfile = {
 	name: string,
-	teamSize: (number | string | BN),
 	accountId: AccountId,
 	description: string,
-	members: Array<[AccountId,MemberRole]>|null,
+	members: Array<[AccountId, MemberRole]> | null,
 	refTeam: (number | string | BN) | null,
 	registeredTime: (number | string | BN),
 	applications: (number | string | BN) | null,
-	categories: Array<Categories>,
+	categories: Array<Categories> | null,
+	links: Array<string> | null,
 	role: UserRole
 }
+
 
 export type KeyManagement = {
 	admin: AccountId,

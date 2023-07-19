@@ -15,13 +15,13 @@ export const createApplicantProfile = async(
     contract:ContractPromise,
     //Pure params
     name: string,
-    accountId:AccountId,
+    accountId: AccountId | null,
     description: string,
-    allowedAccounts: Array<AccountId>|null,
-    categories: Array<Categories>|null,
-    members: Array<[AccountId,MemberRole]>|null,
-    links:Array<string>|null,
-    role: UserRole
+    categories: Array<Categories> | null,
+    chain: Array<Chains>,
+    members: Array<[AccountId, MemberRole]> | null,
+    links: Array<string> | null,
+    role: UserRole,
     
 ) =>{
 
@@ -32,8 +32,8 @@ export const createApplicantProfile = async(
         name,
         accountId,
         description,
-        allowedAccounts,
         categories,
+        chain,
         members,
         links,
         role
@@ -51,8 +51,8 @@ export const createApplicantProfile = async(
         name,
         accountId,
         description,
-        allowedAccounts,
         categories,
+        chain,
         members,
         links,
         role
