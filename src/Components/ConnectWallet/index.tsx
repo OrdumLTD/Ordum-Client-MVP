@@ -42,17 +42,17 @@ function ConnectWallet() {
     setSigner(signer)
   }
 
+  useEffect(()=>{
+    getAccounts()
+
+  },[])
+
   const handleChange = (event: SelectChangeEvent) => {
     //@ts-ignore
     setAccount(event.target.value);
     //@ts-ignore
     getTheSigner(event.target.value)
   };
-
-  useEffect(()=>{
-    getAccounts()
-
-  },[])
 
   return (
     <div className="flex flex-col items-center justify-around">

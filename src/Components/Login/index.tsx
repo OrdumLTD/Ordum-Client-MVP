@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import dynamic from 'next/dynamic'
+
 import Image from "next/image";
 import Link from "next/link";
-import OrdumLogoBlack from "@/assets/logos/ordum-logo-black.svg";
 import OrdumLogoLight from "@/assets/svg-icons/ordum-logo-light.svg";
-import ConnectWallet from "../ConnectWallet/page";
-import Devider from "@/assets/other/devider.svg";
+// import ConnectWallet from "../ConnectWallet/";
 import { useWalletContext } from "../../Context/WalletStore";
 import { useChainApiContext } from "../../Context/ChainApiStore";
 import Button from "../ui/buttons/Button";
@@ -18,7 +18,11 @@ enum LogInWalletType {
   WALLETCONNECT,
 }
 
-const LogIn = () => {
+const ConnectWallet = dynamic(()=> import ("../ConnectWallet/"),{
+  loading: () => <p>Loading ...</p>
+});
+
+const LogIn:React.FC = () => {
   const [walletType, setWalletType] = useState(LogInWalletType.NONE);
 
   const { account } = useWalletContext();
@@ -26,7 +30,7 @@ const LogIn = () => {
 
   useEffect(() => {
     fetchPoc5Api();
-  }, []);
+  });
 
   return (
     <div className="grid place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-contain text-sm md:text-base text-white">
@@ -116,8 +120,6 @@ const LogIn = () => {
               ) : null}
             </div>
           )}
-
-          <div></div>
         </div>
       </div>
     </div>

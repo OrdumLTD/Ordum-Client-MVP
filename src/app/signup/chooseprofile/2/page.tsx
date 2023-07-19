@@ -8,7 +8,7 @@ import { useProfileContext } from "@/Context/ProfileStore";
 import { useChainApiContext } from "@/Context/ChainApiStore";
 import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
 import { useEffect, useState } from "react";
-import ConnectWallet from "@/Components/ConnectWallet/page";
+import ConnectWallet from "@/Components/ConnectWallet";
 import { onSignCertificate } from "@/lib/PhalaContract/Utils/phalaCertificate";
 import { useWalletContext } from "@/Context/WalletStore";
 
