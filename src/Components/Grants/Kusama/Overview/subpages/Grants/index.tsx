@@ -94,13 +94,13 @@ const GrantDetails: React.FC<GrantDetails> = ({ className }) => {
         </div>
 
         <div className="mt-12">
-          <h2 className="text-lg md:text-3xl"> Get Inspired</h2>
+          <h2 className="text-lg md:text-3xl"> The Community</h2>
           <p className="mt-5">
             {" "}
             The Treasury is controlled by the Community, and how funds are spent
             is up to token holders’ judgment. Funds are available for use by
             anyone willing to propose an answer to the following question: How
-            can my project contribute to Kusama's vision? 
+            can my project contribute to {`Kusama's`} vision? 
           </p>
           <p className="mt-5">
             {" "}

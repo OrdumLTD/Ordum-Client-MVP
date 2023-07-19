@@ -28,16 +28,16 @@ enum ReviewMenu {
 
 type Props = {
   className?: string;
-  teamName: string;
-  propolsalName: string;
-  date: string;
-  fundingAmount: number;
+  teamName?: string;
+  propolsalName?: string;
+  date?: string;
+  fundingAmount?: number;
   govType?: string;
-  deadline: string;
-  startDate: string;
-  propolsalDescription: string;
-  problem: string;
-  solution: string;
+  deadline?: string;
+  startDate?: string;
+  propolsalDescription?: string;
+  problem?: string;
+  solution?: string;
   ifYouHaveSeenSimilar?: string;
 };
 
@@ -59,11 +59,11 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
     router.push(route);
   };
 
-  useEffect(() => {
-    if (!api) {
-      fetchChainApi();
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!api) {
+  //     fetchChainApi();
+  //   }
+  // }, []);
 
   // callBack fn
   const fetchIndex = (index: number) => [setProposalIndex(index)];

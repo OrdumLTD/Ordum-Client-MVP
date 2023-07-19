@@ -68,7 +68,7 @@ Building and maintaining light clients for quick data retrivals, security and lo
 Enable log in with multiple DID services, Github and Wallets
 Minting of non-transferable NFTs as “certificates” for completed milestones. Each token would contain information on what was executed and how it was evaluated.
 Ordum will be built on Phala to leverege the chains privacy capabilities and Phat smart contracts
-Create a connection between DID (foundation)–> Phala Smart Contract–> Non-transferable NFT–>DID (recipient)
+Create a connection between DID (foundation)–&gt; Phala Smart Contract–&gt; Non-transferable NFT–&gt;DID (recipient)
 Design a custom type of RMRK non-transferable NFT, stored on Crust, containing reports from the foundations on milestone delivery
 Delivery of milestones, grant applications and funding are displayed on a team’s profile for transparency.
 Front end displaying funding amounts and certificates within a roadmap

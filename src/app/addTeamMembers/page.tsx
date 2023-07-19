@@ -36,7 +36,7 @@ function AddTeamMemberPage() {
   >([]);
   const [members, setMembers] = useState<Member>(defaultMember);
 
-  const [teamMembers, setTeamMembers] = useState<[]>([]);
+  const [teamMembers, setTeamMembers] = useState<any[]>([]);
 
   const addMember = (v: Member) => {
     setMembers({ ...members, ...v });
@@ -50,7 +50,7 @@ function AddTeamMemberPage() {
   };
 
   const removeMember = (toRemove:string) => {
-    teamMembers.forEach( (member, index, object) =>{
+    teamMembers.forEach( (member) =>{
         if(toRemove === member.address){
             console.log("?")
         }

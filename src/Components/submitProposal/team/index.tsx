@@ -15,7 +15,7 @@ type Props = {
 };
 
 const SubmitPropolsalTeam: React.FC<Props> = (props) => {
-  const [teamMembers, setTeamMembers] = useState<[]>([]);
+  const [teamMembers, setTeamMembers] = useState<any[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
 
   // const submitCtx = useContext(SubmitPropolsalContext);

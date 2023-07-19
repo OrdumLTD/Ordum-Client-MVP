@@ -29,7 +29,14 @@ const Test = () => {
 
   return (
     <div>
-      <Layout>
+      Test
+    </div>
+  );
+};
+
+export default Test;
+
+{/* <Layout>
         <div className="m-10">
           <div className="mt-10 mb-20">
             <h1 className="text-3xl font-bold">NEW MILESTONES</h1>
@@ -63,64 +70,59 @@ const Test = () => {
             <TextEditor />
           </div> */}
 
-          <Dropdown />
+      //     <Dropdown />
 
-          <Button className="" primeColor>
-            Hi there buddy
-          </Button>
+      //     <Button className="" primeColor>
+      //       Hi there buddy
+      //     </Button>
 
-          <Button className="block my-10" secondaryColor>
-            Hi there buddy
-          </Button>
+      //     <Button className="block my-10" secondaryColor>
+      //       Hi there buddy
+      //     </Button>
 
-          <Button className="block my-10" primeColor>
-            Hi there buddy
-          </Button>
-          <div className="">
-            <h1 className="text-2xl font-bold">MILSTONE CREATE</h1>
-            <MilestoneCreate />
+      //     <Button className="block my-10" primeColor>
+      //       Hi there buddy
+      //     </Button>
+      //     <div className="">
+      //       <h1 className="text-2xl font-bold">MILSTONE CREATE</h1>
+      //       <MilestoneCreate />
 
-            <h1 className="mt-10 text-2xl font-bold">Task</h1>
-            <Task
-            // name="1st tast"
-            // description="Task testing"
-            // taskType="Research"
-            />
+      //       <h1 className="mt-10 text-2xl font-bold">Task</h1>
+      //       <Task
+      //       // name="1st tast"
+      //       // description="Task testing"
+      //       // taskType="Research"
+      //       />
 
-            <div className="mt-10">
-              <h1 className="text-2xl font-bold">Task preview</h1>
-              <TaskPreview name="Test Work" type="Type test" />
-            </div>
+      //       <div className="mt-10">
+      //         <h1 className="text-2xl font-bold">Task preview</h1>
+      //         <TaskPreview name="Test Work" type="Type test" />
+      //       </div>
 
-            <div className="mt-10">
-              <h1 className="text-2xl font-bold">Member Create</h1>
-              <MemberCreate />
-            </div>
+      //       <div className="mt-10">
+      //         <h1 className="text-2xl font-bold">Member Create</h1>
+      //         <MemberCreate />
+      //       </div>
 
-            <div className="mt-10">
-              <h1 className="text-2xl font-bold">Member Edit</h1>
-              <MemberEdit name="Jone Doe" role="Boss Girl" />
-            </div>
+      //       <div className="mt-10">
+      //         <h1 className="text-2xl font-bold">Member Edit</h1>
+      //         <MemberEdit name="Jone Doe" role="Boss Girl" />
+      //       </div>
 
-            <div className="mt-10">
-              <h1 className="text-2xl font-bold">Member Basic</h1>
-              <MemberBasic name="John Doe" role="CTO" />
-            </div>
+      //       <div className="mt-10">
+      //         <h1 className="text-2xl font-bold">Member Basic</h1>
+      //         <MemberBasic name="John Doe" role="CTO" />
+      //       </div>
 
-            <div className="mt-10">
-              <h1 className="text-2xl font-bold">Team page</h1>
-              <Team
-                members={[
-                  { name: "Jane Doe", role: "The boss" },
-                  { name: "Crypto Joe", role: "The tech guy" },
-                ]}
-              />
-            </div>
-          </div>
-        </div>
-      </Layout>
-    </div>
-  );
-};
-
-export default Test;
+      //       <div className="mt-10">
+      //         <h1 className="text-2xl font-bold">Team page</h1>
+      //         <Team
+      //           members={[
+      //             { name: "Jane Doe", role: "The boss" },
+      //             { name: "Crypto Joe", role: "The tech guy" },
+      //           ]}
+      //         />
+      //       </div>
+      //     </div>
+      //   </div>
+      // </Layout> */}

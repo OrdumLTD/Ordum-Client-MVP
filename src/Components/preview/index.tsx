@@ -6,16 +6,16 @@ import Link from "next/link";
 
 type Props = {
   className?: string;
-  teamName: string;
-  propolsalName: string;
-  date: string;
-  fundingAmount: number;
+  teamName?: string;
+  propolsalName?: string;
+  date?: string;
+  fundingAmount?: number;
   govType?: string;
-  deadline: string;
-  startDate: string;
-  propolsalDescription: string;
-  problem: string;
-  solution: string;
+  deadline?: string;
+  startDate?: string;
+  propolsalDescription?: string;
+  problem?: string;
+  solution?: string;
   ifYouHaveSeenSimilar?: string;
 };
 
@@ -23,23 +23,6 @@ const OrdumPreview: React.FC<Props> = (props) => {
   return (
     <div className="flex flex-col">
       <div className="">
-        {/* <div>
-          {props.teamName} | {props.propolsalName}
-        </div>
-        <div>
-          Icon {props.teamName} {props.govType}
-        </div>
-        <div>Button? Submit button</div>
-        <div>
-          {Date.parse(props.date)}, {props.fundingAmount} {props.govType} {props.deadline}{" "}
-          {props.startDate}
-        </div> */}
-
-        {/* <div> Box of texts</div>
-        <div>{props.propolsalDescription}</div>
-        <div>{props.problem}</div>
-        <div>{props.solution}</div>
-        <div>{props.ifYouHaveSeenSimilar}</div> */}
 
         <h1 className="font-bold text-4xl">
           Name of prop Name of prop Name of prop{" "}
@@ -148,7 +131,7 @@ const OrdumPreview: React.FC<Props> = (props) => {
             with incredible speed and efficiency. They have the potential to
             revolutionize various fields, including cryptography, optimization,
             and scientific simulations. For example, quantum algorithms such as
-            Shor's algorithm can efficiently factor large numbers, posing a
+            {`Shor's`} algorithm can efficiently factor large numbers, posing a
             significant threat to current encryption methods. Moreover, quantum
             computers excel at optimization problems, enabling faster and more
             effective solutions for logistical challenges, financial modeling,
@@ -166,7 +149,7 @@ const OrdumPreview: React.FC<Props> = (props) => {
             material design, and quantum physics research. However, building and
             operating quantum computers is incredibly challenging due to the
             delicate nature of qubits. Maintaining coherence—the stability of
-            qubits' quantum states—is a persistent obstacle. Quantum error
+            {`qubits'`} quantum states—is a persistent obstacle. Quantum error
             correction techniques are being developed to mitigate errors and
             enhance the reliability of quantum computations.
           </p>

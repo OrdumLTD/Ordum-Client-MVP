@@ -1,6 +1,4 @@
-// import Layout from "@/components/layout";
-// import ChainSidePanel from "@/components/chain/sidePanel";
-
+'use client'
 import GrantPage from "@/Components/Grants/Kusama";
 import Layout from "@/Components/ui/Layout";
 

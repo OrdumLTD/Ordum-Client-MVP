@@ -12,7 +12,7 @@ const submitProposalPreview = () => {
       <div className="flex gap-0">
         <SubmitPropolsalSidePanel className="w-2/12"/>
         {/* <SubmitPropolsalPreview /> */}
-        <Review className=""/>
+        <Review />
       </div>
     </Layout>
   );
