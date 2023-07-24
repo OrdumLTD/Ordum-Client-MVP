@@ -57,12 +57,12 @@ function ConnectWallet() {
   return (
     <div className="flex flex-col items-center justify-around">
         
-        <div className="flex flex-col w-1/3 justify-center align-middle items-center">
+        <div className="flex flex-col w-1/3 justify-center align-middle items-center rounded">
             {
               isWallet? 
                 (
-                <FormControl sx={{ m: 1, minWidth: 120,width:300,borderColor:'lightblue',border:"1px solid" }} size="medium">
-                    <InputLabel id="wallet">Choose Account</InputLabel>
+                <FormControl sx={{ m: 1, minWidth: 120,width:300,borderColor:'lightblue',border:"1px solid",borderRadius:2}} size="medium">
+                    <InputLabel id="wallet" sx={{color:"white"}}>Choose Account</InputLabel>
                     <Select
                     labelId="Choose-Wallet"
                     id="wallet"

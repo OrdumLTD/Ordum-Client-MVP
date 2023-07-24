@@ -17,6 +17,8 @@ import { useChainApiContext } from "@/Context/ChainApiStore";
 import Summary from "./reviewSubmenu/Summary";
 import ViewProposal from "./reviewSubmenu/ViewProposal";
 import Milestones from "./reviewSubmenu/Milestones/milestones";
+import { newFileIpfs } from "@/lib/DeStorage/storeFile";
+import ordumJson from "@/lib/PhalaContract/Utils/ordum.json";
 
 enum ReviewMenu {
   Summary,
@@ -46,11 +48,16 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
 
   const [menu, setMenu] = useState(ReviewMenu.Summary);
 
+
+
+ 
   // Context
   const { changeToStep, setProposalIndex, proposalIndex, tldr, context } =
     useProposalContext();
   const { account, signer } = useWalletContext();
   const { api, fetchChainApi } = useChainApiContext();
+
+  
 
   const router = useRouter();
 
@@ -297,6 +304,7 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
           >
             Submit
           </button>
+          
         </div>
       </div>
     </div>
