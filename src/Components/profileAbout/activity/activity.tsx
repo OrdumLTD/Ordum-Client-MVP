@@ -4,6 +4,8 @@ import SideNav from "../sideNav/sideNav";
 import OptionsBar from "./optionsBar";
 
 
+
+
 export default function Activity() {
   return (
     <div className="md:mx-10 md:ml-16 md:mr-32 h-screen flex flex-row">

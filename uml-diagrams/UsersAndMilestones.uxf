@@ -1,0 +1,52 @@
+<diagram program="umletino" version="15.1"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>28</x><y>109</y><w>270</w><h>140</h></coordinates><panel_attributes>Ordum User Individual
+--
+id: uuid
+address: (either wallet or email)
+role: (designes etc...)
+adminStatus: (SuperUser, Admin, Regular)
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>138</x><y>239</y><w>220</w><h>140</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>200;120;150;90;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>408</x><y>669</y><w>240</w><h>120</h></coordinates><panel_attributes>Milesotne
+--
+id: uuid
+hash: string
+name: string
+description: string
+completed: True
+tasks: task[ ]</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>348</x><y>489</y><w>80</w><h>200</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>60;180;10;130;30;40;20;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>678</x><y>439</y><w>270</w><h>140</h></coordinates><panel_attributes>Task
+--
+id: uuid
+name: string
+type: string
+stringDescription
+teamMemmbersWithPrice:  teamMember[ ]
+[waiting for message]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1028</x><y>439</y><w>360</w><h>210</h></coordinates><panel_attributes>_object: TeamMember
+--
+id: uuid
+nme: string
+contact: string
+role: string
+bio:
+--
+[NOTES]
+Can be an existing team member (if from an organization)!
+
+Can be a different person, not related to _TeamMembers
+(both Individuals and Organization can have such team members)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>638</x><y>459</y><w>60</w><h>230</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>40;10;10;210</additional_attributes></element><element><id>Relation</id><coordinates><x>938</x><y>439</y><w>110</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>90;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>168</x><y>359</y><w>210</w><h>140</h></coordinates><panel_attributes> Proposal
+--
+id: uuid
+team: (FK to Team)
+tldr;
+proposal;
+teamMembers;
+milestones: milestone[ ]
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>608</x><y>69</y><w>270</w><h>140</h></coordinates><panel_attributes>Ordum User Organization
+
+--
+id: uuid
+address: (either wallet or email)
+role: (designes etc...)
+adminStatus: (SuperUser, Admin, Regular)
+teammembers:Ordum User Individual
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>288</x><y>119</y><w>340</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;320;70</additional_attributes></element><element><id>Relation</id><coordinates><x>368</x><y>199</y><w>390</w><h>180</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;160;370;10</additional_attributes></element><element><id>Relation</id><coordinates><x>268</x><y>29</y><w>140</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>10;80;120;10</additional_attributes></element><element><id>Relation</id><coordinates><x>478</x><y>19</y><w>150</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;.</panel_attributes><additional_attributes>130;70;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>388</x><y>19</y><w>100</w><h>30</h></coordinates><panel_attributes>/User/
+</panel_attributes><additional_attributes></additional_attributes></element></diagram>

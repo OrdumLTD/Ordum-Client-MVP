@@ -4,7 +4,8 @@ import Layout from "@/Components/ui/Layout/";
 import Activity from "@/Components/profileAbout/activity/activity";
 import Summary from "@/Components/profileAbout/summary";
 import Team from "@/Components/profileAbout/team/team";
-import BookmarkIcon from "@mui/icons-material/Bookmark";
+import Skills from "@/Components/profileAbout/Skills"
+
 import { useEffect, useState } from "react";
 import { getApplicant } from "@/lib/PhalaContract/Query";
 import { useWalletContext } from "@/Context/WalletStore";
@@ -64,13 +65,6 @@ const TeamMembersProfile = () => {
         <div className="h-40 md:h-60 bg-[url('/background/ordum-banner.jpeg')]"></div>
         <nav className="flex navbar relative mb-8 md:mb-16">
           <div className="ml-2 md:ml-16 w-full flex ">
-            {/* <div
-              className="
-       -mt-5 h-14 w-14
-       md:-mt-8 md:h-24 md:w-24
-       border-2
-       bg-black rounded-full text-white"
-            ></div> */}
             <Image src={KittyIcon} alt="user icon" className="
        -mt-5 h-14 w-14
        md:-mt-8 md:h-24 md:w-24
@@ -106,7 +100,7 @@ const TeamMembersProfile = () => {
           </div>
           {aboutMenu === About.Summary ? <Summary /> : null}
           {aboutMenu === About.Activity ? <Activity /> : null}
-          {aboutMenu === About.Team ? <Team /> : null}
+          {aboutMenu === About.Team ? <Skills /> : null}
         </div>
       </div>{" "}
     </Layout>
