@@ -1,5 +1,7 @@
 import type BN from 'bn.js';
 
+
+
 export enum Categories {
 	defi = "Defi",
    	identity = "Identity",
@@ -33,20 +35,46 @@ export enum Chains {
 	kusama = 'Kusama'
 }
 
-
-export enum LangError {
-	couldNotReadInput = 'CouldNotReadInput'
+export type Project = {
+	id: (number | string | BN),
+	data: InnerProject,
+	edited: Array<[(number | string | BN), Array<EditedMile>]>,
+	main: Array<AddMilestone>,
+	pivoted: Array<Array<AddMilestone>>,
+	pivotReason: Array<string> | null,
+	pivotIndex: Array<(number | string | BN)> | null,
+	totalMem: (number | string | BN)
 }
 
-export enum Error {
-	accountExists = 'AccountExists',
-	notAuthorized = 'NotAuthorized',
-	accountDontExists = 'AccountDontExists',
-	profileDontExists = 'ProfileDontExists',
-	maxKeysExceeded = 'MaxKeysExceeded',
-	accountExistsOrMaxExceeded = 'AccountExistsOrMaxExceeded',
-	unexpectedError = 'UnexpectedError'
+export type InnerProject = {
+	chain: Chains,
+	file: string,
+	referendaNo: (number | string | BN) | null
 }
+
+export type EditedMile = {
+	editedIndex: (number | string | BN),
+	mainIndex: (number | string | BN),
+	data: string,
+	mem: (number | string | BN)
+}
+
+export type AddMilestone = {
+	mainIndex: (number | string | BN),
+	noEdits: (number | string | BN),
+	data: string,
+	mem: (number | string | BN)
+}
+
+export type FetchedMilestone = {
+	id: (number | string | BN),
+	editedPerMile: Array<EditedMile> | null,
+	allEdits: Array<[(number | string | BN), Array<EditedMile>]> | null,
+	main: Array<AddMilestone> | null,
+	pivoted: Array<AddMilestone> | null
+}
+
+
 
 export enum KeyAction {
 	add = 'ADD',
@@ -92,3 +120,28 @@ export type KeyManagement = {
 	keyPointer: AccountId,
 	allowedKeys: Array<AccountId>
 }
+
+// Errors Type
+
+export enum LangError {
+	couldNotReadInput = 'CouldNotReadInput'
+}
+
+export enum Error {
+	accountExists = 'AccountExists',
+	notAuthorized = 'NotAuthorized',
+	accountDontExists = 'AccountDontExists',
+	profileDontExists = 'ProfileDontExists',
+	maxKeysExceeded = 'MaxKeysExceeded',
+	accountExistsOrMaxExceeded = 'AccountExistsOrMaxExceeded',
+	unexpectedError = 'UnexpectedError'
+}
+
+export enum MilestoneError {
+	notAuthorized = 'NotAuthorized',
+	unexpectedError = 'UnexpectedError',
+	storageExceeded = 'StorageExceeded',
+	milestoneNotFound = 'MilestoneNotFound',
+	projectNotFound = 'ProjectNotFound'
+}
+
