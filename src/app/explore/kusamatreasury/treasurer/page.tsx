@@ -1,5 +1,6 @@
 "use client";
 import GrantPage from "@/Components/Grants/Kusama";
+import ProposalPreview from "@/Components/proposalExplorer/ProposalPreview";
 import Layout from "@/Components/ui/Layout";
 
 const Treasurer = () => {
@@ -27,6 +28,7 @@ const Treasurer = () => {
       <div className="mx-4 flex flex-col">
         <h1>Treasurer</h1>
         <div>List proposals: </div>
+        <ProposalPreview />
         <button onClick={() => fetchProposals()}>Get em</button>
       </div>
     </Layout>

@@ -129,13 +129,13 @@ const CreateIndividualProfile = () => {
             w-full
             "
           >
-            <select
+      <select
               className=" 
-              mr-4 
-              w-full
-              block pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
-              focus:outline-none bg-inherit
-              text-[#CAC9C9]"
+             mr-4 
+            w-full
+            pl-2 md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
+            focus:outline-none bg-inherit
+            text-[#CAC9C9]"
             >
               <option value="" className="" disabled hidden>
                 All
@@ -143,8 +143,19 @@ const CreateIndividualProfile = () => {
               <option value="All">
                 What are you creating? Chooce a category
               </option>
-              <option value="Option 1">Option 1</option>
-              <option value="Option 2">Option 2</option>
+              <option value="All">What chain are you building on?</option>
+              <option value="DeFi">DeFi </option>
+              <option value="Privacy ">Privacy </option>
+              <option value="Infrastructure">Infrastructure</option>
+              <option value="Network Changes">IdNetwork Changesentity</option>
+              <option value="Art">Art</option>
+              <option value="Media">Media</option>
+              <option value="Gaming">Gaming</option>
+              <option value="Events">Events</option>
+              <option value="Educationtity">Education</option>
+              <option value="NFTs">NFTs</option>
+              <option value="Translations">Translations</option>
+              <option value="Other">Other</option>
             </select>
 
             <button className="w-40 rounded py-2.5 md:py-3 bg-ordum-purple font-semibold shadow shadow-md hover:shadow-2xl">

@@ -5,6 +5,7 @@ import Activity from "@/Components/profileAbout/activity/activity";
 import Summary from "@/Components/profileAbout/summary";
 import Team from "@/Components/profileAbout/team/team";
 import Skills from "@/Components/profileAbout/Skills"
+import Work from "@/Components/profileAbout/Work"
 
 import { useEffect, useState } from "react";
 import { getApplicant } from "@/lib/PhalaContract/Query";
@@ -19,8 +20,8 @@ import Image from "next/image";
 
 enum About {
   Summary,
-  Activity,
-  Team,
+  Work,
+  Skills,
 }
 
 const TeamMembersProfile = () => {
@@ -86,21 +87,21 @@ const TeamMembersProfile = () => {
               Summary
             </button>
             <button
-              className={aboutMenu === About.Activity ? "font-bold" : ""}
-              onClick={() => setAboutMenu(About.Activity)}
+              className={aboutMenu === About.Work ? "font-bold" : ""}
+              onClick={() => setAboutMenu(About.Work)}
             >
               Work
             </button>
             <button
-              className={aboutMenu === About.Team ? "font-bold" : ""}
-              onClick={() => setAboutMenu(About.Team)}
+              className={aboutMenu === About.Skills ? "font-bold" : ""}
+              onClick={() => setAboutMenu(About.Skills)}
             >
               Skills
             </button>
           </div>
           {aboutMenu === About.Summary ? <Summary /> : null}
-          {aboutMenu === About.Activity ? <Activity /> : null}
-          {aboutMenu === About.Team ? <Skills /> : null}
+          {aboutMenu === About.Work ? <Work /> : null}
+          {aboutMenu === About.Skills ? <Skills /> : null}
         </div>
       </div>{" "}
     </Layout>

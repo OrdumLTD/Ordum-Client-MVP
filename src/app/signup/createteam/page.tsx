@@ -123,8 +123,8 @@ const CreateTeam = () => {
                 All
               </option>
               <option value="Kusama">What chain are you building on?</option>
-              <option value="DeFi">DeFi </option>
-              <option value="Privacy ">Privacy </option>
+              <option value="Kusama">Kusama </option>
+              <option value="Privacy ">Polkdot </option>
             </select>
 
             <button className="w-40 rounded py-2.5 md:py-3 bg-ordum-purple font-semibold shadow shadow-md hover:shadow-2xl">
