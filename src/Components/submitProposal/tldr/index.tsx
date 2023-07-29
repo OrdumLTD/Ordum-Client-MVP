@@ -34,6 +34,7 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
     readyToSubmit,
     setReadyToSubmit,
   } = useProposalContext();
+
   const tldrCtx = { ...tldr };
   const { accounts, account } = useWalletContext();
   const { fetchChainApi, api } = useChainApiContext();
@@ -70,7 +71,7 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
 
   const handleSuggestion = (param?: number) => {
     if (param) {
-      const rate = tldr?.exchangeRate || 24;
+      const rate = tldr?.exchangeRate || 24; // Fetching should work
       const date = receiveDateSuggest(param, rate);
       console.log(date);
       setSuggestDate(date);

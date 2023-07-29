@@ -18,7 +18,7 @@ import Summary from "./reviewSubmenu/Summary";
 import ViewProposal from "./reviewSubmenu/ViewProposal";
 import Milestones from "./reviewSubmenu/Milestones/milestones";
 import { newFileIpfs } from "@/lib/DeStorage/storeFile";
-import ordumJson from "@/lib/PhalaContract/Utils/ordum.json";
+
 
 enum ReviewMenu {
   Summary,
