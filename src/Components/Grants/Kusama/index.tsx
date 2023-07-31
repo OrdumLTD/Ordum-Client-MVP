@@ -43,7 +43,8 @@ const GrantPage = () => {
         poc5,
         signer,
         account,
-        cache
+        cache,
+        null // This should be optional account id
       );
       console.log(profile.output?.toHuman());
     } else {
