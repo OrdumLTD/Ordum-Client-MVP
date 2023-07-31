@@ -11,8 +11,6 @@ import { getApplicant } from "@/lib/PhalaContract/Query";
 import { useWalletContext } from "@/Context/WalletStore";
 import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
 import { useChainApiContext } from "@/Context/ChainApiStore";
-import { useFetchedProfileContext } from "@/Context/ProfileStore";
-import { FetchedProfileData } from "@/Context/ProfileStore";
 
 import KusamaAvatar from "@/assets/svg-icons/kusama-avatar.svg";
 import Image from "next/image";
@@ -20,6 +18,7 @@ import Image from "next/image";
 import ApplicationProcess from "./Overview/subpages/AppicationProcess";
 import Button from "@/Components/ui/buttons/Button";
 import Link from "next/link";
+import { useFetchedProfileContext } from "@/Context/ProfileStore";
 
 enum About {
   Summary,

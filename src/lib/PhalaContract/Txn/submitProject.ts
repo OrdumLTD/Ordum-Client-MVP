@@ -9,7 +9,7 @@ import { Dispatch } from "react";
 
 
 // Submit New Proposal
-const submitProposal = async(
+export const submitProposal = async(
     proposalStatus: Dispatch<boolean>,
     account:InjectedAccountWithMeta,
     signer: Signer,
@@ -66,7 +66,7 @@ const submitProposal = async(
 
 
 // Submit Milestone
-const submitMilestone = async(
+export const submitMilestone = async(
     milestoneStatus: Dispatch<boolean>,
     account:InjectedAccountWithMeta,
     signer: Signer,

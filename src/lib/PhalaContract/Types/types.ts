@@ -20,9 +20,10 @@ export enum Categories {
 }
 
 export enum UserRole {
-	individual = 'Individual',
-	foundation = 'Foundation'
+	applicant = 'Applicant',
+	issuer = 'Issuer'
 }
+
 
 export enum MemberRole {
 	admin = 'Admin',
@@ -85,35 +86,33 @@ export enum KeyAction {
 
 export type AccountId = string | number[]
 
-export type IssuerProfile = {
-	name: string,
-	id: (number | string | BN),
-	chain: Chains,
-	isActive: boolean,
-	registrationDate: (number | string | BN),
-	categories: Array<Categories>,
-	description: string,
-	mission: string,
-	members: Array<[AccountId,MemberRole]>|null,
-	applications: Array<(number | string | BN)> | null
-	role: UserRole
-}
 
-
-
-export type ApplicantProfile = {
+export type TeamApplicantProfile = {
 	name: string,
 	accountId: AccountId,
 	description: string,
-	members: Array<[AccountId, MemberRole]> | null,
-	refTeam: (number | string | BN) | null,
+	mission: string,
+	chain: Array<Chains>,
+	members: Array<[AccountId, MemberRole]>,
 	registeredTime: (number | string | BN),
-	applications: (number | string | BN) | null,
-	categories: Array<Categories> | null,
-	links: Array<string> | null,
-	role: UserRole
+	applications: (number | string | BN),
+	certificates: Array<[string, (number | string | BN)]>,
+	categories: Array<Categories>,
+	links: Array<string>
 }
 
+export type IndividualProfile = {
+	name: string,
+	accountId: AccountId,
+	description: string,
+	chains: Array<Chains>,
+	refTeam: Array<[AccountId, MemberRole]>,
+	applications: (number | string | BN),
+	certificates: Array<[string, (number | string | BN)]>,
+	categories: Array<Categories>,
+	links: Array<string>,
+	role: UserRole
+}
 
 export type KeyManagement = {
 	admin: AccountId,

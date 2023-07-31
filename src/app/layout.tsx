@@ -4,7 +4,7 @@ import './globals.css'
 import { Work_Sans } from "next/font/google";
 import { ChainApiContextProvider } from '@/Context/ChainApiStore'
 import { PhalaContractContextProvider } from '@/Context/PhalaContractApiStore'
-import { FetchedProfileContextProvider, ProfileContextProvider } from '@/Context/ProfileStore'
+import { ApplicantNameNIdContextProvider, FetchedIndividualProfileContextProvider, FetchedProfileContextProvider, IndidvualNameNIdContextProvider, IndividualProfileContextProvider, ProfileContextProvider } from '@/Context/ProfileStore'
 import { ProposalContextProvider } from '@/Context/submitPropolsal';
 
 
@@ -31,11 +31,19 @@ export default function RootLayout({
           <ChainApiContextProvider>
             <PhalaContractContextProvider>
               <ProfileContextProvider>
-                <FetchedProfileContextProvider>
-                  <ProposalContextProvider>
-                    {children}
-                  </ProposalContextProvider>
-                </FetchedProfileContextProvider>
+                <IndividualProfileContextProvider>
+                  <FetchedIndividualProfileContextProvider>
+                    <FetchedProfileContextProvider>
+                      <ProposalContextProvider>
+                        <ApplicantNameNIdContextProvider>
+                          <IndidvualNameNIdContextProvider>
+                            {children}
+                          </IndidvualNameNIdContextProvider>
+                        </ApplicantNameNIdContextProvider>
+                      </ProposalContextProvider>
+                    </FetchedProfileContextProvider>
+                  </FetchedIndividualProfileContextProvider>
+                </IndividualProfileContextProvider>
               </ProfileContextProvider>
             </PhalaContractContextProvider>
           </ChainApiContextProvider>
