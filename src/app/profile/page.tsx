@@ -11,7 +11,7 @@ import { useWalletContext } from "@/Context/WalletStore";
 import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
 import { useChainApiContext } from "@/Context/ChainApiStore";
 import { useFetchedProfileContext } from "@/Context/ProfileStore";
-import { FetchedProfileData } from "@/Context/ProfileStore";
+
 
 import KittyIcon from "@/assets/svg-icons/kitty-icon.svg"
 import Image from "next/image";

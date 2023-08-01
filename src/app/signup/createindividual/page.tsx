@@ -80,12 +80,12 @@ const CreateIndividualProfile = () => {
         account.meta.name,
         account.address,
         profileData.description,
+        profileData.mission,
         profileData.projectType,
         profileData.residentChain,
         //ProfileCtx.profileData.projectType, // Work on this
         profileData.teamMembers,
-        profileData.links,
-        UserRole.individual
+        profileData.links
       );
     }
   };
