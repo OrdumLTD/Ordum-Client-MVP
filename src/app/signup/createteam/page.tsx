@@ -11,14 +11,70 @@ import Twitter from "@/assets/svg-icons/twitter-light-icon.svg";
 import Matrix from "@/assets/svg-icons/matric-light-icon.svg";
 import Website from "@/assets/svg-icons/web-light-icon.svg";
 import Link from "next/link";
+import { useState } from "react";
+
+import axios from "axios";
 
 const CreateTeam = () => {
+  const [teamName, setTeamName] = useState("");
+  const [about, setAbout] = useState("");
+
+  const [projectType, setProjectType] = useState("");
+  const [projects, setProjects] = useState<string[]>([]);
+
+  const [blockchain, setBlockchain] = useState("");
+  const [blockchains, setBlockchains] = useState<string[]>([]);
+
+  const [mission, setMission] = useState("");
+  const [email, setEmail] = useState("");
+  const [discord, setDiscord] = useState("");
+  const [twitter, setTwitter] = useState("");
+  const [website, setWebsite] = useState("");
+  const [element, setElement] = useState("");
+  const [git, setGit] = useState("");
   // const { user } = useSelector((state: RootState) => state.user);
   // const dispatch = useDispatch()
 
   // const logInTest = () => {
   //   dispatch(logInTestUser())
   // }
+
+  const createUser = (
+    name,
+    about,
+    projects,
+    mission,
+    blockchains,
+    email,
+    discord,
+    twitter,
+    website,
+    element,
+    git
+  ) => {
+    axios
+      .post("http://localhost:3000/organizations", {
+        name: name,
+        email: "test@example.com",
+        passkey: "123421412",
+        projectType: { projects: projects },
+        blockchain: { blockchains: blockchains },
+        links: {
+          email: email,
+          discord: discord,
+          twitter: twitter,
+          matrix: element,
+          website: website,
+          git: git,
+        },
+        about: about,
+        mission: mission,
+      })
+      // if succsful it will return a token
+      .then((res) => console.log(res.data?.token))
+      .catch((e) => console.log(e));
+  };
+
   return (
     <div className="grid place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-contain text-sm md:text-base">
       <div
@@ -42,7 +98,10 @@ const CreateTeam = () => {
         bg-inherit
         text-[#CAC9C9]
         py-2 px-3 "
+            type="text"
             placeholder="Pick a name for your team"
+            value={teamName}
+            onChange={(e) => setTeamName(e.target.value)}
           />
 
           <h3 className="mt-5 justify-self-start font-medium">About</h3>
@@ -57,12 +116,14 @@ const CreateTeam = () => {
         text-[#CAC9C9]
         py-2 px-3 "
             placeholder="What does your team want to achieve? "
+            value={about}
+            onChange={(e) => setAbout(e.target.value)}
           />
 
           <h3 className="mt-5 justify-self-start font-medium">Project type</h3>
 
           <div
-            className=" \
+            className=" 
           justify-self-start mt-4
            flex justify-between
            w-full
@@ -75,6 +136,8 @@ const CreateTeam = () => {
             pl-2 md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
             focus:outline-none bg-inherit
             text-[#CAC9C9]"
+              value={projectType}
+              onChange={(e) => setProjectType(e.target.value)}
             >
               <option value="" className="" disabled hidden>
                 All
@@ -82,24 +145,60 @@ const CreateTeam = () => {
               <option value="All">
                 What are you creating? Chooce a category
               </option>
-              <option value="All">What chain are you building on?</option>
               <option value="DeFi">DeFi </option>
               <option value="Privacy ">Privacy </option>
               <option value="Infrastructure">Infrastructure</option>
-              <option value="Network Changes">IdNetwork Changesentity</option>
+              <option value="Network Changes">Network Changes</option>
               <option value="Art">Art</option>
               <option value="Media">Media</option>
               <option value="Gaming">Gaming</option>
               <option value="Events">Events</option>
-              <option value="Educationtity">Education</option>
+              <option value="Education">Education</option>
               <option value="NFTs">NFTs</option>
               <option value="Translations">Translations</option>
               <option value="Other">Other</option>
             </select>
 
-            <button className="w-40 rounded py-2.5 md:py-3 bg-ordum-purple font-semibold shadow shadow-md hover:shadow-2xl">
+            <button
+              className="w-40 rounded py-2.5 md:py-3 bg-ordum-purple font-semibold shadow shadow-md hover:shadow-2xl"
+              onClick={() => {
+                if (projectType !== "" && !projects.includes(projectType)) {
+                  console.log(!projects.includes(projectType));
+                  setProjects([...projects, projectType]);
+                  setProjectType("");
+                }
+              }}
+            >
               + Add More
             </button>
+          </div>
+
+          <div
+            className=" mt-4
+           w-full"
+          >
+            <ul className="flex flex-col">
+              {projects.map((item, index) => {
+                return (
+                  <li key={index}>
+                    <div className="w-11/12 border rounded mt-3 px-4 py-2  flex justify-between">
+                      {" "}
+                      <span>{item}</span>{" "}
+                      <button
+                        className="bg-red-500 rounded-md px-2"
+                        onClick={() => {
+                          const newArray = [...projects];
+                          newArray.splice(index, 1);
+                          setProjects(newArray);
+                        }}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
 
           <h3 className="mt-5 justify-self-start font-medium">Blockchain</h3>
@@ -118,18 +217,89 @@ const CreateTeam = () => {
            block pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
            focus:outline-none bg-inherit
            text-[#CAC9C9]"
+              value={blockchain}
+              onChange={(e) => setBlockchain(e.target.value)}
             >
-              <option value="" className="" disabled hidden>
+              {/* <option value="" className="" disabled hidden>
                 All
-              </option>
-              <option value="Kusama">What chain are you building on?</option>
-              <option value="Kusama">Kusama </option>
-              <option value="Privacy ">Polkdot </option>
+              </option> */}
+              <option value="">What chain are you building on?</option>
+              <option value="Kusama">Kusama</option>
+              <option value="Polkdot">Polkdot</option>
+              <option value="Phala">Phala</option>
+              <option value="Aleph Zero">Aleph Zero</option>
+              <option value="Basilisk">Basilisk</option>
+              <option value="HydraDX">HydraDX</option>
+              <option value="Astar">Astar</option>
+              <option value="Subsocial">Subsocial</option>
+              <option value="Zeitgeist">Zeitgeist</option>
+              <option value="Interlay">Interlay</option>
+              <option value="Ethereum">Ethereum</option>
+              <option value="Near">Near</option>
+              <option value="KILT">KILT</option>
+              <option value="Aventus">Aventus</option>
+              <option value="Bifrost">Bifrost</option>
+              <option value="Composable Finance">Composable Finance</option>
+              <option value="Picasso">Picasso</option>
+              <option value="Equilibrium">Equilibrium</option>
+              <option value="Frequency">Frequency</option>
+              <option value="Centerfuge">Centerfuge</option>
+              <option value="Darwania">Darwania</option>
+              <option value="Ajuna">Ajuna</option>
+              <option value="Parallel">Parallel</option>
+              <option value="Pendulum">Pendulum</option>
+              <option value="Moonbeam">Moonbeam</option>
+              <option value="Unique Netwolr">Unique Netwolr</option>
+              <option value="Altair">Altair</option>
+              <option value="GM">GM</option>
+              <option value="Inbue">Inbue</option>
+              <option value="Moonriver">Moonriver</option>
+              <option value="Robonomics">Robonomics</option>
+              <option value="Touring">Touring</option>
+              <option value="Sora">Sora</option>
+              <option value="Kintsugi">Kintsugi</option>
+              <option value="Other">Other</option>
             </select>
 
-            <button className="w-40 rounded py-2.5 md:py-3 bg-ordum-purple font-semibold shadow shadow-md hover:shadow-2xl">
+            <button
+              className="w-40 rounded py-2.5 md:py-3 bg-ordum-purple font-semibold shadow shadow-md hover:shadow-2xl"
+              onClick={() => {
+                if (blockchain !== "" && !blockchains.includes(blockchain)) {
+                  setBlockchains([...blockchains, blockchain]);
+                  setBlockchain("");
+                }
+              }}
+            >
               + Add More
             </button>
+          </div>
+
+          <div
+            className=" mt-4
+           w-full"
+          >
+            <ul className="flex flex-col">
+              {blockchains.map((item, index) => {
+                return (
+                  <li key={index}>
+                    <div className="w-11/12 border rounded mt-3 px-4 py-2  flex justify-between">
+                      {" "}
+                      <span>{item}</span>{" "}
+                      <button
+                        className="bg-red-500 rounded-md px-2"
+                        onClick={() => {
+                          const newArray = [...blockchains];
+                          newArray.splice(index, 1);
+                          setBlockchains(newArray);
+                        }}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
 
           <h3 className="mt-5 justify-self-start font-medium">Mission</h3>
@@ -144,6 +314,8 @@ const CreateTeam = () => {
         text-[#CAC9C9]
         py-2 px-3 "
             placeholder="What does your team want to achieve? "
+            value={mission}
+            onChange={(e) => setMission(e.target.value)}
           />
 
           <div className="mt-5 justify-self-start w-full">
@@ -155,6 +327,8 @@ const CreateTeam = () => {
               focus:outline-none bg-inherit "
                 placeholder="Email"
                 type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="mt-4 flex">
@@ -164,6 +338,8 @@ const CreateTeam = () => {
               focus:outline-none bg-inherit"
                 placeholder="Discord"
                 type="text"
+                value={discord}
+                onChange={(e) => setDiscord(e.target.value)}
               />
             </div>
             <div className="mt-4 flex">
@@ -173,6 +349,8 @@ const CreateTeam = () => {
               focus:outline-none bg-inherit"
                 placeholder="Twitter"
                 type="text"
+                value={twitter}
+                onChange={(e) => setTwitter(e.target.value)}
               />
             </div>
 
@@ -183,6 +361,8 @@ const CreateTeam = () => {
               focus:outline-none bg-inherit"
                 placeholder="Matrix"
                 type="text"
+                value={element}
+                onChange={(e) => setElement(e.target.value)}
               />
             </div>
             <div className="mt-4 flex">
@@ -192,6 +372,8 @@ const CreateTeam = () => {
               focus:outline-none bg-inherit"
                 placeholder="Website/Portfolio"
                 type="text"
+                value={website}
+                onChange={(e) => setWebsite(e.target.value)}
               />
             </div>
             <div className="mt-4 flex">
@@ -201,6 +383,8 @@ const CreateTeam = () => {
               focus:outline-none bg-inherit"
                 placeholder="Github"
                 type="text"
+                value={git}
+                onChange={(e) => setGit(e.target.value)}
               />
             </div>
           </div>
@@ -210,8 +394,27 @@ const CreateTeam = () => {
             w-full
             flex flex-col gap-4"
           >
-            <button className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl">
-              <Link href={"createteam/addteammembers"}>Save and continue</Link>
+            <button
+              className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl"
+              // onClick={() => createTeamHandler()}
+              onClick={() =>
+                createUser(
+                  teamName,
+                  about,
+                  projects,
+                  mission,
+                  blockchains,
+                  email,
+                  twitter,
+                  discord,
+                  website,
+                  element,
+                  git
+                )
+              }
+            >
+              {/* <Link href={"createteam/addteammembers"}>Save and continue</Link> */}
+              Save and continue
             </button>
             <button className="rounded-full py-2.5 md:py-3 bg-ordum-purple font-semibold shadow-md shadow-md hover:shadow-2xl">
               Back
