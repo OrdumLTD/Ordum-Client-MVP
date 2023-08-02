@@ -1,7 +1,7 @@
 'use client'
 
 import { CertificateData} from "@phala/sdk";
-import type { InjectedAccountWithMeta, InjectedExtension } from "@polkadot/extension-inject/types";
+import type { InjectedAccountWithMeta} from "@polkadot/extension-inject/types";
 import { Categories,Chains,AccountId, MemberRole, UserRole} from "../Types/types";
 import { ContractPromise } from "@polkadot/api-contract";
 import { Signer } from "@polkadot/types/types";
@@ -17,11 +17,11 @@ export const createApplicantProfile = async(
     name: string,
     accountId: AccountId | null,
     description: string,
+    mission: string,
     categories: Array<Categories> | null,
     chain: Array<Chains>,
     members: Array<[AccountId, MemberRole]> | null,
-    links: Array<string> | null,
-    role: UserRole,
+    links: Array<string> | null
     
 ) =>{
 
@@ -32,11 +32,12 @@ export const createApplicantProfile = async(
         name,
         accountId,
         description,
+        mission,
         categories,
         chain,
         members,
         links,
-        role
+        
     )
     
     // Gas params
@@ -51,11 +52,12 @@ export const createApplicantProfile = async(
         name,
         accountId,
         description,
+        mission,
         categories,
         chain,
         members,
         links,
-        role
+        
     );
 
    
@@ -80,36 +82,32 @@ export const createApplicantProfile = async(
 
 
 
-// Grant Issuer Function 
 
-export const createIssuerProfile = async(
-    contract: ContractPromise,
+export const createIndividualProfile = async(
+    profileCreationStatus:(v:boolean)=>void,
+    account:InjectedAccountWithMeta,
     signer: Signer,
-    account: InjectedAccountWithMeta,
     certificate: CertificateData,
-    // Pure params
+    contract:ContractPromise,
+    //Pure params
     name: string,
-    chain: Chains,
-    categories: Array<Categories>,
     description: string,
-    mission: string,
-    members: Array<[AccountId,MemberRole]> |null,
-    allowedAccounts:Array<AccountId>,
+    categories: Array<Categories> | null,
+    chain: Array<Chains>,
+    links: Array<string> | null,
     role: UserRole
+
 ) =>{
 
-    
     // Query txn
-    const data = await contract.query.createIssuerProfile(
+    const data = await contract.query.createIndividualProfile(
         certificate as any,
         {},
         name,
-        chain,
-        categories,
         description,
-        mission,
-        members,
-        allowedAccounts,
+        categories,
+        chain,     
+        links,
         role
     )
     
@@ -120,17 +118,17 @@ export const createIssuerProfile = async(
         ? data.storageDeposit.asCharge : null
     };
     // Txn data
-    const txnData = contract.tx.createIssuerProfile(
+    const txnData = contract.tx.createIndividualProfile(
         options,
         name,
-        chain,
-        categories,
         description,
-        mission,
-        members,
-        allowedAccounts,
+        categories,
+        chain,
+        links,
         role
     );
+
+   
     // Sign and Send
     
     txnData.signAndSend(account.address,{signer},({isInBlock,events,isCompleted,isFinalized})=>{
@@ -140,6 +138,7 @@ export const createIssuerProfile = async(
             console.log("Completed")
         }else if(isFinalized){
             console.log("Finalized Applicant Profile Creation")
+            profileCreationStatus(true)
         };
         // Events
         events?.map(event =>{
@@ -148,3 +147,4 @@ export const createIssuerProfile = async(
     })
     
 }
+

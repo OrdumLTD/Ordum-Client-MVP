@@ -50,7 +50,7 @@ const SubmitProposalContext: React.FC<Props> = (props) => {
     changeContext({ whyKSM: text });
   };
 
-  const handleSimilalSolution = (text: string) => {
+  const handleSimilarSolution = (text: string) => {
     changeContext({ similarSolution: text });
   };
 
@@ -201,7 +201,7 @@ const SubmitProposalContext: React.FC<Props> = (props) => {
 
           <TextEditorDropdown
             text={context?.similarSolution}
-            changeText={handleSimilalSolution}
+            changeText={handleSimilarSolution}
             className="text-black mt-5"
           />
 

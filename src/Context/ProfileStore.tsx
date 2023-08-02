@@ -1,7 +1,7 @@
 'use client';
 
 
-import { AccountId, Categories, Chains, MemberRole } from "@/lib/PhalaContract/Types/types";
+import { AccountId, Categories, Chains, IndividualProfile, MemberRole, TeamApplicantProfile, UserRole } from "@/lib/PhalaContract/Types/types";
 import React, { createContext, useState, ReactNode, Dispatch, useContext } from "react";
 
 
@@ -76,46 +76,37 @@ export const ProfileContextProvider = ({ children }: Props) => {
 export const useProfileContext =()=> useContext(ProfileContext);
 
 
+//------------------------------------------------------------------//
 
-// Fetched Profile data
 
-export interface FetchedProfileData{
-  teamType:string, //If its an individual or Organization
-  userType:string, // If its an applicant or Issuer
-  teamName: string; // ISSUE - Should this be a profileName, just for clarity
-  description: string;
-  mission: string;
-  projectType: Categories[];
-  residentChain:Chains[],
-  teamMembers: Array<[AccountId,MemberRole]>|null;
-  allowedAccounts:Array<AccountId>|null,
-  links:Array<string>|null
-}
+// Fetched Team Applicant Profile data
 
-const defaultFetchedProfileData:FetchedProfileData ={
-  teamType:"",
-  userType:"",
-  teamName:"",
-  description:"",
-  mission:"",
-  projectType:[],
-  residentChain:[],
-  teamMembers:null,
-  allowedAccounts:null,
-  links: null
+
+const defaultFetchedProfileData: TeamApplicantProfile ={
+  name: "",
+	accountId: "",
+	description: "",
+	mission: "",
+	chain: [],
+	members: [],
+	registeredTime: "",
+	applications:0,
+	certificates: [],
+	categories: [],
+	links: []
 }
 
 interface FetchedProfile {
-  profileData: FetchedProfileData,
+  profileData: TeamApplicantProfile,
   fetchedStatus:boolean;
-  setProfile:Dispatch<FetchedProfileData>;
+  setProfile:Dispatch<TeamApplicantProfile>;
   setFetchedStatus:Dispatch<boolean>
 }
 
 const defaultFetchedProfile:FetchedProfile ={
   profileData:defaultFetchedProfileData,
   fetchedStatus:false,
-  setProfile:(value:FetchedProfileData) =>{return},
+  setProfile:(value:TeamApplicantProfile) =>{return},
   setFetchedStatus:(v:boolean) => {return}
 }
 
@@ -123,10 +114,10 @@ const defaultFetchedProfile:FetchedProfile ={
 const FetchedProfileContext = createContext<FetchedProfile>(defaultFetchedProfile);
 
 export const FetchedProfileContextProvider = ({ children }: Props) => {
-  const [profileData, setProfileData] = useState<FetchedProfileData>(defaultFetchedProfileData);
+  const [profileData, setProfileData] = useState<TeamApplicantProfile>(defaultFetchedProfileData);
   const [fetchedStatus, setFetchedStatus] = useState<boolean>(false)
 
-  const setProfile =(v:createProfileData)=>{
+  const setProfile =(v:TeamApplicantProfile)=>{
       setProfileData({...profileData,...v})
   }
 
@@ -144,3 +135,209 @@ export const FetchedProfileContextProvider = ({ children }: Props) => {
 
 
 export const useFetchedProfileContext =()=> useContext(FetchedProfileContext);
+
+
+
+// --------------------------------------------------------------------------//
+
+// Individual Profile
+
+export interface createIndividualData{
+  userType:string, // If its an applicant or Issuer
+  teamName: string;
+  description: string;
+  projectType: Categories[];
+  residentChain:Chains[],
+  links: Array<string>|null
+}
+
+const defaultIndividualData:createIndividualData ={
+  userType:"",
+  teamName:"",
+  description:"",
+  projectType:[],
+  residentChain:[],
+  links:null
+}
+
+interface createIndividualProfile {
+  profileData: createIndividualData,
+  creationStatus:boolean;
+  setProfile:Dispatch<createIndividualData>;
+  setCreationStatus:Dispatch<boolean>
+}
+
+const defaultIndividualProfile:createIndividualProfile ={
+  profileData:defaultProfileData,
+  creationStatus:false,
+  setProfile:(value:createProfileData) =>{return},
+  setCreationStatus:(v:boolean) => {return}
+}
+
+
+const IndividualProfileContext = createContext<createIndividualProfile>(defaultIndividualProfile);
+
+export const IndividualProfileContextProvider = ({ children }: Props) => {
+  const [profileData, setProfileData] = useState<createIndividualData>(defaultIndividualData);
+  const [creationStatus, setCreationStatus] = useState<boolean>(false)
+
+  const setProfile =(v:createIndividualData)=>{
+      setProfileData({...profileData,...v})
+  }
+
+ 
+  return (
+    <IndividualProfileContext.Provider value={{
+      profileData,
+      creationStatus,
+      setProfile,
+      setCreationStatus
+    }}
+    >{children}</IndividualProfileContext.Provider>
+  );
+};
+
+
+export const useIndividualProfileContext =()=> useContext(IndividualProfileContext);
+
+
+// ----------------------------------------------------------------------------------//
+// Fetched Individual Profile
+
+const defaultFetchedIndividualProfileData: IndividualProfile={
+  name: "",
+  accountId: "",
+  description: "",
+  chains: [],
+  applications: 0,
+  refTeam: [],
+  certificates: [],
+  categories: [],
+  links: [],
+  role: UserRole.applicant
+}
+
+interface FetchedIndividualProfile {
+  profileData: IndividualProfile,
+  fetchedStatus:boolean;
+  setProfile:Dispatch<IndividualProfile>;
+  setFetchedStatus:Dispatch<boolean>
+}
+
+const defaultFetchedIndividualProfile:FetchedIndividualProfile ={
+  profileData:defaultFetchedIndividualProfileData,
+  fetchedStatus:false,
+  setProfile:(value: IndividualProfile) =>{return},
+  setFetchedStatus:(v:boolean) => {return}
+}
+
+
+const FetchedIndividualProfileContext = createContext<FetchedIndividualProfile>(defaultFetchedIndividualProfile);
+
+export const FetchedIndividualProfileContextProvider = ({ children }: Props) => {
+  const [profileData, setProfileData] = useState<IndividualProfile>(defaultFetchedIndividualProfileData);
+  const [fetchedStatus, setFetchedStatus] = useState<boolean>(false)
+
+  const setProfile =(v:IndividualProfile)=>{
+      setProfileData({...profileData,...v})
+  }
+
+ 
+  return (
+    <FetchedIndividualProfileContext.Provider value={{
+      profileData,
+      fetchedStatus,
+      setProfile,
+      setFetchedStatus
+    }}
+    >{children}</FetchedIndividualProfileContext.Provider>
+  );
+};
+
+
+export const useFetchedIndividualProfileContext =()=> useContext(FetchedIndividualProfileContext);
+
+
+// -------------------------------------------------------------------------------------//
+
+// All Teams Profile
+
+export interface NameNId {
+  id: AccountId,
+  name: string
+}
+
+const defaultNameNId: NameNId = {
+  id: "",
+  name: ""
+}
+
+export interface ApplicantNameNId {
+  data: Array<NameNId>,
+  setApplicantNameNId: Dispatch<NameNId>
+}
+
+const defaultApplicantNameNId: ApplicantNameNId = {
+  data: [],
+  setApplicantNameNId: (v:NameNId) => {return}
+}
+
+
+const ApplicantNameNIdContext = createContext<ApplicantNameNId>(defaultApplicantNameNId);
+
+export const ApplicantNameNIdContextProvider = ({ children }: Props) => {
+  const [profileData, setProfileData] = useState<NameNId[]>([]);
+
+  const setProfile =(v:NameNId)=>{
+      setProfileData(prevData => [...prevData,v])
+  }
+
+ 
+  return (
+    <ApplicantNameNIdContext.Provider value={{
+      data:profileData,
+      setApplicantNameNId:setProfile
+    }}
+    >{children}</ApplicantNameNIdContext.Provider>
+  );
+};
+
+
+export const useAppicantNameNIdContext =()=> useContext(ApplicantNameNIdContext);
+
+// ---- ----- --- --//
+
+export interface IndividualNameNId {
+  data: Array<NameNId>,
+  setIndividualNameNId: Dispatch<NameNId>
+}
+
+const defaultIndividualNameNId: IndividualNameNId = {
+  data: [],
+  setIndividualNameNId: (v:NameNId) => {return}
+}
+
+
+const IndividualNameNIdContext = createContext<IndividualNameNId>(defaultIndividualNameNId);
+
+export const IndidvualNameNIdContextProvider = ({ children }: Props) => {
+  const [profileData, setProfileData] = useState<NameNId[]>([]);
+
+  const setProfile =(v:NameNId)=>{
+      setProfileData(prevData => [...prevData,v])
+  }
+
+ 
+  return (
+    <ApplicantNameNIdContext.Provider value={{
+      data:profileData,
+      setApplicantNameNId:setProfile
+    }}
+    >{children}</ApplicantNameNIdContext.Provider>
+  );
+};
+
+
+export const useIndividualNameNIdContext =()=> useContext(IndividualNameNIdContext);
+
+
