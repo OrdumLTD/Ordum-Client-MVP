@@ -124,7 +124,7 @@ const GrantPage = () => {
           <div className="pl-0.5 md:pl-16 flex flex-1 flex-col overflow-y-auto paragraph">
             {aboutMenu === About.Summary ? <GrantDetails /> : null}
             {aboutMenu === About.Activity ? <ApplicationProcess /> : null}
-            {aboutMenu === About.Team ? <Team /> : null}
+            {aboutMenu === About.Team ? <p>Coming soon!</p> : null}
           </div>
         </div>
       </div>

@@ -159,12 +159,12 @@ const Layout: React.FC<Props> = (props) => {
                   </h3>
 
                   <ul className="mt-2 ml-2 list-disc text-sm flex flex-col gap-1">
-                    <li>Overview</li>
-                    <li>Discussions</li>
-                    <li>Treasurer</li>
-                    <li>Small Spender</li>
-                    <li>Medium Spender</li>
-                    <li>Big Spender</li>
+                    <li><Link href="/explore/kusamatreasury">Overview</Link></li>
+                    <li><Link href="/explore/kusamatreasury/discussions">Discussions</Link></li>
+                    <li><Link href="/explore/kusamatreasury/treasurer">Treasurer</Link></li>
+                    <li><Link href="/explore/kusamatreasury/smallspender">Small Spender</Link></li>
+                    <li><Link href="/explore/kusamatreasury/mediumspender">Medium Speder</Link></li>
+                    <li><Link href="/explore/kusamatreasury/bigspender">Big Spender</Link></li>
                   </ul>
                 </div>
               ) : null}

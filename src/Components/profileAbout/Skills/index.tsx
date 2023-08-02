@@ -4,9 +4,9 @@ import { useState } from "react";
 
 import Modal from "@/Components/ui/Modal";
 import AddSkills from "./AddSkills";
-import SkillPreview from "./SkillPreview"
+import SkillPreview from "./SkillPreview";
 
-const Work = () => {
+const Skills = () => {
   const [showModal, setShowModal] = useState(false);
   const [skills, setSkills] = useState<any[]>([]);
 
@@ -36,7 +36,7 @@ const Work = () => {
       >
         Click here
       </button>{" "}
-      Add previous work!
+      to add your skills!
     </p>
   );
 
@@ -85,4 +85,4 @@ const Work = () => {
   );
 };
 
-export default Work;
+export default Skills;
