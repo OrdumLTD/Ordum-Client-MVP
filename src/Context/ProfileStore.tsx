@@ -10,7 +10,6 @@ type Props = {
 };
 
 export interface createProfileData{
-  teamType:string, //If its an individual or Organization
   userType:string, // If its an applicant or Issuer
   teamName: string;
   description: string;
@@ -23,7 +22,6 @@ export interface createProfileData{
 }
 
 const defaultProfileData:createProfileData ={
-  teamType:"",
   userType:"",
   teamName:"",
   description:"",
