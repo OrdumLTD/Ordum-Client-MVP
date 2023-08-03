@@ -33,7 +33,7 @@ const LogIn:React.FC = () => {
   });
 
   return (
-    <div className="grid place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-contain text-sm md:text-base text-white">
+    <div className="grid w-screen place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] text-sm md:text-base text-white">
       <div
         className="
        my-10 xl:my-28
@@ -53,7 +53,7 @@ const LogIn:React.FC = () => {
           </button> */}
         </div>
         <div className="grid place-items-center">
-          <div className="text-lg md:text-4xl font-light mt-5">Log in</div>
+          {/* <div className="text-lg md:text-4xl font-light mt-5">Log in</div>
           <div className="mt-5 w-full grid gap-4">
             <div className="flex flex-col">
               <label>Email</label>
@@ -68,13 +68,15 @@ const LogIn:React.FC = () => {
             <Button primeColor className="mt-2 py-4">
               Log in
             </Button>
-          </div>
+          </div> */}
 
-          <div className="mt-5 w-full flex place-items-center justify-between">
+          {/* <div className="mt-5 w-full flex place-items-center justify-between">
             <div className="basis-4/12 border-b border-b-white" />
             <span className="self-center font-bold text-xl">OR LOG WITH</span>
             <div className="basis-4/12 border-b border-b-white" />
-          </div>
+          </div> */}
+
+          <p className="my-10">Please Logi in with a wallet</p>
 
           {walletType === LogInWalletType.NONE ? (
             <div className="mt-5 w-full grid gap-4">

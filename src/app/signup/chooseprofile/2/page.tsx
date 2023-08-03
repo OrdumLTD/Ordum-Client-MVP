@@ -146,6 +146,8 @@ const ChooseProfileStep2 = () => {
             />
           </div>
 
+          <ConnectWallet />
+
           <div className="mt-10 flex gap-4">
             <Image src={PfpCircle} alt="Add an image" className="hover:cursor-pointer"/>
             <span className="place-self-center text-lg font-medium hover:cursor-pointer">Add Profile Picture</span>
