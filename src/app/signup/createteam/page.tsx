@@ -13,11 +13,21 @@ import Website from "@/assets/svg-icons/web-light-icon.svg";
 import Link from "next/link";
 import { useState } from "react";
 
+import { createApplicantProfile } from "@/lib/PhalaContract/Txn/createProfile";
+
+import { useWalletContext } from "@/Context/WalletStore";
+
 import axios from "axios";
 
 const CreateTeam = () => {
+
+  const {signer, account} = useWalletContext()
+
+  const [profileCreation, setProfileCreation] = useState(false)
+
   const [teamName, setTeamName] = useState("");
   const [about, setAbout] = useState("");
+
 
   const [projectType, setProjectType] = useState("");
   const [projects, setProjects] = useState<string[]>([]);
@@ -32,12 +42,16 @@ const CreateTeam = () => {
   const [website, setWebsite] = useState("");
   const [element, setElement] = useState("");
   const [git, setGit] = useState("");
+
   // const { user } = useSelector((state: RootState) => state.user);
   // const dispatch = useDispatch()
 
   // const logInTest = () => {
   //   dispatch(logInTestUser())
   // }
+
+
+  // Name to be sent to smart contract save 
 
   const createUser = (
     name,
@@ -52,23 +66,30 @@ const CreateTeam = () => {
     element,
     git
   ) => {
+
+    createApplicantProfile(
+      profileCreation,
+
+        );
+
     axios
       .post("http://localhost:3000/organizations", {
         name: name,
-        email: "test@example.com",
         passkey: "123421412",
-        projectType: { projects: projects },
-        blockchain: { blockchains: blockchains },
-        links: {
-          email: email,
-          discord: discord,
-          twitter: twitter,
-          matrix: element,
-          website: website,
-          git: git,
-        },
-        about: about,
-        mission: mission,
+        // email: "test@example.com",
+
+        // projectType: { projects: projects },
+        // blockchain: { blockchains: blockchains },
+        // links: {
+        //   email: email,
+        //   discord: discord,
+        //   twitter: twitter,
+        //   matrix: element,
+        //   website: website,
+        //   git: git,
+        // },
+        // about: about,
+        // mission: mission,
       })
       // if succsful it will return a token
       .then((res) => console.log(res.data?.token))

@@ -10,7 +10,6 @@ type Props = {
 };
 
 export interface createProfileData{
-  userType:string, // If its an applicant or Issuer
   teamName: string;
   description: string;
   mission: string;
@@ -22,7 +21,6 @@ export interface createProfileData{
 }
 
 const defaultProfileData:createProfileData ={
-  userType:"",
   teamName:"",
   description:"",
   mission:"",
@@ -141,7 +139,6 @@ export const useFetchedProfileContext =()=> useContext(FetchedProfileContext);
 // Individual Profile
 
 export interface createIndividualData{
-  userType:string, // If its an applicant or Issuer
   teamName: string;
   description: string;
   projectType: Categories[];
@@ -150,7 +147,6 @@ export interface createIndividualData{
 }
 
 const defaultIndividualData:createIndividualData ={
-  userType:"",
   teamName:"",
   description:"",
   projectType:[],
