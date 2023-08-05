@@ -8,10 +8,10 @@ import { Signer } from "@polkadot/types/types";
 import { ContractCallOutcome } from "@polkadot/api-contract/types";
 import { Dispatch } from "react";
 import { getPasscode, setPasscode } from "@/lib/AntaLite/dbAuth";
-import {ApiPromise} from '@polkadot/api'
+import { ApiPromise } from '@polkadot/api'
 
 
-export const createApplicantProfile = async(
+export const createTeamApplicantProfile = async(
     profileCreationStatus: Dispatch<boolean>,
     passcodeStatus: Dispatch<boolean>,
     account:InjectedAccountWithMeta,
@@ -30,11 +30,31 @@ export const createApplicantProfile = async(
     links: Array<string> | null
     
 ):Promise<ContractCallOutcome> =>{
-
+    console.log("Profile Creation Initiates")
     let returnValue: ContractCallOutcome;
     // Query txn
-    const data = await contract.query.createApplicantProfile(
-        certificate as any,
+    // const data = await contract.query.createApplicantProfile(
+    //     account.address,
+    //     certificate as any,
+    //     {},
+    //     name,
+    //     accountId,
+    //     description,
+    //     mission,
+    //     categories,
+    //     chain,
+    //     members,
+    //     links   
+    // )
+    
+    // // Gas params
+    // const options = {
+    //     gasLimit: (data.gasRequired as any).refTime,
+    //     storageDepositLimit: data.storageDeposit 
+    //     ? data.storageDeposit.asCharge : null
+    // };
+    // Txn data
+    const txnData = contract.tx.createApplicantProfile(
         {},
         name,
         accountId,
@@ -43,27 +63,7 @@ export const createApplicantProfile = async(
         categories,
         chain,
         members,
-        links,
-        
-    )
-    
-    // Gas params
-    const options = {
-        gasLimit: (data.gasRequired as any).refTime,
-        storageDepositLimit: data.storageDeposit 
-        ? data.storageDeposit.asCharge : null
-    };
-    // Txn data
-    const txnData = contract.tx.createApplicantProfile(
-        options,
-        name,
-        accountId,
-        description,
-        mission,
-        categories,
-        chain,
-        members,
-        links,
+        links
         
     );
 

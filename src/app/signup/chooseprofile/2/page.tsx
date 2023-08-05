@@ -24,6 +24,8 @@ const ChooseProfileStep2 = () => {
     usePhalaContractContext();
   const { account, signer } = useWalletContext();
 
+  
+
   const chooseLink = (str:string) => {
     if(str === "team") {
       return "/signup/createteam"
@@ -50,8 +52,7 @@ const ChooseProfileStep2 = () => {
     if (poc5 && signer && account) {
       const certData = await onSignCertificate(poc5, signer, account);
       setCertificate(certData);
-      //@ts-ignore
-      setProfile({ teamType: "Individual" });
+      
     } else {
       console.log("Failing to sign certificate due to missing params");
     }
@@ -61,8 +62,7 @@ const ChooseProfileStep2 = () => {
     if (poc5 && signer && account) {
       const certData = await onSignCertificate(poc5, signer, account);
       setCertificate(certData);
-      //@ts-ignore
-      setProfile({ teamType: "Foundation" });
+    
     } else {
       console.log("Failing to sign certificate due to missing params");
     }

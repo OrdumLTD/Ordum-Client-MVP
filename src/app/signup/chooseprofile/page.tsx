@@ -13,17 +13,7 @@ import { onSignCertificate } from "@/lib/PhalaContract/Utils/phalaCertificate";
 
 const ChooseProfile = () => {
   const router =useRouter();
-  const {account,signer} = useWalletContext();
-  const {setCertificate} = usePhalaContractContext();
-  const {poc5} = useChainApiContext();
-
-  const signCertificate =async()=>{
-    if(account && signer && poc5){
-      const certData = await onSignCertificate(poc5,signer,account)
-      setCertificate(certData);
-      router.push("/createTeamProfile")
-    }  
-  }
+  
 
   return (
     <div className="grid h-screen place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-cover text-sm md:text-base">
@@ -45,7 +35,8 @@ const ChooseProfile = () => {
               Anon (comming soon)
             </button>
             <Link href="/signup/chooseprofile/2">
-              <button className="font-medium w-[5rem] sm:w-[8rem] md:w-[12rem] xl:w-[16rem] 2xl:w-[20rem] rounded-full py-2.5 bg-[#0A1D47] shadow-md hover:bg-ordum-blue shadow-md hover:shadow-2xl">
+              <button
+              className="font-medium w-[5rem] sm:w-[8rem] md:w-[12rem] xl:w-[16rem] 2xl:w-[20rem] rounded-full py-2.5 bg-[#0A1D47] shadow-md hover:bg-ordum-blue shadow-md hover:shadow-2xl">
                 Create Profile
               </button>
             </Link>

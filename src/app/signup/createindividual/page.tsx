@@ -14,7 +14,6 @@ import { useChainApiContext } from "@/Context/ChainApiStore";
 import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
 import { useEffect, useState } from "react";
 import { useWalletContext } from "@/Context/WalletStore";
-import { createApplicantProfile } from "@/lib/PhalaContract/Txn/createProfile";
 import { UserRole } from "@/lib/PhalaContract/Types/types";
 
 const CreateIndividualProfile = () => {

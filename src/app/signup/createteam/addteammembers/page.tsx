@@ -5,7 +5,7 @@ import { useState } from "react";
 import Button from "@/Components/ui/buttons/Button";
 import { useProfileContext } from "@/Context/ProfileStore";
 import { MemberRole } from "@/lib/PhalaContract/Types/types";
-import { createApplicantProfile } from "@/lib/PhalaContract/Txn/createProfile";
+import { createTeamApplicantProfile } from "@/lib/PhalaContract/Txn/createProfile";
 
 import { useWalletContext } from "@/Context/WalletStore";
 import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
@@ -18,7 +18,7 @@ const AddTeamMembers = () => {
 
   const [profileCreation, setProfileCreation] = useState(false);
   const [passkeyStatus, setPasskeyStatus] = useState(false);
-  const { api } = useChainApiContext();
+  const { poc5 } = useChainApiContext();
 
   const [teamMembers, setTeamMembers] = useState<any[]>([]);
 
@@ -55,25 +55,34 @@ const AddTeamMembers = () => {
   };
 
   const createUser = async () => {
-    const user = await createApplicantProfile(
-      setProfileCreation,
-      setPasskeyStatus,
-      account,
-      signer,
-      cache,
-      contractApi,
-      api,
-      profileData.teamName,
-      account.address,
-      profileData.description,
-      profileData.mission,
-      profileData.projectType,
-      profileData.residentChain,
-      profileData.teamMembers,
-      profileData.links
-    );
+    addTeamMembersToState();
+    if(account && signer && cache && contractApi && poc5){
 
-    console.log(user)
+      const user = await createTeamApplicantProfile(
+        setProfileCreation,
+        setPasskeyStatus,
+        account,
+        signer,
+        cache,
+        contractApi,
+        poc5,
+        profileData.teamName,
+        account.address,
+        profileData.description,
+        profileData.mission,
+        profileData.projectType,
+        profileData.residentChain,
+        profileData.teamMembers,
+        profileData.links
+      );
+
+    }else{
+      console.log("Missing some params in Creation of Applicant");
+      console.log(`Account: ${account} \n Signer: ${signer} \n Cache: ${cache} \n ContractApi ${contractApi} Api ${poc5}`)
+    }
+    
+
+    
   };
 
   //   axios
@@ -224,12 +233,16 @@ const AddTeamMembers = () => {
             <button
               className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl"
               onClick={() => {
-                addTeamMembersToState();
-                router.push("/home");
+                createUser();
               }}
             >
               Create Organizaiton
             </button>
+            {
+              profileCreation && (<button>
+                Go to dashboard
+              </button>)
+            }
 
             <button className="rounded-full py-2.5 md:py-3 bg-ordum-purple font-semibold shadow-md shadow-md hover:shadow-2xl">
               Back
