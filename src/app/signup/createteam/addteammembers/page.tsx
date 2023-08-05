@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Button from "@/Components/ui/buttons/Button";
 import { useProfileContext } from "@/Context/ProfileStore";
@@ -14,6 +14,7 @@ const AddTeamMembers = () => {
   const [role, setRole] = useState<MemberRole>(null);
 
   const { profileData, setProfile } = useProfileContext();
+  const router = useRouter();
 
   const addTeamMembersToState = () => {
     const membersToAdd = teamMembers.map((member) => {
@@ -25,10 +26,9 @@ const AddTeamMembers = () => {
       members: membersToAdd,
       // allowedAccounts: null,
     };
-    console.log(profile)
+    console.log(profile);
     setProfile(profile);
   };
-
 
   const addTeamMember = () => {
     if (email && address && role) {
@@ -179,11 +179,10 @@ const AddTeamMembers = () => {
           >
             <button
               className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl"
-              onClick={() => addTeamMembersToState()}
+              onClick={() => {addTeamMembersToState()
+              router.push('/home')
+              }}
             >
-              {/* <Link href="/home/dashboard" className="">
-                Create Team
-              </Link> */}
               Create Organizaiton
             </button>
 
