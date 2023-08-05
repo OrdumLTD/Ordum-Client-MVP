@@ -5,15 +5,27 @@ import { useState } from "react";
 import Button from "@/Components/ui/buttons/Button";
 import { useProfileContext } from "@/Context/ProfileStore";
 import { MemberRole } from "@/lib/PhalaContract/Types/types";
+import { createApplicantProfile } from "@/lib/PhalaContract/Txn/createProfile";
+
+import { useWalletContext } from "@/Context/WalletStore";
+import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
+import { useChainApiContext } from "@/Context/ChainApiStore";
 
 const AddTeamMembers = () => {
+  const { signer, account } = useWalletContext();
+  const { cache, contractApi } = usePhalaContractContext();
+  const { profileData, setProfile } = useProfileContext();
+
+  const [profileCreation, setProfileCreation] = useState(false);
+  const [passkeyStatus, setPasskeyStatus] = useState(false);
+  const { api } = useChainApiContext();
+
   const [teamMembers, setTeamMembers] = useState<any[]>([]);
 
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [role, setRole] = useState<MemberRole>(null);
 
-  const { profileData, setProfile } = useProfileContext();
   const router = useRouter();
 
   const addTeamMembersToState = () => {
@@ -41,6 +53,38 @@ const AddTeamMembers = () => {
       setRole(null);
     }
   };
+
+  const createUser = async () => {
+    const user = await createApplicantProfile(
+      setProfileCreation,
+      setPasskeyStatus,
+      account,
+      signer,
+      cache,
+      contractApi,
+      api,
+      profileData.teamName,
+      account.address,
+      profileData.description,
+      profileData.mission,
+      profileData.projectType,
+      profileData.residentChain,
+      profileData.teamMembers,
+      profileData.links
+    );
+
+    console.log(user)
+  };
+
+  //   axios
+  //     .post("http://localhost:3000/organizations", {
+  //       name: name,
+  //       passkey: "123421412",
+  //     })
+  //     // if succsful it will return a token
+  //     .then((res) => console.log(res.data?.token))
+  //     .catch((e) => console.log(e));
+  // };
 
   const removeTeamMember = (i: number) => {
     let newTeamMembers = [...teamMembers];
@@ -179,8 +223,9 @@ const AddTeamMembers = () => {
           >
             <button
               className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl"
-              onClick={() => {addTeamMembersToState()
-              router.push('/home')
+              onClick={() => {
+                addTeamMembersToState();
+                router.push("/home");
               }}
             >
               Create Organizaiton

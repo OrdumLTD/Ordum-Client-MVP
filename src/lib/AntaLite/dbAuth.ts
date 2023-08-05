@@ -1,6 +1,6 @@
 'use client';
 
-import { CertificateData} from "@phala/sdk";
+import { CertificateData, PinkContractPromise} from "@phala/sdk";
 import type { InjectedAccountWithMeta} from "@polkadot/extension-inject/types";
 import { ContractPromise } from "@polkadot/api-contract";
 import { Signer } from "@polkadot/types/types";
@@ -18,7 +18,7 @@ export const setPasscode = async(
     account:InjectedAccountWithMeta,
     signer: Signer,
     certificate: CertificateData,
-    contract:ContractPromise,
+    contract:PinkContractPromise,
     
 ) => {
 
@@ -63,7 +63,7 @@ export const setPasscode = async(
 
 // Getting the stored passcode per user's address
 export const getPasscode = async(
-    contract:ContractPromise,
+    contract:PinkContractPromise,
     api:ApiPromise,
     signer: Signer,
     account:InjectedAccountWithMeta,

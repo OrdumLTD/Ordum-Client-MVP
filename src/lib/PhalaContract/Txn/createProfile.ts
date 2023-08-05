@@ -1,6 +1,6 @@
 'use client'
 
-import { CertificateData} from "@phala/sdk";
+import { CertificateData, PinkContractPromise} from "@phala/sdk";
 import type { InjectedAccountWithMeta} from "@polkadot/extension-inject/types";
 import { Categories,Chains,AccountId, MemberRole, UserRole} from "../Types/types";
 import { ContractPromise } from "@polkadot/api-contract";
@@ -17,7 +17,7 @@ export const createApplicantProfile = async(
     account:InjectedAccountWithMeta,
     signer: Signer,
     certificate: CertificateData,
-    contract:ContractPromise,
+    contract:PinkContractPromise,
     api:ApiPromise,
     //Pure params
     name: string,
@@ -104,7 +104,7 @@ export const createIndividualProfile = async(
     account:InjectedAccountWithMeta,
     signer: Signer,
     certificate: CertificateData,
-    contract:ContractPromise,
+    contract:PinkContractPromise,
     api:ApiPromise,
     //Pure params
     name: string,

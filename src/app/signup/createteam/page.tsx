@@ -325,9 +325,9 @@ const CreateTeam = () => {
             <button
               className="w-40 rounded py-2.5 md:py-3 bg-ordum-purple font-semibold shadow shadow-md hover:shadow-2xl"
               onClick={() => {
-                if (blockchain !== "" && !blockchains.includes(blockchain)) {
+                if (blockchain !== null && !blockchains.includes(blockchain)) {
                   setBlockchains([...blockchains, blockchain]);
-                  setBlockchain("");
+                  setBlockchain(null);
                 }
               }}
             >
