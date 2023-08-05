@@ -64,30 +64,30 @@ const CreateIndividualProfile = () => {
       setCreationStatus(v);
     };
 
-    const { teamType, userType } = profileData;
-    if (account && signer && cache && contractApi && account.meta.name) {
-      //1. (Individual && Applicant)
+    // const { teamType, userType } = profileData;
+    // if (account && signer && cache && contractApi && account.meta.name) {
+    //   //1. (Individual && Applicant)
 
-      await createApplicantProfile(
-        //utill fn
-        profileCreationStatus,
-        //---------
-        account,
-        signer,
-        cache,
-        contractApi,
-        //Params
-        account.meta.name,
-        account.address,
-        profileData.description,
-        profileData.mission,
-        profileData.projectType,
-        profileData.residentChain,
-        //ProfileCtx.profileData.projectType, // Work on this
-        profileData.teamMembers,
-        profileData.links
-      );
-    }
+    //   await createApplicantProfile(
+    //     //utill fn
+    //     profileCreationStatus,
+    //     //---------
+    //     account,
+    //     signer,
+    //     cache,
+    //     contractApi,
+    //     //Params
+    //     account.meta.name,
+    //     account.address,
+    //     profileData.description,
+    //     profileData.mission,
+    //     profileData.projectType,
+    //     profileData.residentChain,
+    //     //ProfileCtx.profileData.projectType, // Work on this
+    //     profileData.teamMembers,
+    //     profileData.links
+    //   );
+    // }
   };
 
   return (
