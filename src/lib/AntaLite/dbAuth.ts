@@ -13,7 +13,7 @@ import { onSignCertificate } from "../PhalaContract/Utils/phalaCertificate";
 
 
 // Set New Passcode
-const setPasscode = async(
+export const setPasscode = async(
     passcodeStatus: Dispatch<boolean>,
     account:InjectedAccountWithMeta,
     signer: Signer,

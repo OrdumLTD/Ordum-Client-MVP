@@ -5,14 +5,20 @@ import type { InjectedAccountWithMeta} from "@polkadot/extension-inject/types";
 import { Categories,Chains,AccountId, MemberRole, UserRole} from "../Types/types";
 import { ContractPromise } from "@polkadot/api-contract";
 import { Signer } from "@polkadot/types/types";
+import { ContractCallOutcome } from "@polkadot/api-contract/types";
+import { Dispatch } from "react";
+import { getPasscode, setPasscode } from "@/lib/AntaLite/dbAuth";
+import {ApiPromise} from '@polkadot/api'
 
 
 export const createApplicantProfile = async(
-    profileCreationStatus:(v:boolean)=>void,
+    profileCreationStatus: Dispatch<boolean>,
+    passcodeStatus: Dispatch<boolean>,
     account:InjectedAccountWithMeta,
     signer: Signer,
     certificate: CertificateData,
     contract:ContractPromise,
+    api:ApiPromise,
     //Pure params
     name: string,
     accountId: AccountId | null,
@@ -23,8 +29,9 @@ export const createApplicantProfile = async(
     members: Array<[AccountId, MemberRole]> | null,
     links: Array<string> | null
     
-) =>{
+):Promise<ContractCallOutcome> =>{
 
+    let returnValue: ContractCallOutcome;
     // Query txn
     const data = await contract.query.createApplicantProfile(
         certificate as any,
@@ -63,7 +70,7 @@ export const createApplicantProfile = async(
    
     // Sign and Send
     
-    txnData.signAndSend(account.address,{signer},({isInBlock,events,isCompleted,isFinalized})=>{
+    txnData.signAndSend(account.address,{signer},async({isInBlock,events,isCompleted,isFinalized})=>{
         if(isInBlock){
             console.log("In Block")
         }else if(isCompleted){
@@ -71,12 +78,20 @@ export const createApplicantProfile = async(
         }else if(isFinalized){
             console.log("Finalized Applicant Profile Creation")
             profileCreationStatus(true)
+
+            // Set the passcode
+            await setPasscode(passcodeStatus,account,signer,certificate,contract);
+
+            // Fetch the secret
+            returnValue = await getPasscode(contract,api,signer,account,certificate);
         };
         // Events
         events?.map(event =>{
             console.log(event.toHuman())
         })
     })
+
+    return returnValue
     
 }
 
@@ -138,6 +153,7 @@ export const createIndividualProfile = async(
             console.log("Completed")
         }else if(isFinalized){
             console.log("Finalized Applicant Profile Creation")
+
             profileCreationStatus(true)
         };
         // Events
