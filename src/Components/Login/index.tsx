@@ -30,7 +30,7 @@ const LogIn: React.FC = () => {
 
   useEffect(() => {
     fetchPoc5Api();
-  });
+  },[]);
 
   return (
     <div className="grid h-screen place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-cover text-sm md:text-base text-white">
