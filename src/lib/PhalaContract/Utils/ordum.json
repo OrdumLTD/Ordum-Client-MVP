@@ -1,6 +1,6 @@
 {
   "source": {
-    "hash": "0xe23d3671b67de006459cc06edceaca5bf6ec6957f04f2962a2fc4499794afcfd",
+    "hash": "0xc5ea4e207c6c0ba64fcad4df6442af913646d0fe47eee4989ee5dbf6d9c01c11",
     "language": "ink! 4.2.1",
     "compiler": "rustc 1.69.0",
     "build_info": {
@@ -50,7 +50,7 @@
         "displayName": [
           "Balance"
         ],
-        "type": 72
+        "type": 73
       },
       "blockNumber": {
         "displayName": [
@@ -62,13 +62,13 @@
         "displayName": [
           "ChainExtension"
         ],
-        "type": 74
+        "type": 75
       },
       "hash": {
         "displayName": [
           "Hash"
         ],
-        "type": 73
+        "type": 74
       },
       "maxEventTopics": 4,
       "timestamp": {
@@ -931,6 +931,15 @@
               ],
               "type": 34
             }
+          },
+          {
+            "label": "name",
+            "type": {
+              "displayName": [
+                "String"
+              ],
+              "type": 0
+            }
           }
         ],
         "default": false,
@@ -1244,9 +1253,28 @@
               "layout": {
                 "root": {
                   "layout": {
-                    "leaf": {
-                      "key": "0x3d2a99fc",
-                      "ty": 34
+                    "struct": {
+                      "fields": [
+                        {
+                          "layout": {
+                            "leaf": {
+                              "key": "0x3d2a99fc",
+                              "ty": 0
+                            }
+                          },
+                          "name": "0"
+                        },
+                        {
+                          "layout": {
+                            "leaf": {
+                              "key": "0x3d2a99fc",
+                              "ty": 34
+                            }
+                          },
+                          "name": "1"
+                        }
+                      ],
+                      "name": "(A, B)"
                     }
                   },
                   "root_key": "0x3d2a99fc"
@@ -3306,7 +3334,7 @@
               {
                 "fields": [
                   {
-                    "type": 0
+                    "type": 72
                   }
                 ],
                 "index": 0,
@@ -3327,7 +3355,7 @@
         "params": [
           {
             "name": "T",
-            "type": 0
+            "type": 72
           },
           {
             "name": "E",
@@ -3343,12 +3371,23 @@
       "id": 72,
       "type": {
         "def": {
-          "primitive": "u128"
+          "tuple": [
+            0,
+            0
+          ]
         }
       }
     },
     {
       "id": 73,
+      "type": {
+        "def": {
+          "primitive": "u128"
+        }
+      }
+    },
+    {
+      "id": 74,
       "type": {
         "def": {
           "composite": {
@@ -3368,7 +3407,7 @@
       }
     },
     {
-      "id": 74,
+      "id": 75,
       "type": {
         "def": {
           "variant": {}
