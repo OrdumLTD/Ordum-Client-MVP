@@ -4,6 +4,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import axios from "axios";
 
 import { useWalletContext } from "@/Context/WalletStore";
@@ -45,6 +46,8 @@ const CreateTeam = () => {
   const [element, setElement] = useState("");
   const [git, setGit] = useState("");
 
+  const router = useRouter();
+
   let categoriesArray = [];
   for (const key in Categories) {
     if (Categories.hasOwnProperty(key)) {
@@ -59,28 +62,13 @@ const CreateTeam = () => {
       mission: mission,
       projectType: projects,
       residentChain: blockchains,
-      teamMembers: null,
-      allowedAccounts: null,
+      teamMembers: [],
+      allowedAccounts: [],
       links: [email, discord, twitter, website, element, git],
     };
 
-    const profile2 = {
-      teamName: "TestName",
-      description: "Test",
-      mission: "mission",
-      projectType: [Categories.art],
-      residentChain: [Chains.kusama],
-      teamMembers: null,
-      allowedAccounts: null,
-      links: [email, discord, twitter, website, element, git],
-    };
-
-    // console.log(profile);
-
-    setProfile(profile2);
+    setProfile(profile);
   };
-
-  console.log(blockchains);
 
   // const { user } = useSelector((state: RootState) => state.user);
   // const dispatch = useDispatch()
@@ -472,10 +460,11 @@ const CreateTeam = () => {
               // onClick={() => createTeamHandler()}
               onClick={() => {
                 addUserToSate();
+                router.push("createteam/addteammembers");
               }}
             >
-              {/* <Link href={"createteam/addteammembers"}>Save and continue</Link> */}
-              TEST
+              {/* <Link href={"createteam/addteammembers"}></Link> */}
+              Save and continue
             </button>
             <button className="rounded-full py-2.5 md:py-3 bg-ordum-purple font-semibold shadow-md shadow-md hover:shadow-2xl">
               Back

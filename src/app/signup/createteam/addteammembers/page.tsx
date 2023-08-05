@@ -3,13 +3,32 @@
 import Link from "next/link";
 import { useState } from "react";
 import Button from "@/Components/ui/buttons/Button";
+import { useProfileContext } from "@/Context/ProfileStore";
+import { MemberRole } from "@/lib/PhalaContract/Types/types";
 
 const AddTeamMembers = () => {
   const [teamMembers, setTeamMembers] = useState<any[]>([]);
 
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState<MemberRole>(null);
+
+  const { profileData, setProfile } = useProfileContext();
+
+  const addTeamMembersToState = () => {
+    const membersToAdd = teamMembers.map((member) => {
+      return [member.address, member.role];
+    });
+
+    const profile = {
+      ...profileData,
+      members: membersToAdd,
+      // allowedAccounts: null,
+    };
+    console.log(profile)
+    setProfile(profile);
+  };
+
 
   const addTeamMember = () => {
     if (email && address && role) {
@@ -19,7 +38,7 @@ const AddTeamMembers = () => {
 
       setEmail("");
       setAddress("");
-      setRole("");
+      setRole(null);
     }
   };
 
@@ -97,7 +116,10 @@ const AddTeamMembers = () => {
                 py-2 px-3 
                       "
                 value={role}
-                onChange={(e) => setRole(e.target.value)}
+                onChange={(e) => {
+                  const toSet = e.target.value as keyof typeof MemberRole;
+                  setRole(MemberRole[toSet]);
+                }}
               >
                 <option value="" className="" disabled selected hidden>
                   Role
@@ -155,10 +177,14 @@ const AddTeamMembers = () => {
             w-full
             flex flex-col gap-4"
           >
-            <button className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl">
-              <Link href="/home/dashboard" className="">
+            <button
+              className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl"
+              onClick={() => addTeamMembersToState()}
+            >
+              {/* <Link href="/home/dashboard" className="">
                 Create Team
-              </Link>
+              </Link> */}
+              Create Organizaiton
             </button>
 
             <button className="rounded-full py-2.5 md:py-3 bg-ordum-purple font-semibold shadow-md shadow-md hover:shadow-2xl">
