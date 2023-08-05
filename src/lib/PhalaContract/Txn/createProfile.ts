@@ -100,10 +100,12 @@ export const createApplicantProfile = async(
 
 export const createIndividualProfile = async(
     profileCreationStatus:(v:boolean)=>void,
+    passcodeStatus: Dispatch<boolean>,
     account:InjectedAccountWithMeta,
     signer: Signer,
     certificate: CertificateData,
     contract:ContractPromise,
+    api:ApiPromise,
     //Pure params
     name: string,
     description: string,
@@ -112,8 +114,9 @@ export const createIndividualProfile = async(
     links: Array<string> | null,
     role: UserRole
 
-) =>{
+):Promise<ContractCallOutcome> =>{
 
+    let returnValue: ContractCallOutcome;
     // Query txn
     const data = await contract.query.createIndividualProfile(
         certificate as any,
@@ -146,7 +149,7 @@ export const createIndividualProfile = async(
    
     // Sign and Send
     
-    txnData.signAndSend(account.address,{signer},({isInBlock,events,isCompleted,isFinalized})=>{
+    txnData.signAndSend(account.address,{signer},async({isInBlock,events,isCompleted,isFinalized})=>{
         if(isInBlock){
             console.log("In Block")
         }else if(isCompleted){
@@ -155,6 +158,12 @@ export const createIndividualProfile = async(
             console.log("Finalized Applicant Profile Creation")
 
             profileCreationStatus(true)
+
+              // Set the passcode
+              await setPasscode(passcodeStatus,account,signer,certificate,contract);
+
+              // Fetch the secret
+              returnValue = await getPasscode(contract,api,signer,account,certificate);
         };
         // Events
         events?.map(event =>{
@@ -162,5 +171,6 @@ export const createIndividualProfile = async(
         })
     })
     
+    return returnValue
 }
 
