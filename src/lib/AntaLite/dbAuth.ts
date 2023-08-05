@@ -11,6 +11,7 @@ import { onSignCertificate } from "../PhalaContract/Utils/phalaCertificate";
 
 
 
+
 // Set New Passcode
 const setPasscode = async(
     passcodeStatus: Dispatch<boolean>,
@@ -18,16 +19,15 @@ const setPasscode = async(
     signer: Signer,
     certificate: CertificateData,
     contract:ContractPromise,
-    //Params
-    random: Array<number>
-   
+    
 ) => {
 
+    const randomData = await contract.query.getRandom( certificate as any,{});
     // Dry Run TXN
     const data = await contract.query.setPasscode(
         certificate as any,
         {},
-        random
+        randomData.result.asOk
     );
 
      // Gas params
@@ -41,7 +41,7 @@ const setPasscode = async(
     const txn = contract.tx.addProposal(
         certificate as any,
         options,
-        random,
+        randomData.result.asOk,
        
     );
 
@@ -87,25 +87,25 @@ export const getPasscode = async(
 
 
 // Generating random number
-export const getRandom = async(
-    contract:ContractPromise,
-    api:ApiPromise,
-    signer: Signer,
-    account:InjectedAccountWithMeta,
-    Certificate?: CertificateData,
+// const getRandom = async(
+//     contract:ContractPromise,
+//     api:ApiPromise,
+//     signer: Signer,
+//     account:InjectedAccountWithMeta,
+//     Certificate?: CertificateData,
     
-):Promise<ContractCallOutcome> =>{
+// ):Promise<ContractCallOutcome> =>{
 
-    // Check if Certificate is there, If not then sign the Cert
-    if(Certificate){
-        const data = await contract.query.getRandom( Certificate as any,{});
+//     // Check if Certificate is there, If not then sign the Cert
+//     if(Certificate){
+//         const data = await contract.query.getRandom( Certificate as any,{});
         
-        return data
-    }else{
-        // Sign the new Certificate and it will update the cache
-        const certificate = await onSignCertificate(api,signer,account);
-        const data = await contract.query.getRandom( certificate as any,{});
+//         return data
+//     }else{
+//         // Sign the new Certificate and it will update the cache
+//         const certificate = await onSignCertificate(api,signer,account);
+//         const data = await contract.query.getRandom( certificate as any,{});
         
-       return data
-    }
-}
+//        return data
+//     }
+// }
