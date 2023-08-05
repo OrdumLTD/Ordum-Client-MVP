@@ -1,11 +1,8 @@
 'use client'
 
-//TODO - mobile view  
-
-
 const TeamMember = () => {
   return (
-    <form className="flex gap-1.5  justify-around">
+    <form className="w-full mx-5 flex gap-1.5 justify-around ">
       <input
         type="text"
         placeholder="Add Team Member Email"

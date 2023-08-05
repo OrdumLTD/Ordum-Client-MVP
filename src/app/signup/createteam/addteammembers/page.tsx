@@ -1,34 +1,55 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
-
-import { Mail, GitHub } from "react-feather";
-import Discord from "@/assets/svg-icons/discord.svg";
-import Twitter from "@/assets/svg-icons/twitter-icon.svg";
-import Matrix from "@/assets/svg-icons/matrix.png";
-import Website from "@/assets/svg-icons/global.png";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import TeamMember from "./TeamMember";
 import Button from "@/Components/ui/buttons/Button";
+import { useProfileContext } from "@/Context/ProfileStore";
+import { MemberRole } from "@/lib/PhalaContract/Types/types";
 
 const AddTeamMembers = () => {
   const [teamMembers, setTeamMembers] = useState<any[]>([]);
 
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState<MemberRole>(null);
 
-  function addTeamMember() {
-    setTeamMembers([]);
-  }
+  const { profileData, setProfile } = useProfileContext();
+  const router = useRouter();
 
-  // function removeTeamMember(
-  //
-  // )
+  const addTeamMembersToState = () => {
+    const membersToAdd = teamMembers.map((member) => {
+      return [member.address, member.role];
+    });
+
+    const profile = {
+      ...profileData,
+      members: membersToAdd,
+      // allowedAccounts: null,
+    };
+    console.log(profile);
+    setProfile(profile);
+  };
+
+  const addTeamMember = () => {
+    if (email && address && role) {
+      const toAdd = { email, address, role };
+      let newArray = [...teamMembers, toAdd];
+      setTeamMembers(newArray);
+
+      setEmail("");
+      setAddress("");
+      setRole(null);
+    }
+  };
+
+  const removeTeamMember = (i: number) => {
+    let newTeamMembers = [...teamMembers];
+    newTeamMembers.splice(i, 1);
+    setTeamMembers(newTeamMembers);
+  };
 
   return (
-    <div className="grid place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-cover text-sm md:text-base">
+    <div className="grid h-screen place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-cover text-sm md:text-base">
       <div
         className="
        my-10 xl:my-28
@@ -39,88 +60,130 @@ const AddTeamMembers = () => {
             Add Team members
           </div>
 
-          <h3 className="mt-5 md:mt-10 justify-self-start font-medium">
-            Team Name
-          </h3>
-
-          <p className="paragraph mb-12">
+          <p className="my-8 paragraph mb-4">
             Add your team and send them wallet invitations. Remember to add your
             own personal wallet if the one you logged in with is a multi sig or
             belongs to an organisation.
           </p>
-          <p className="justify-self-start">Member Wallet address</p>
-          {/* <ul className="justify-self-start w-full">
-            {[...Array(teamMembers)].map((e, i) => (
-              <li className="mb-2" key={i}>
-                <TeamMember />
-              </li>
-            ))}
-          </ul> */}
 
-          <div className="w-full mx-5">
+          <div className="w-full mt-5">
             {" "}
             <form className="flex gap-1.5  justify-around">
               <input
                 type="text"
                 placeholder="Add Team Member Email"
                 className="
-        basis-4/12
-        w-full
-        rounded-md border border-grey-200
-        bg-inherit
-        text-[#CAC9C9]
-        text-[0.7rem] 
-        py-2 px-3 
-               "
+                basis-4/12
+                w-full
+                rounded-md border border-grey-200
+                bg-inherit
+                text-[#CAC9C9]
+                text-[0.7rem] 
+                py-2 px-3 
+                      "
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
               />
 
               <input
                 type="text"
                 placeholder="Add Wallet Address Associated with the Email"
                 className="
-        basis-6/12
-        w-full
-        rounded-md border border-grey-200
-        bg-inherit
-        text-[#CAC9C9]
-        text-[0.7rem] 
-        py-2 px-3 
-               "
+                basis-6/12
+                w-full
+                rounded-md border border-grey-200
+                bg-inherit
+                text-[#CAC9C9]
+                text-[0.7rem] 
+                py-2 px-3 
+                      "
+                value={address}
+                onChange={(e) => {
+                  setAddress(e.target.value);
+                }}
               />
 
               <select
                 className="
-        basis-2/12
-        w-full
-        rounded-md border border-grey-200
-        bg-inherit
-        text-[#CAC9C9]
-        text-[0.65rem] 
-        py-2 px-3 
-               "
+                basis-2/12
+                w-full
+                rounded-md border border-grey-200
+                bg-inherit
+                text-[#CAC9C9]
+                text-[0.65rem] 
+                py-2 px-3 
+                      "
+                value={role}
+                onChange={(e) => {
+                  const toSet = e.target.value as keyof typeof MemberRole;
+                  setRole(MemberRole[toSet]);
+                }}
               >
                 <option value="" className="" disabled selected hidden>
                   Role
                 </option>
-                <option value="test1">Admin</option>
-                <option value="test2">Regular</option>
+                <option value="admin">Admin</option>
+                <option value="regular">Regular</option>
               </select>
             </form>
           </div>
-          <Button primeColor className="w-full mt-5">
+          <Button
+            primeColor
+            className="w-full mt-4"
+            onClick={() => {
+              addTeamMember();
+            }}
+          >
             {" "}
             Add More
           </Button>
+
+          <ul className="mt-3 w-full">
+            {teamMembers.map((member, index) => {
+              return (
+                <li key={index}>
+                  <div className="mt-2 border rounded px-2 py-1 flex justify-between items-center">
+                    <div className="basis-11/12 flex gap-4 ">
+                      <span className="basis-6/12 flex flex-col text-xs">
+                        {" "}
+                        <span className="font-semibold">Mail:</span>
+                        {member.email}
+                      </span>
+                      <span className="basis-4/12 flex flex-col text-xs">
+                        <span className="font-semibold">Address:</span>
+                        {member.address}
+                      </span>
+                      <span className="basis-2/12 flex flex-col text-xs">
+                        <span className="font-semibold">Role:</span>{" "}
+                        {member.role}
+                      </span>
+                    </div>
+                    <button
+                      className="text-sm px-1.5 bg-red-500 rounded-md"
+                      onClick={() => removeTeamMember(index)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
 
           <div
             className="mt-10
             w-full
             flex flex-col gap-4"
           >
-            <button className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl">
-              <Link href="/home/dashboard" className="">
-                Save and continue
-              </Link>
+            <button
+              className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl"
+              onClick={() => {addTeamMembersToState()
+              router.push('/home')
+              }}
+            >
+              Create Organizaiton
             </button>
 
             <button className="rounded-full py-2.5 md:py-3 bg-ordum-purple font-semibold shadow-md shadow-md hover:shadow-2xl">

@@ -2,6 +2,15 @@
 
 // import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+
+import { useWalletContext } from "@/Context/WalletStore";
+import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
+import { useProfileContext } from "@/Context/ProfileStore";
+import { Categories, Chains } from "@/lib/PhalaContract/Types/types";
 
 // import { Mail, GitHub } from "react-feather";
 import GitHubIcon from "@/assets/svg-icons/github-light-icon.svg";
@@ -10,20 +19,24 @@ import Discord from "@/assets/svg-icons/discord-light-icon.svg";
 import Twitter from "@/assets/svg-icons/twitter-light-icon.svg";
 import Matrix from "@/assets/svg-icons/matric-light-icon.svg";
 import Website from "@/assets/svg-icons/web-light-icon.svg";
-import Link from "next/link";
-import { useState } from "react";
 
-import axios from "axios";
+import { createApplicantProfile } from "@/lib/PhalaContract/Txn/createProfile";
 
 const CreateTeam = () => {
+  const { signer, account } = useWalletContext();
+  const { cache, contractApi } = usePhalaContractContext();
+  const { profileData, setProfile } = useProfileContext();
+
+  const [profileCreation, setProfileCreation] = useState(false);
+
   const [teamName, setTeamName] = useState("");
   const [about, setAbout] = useState("");
 
-  const [projectType, setProjectType] = useState("");
-  const [projects, setProjects] = useState<string[]>([]);
+  const [projectType, setProjectType] = useState<Categories>(null);
+  const [projects, setProjects] = useState<Categories[]>([]);
 
-  const [blockchain, setBlockchain] = useState("");
-  const [blockchains, setBlockchains] = useState<string[]>([]);
+  const [blockchain, setBlockchain] = useState<Chains>(null);
+  const [blockchains, setBlockchains] = useState<Chains[]>([]);
 
   const [mission, setMission] = useState("");
   const [email, setEmail] = useState("");
@@ -32,6 +45,31 @@ const CreateTeam = () => {
   const [website, setWebsite] = useState("");
   const [element, setElement] = useState("");
   const [git, setGit] = useState("");
+
+  const router = useRouter();
+
+  let categoriesArray = [];
+  for (const key in Categories) {
+    if (Categories.hasOwnProperty(key)) {
+      categoriesArray.push({ [key]: Categories[key] });
+    }
+  }
+
+  const addUserToSate = () => {
+    const profile = {
+      teamName: teamName,
+      description: about,
+      mission: mission,
+      projectType: projects,
+      residentChain: blockchains,
+      teamMembers: [],
+      allowedAccounts: [],
+      links: [email, discord, twitter, website, element, git],
+    };
+
+    setProfile(profile);
+  };
+
   // const { user } = useSelector((state: RootState) => state.user);
   // const dispatch = useDispatch()
 
@@ -39,41 +77,59 @@ const CreateTeam = () => {
   //   dispatch(logInTestUser())
   // }
 
-  const createUser = (
-    name,
-    about,
-    projects,
-    mission,
-    blockchains,
-    email,
-    discord,
-    twitter,
-    website,
-    element,
-    git
-  ) => {
-    axios
-      .post("http://localhost:3000/organizations", {
-        name: name,
-        email: "test@example.com",
-        passkey: "123421412",
-        projectType: { projects: projects },
-        blockchain: { blockchains: blockchains },
-        links: {
-          email: email,
-          discord: discord,
-          twitter: twitter,
-          matrix: element,
-          website: website,
-          git: git,
-        },
-        about: about,
-        mission: mission,
-      })
-      // if succsful it will return a token
-      .then((res) => console.log(res.data?.token))
-      .catch((e) => console.log(e));
-  };
+  // Name to be sent to smart contract save
+
+  // const createUser = (
+  //   name,
+  //   about,
+  //   projects,
+  //   mission,
+  //   blockchains,
+  //   email,
+  //   discord,
+  //   twitter,
+  //   website,
+  //   element,
+  //   git
+  // ) => {
+
+  //   createApplicantProfile(
+  //     setProfileCreation,
+  //     signer,
+  //     cache,
+  //     contractApi,
+  //     profileData.teamName,
+  //     account.address,
+  //     profileData.description,
+  //     profileData.mission,
+  //     profileData.mission,
+  //     projects,
+  //     blockchains,
+  //       );
+
+  //   axios
+  //     .post("http://localhost:3000/organizations", {
+  //       name: name,
+  //       passkey: "123421412",
+  //       // email: "test@example.com",
+
+  //       // projectType: { projects: projects },
+  //       // blockchain: { blockchains: blockchains },
+  //       // links: {
+  //       //   email: email,
+  //       //   discord: discord,
+  //       //   twitter: twitter,
+  //       //   matrix: element,
+  //       //   website: website,
+  //       //   git: git,
+  //       // },
+  //       // about: about,
+  //       // mission: mission,
+  //     })
+  //     // if succsful it will return a token
+  //     .then((res) => console.log(res.data?.token))
+  //     .catch((e) => console.log(e));
+  // };
 
   return (
     <div className="grid place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-contain text-sm md:text-base">
@@ -101,7 +157,9 @@ const CreateTeam = () => {
             type="text"
             placeholder="Pick a name for your team"
             value={teamName}
-            onChange={(e) => setTeamName(e.target.value)}
+            onChange={(e) => {
+              setTeamName(e.target.value);
+            }}
           />
 
           <h3 className="mt-5 justify-self-start font-medium">About</h3>
@@ -137,7 +195,10 @@ const CreateTeam = () => {
             focus:outline-none bg-inherit
             text-[#CAC9C9]"
               value={projectType}
-              onChange={(e) => setProjectType(e.target.value)}
+              onChange={(e) => {
+                const toSet = e.target.value as keyof typeof Categories;
+                setProjectType(Categories[toSet]);
+              }}
             >
               <option value="" className="" disabled hidden>
                 All
@@ -145,27 +206,23 @@ const CreateTeam = () => {
               <option value="All">
                 What are you creating? Chooce a category
               </option>
-              <option value="DeFi">DeFi </option>
-              <option value="Privacy ">Privacy </option>
-              <option value="Infrastructure">Infrastructure</option>
-              <option value="Network Changes">Network Changes</option>
-              <option value="Art">Art</option>
-              <option value="Media">Media</option>
-              <option value="Gaming">Gaming</option>
-              <option value="Events">Events</option>
-              <option value="Education">Education</option>
-              <option value="NFTs">NFTs</option>
-              <option value="Translations">Translations</option>
-              <option value="Other">Other</option>
+              {categoriesArray.map((cat) => {
+                const val = Object.keys(cat)[0];
+                const toShow = Object.values(cat)[0];
+                return (
+                  <option key={val} value={val}>
+                    {val}
+                  </option>
+                );
+              })}
             </select>
 
             <button
               className="w-40 rounded py-2.5 md:py-3 bg-ordum-purple font-semibold shadow shadow-md hover:shadow-2xl"
               onClick={() => {
-                if (projectType !== "" && !projects.includes(projectType)) {
-                  console.log(!projects.includes(projectType));
+                if (projectType !== null && !projects.includes(projectType)) {
                   setProjects([...projects, projectType]);
-                  setProjectType("");
+                  setProjectType(null);
                 }
               }}
             >
@@ -218,15 +275,19 @@ const CreateTeam = () => {
            focus:outline-none bg-inherit
            text-[#CAC9C9]"
               value={blockchain}
-              onChange={(e) => setBlockchain(e.target.value)}
+              onChange={(e) => {
+                const toSet = e.target.value as keyof typeof Chains;
+                setBlockchain(Chains[toSet]);
+              }}
             >
               {/* <option value="" className="" disabled hidden>
                 All
               </option> */}
               <option value="">What chain are you building on?</option>
-              <option value="Kusama">Kusama</option>
-              <option value="Polkdot">Polkdot</option>
-              <option value="Phala">Phala</option>
+              <option value="kusama">Kusama</option>
+              <option value="polkadot">Polkdot</option>
+              <option value="offChain">Off Chain</option>
+              {/* <option value="Phala">Phala</option>
               <option value="Aleph Zero">Aleph Zero</option>
               <option value="Basilisk">Basilisk</option>
               <option value="HydraDX">HydraDX</option>
@@ -258,7 +319,7 @@ const CreateTeam = () => {
               <option value="Touring">Touring</option>
               <option value="Sora">Sora</option>
               <option value="Kintsugi">Kintsugi</option>
-              <option value="Other">Other</option>
+              <option value="Other">Other</option> */}
             </select>
 
             <button
@@ -397,23 +458,12 @@ const CreateTeam = () => {
             <button
               className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl"
               // onClick={() => createTeamHandler()}
-              onClick={() =>
-                createUser(
-                  teamName,
-                  about,
-                  projects,
-                  mission,
-                  blockchains,
-                  email,
-                  twitter,
-                  discord,
-                  website,
-                  element,
-                  git
-                )
-              }
+              onClick={() => {
+                addUserToSate();
+                router.push("createteam/addteammembers");
+              }}
             >
-              {/* <Link href={"createteam/addteammembers"}>Save and continue</Link> */}
+              {/* <Link href={"createteam/addteammembers"}></Link> */}
               Save and continue
             </button>
             <button className="rounded-full py-2.5 md:py-3 bg-ordum-purple font-semibold shadow-md shadow-md hover:shadow-2xl">

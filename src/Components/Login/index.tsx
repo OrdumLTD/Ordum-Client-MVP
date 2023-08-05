@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import dynamic from 'next/dynamic'
-
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
+
 import OrdumLogoLight from "@/assets/svg-icons/ordum-logo-light.svg";
 // import ConnectWallet from "../ConnectWallet/";
 import { useWalletContext } from "../../Context/WalletStore";
@@ -18,11 +18,11 @@ enum LogInWalletType {
   WALLETCONNECT,
 }
 
-const ConnectWallet = dynamic(()=> import ("../ConnectWallet/"),{
-  loading: () => <p>Loading ...</p>
+const ConnectWallet = dynamic(() => import("../ConnectWallet/"), {
+  loading: () => <p>Loading ...</p>,
 });
 
-const LogIn:React.FC = () => {
+const LogIn: React.FC = () => {
   const [walletType, setWalletType] = useState(LogInWalletType.NONE);
 
   const { account } = useWalletContext();
@@ -33,7 +33,7 @@ const LogIn:React.FC = () => {
   });
 
   return (
-    <div className="grid place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-contain text-sm md:text-base text-white">
+    <div className="grid h-screen place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-cover text-sm md:text-base text-white">
       <div
         className="
        my-10 xl:my-28
@@ -53,7 +53,7 @@ const LogIn:React.FC = () => {
           </button> */}
         </div>
         <div className="grid place-items-center">
-          <div className="text-lg md:text-4xl font-light mt-5">Log in</div>
+          {/* <div className="text-lg md:text-4xl font-light mt-5">Log in</div>
           <div className="mt-5 w-full grid gap-4">
             <div className="flex flex-col">
               <label>Email</label>
@@ -68,13 +68,14 @@ const LogIn:React.FC = () => {
             <Button primeColor className="mt-2 py-4">
               Log in
             </Button>
-          </div>
+          </div> */}
 
-          <div className="mt-5 w-full flex place-items-center justify-between">
+          {/* <div className="mt-5 w-full flex place-items-center justify-between">
             <div className="basis-4/12 border-b border-b-white" />
             <span className="self-center font-bold text-xl">OR LOG WITH</span>
             <div className="basis-4/12 border-b border-b-white" />
-          </div>
+          </div> */}
+          <p className="my-10">Please Log in with a wallet</p>
 
           {walletType === LogInWalletType.NONE ? (
             <div className="mt-5 w-full grid gap-4">
@@ -98,8 +99,11 @@ const LogIn:React.FC = () => {
                 Talisman
               </Button>
               <Button borderWhite className="py-4 font-semibold">
-                Wallet Connect
+                Check Around (soon)
               </Button>
+              {/* <Button borderWhite className="py-4 font-semibold">
+                Wallet Connect
+              </Button> */}
             </div>
           ) : (
             <div className="mt-5 w-full grid gap-4">
