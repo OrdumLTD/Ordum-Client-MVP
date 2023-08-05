@@ -14,6 +14,7 @@ import { ApiPromise } from '@polkadot/api'
 export const createTeamApplicantProfile = async(
     profileCreationStatus: Dispatch<boolean>,
     passcodeStatus: Dispatch<boolean>,
+    setSecret: Dispatch<ContractCallOutcome>,
     account:InjectedAccountWithMeta,
     signer: Signer,
     certificate: CertificateData,
@@ -29,9 +30,9 @@ export const createTeamApplicantProfile = async(
     members: Array<[AccountId, MemberRole]> | null,
     links: Array<string> | null
     
-):Promise<ContractCallOutcome> =>{
+) =>{
     console.log("Profile Creation Initiates")
-    let returnValue: ContractCallOutcome;
+
     // Query txn
     // const data = await contract.query.createApplicantProfile(
     //     account.address,
@@ -83,7 +84,8 @@ export const createTeamApplicantProfile = async(
             await setPasscode(passcodeStatus,account,signer,certificate,contract);
 
             // Fetch the secret
-            returnValue = await getPasscode(contract,api,signer,account,certificate);
+            let returnValue = await getPasscode(contract,api,signer,account,certificate);
+            setSecret(returnValue)
         };
         // Events
         events?.map(event =>{
@@ -91,7 +93,6 @@ export const createTeamApplicantProfile = async(
         })
     })
 
-    return returnValue
     
 }
 

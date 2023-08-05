@@ -1,12 +1,12 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "@/Components/ui/buttons/Button";
 import { useProfileContext } from "@/Context/ProfileStore";
 import { MemberRole } from "@/lib/PhalaContract/Types/types";
 import { createTeamApplicantProfile } from "@/lib/PhalaContract/Txn/createProfile";
-
+import { ContractCallOutcome } from "@polkadot/api-contract/types";
 import { useWalletContext } from "@/Context/WalletStore";
 import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
 import { useChainApiContext } from "@/Context/ChainApiStore";
@@ -18,6 +18,8 @@ const AddTeamMembers = () => {
 
   const [profileCreation, setProfileCreation] = useState(false);
   const [passkeyStatus, setPasskeyStatus] = useState(false);
+  const [secret, setSecret] = useState<ContractCallOutcome>();
+
   const { poc5 } = useChainApiContext();
 
   const [teamMembers, setTeamMembers] = useState<any[]>([]);
@@ -27,6 +29,10 @@ const AddTeamMembers = () => {
   const [role, setRole] = useState<MemberRole>(null);
 
   const router = useRouter();
+
+  useEffect(() =>{
+
+  },[profileCreation])
 
   const addTeamMembersToState = () => {
     const membersToAdd = teamMembers.map((member) => {
@@ -58,9 +64,10 @@ const AddTeamMembers = () => {
     addTeamMembersToState();
     if(account && signer && cache && contractApi && poc5){
 
-      const user = await createTeamApplicantProfile(
+      await createTeamApplicantProfile(
         setProfileCreation,
         setPasskeyStatus,
+        setSecret,
         account,
         signer,
         cache,
@@ -75,6 +82,7 @@ const AddTeamMembers = () => {
         profileData.teamMembers,
         profileData.links
       );
+
 
     }else{
       console.log("Missing some params in Creation of Applicant");
@@ -230,18 +238,30 @@ const AddTeamMembers = () => {
             w-full
             flex flex-col gap-4"
           >
-            <button
-              className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl"
-              onClick={() => {
-                createUser();
-              }}
-            >
-              Create Organizaiton
-            </button>
             {
-              profileCreation && (<button>
-                Go to dashboard
-              </button>)
+              profileCreation ? 
+              (
+                  <button
+                    onClick={() => router.push("/home")}
+                   className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl">
+                    Go to dashboard
+                  </button>
+              )
+              :
+              (
+                <button
+                  className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl"
+                  onClick={() => {
+                    createUser();
+                  }}
+                >
+                Create Organizaiton
+                 </button>
+              )
+            }
+           
+            {
+              secret && (<div>{secret.result.asOk.toHuman.name}</div>)
             }
 
             <button className="rounded-full py-2.5 md:py-3 bg-ordum-purple font-semibold shadow-md shadow-md hover:shadow-2xl">
