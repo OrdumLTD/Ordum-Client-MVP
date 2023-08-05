@@ -15,7 +15,7 @@ import { useWalletContext } from "@/Context/WalletStore";
 const ChooseProfileStep2 = () => {
   //Context
   const { profileData, setProfile } = useProfileContext();
-  const { teamType, teamName, userType } = profileData;
+  const { teamName} = profileData;
 
   const [profileType, setProfileType] = useState("");
 

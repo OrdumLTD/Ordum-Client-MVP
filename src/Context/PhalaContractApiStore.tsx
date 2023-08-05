@@ -7,6 +7,7 @@ import {create} from '@phala/sdk';
 import { ApiPromise } from '@polkadot/api';
 import { useChainApiContext } from "./ChainApiStore";
 import ordumJson from '../lib/PhalaContract/Utils/ordum.json'
+import { PinkContractPromise } from "@phala/sdk";
 
 
 type Props = {
@@ -16,7 +17,7 @@ type Props = {
 // Certificate Data
 interface Contract {
   cache?: CertificateData;
-  contractApi: ContractPromise |null;
+  contractApi: PinkContractPromise |null;
   setCertificate: (cert?: CertificateData) => void;
   loadContractApi: () => void;
 }
@@ -24,9 +25,7 @@ interface Contract {
 const defaultState = {
   cache: undefined,
   contractApi: null,
-  setCertificate: (cert?: CertificateData) => {
-    return;
-  },
+  setCertificate: (cert?: CertificateData) => {return},
   loadContractApi: () => {
     return;
   },
@@ -37,32 +36,35 @@ const ContractContext = createContext<Contract>(defaultState);
 export const PhalaContractContextProvider = ({ children }: Props) => {
  
   // Context
-  const {poc5} =useChainApiContext()
+  const {poc5,phalaRegistry} =useChainApiContext()
 
 
   const [cache, setCache] = useState<CertificateData>();
-  const [contractApi, setContractApi] = useState<ContractPromise|null>(null);
+  const [contractApi, setContractApi] = useState<PinkContractPromise|null>(null);
 
   const setCertificate = (cert?: CertificateData) => {
     console.log("Certificate signed")
     setCache(cert);
   };
 
-  const loadContract =  async():Promise<ContractPromise|null> =>{
+  const loadContract =  async():Promise<PinkContractPromise|null> =>{
     if(poc5){
       const contractId:string = '0x48fa314236b9f2b28563f4691b20704ce189de04bffcddcbd4d5cc6b78663a65';
       const pruntime:string = 'https://poc5.phala.network/tee-api-1';
   
       // check for undefined Erros
       //@ts-ignore
-      const contrapi: ApiPromise = await((await create({api:poc5,baseURL:pruntime,contractId})).api).isReady;
+     // const contrapi: ApiPromise = await((await create({api:poc5,baseURL:pruntime,contractId})).api).isReady;
+
+      const contractKey = await phalaRegistry.getContractKeyOrFail(contractId);
+      const contract = new PinkContractPromise(poc5, phalaRegistry, ordumJson, contractId, contractKey);
   
-      const contract = new ContractPromise(
-        //@ts-ignore
-        contrapi,
-        ordumJson,
-        contractId
-      );
+      // const contract = new ContractPromise(
+      //   //@ts-ignore
+      //   contrapi,
+      //   ordumJson,
+      //   contractId
+      // );
       return contract
 
     }else{

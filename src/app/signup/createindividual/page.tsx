@@ -21,7 +21,7 @@ const CreateIndividualProfile = () => {
   //Context
   const { profileData, setProfile, setCreationStatus, creationStatus } =
     useProfileContext();
-  const { teamType, teamName, userType } = profileData;
+  const {  teamName } = profileData;
   const { account, signer } = useWalletContext();
 
   const { fetchPoc5Api, poc5 } = useChainApiContext();
