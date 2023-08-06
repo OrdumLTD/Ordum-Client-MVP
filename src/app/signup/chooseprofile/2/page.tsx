@@ -86,6 +86,7 @@ const ChooseProfileStep2 = () => {
             flex justify-around gap-2"
           >
             {/* <Link href="/signup/createteam"> */}
+            
             <button
               //@ts-ignore
               onClick={() => {
@@ -159,7 +160,8 @@ const ChooseProfileStep2 = () => {
            flex flex-col gap-4"
           >
             <Link href={chooseLink(profileType)}>
-              <button className="w-full rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-md hover:shadow-2xl">
+              <button 
+                className={"w-full rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-md hover:shadow-2xl " + ((poc5 && contractApi && account) ? " " : " bg-gray-400")} >
                 Continue
               </button>
             </Link>

@@ -112,7 +112,7 @@ const AddTeamMembers = () => {
     setTeamMembers(newTeamMembers);
   };
 
-  console.log("Secret "+ secret?.result.asOk)
+  console.log(secret?.output.toHuman().Ok.Ok[1])
   return (
     <div className="grid h-screen place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-cover text-sm md:text-base">
       <div
