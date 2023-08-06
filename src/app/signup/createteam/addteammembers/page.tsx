@@ -265,10 +265,7 @@ const AddTeamMembers = () => {
               )
             }
            
-            {
-              secret && (<div>{secret.result.asOk.toHuman.name}</div>)
-            }
-
+          
             <button className="rounded-full py-2.5 md:py-3 bg-ordum-purple font-semibold shadow-md shadow-md hover:shadow-2xl">
               Back
             </button>

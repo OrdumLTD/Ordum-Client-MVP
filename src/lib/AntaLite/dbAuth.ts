@@ -22,7 +22,7 @@ export const setPasscode = async(
     name: String
     
 ) => {
-    console.log("Address "+ account.address);
+    
     const randomData = await contract.query.getRandom(account.address,{cert: certificate});
     // Dry Run TXN
     const data = await contract.query.setPasscode(
@@ -52,7 +52,7 @@ export const setPasscode = async(
         }
         events.forEach(({event:{method, section}})=>{
             if (method === 'ExtrinsicSuccess') {
-                console.log(`✅  Success`);
+                console.log(`✅  Success Placed User's Secret to Contract`);
                 passcodeStatus(true)
             }
         })

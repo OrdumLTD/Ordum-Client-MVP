@@ -87,21 +87,13 @@ export const createTeamApplicantProfile = async(
             console.log("Return Value Secret: "+ returnValue.result.asOk.toHuman);
             setSecret(returnValue)
 
-        }else if(isFinalized){
-            console.log("Finalized Applicant Profile Creation")
-            profileCreationStatus(true)
-
-            // Set the passcode
-            await setPasscode(passcodeStatus,account,signer,certificate,contract,name);
-
-            // Fetch the secret
-            let returnValue = await getPasscode(contract,api,signer,account,certificate);
-            console.log("Return Value Secret: "+ returnValue.result.asOk);
-            setSecret(returnValue)
         };
         // Events
-        events?.map(event =>{
-            console.log(event.toHuman())
+        events.forEach(({event:{method, section}})=>{
+            if (method === 'ExtrinsicSuccess') {
+                console.log(`✅  Success Team Applicant Creation`);
+                profileCreationStatus(true)
+            }
         })
     })
 
@@ -178,20 +170,13 @@ export const createIndividualProfile = async(
               // Fetch the secret
               returnValue = await getPasscode(contract,api,signer,account,certificate);
 
-        }else if(isFinalized){
-            console.log("Finalized Applicant Profile Creation")
-
-            profileCreationStatus(true)
-
-              // Set the passcode
-              await setPasscode(passcodeStatus,account,signer,certificate,contract,name);
-
-              // Fetch the secret
-              returnValue = await getPasscode(contract,api,signer,account,certificate);
         };
         // Events
-        events?.map(event =>{
-            console.log(event.toHuman())
+        events.forEach(({event:{method, section}})=>{
+            if (method === 'ExtrinsicSuccess') {
+                console.log(`✅  Success Individaul Profile Creation`);
+                profileCreationStatus(true)
+            }
         })
     })
     
