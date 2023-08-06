@@ -23,7 +23,7 @@ export const onSignCertificate = async(
         certificate = await signCertificate({
             api,
             signer,
-            account:account
+            account
         })
         return certificate
     })()

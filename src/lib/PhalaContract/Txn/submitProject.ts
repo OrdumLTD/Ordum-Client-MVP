@@ -24,6 +24,7 @@ export const submitProposal = async(
 
     // Dry Run TXN
     const data = await contract.query.addProposal(
+        account.address,
         certificate as any,
         {},
         chains,

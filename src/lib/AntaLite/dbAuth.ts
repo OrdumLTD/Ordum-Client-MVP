@@ -19,15 +19,17 @@ export const setPasscode = async(
     signer: Signer,
     certificate: CertificateData,
     contract:PinkContractPromise,
+    name: String
     
 ) => {
-
-    const randomData = await contract.query.getRandom( certificate as any,{});
+    console.log("Address "+ account.address);
+    const randomData = await contract.query.getRandom(account.address,{cert: certificate});
     // Dry Run TXN
     const data = await contract.query.setPasscode(
-        certificate as any,
-        {},
-        randomData.result.asOk
+        account.address,
+        {cert: certificate},
+        randomData.result.asOk,
+        name
     );
 
      // Gas params
@@ -38,11 +40,10 @@ export const setPasscode = async(
     };
 
     // Call data 
-    const txn = contract.tx.addProposal(
-        certificate as any,
+    const txn = contract.tx.setPasscode(
         options,
         randomData.result.asOk,
-       
+        name
     );
 
     txn.signAndSend(account.address,{signer},({isFinalized,events}) =>{
@@ -73,13 +74,13 @@ export const getPasscode = async(
 
     // Check if Certificate is there, If not then sign the Cert
     if(Certificate){
-        const data = await contract.query.getPasscode( Certificate as any,{});
+        const data = await contract.query.getPasscode(account.address, {cert:Certificate});
         
         return data
     }else{
         // Sign the new Certificate and it will update the cache
         const certificate = await onSignCertificate(api,signer,account);
-        const data = await contract.query.getPasscode( certificate as any,{});
+        const data = await contract.query.getPasscode(account.address, {cert:certificate});
         
        return data
     }

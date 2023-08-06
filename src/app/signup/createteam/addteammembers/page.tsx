@@ -20,6 +20,8 @@ const AddTeamMembers = () => {
   const [passkeyStatus, setPasskeyStatus] = useState(false);
   const [secret, setSecret] = useState<ContractCallOutcome>();
 
+  
+
   const { poc5 } = useChainApiContext();
 
   const [teamMembers, setTeamMembers] = useState<any[]>([]);
@@ -31,8 +33,9 @@ const AddTeamMembers = () => {
   const router = useRouter();
 
   useEffect(() =>{
-
+   
   },[profileCreation])
+
 
   const addTeamMembersToState = () => {
     const membersToAdd = teamMembers.map((member) => {
@@ -109,6 +112,7 @@ const AddTeamMembers = () => {
     setTeamMembers(newTeamMembers);
   };
 
+  console.log("Secret "+ secret?.result.asOk)
   return (
     <div className="grid h-screen place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-cover text-sm md:text-base">
       <div

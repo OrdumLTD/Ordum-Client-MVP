@@ -34,29 +34,28 @@ export const createTeamApplicantProfile = async(
     console.log("Profile Creation Initiates")
 
     // Query txn
-    // const data = await contract.query.createApplicantProfile(
-    //     account.address,
-    //     certificate as any,
-    //     {},
-    //     name,
-    //     accountId,
-    //     description,
-    //     mission,
-    //     categories,
-    //     chain,
-    //     members,
-    //     links   
-    // )
+    const data = await contract.query.createApplicantProfile(
+        account.address,
+        {cert:certificate},
+        name,
+        accountId,
+        description,
+        mission,
+        categories,
+        chain,
+        members,
+        links   
+    )
     
-    // // Gas params
-    // const options = {
-    //     gasLimit: (data.gasRequired as any).refTime,
-    //     storageDepositLimit: data.storageDeposit 
-    //     ? data.storageDeposit.asCharge : null
-    // };
+    // Gas params
+    const options = {
+        gasLimit: (data.gasRequired as any).refTime,
+        storageDepositLimit: data.storageDeposit 
+        ? data.storageDeposit.asCharge : null
+    };
     // Txn data
     const txnData = contract.tx.createApplicantProfile(
-        {},
+        options,
         name,
         accountId,
         description,
@@ -76,15 +75,28 @@ export const createTeamApplicantProfile = async(
             console.log("In Block")
         }else if(isCompleted){
             console.log("Completed")
+
+            console.log("Finalized Applicant Profile Creation")
+            profileCreationStatus(true)
+
+            // Set the passcode
+            await setPasscode(passcodeStatus,account,signer,certificate,contract,name);
+
+            // Fetch the secret
+            let returnValue = await getPasscode(contract,api,signer,account,certificate);
+            console.log("Return Value Secret: "+ returnValue.result.asOk);
+            setSecret(returnValue)
+
         }else if(isFinalized){
             console.log("Finalized Applicant Profile Creation")
             profileCreationStatus(true)
 
             // Set the passcode
-            await setPasscode(passcodeStatus,account,signer,certificate,contract);
+            await setPasscode(passcodeStatus,account,signer,certificate,contract,name);
 
             // Fetch the secret
             let returnValue = await getPasscode(contract,api,signer,account,certificate);
+            console.log("Return Value Secret: "+ returnValue.result.asOk);
             setSecret(returnValue)
         };
         // Events
@@ -120,8 +132,8 @@ export const createIndividualProfile = async(
     let returnValue: ContractCallOutcome;
     // Query txn
     const data = await contract.query.createIndividualProfile(
-        certificate as any,
-        {},
+        account.address,
+        {cert:certificate},
         name,
         description,
         categories,
@@ -155,13 +167,24 @@ export const createIndividualProfile = async(
             console.log("In Block")
         }else if(isCompleted){
             console.log("Completed")
+
+            console.log("Finalized Applicant Profile Creation")
+
+            profileCreationStatus(true)
+
+              // Set the passcode
+              await setPasscode(passcodeStatus,account,signer,certificate,contract,name);
+
+              // Fetch the secret
+              returnValue = await getPasscode(contract,api,signer,account,certificate);
+
         }else if(isFinalized){
             console.log("Finalized Applicant Profile Creation")
 
             profileCreationStatus(true)
 
               // Set the passcode
-              await setPasscode(passcodeStatus,account,signer,certificate,contract);
+              await setPasscode(passcodeStatus,account,signer,certificate,contract,name);
 
               // Fetch the secret
               returnValue = await getPasscode(contract,api,signer,account,certificate);
