@@ -28,7 +28,8 @@ export const setPasscode = async(
     const data = await contract.query.setPasscode(
         account.address,
         {cert: certificate},
-        randomData.result.asOk,
+        //@ts-ignore
+        randomData.output.toHuman().Ok.Ok[1],
         name
     );
 

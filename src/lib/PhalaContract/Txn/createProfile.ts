@@ -84,7 +84,7 @@ export const createTeamApplicantProfile = async(
 
             // Fetch the secret
             let returnValue = await getPasscode(contract,api,signer,account,certificate);
-            console.log("Return Value Secret: "+ returnValue.result.asOk.toHuman);
+            
             setSecret(returnValue)
 
         };
