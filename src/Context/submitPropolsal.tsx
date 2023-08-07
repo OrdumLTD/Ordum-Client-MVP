@@ -69,12 +69,20 @@ interface task {
   taskDeadline: string;
 }
 
-export type milestone = {
+// MILESTONES
+
+interface Milestone {
+  name: string,
+  description: string,
+  deadline: Date,
+  tasks: task[]
+}
+
+export type milestones = {
   name: string;
   description: string;
   tasks: task[]
-
-};
+}
 
 export type submitContext = {
   proposalStep?: number;
@@ -82,11 +90,13 @@ export type submitContext = {
   setProposalIndex: (index: number) => void;
   changeToStep: (number: number) => void;
   tldr?: tldr;
+  milestones?: milestones;
   context?: context;
   readyToSubmit: boolean;
   setReadyToSubmit: (v: boolean) => void;
   changeTLDR: (tldr: tldr) => void;
   changeContext: (changeCtx: any) => void;
+  changeMilestones: (milestone: any) => void;
 };
 
 const defaultState = {
@@ -119,6 +129,9 @@ const defaultState = {
   changeContext: (changeCtx: context) => {
     return;
   },
+  changeMilestones: (milestone: any) => {
+    return;
+  }
 };
 
 type Props = {
@@ -131,6 +144,7 @@ export const ProposalContextProvider = ({ children }: Props) => {
   const [step, setStep] = useState<number>(1);
   const [proposalIndex, setProposalIndex] = useState<number>();
   const [tldr, setTldr] = useState<tldr>();
+  const [milestones, setMilestones] = useState<Milestone[]>([])
   const [propolsalContext, setPropolsalContext] = useState<context>();
   const [readyToSubmit, setReadyToSubmit] = useState<boolean>(false);
 
@@ -141,6 +155,11 @@ export const ProposalContextProvider = ({ children }: Props) => {
   const changeContext = (itemToChange: any) => {
     setPropolsalContext({ ...propolsalContext, ...itemToChange });
   };
+
+  const changeMilestones = (itemsToChange: any) => {
+    const newMilestone = [...milestones, itemsToChange]
+    setMilestones(newMilestone)
+  }
 
   function changeStepHandler(num: number) {
     setStep(num);
@@ -157,6 +176,7 @@ export const ProposalContextProvider = ({ children }: Props) => {
     changeToStep: changeStepHandler,
     tldr: tldr,
     changeTLDR: changeTLDR,
+    changeMilestones,
     context: propolsalContext,
     readyToSubmit,
     setReadyToSubmit,

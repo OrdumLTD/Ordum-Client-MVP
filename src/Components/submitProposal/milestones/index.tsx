@@ -10,7 +10,7 @@ import Modal from "@/Components/ui/Modal";
 
 // import WalletContext from "@/store/walletContext";
 import Milestone from "./milestone";
-import { useProfileContext } from "@/Context/ProfileStore";
+// import { useProfileContext } from "@/Context/ProfileStore";
 import { useProposalContext } from "@/Context/submitPropolsal";
 import ProposalName from "../ProposalName";
 import MilestoneCreate from "@/Components/milestones/MilestoneCreate";
@@ -21,25 +21,12 @@ type Props = {
 };
 
 const SubmitPropolsalMilestones: React.FC<Props> = (props) => {
-  const { changeToStep } = useProposalContext();
+  const { changeToStep, milestones, changeMilestones } = useProposalContext();
   // const walletCtx = useContext(WalletContext);
   const router = useRouter();
 
   const [modalIsOpen, setModalisOpen] = useState(false);
-  const [milestones, setMilestones] = useState<any>([]);
-
-  // Proposal submission
-  // APIContext
-  // const apiCTX = useContext(ChainApiContext);
-  // const chainAPI = apiCTX.api;
-  // const fetchChainApi = apiCTX.fetchChainApi;
-
-  // useEffect(() => {
-  //   const run = () => {
-  //     // fetchChainApi?.();
-  //   };
-  //   run();
-  // }, []);
+  const [milestoneList, setMilestoneList] = useState<any>([]);
 
   const changePropolsalSubPage = async (step: number, route: string) => {
     changeToStep(step);
@@ -47,17 +34,17 @@ const SubmitPropolsalMilestones: React.FC<Props> = (props) => {
   };
 
   const addMilestone = (milestone: any) => {
-    setMilestones([...milestones, milestone]);
+    setMilestoneList([...milestoneList, milestone]);
   };
 
-  console.log(milestones);
+  console.log(milestoneList);
 
   const removeMilestone = (id: any) => {
-    for (let i = 0; i < milestones.length; i++) {
-      if (milestones[i]?.id === id) {
-        const newArray = [...milestones];
+    for (let i = 0; i < milestoneList.length; i++) {
+      if (milestoneList[i]?.id === id) {
+        const newArray = [...milestoneList];
         newArray.splice(i, 1);
-        setMilestones(newArray);
+        setMilestoneList(newArray);
         return;
       }
     }
@@ -69,7 +56,7 @@ const SubmitPropolsalMilestones: React.FC<Props> = (props) => {
         <ProposalName />
 
         <ul className="mt-8 flex flex-col gap-4">
-          {milestones.map((item: any) => {
+          {milestoneList.map((item: any) => {
             return (
               <MilestoneBasic
                 name={item.name}
@@ -82,7 +69,7 @@ const SubmitPropolsalMilestones: React.FC<Props> = (props) => {
           })}
         </ul>
 
-        <MilestoneBasic
+        {/* <MilestoneBasic
           name={"tem.name"}
           description={
             "aysay dsiosda nd aosndas ondas ndand ajsn dasndjadsnadsndsaj djsajdajs aysay dsiosda nd aosndas ondas ndand ajsn dasndjadsnadsndsaj djsajdajs aysay dsiosda nd aosndas ondas ndand ajsn dasndjadsnadsndsaj djsajdajs "
@@ -90,7 +77,7 @@ const SubmitPropolsalMilestones: React.FC<Props> = (props) => {
           id={"12"}
           // key={item.id}
           remove={removeMilestone}
-        />
+        /> */}
 
         <MilestoneCreate
           isOpen={modalIsOpen}
@@ -109,7 +96,10 @@ const SubmitPropolsalMilestones: React.FC<Props> = (props) => {
 
         <button
           className="bg-black text-white py-2 md:py-4"
-          onClick={() => changePropolsalSubPage(5, "/submitproposal/review")}
+          onClick={() => {
+            changeMilestones(milestoneList);
+            changePropolsalSubPage(5, "/submitproposal/review");
+          }}
         >
           Review
         </button>
