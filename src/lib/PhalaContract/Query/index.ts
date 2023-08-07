@@ -1,7 +1,7 @@
 'use client'
 
 
-import { CertificateData} from "@phala/sdk";
+import { CertificateData, PinkContractPromise} from "@phala/sdk";
 import type { InjectedAccountWithMeta, InjectedExtension } from "@polkadot/extension-inject/types";
 import { Categories,Chains,AccountId, MemberRole, UserRole} from "../Types/types";
 import { ContractPromise } from "@polkadot/api-contract";
@@ -16,7 +16,7 @@ import { onSignCertificate } from "../Utils/phalaCertificate";
 // Applicant Profile Query
 // Pass the context value directly
 export const getApplicant = async(
-    contract:ContractPromise,
+    contract:PinkContractPromise,
     api:ApiPromise,
     signer: Signer,
     account:InjectedAccountWithMeta,
@@ -26,13 +26,13 @@ export const getApplicant = async(
 
     // Check if Certificate is there, If not then sign the Cert
     if(Certificate){
-        const data = await contract.query.getTeamApplicantProfile(account.address,{},{cert:Certificate},id);
+        const data = await contract.query.getTeamApplicantProfile(account.address,{cert:Certificate},id);
         
         return data
     }else{
         // Sign the new Certificate and it will update the cache
         const certificate = await onSignCertificate(api,signer,account);
-        const data = await contract.query.getTeamApplicantProfile(account.address,{},{cert:certificate},id);
+        const data = await contract.query.getTeamApplicantProfile(account.address,{cert:certificate},id);
         
        return data
     }
@@ -42,7 +42,7 @@ export const getApplicant = async(
 // Get all teams
 
 export const getAllteams = async(
-    contract:ContractPromise,
+    contract:PinkContractPromise,
     api:ApiPromise,
     signer: Signer,
     account:InjectedAccountWithMeta,
@@ -52,13 +52,13 @@ export const getAllteams = async(
 
     // Check if Certificate is there, If not then sign the Cert
     if(Certificate){
-        const data = await contract.query.getAllApplicantTeams( account.address,{},{cert:Certificate});
+        const data = await contract.query.getAllApplicantTeams( account.address,{cert:Certificate});
         
         return data
     }else{
         // Sign the new Certificate and it will update the cache
         const certificate = await onSignCertificate(api,signer,account);
-        const data = await contract.query.getAllApplicantTeams( account.address,{},{cert:certificate});
+        const data = await contract.query.getAllApplicantTeams( account.address,{cert:certificate});
         
        return data
     }
@@ -68,7 +68,7 @@ export const getAllteams = async(
 
 // Issuer Profile Query
 export const getIndividual = async(
-    contract:ContractPromise,
+    contract:PinkContractPromise,
     api:ApiPromise,
     signer: Signer,
     account:InjectedAccountWithMeta,
@@ -79,7 +79,7 @@ export const getIndividual = async(
 
     // Check if Certificate is there, If not then sign the Cert
     if(Certificate){
-        const returnData = await contract.query.getIndividualProfile( account.address,{},{cert:Certificate},id);
+        const returnData = await contract.query.getIndividualProfile( account.address,{cert:Certificate},id);
         if(returnData.result.asErr){
             console.log("Error "+ returnData.result)
             return returnData
@@ -91,7 +91,7 @@ export const getIndividual = async(
     }else{
         // Sign the new Certificate and it will update the cache
         const certificate = await onSignCertificate(api,signer,account);
-        const returnData = await contract.query.getIndividualProfile( account.address,{},{cert:certificate},id);
+        const returnData = await contract.query.getIndividualProfile( account.address,{cert:certificate},id);
         if(returnData.result.asErr){
             console.log("Error "+ returnData.result)
             return returnData
@@ -107,7 +107,7 @@ export const getIndividual = async(
 // Get all teams
 
 export const getAllIndividuals = async(
-    contract:ContractPromise,
+    contract:PinkContractPromise,
     api:ApiPromise,
     signer: Signer,
     account:InjectedAccountWithMeta,
@@ -117,13 +117,13 @@ export const getAllIndividuals = async(
 
     // Check if Certificate is there, If not then sign the Cert
     if(Certificate){
-        const data = await contract.query.getAllIndividuals( account.address,{},{cert:Certificate});
+        const data = await contract.query.getAllIndividuals( account.address,{cert:Certificate});
         
         return data
     }else{
         // Sign the new Certificate and it will update the cache
         const certificate = await onSignCertificate(api,signer,account);
-        const data = await contract.query.getAllIndividuals( account.address,{},{cert:certificate});
+        const data = await contract.query.getAllIndividuals( account.address,{cert:certificate});
         
        return data
     }

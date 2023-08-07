@@ -1,6 +1,6 @@
 'use client';
 
-import { CertificateData} from "@phala/sdk";
+import { CertificateData, PinkContractPromise} from "@phala/sdk";
 import type { InjectedAccountWithMeta} from "@polkadot/extension-inject/types";
 import { Categories,Chains,AccountId, MemberRole, UserRole} from "../Types/types";
 import { ContractPromise } from "@polkadot/api-contract";
@@ -14,7 +14,7 @@ export const submitProposal = async(
     account:InjectedAccountWithMeta,
     signer: Signer,
     certificate: CertificateData,
-    contract:ContractPromise,
+    contract:PinkContractPromise,
     //Params
     chains: Chains,
     refNo: number | null,
@@ -25,7 +25,6 @@ export const submitProposal = async(
     // Dry Run TXN
     const data = await contract.query.addProposal(
         account.address,
-        {},
         {cert:certificate},
         chains,
         refNo,
@@ -71,7 +70,7 @@ export const submitMilestone = async(
     account:InjectedAccountWithMeta,
     signer: Signer,
     certificate: CertificateData,
-    contract:ContractPromise,
+    contract:PinkContractPromise,
     // Params
     proposalId: number,
     fileCid: string,
@@ -81,7 +80,6 @@ export const submitMilestone = async(
     // Dry Run TXN
     const data = await contract.query.AddMilestone(
         account.address,
-        {},
         {cert:certificate},
         proposalId,
         fileCid,
@@ -124,7 +122,7 @@ export const editMilestone = async(
     account:InjectedAccountWithMeta,
     signer: Signer,
     certificate: CertificateData,
-    contract:ContractPromise,
+    contract:PinkContractPromise,
     // Params
     projectId: number,
     mileNo: number,
@@ -135,7 +133,6 @@ export const editMilestone = async(
     // Dry Run TXN
     const data = await contract.query.editMilestone(
         account.address,
-        {},
         {cert:certificate},
         projectId,
         mileNo,
