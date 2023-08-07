@@ -25,8 +25,8 @@ export const submitProposal = async(
     // Dry Run TXN
     const data = await contract.query.addProposal(
         account.address,
-        certificate as any,
         {},
+        {cert:certificate},
         chains,
         refNo,
         fileCid,
@@ -42,7 +42,6 @@ export const submitProposal = async(
 
     // Call data 
     const txn = contract.tx.addProposal(
-        certificate as any,
         options,
         chains,
         refNo,
@@ -81,8 +80,9 @@ export const submitMilestone = async(
 
     // Dry Run TXN
     const data = await contract.query.AddMilestone(
-        certificate as any,
+        account.address,
         {},
+        {cert:certificate},
         proposalId,
         fileCid,
         mem
@@ -97,7 +97,6 @@ export const submitMilestone = async(
 
     // Call data 
     const txn = contract.tx.AddMilestone(
-        certificate as any,
         options,
         proposalId,
         fileCid,
@@ -120,7 +119,7 @@ export const submitMilestone = async(
 
 
 // Edit Milestone
-const editMilestone = async(
+export const editMilestone = async(
     editMilestoneStatus: Dispatch<boolean>,
     account:InjectedAccountWithMeta,
     signer: Signer,
@@ -135,8 +134,9 @@ const editMilestone = async(
 
     // Dry Run TXN
     const data = await contract.query.editMilestone(
-        certificate as any,
+        account.address,
         {},
+        {cert:certificate},
         projectId,
         mileNo,
         fileCid,
@@ -152,7 +152,6 @@ const editMilestone = async(
 
     // Call data 
     const txn = contract.tx.addProposal(
-        certificate as any,
         options,
         projectId,
         mileNo,
