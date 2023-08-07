@@ -6,28 +6,32 @@ type Props = {
 };
 
 const UserContext = createContext({
-//   userAddress: "",
-//   userName: "",
+  //   userAddress: "",
+  //   userName: "",
   userToken: "",
-//   logInUser: function (token: string, address: string, name: string) {},
-  logInUser: function (token: string) {},
+  userID: "",
+  //   logInUser: function (token: string, address: string, name: string) {},
+  logInUser: function (token: string, id: string) {},
   logOutUser: function () {},
 });
 
 export const UserContextProvider = ({ children }: Props) => {
-//   const [userAddress, setUserAddress] = useState("");
-//   const [userName, setUserName] = useState("");
+  //   const [userAddress, setUserAddress] = useState("");
+  //   const [userName, setUserName] = useState("");
+  const [userID, setUserID] = useState("");
   const [userToken, setUserToken] = useState("");
 
-//   const logInUser = (token: string, address: string, name: string) => {
- const logInUser = (token: string) => {
+  //   const logInUser = (token: string, address: string, name: string) => {
+  const logInUser = (token: string, id: string) => {
     setUserToken(token);
+    setUserID(id)
     // setUserName(name);
     // setUserAddress(address);
   };
 
   const logOutUser = () => {
     setUserToken("");
+    setUserID("")
     // setUserName("");
     // setUserAddress("");
   };
@@ -36,6 +40,7 @@ export const UserContextProvider = ({ children }: Props) => {
     // userAddress,
     // userName,
     userToken,
+    userID,
     logInUser,
     logOutUser,
   };

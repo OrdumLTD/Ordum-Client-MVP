@@ -110,7 +110,7 @@ const AddTeamMembers = () => {
       .then((res) => {
         console.log(res.data);
 
-        userCtx.logInUser(res.data?.token)
+        userCtx.logInUser(res.data?.token, res.data?.toSend?._id)
       })
       .catch((e) => console.log(e));
   }
