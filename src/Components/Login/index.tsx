@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
+import { cookies } from 'next/headers'
 
 import OrdumLogoLight from "@/assets/svg-icons/ordum-logo-light.svg";
 // import ConnectWallet from "../ConnectWallet/";
@@ -15,7 +16,7 @@ enum LogInWalletType {
   NONE,
   POLKADOTJS,
   TALISMAN,
-  WALLETCONNECT,
+  // WALLETCONNECT,
 }
 
 const ConnectWallet = dynamic(() => import("../ConnectWallet/"), {
@@ -98,9 +99,9 @@ const LogIn: React.FC = () => {
               >
                 Talisman
               </Button>
-              <Button borderWhite className="py-4 font-semibold">
+              {/* <Button borderWhite className="py-4 font-semibold">
                 Check Around (soon)
-              </Button>
+              </Button> */}
               {/* <Button borderWhite className="py-4 font-semibold">
                 Wallet Connect
               </Button> */}

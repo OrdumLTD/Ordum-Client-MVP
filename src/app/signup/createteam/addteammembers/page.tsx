@@ -2,8 +2,11 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import axios from "axios";
+
 import Button from "@/Components/ui/buttons/Button";
 import { useProfileContext } from "@/Context/ProfileStore";
+import { useUserContext } from "@/Context/user";
 import { MemberRole } from "@/lib/PhalaContract/Types/types";
 import { createTeamApplicantProfile } from "@/lib/PhalaContract/Txn/createProfile";
 import { ContractCallOutcome } from "@polkadot/api-contract/types";
@@ -15,12 +18,11 @@ const AddTeamMembers = () => {
   const { signer, account } = useWalletContext();
   const { cache, contractApi } = usePhalaContractContext();
   const { profileData, setProfile } = useProfileContext();
+  const userCtx = useUserContext();
 
   const [profileCreation, setProfileCreation] = useState(false);
   const [passkeyStatus, setPasskeyStatus] = useState(false);
   const [secret, setSecret] = useState<ContractCallOutcome>();
-
-  
 
   const { poc5 } = useChainApiContext();
 
@@ -32,10 +34,7 @@ const AddTeamMembers = () => {
 
   const router = useRouter();
 
-  useEffect(() =>{
-   
-  },[profileCreation])
-
+  useEffect(() => {}, [profileCreation]);
 
   const addTeamMembersToState = () => {
     const membersToAdd = teamMembers.map((member) => {
@@ -65,8 +64,7 @@ const AddTeamMembers = () => {
 
   const createUser = async () => {
     addTeamMembersToState();
-    if(account && signer && cache && contractApi && poc5){
-
+    if (account && signer && cache && contractApi && poc5) {
       await createTeamApplicantProfile(
         setProfileCreation,
         setPasskeyStatus,
@@ -85,26 +83,13 @@ const AddTeamMembers = () => {
         profileData.teamMembers,
         profileData.links
       );
-
-
-    }else{
+    } else {
       console.log("Missing some params in Creation of Applicant");
-      console.log(`Account: ${account} \n Signer: ${signer} \n Cache: ${cache} \n ContractApi ${contractApi} Api ${poc5}`)
+      console.log(
+        `Account: ${account} \n Signer: ${signer} \n Cache: ${cache} \n ContractApi ${contractApi} Api ${poc5}`
+      );
     }
-    
-
-    
   };
-
-  //   axios
-  //     .post("http://localhost:3000/organizations", {
-  //       name: name,
-  //       passkey: "123421412",
-  //     })
-  //     // if succsful it will return a token
-  //     .then((res) => console.log(res.data?.token))
-  //     .catch((e) => console.log(e));
-  // };
 
   const removeTeamMember = (i: number) => {
     let newTeamMembers = [...teamMembers];
@@ -113,7 +98,22 @@ const AddTeamMembers = () => {
   };
 
   //@ts-ignore
-  console.log(secret?.output.toHuman().Ok.Ok[1])
+  console.log(secret?.output.toHuman().Ok.Ok[1]);
+
+  if (profileCreation) {
+    axios
+      .post("http://localhost:4000/organizations", {
+        name: profileData.teamName,
+        passkey: secret,
+      })
+      // if succsful it will return a token
+      .then((res) => {
+        console.log(res.data?.token);
+
+        userCtx.logInUser(res.data?.token)
+      })
+      .catch((e) => console.log(e));
+  }
   return (
     <div className="grid h-screen place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-cover text-sm md:text-base">
       <div
@@ -243,29 +243,24 @@ const AddTeamMembers = () => {
             w-full
             flex flex-col gap-4"
           >
-            {
-              profileCreation ? 
-              (
-                  <button
-                    onClick={() => router.push("/home")}
-                   className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl">
-                    Go to dashboard
-                  </button>
-              )
-              :
-              (
-                <button
-                  className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl"
-                  onClick={() => {
-                    createUser();
-                  }}
-                >
+            {profileCreation ? (
+              <button
+                onClick={() => router.push("/home")}
+                className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl"
+              >
+                Go to dashboard
+              </button>
+            ) : (
+              <button
+                className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl"
+                onClick={() => {
+                  createUser();
+                }}
+              >
                 Create Organizaiton
-                 </button>
-              )
-            }
-           
-          
+              </button>
+            )}
+
             <button className="rounded-full py-2.5 md:py-3 bg-ordum-purple font-semibold shadow-md shadow-md hover:shadow-2xl">
               Back
             </button>
