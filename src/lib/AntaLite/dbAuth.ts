@@ -34,15 +34,15 @@ export const setPasscode = async(
     );
 
      // Gas params
-     const options = {
-        gasLimit: (data.gasRequired as any).refTime,
-        storageDepositLimit: data.storageDeposit 
-        ? data.storageDeposit.asRefund : null
-    };
+    //  const options = {
+    //     gasLimit: (data.gasRequired as any).refTime,
+    //     storageDepositLimit: data.storageDeposit 
+    //     ? data.storageDeposit.asCharge : null
+    // };
 
     // Call data 
     const txn = contract.tx.setPasscode(
-        options,
+        {},
         randomData.result.asOk,
         name
     );

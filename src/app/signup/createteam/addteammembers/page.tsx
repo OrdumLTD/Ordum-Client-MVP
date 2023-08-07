@@ -108,7 +108,7 @@ const AddTeamMembers = () => {
       })
       // if succsful it will return a token
       .then((res) => {
-        console.log(res.data?.token);
+        console.log(res.data);
 
         userCtx.logInUser(res.data?.token)
       })
