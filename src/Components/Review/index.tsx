@@ -119,6 +119,9 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
 
   // Referenda Test
   const submit = async () => {
+
+   
+
     if (tldr?.fundingAmount && tldr.recieveDate) {
       const rate = tldr.exchangeRate || 24;
       await PreimageAndReferendum(
