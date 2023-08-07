@@ -26,13 +26,13 @@ export const getApplicant = async(
 
     // Check if Certificate is there, If not then sign the Cert
     if(Certificate){
-        const data = await contract.query.getTeamApplicantProfile( Certificate as any,{},id);
+        const data = await contract.query.getTeamApplicantProfile(account.address,{},{cert:Certificate},id);
         
         return data
     }else{
         // Sign the new Certificate and it will update the cache
         const certificate = await onSignCertificate(api,signer,account);
-        const data = await contract.query.getTeamApplicantProfile( certificate as any,{},id);
+        const data = await contract.query.getTeamApplicantProfile(account.address,{},{cert:certificate},id);
         
        return data
     }
@@ -52,13 +52,13 @@ export const getAllteams = async(
 
     // Check if Certificate is there, If not then sign the Cert
     if(Certificate){
-        const data = await contract.query.getAllApplicantTeams( Certificate as any,{});
+        const data = await contract.query.getAllApplicantTeams( account.address,{},{cert:Certificate});
         
         return data
     }else{
         // Sign the new Certificate and it will update the cache
         const certificate = await onSignCertificate(api,signer,account);
-        const data = await contract.query.getAllApplicantTeams( certificate as any,{});
+        const data = await contract.query.getAllApplicantTeams( account.address,{},{cert:certificate});
         
        return data
     }
@@ -79,7 +79,7 @@ export const getIndividual = async(
 
     // Check if Certificate is there, If not then sign the Cert
     if(Certificate){
-        const returnData = await contract.query.getIndividualProfile( Certificate as any,{},id);
+        const returnData = await contract.query.getIndividualProfile( account.address,{},{cert:Certificate},id);
         if(returnData.result.asErr){
             console.log("Error "+ returnData.result)
             return returnData
@@ -91,7 +91,7 @@ export const getIndividual = async(
     }else{
         // Sign the new Certificate and it will update the cache
         const certificate = await onSignCertificate(api,signer,account);
-        const returnData = await contract.query.getIndividualProfile( certificate as any,{});
+        const returnData = await contract.query.getIndividualProfile( account.address,{},{cert:certificate},id);
         if(returnData.result.asErr){
             console.log("Error "+ returnData.result)
             return returnData
@@ -117,13 +117,13 @@ export const getAllIndividuals = async(
 
     // Check if Certificate is there, If not then sign the Cert
     if(Certificate){
-        const data = await contract.query.getAllIndividuals( Certificate as any,{});
+        const data = await contract.query.getAllIndividuals( account.address,{},{cert:Certificate});
         
         return data
     }else{
         // Sign the new Certificate and it will update the cache
         const certificate = await onSignCertificate(api,signer,account);
-        const data = await contract.query.getAllIndividuals( certificate as any,{});
+        const data = await contract.query.getAllIndividuals( account.address,{},{cert:certificate});
         
        return data
     }

@@ -37,7 +37,7 @@ export const setPasscode = async(
      const options = {
         gasLimit: (data.gasRequired as any).refTime,
         storageDepositLimit: data.storageDeposit 
-        ? data.storageDeposit.asRefund : null
+        ? data.storageDeposit.asCharge : null
     };
 
     // Call data 
