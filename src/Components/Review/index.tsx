@@ -45,10 +45,26 @@ type Props = {
   ifYouHaveSeenSimilar?: string;
 };
 
-const SubmitProposalToDB = (token: string) => {
+const SubmitProposalToDB = (
+  token: string,
+  name: string,
+  tlrd: any,
+  context: any,
+  milestones: any,
+  owner: string
+) => {
   const config = {
     headers: { Authorization: `Bearer ${token}` },
   };
+
+  const toTest = {
+    name,
+    tlrd,
+    context,
+    owner,
+    milestones
+
+  }
 
   const bodyParameters = {
     name: "Ordum Proposal",
@@ -84,9 +100,14 @@ const SubmitProposalToDB = (token: string) => {
     __v: 0,
   };
 
-  axios.post("localhost:4000/proposals", bodyParameters, config).then((res) => {
-    console.log(res)
-  }).catch();
+  console.log(toTest)
+
+  // axios
+  //   .post("localhost:4000/proposals", bodyParameters, config)
+  //   .then((res) => {
+  //     console.log(res);
+  //   })
+  //   .catch();
 };
 
 const SubmitPropolsalPreview: React.FC<Props> = (props) => {
@@ -95,8 +116,15 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
   const [menu, setMenu] = useState(ReviewMenu.Summary);
 
   // Context
-  const { changeToStep, setProposalIndex, proposalIndex, tldr, context } =
-    useProposalContext();
+  const {
+    changeToStep,
+    setProposalIndex,
+    proposalIndex,
+    tldr,
+    context,
+    milestones,
+  } = useProposalContext();
+  console.log({ tldr, context });
   const { account, signer } = useWalletContext();
   const { api, fetchChainApi } = useChainApiContext();
   const userCtx = useUserContext();
@@ -121,17 +149,17 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
   const submit = async () => {
     if (tldr?.fundingAmount && tldr.recieveDate) {
       const rate = tldr.exchangeRate || 24;
-      await PreimageAndReferendum(
-        fetchIndex,
-        rate,
-        signer,
-        account,
-        tldr.fundingAmount,
-        tldr.beneficiary,
-        api,
-        tldr.recieveDate
-      );
-      SubmitProposalToDB(userCtx.userToken);
+      // await PreimageAndReferendum(
+      //   fetchIndex,
+      //   rate,
+      //   signer,
+      //   account,
+      //   tldr.fundingAmount,
+      //   tldr.beneficiary,
+      //   api,
+      //   tldr.recieveDate
+      // );
+      SubmitProposalToDB(userCtx.userToken, tldr.teamName, tldr, context, milestones, "joe");
     } else {
       console.log(
         "Missing some field Funding " +

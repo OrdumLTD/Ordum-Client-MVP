@@ -332,7 +332,7 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
               //@ts-ignore
               handleTLDRchange({ shortDescription: e.target.value });
             }}
-            className="mt-2 w-full text-sm bg-white placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]"
+            className="mt-2 w-full text-black text-sm bg-white placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]"
             placeholder="Describe your procet in 800 characters max"
           />
 

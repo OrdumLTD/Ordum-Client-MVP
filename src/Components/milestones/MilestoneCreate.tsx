@@ -4,6 +4,7 @@ import Layout from "@/Components/ui/Layout";
 import { ClassNames } from "@emotion/react";
 import { useState } from "react";
 import Task from "@/Components/task/Task";
+import TaskPreview from "../task/TestPreview";
 import Modal from "../ui/Modal";
 
 type Props = {
@@ -24,14 +25,16 @@ const MilestoneCreate: React.FC<Props> = (props) => {
     setTasks([...tasks, task]);
   };
 
-  {
-    console.log(tasks);
-  }
-
   return (
   <Modal isOpen={props.isOpen} handleIsOpen={props.handleIsOpen}>
     <div className={"max-w-[33rem] text-black " + props.className}>
-      <div>List Of Tasks</div>
+      {/* <div>List Of Tasks</div> */}
+
+      <ol>
+        {tasks.map((item) => {
+          return <li key={item.name}><TaskPreview name={item.name} type={item.type} /></li>
+        })}
+      </ol>
 
       <label className="mt-4 text-xl flex">
         <span>Milestone Name</span>
