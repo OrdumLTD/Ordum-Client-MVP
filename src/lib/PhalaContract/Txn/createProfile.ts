@@ -70,7 +70,7 @@ export const createTeamApplicantProfile = async(
    
     // Sign and Send
     
-    txnData.signAndSend(account.address,{signer},async({isInBlock,events,isCompleted,isFinalized})=>{
+    txnData.signAndSend(account.address,{signer},async({isInBlock,events,isCompleted})=>{
         if(isInBlock){
             console.log("In Block")
         }else if(isCompleted){
@@ -88,6 +88,9 @@ export const createTeamApplicantProfile = async(
             setSecret(returnValue)
 
         };
+        // events.forEach(({event:{method, section}}) =>{
+        //     console.log(`Method: ${method} Section: ${section}`)
+        // })
         // Events
         events.forEach(({event:{method, section}})=>{
             if (method === 'ExtrinsicSuccess') {
