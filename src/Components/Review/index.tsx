@@ -54,7 +54,9 @@ const SubmitProposalToDB = (
   owner: string
 ) => {
   const config = {
-    headers: { Authorization: `Bearer ${token}` },
+    headers: {
+      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQwYThmMWQ0ZjVkMTgzNDc2NTg0OGYiLCJpYXQiOjE2OTE0MzIyODN9._Feal-4CjVoYvMy6vSA9EOQRITRlqTTbfxwPZZ8zmaY`,
+    },
   };
 
   const toTest = {
@@ -62,52 +64,26 @@ const SubmitProposalToDB = (
     tlrd,
     context,
     owner,
-    milestones
-
-  }
-
-  const bodyParameters = {
-    name: "Ordum Proposal",
-    tldr: {
-      teamAccount: "randomTeamAccount",
-      projectType: "DeFi",
-      contact: "ela@boss.com",
-      startDate: "2023-09-20T16:32:33.000Z",
-      fundingAmmount: 10000,
-      deliveryDeadline: "2024-05-27T21:40:41.000Z",
-      shortDescription:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      externalLinks: ["wikipedia.com", "gihub.com"],
-      _id: "64d0a918d4f5d183476584b4",
-    },
-    context: {
-      context: "Context Example",
-      knownBackups: "None",
-      problemStatement:
-        "Turpis massa tincidunt dui ut. Eget gravida cum sociis natoque penatibus et magnis dis. Justo nec ultrices dui sapien eget. Natoque penatibus et magnis dis parturient montes nascetur. At ultrices mi tempus imperdiet nulla malesuada pellentesque elit eget. Egestas fringilla phasellus faucibus scelerisque eleifend donec pretium vulputate sapien. Massa placerat duis ultricies lacus sed turpis. Dolor sit amet consectetur adipiscing elit pellentesque. Adipiscing elit pellentesque habitant morbi tristique senectus et netus et. Nam at lectus urna duis convallis convallis.",
-      solution:
-        "Tellus orci ac auctor augue mauris augue. Diam phasellus vestibulum lorem sed risus ultricies tristique. Sed viverra tellus in hac habitasse platea dictumst. Faucibus turpis in eu mi bibendum neque. Eget sit amet tellus cras adipiscing. Amet aliquam id diam maecenas. Consectetur adipiscing elit duis tristique. Cras pulvinar mattis nunc sed. Turpis massa tincidunt dui ut ornare. Mi eget mauris pharetra et. Ipsum a arcu cursus vitae congue mauris rhoncus aenean. Aliquam ultrices sagittis orci a scelerisque purus semper eget duis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames. Volutpat blandit aliquam etiam erat velit scelerisque in dictum. Cursus sit amet dictum sit amet justo donec enim. Non quam lacus suspendisse faucibus interdum posuere lorem.",
-      targetAudience: "Web 3 Developers and B Blockchain users",
-      similarSolution:
-        "Nothing as close as what we are tryign to build, that we know of",
-      _id: "64d0a918d4f5d183476584b5",
-    },
-    owner: "64d0a8f1d4f5d1834765848f",
-    milestones: ["64d0a918d4f5d1834765849b", "64d0a918d4f5d183476584a6"],
-    createdAt: "2023-08-07T08:04:13.887Z",
-    _id: "64d0a918d4f5d183476584b3",
-    updatedAt: "2023-08-07T08:19:36.482Z",
-    __v: 0,
+    milestones,
   };
 
-  console.log(toTest)
+  const bodyParameters = {
+    token,
+    name,
+    tlrd,
+    context,
+    milestones: "sa",
+    owner
+  };
 
-  // axios
-  //   .post("localhost:4000/proposals", bodyParameters, config)
-  //   .then((res) => {
-  //     console.log(res);
-  //   })
-  //   .catch();
+  console.log(bodyParameters);
+
+  axios
+    .post("http://localhost:4000/proposals", bodyParameters, config)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((e) => console.log(e));
 };
 
 const SubmitPropolsalPreview: React.FC<Props> = (props) => {
@@ -124,7 +100,7 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
     context,
     milestones,
   } = useProposalContext();
-  console.log({ tldr, context });
+  console.log({ tldr, context, milestones });
   const { account, signer } = useWalletContext();
   const { api, fetchChainApi } = useChainApiContext();
   const userCtx = useUserContext();
@@ -159,7 +135,14 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
       //   api,
       //   tldr.recieveDate
       // );
-      SubmitProposalToDB(userCtx.userToken, tldr.teamName, tldr, context, milestones, "joe");
+      SubmitProposalToDB(
+        userCtx.userToken,
+        tldr.teamName,
+        tldr,
+        context,
+        milestones,
+        userCtx.userID
+      );
     } else {
       console.log(
         "Missing some field Funding " +

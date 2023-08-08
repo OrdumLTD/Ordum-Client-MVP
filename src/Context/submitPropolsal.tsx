@@ -71,18 +71,15 @@ interface task {
 
 // MILESTONES
 
-interface Milestone {
-  name: string,
-  description: string,
-  deadline: Date,
-  tasks: task[]
-}
-
-export type milestones = {
+interface milestone {
   name: string;
   description: string;
-  tasks: task[]
+  deadline: string;
+  tasks: task[];
 }
+
+
+// SUBMIT CONTEXT
 
 export type submitContext = {
   proposalStep?: number;
@@ -90,7 +87,7 @@ export type submitContext = {
   setProposalIndex: (index: number) => void;
   changeToStep: (number: number) => void;
   tldr?: tldr;
-  milestones?: milestones;
+  milestones: milestone[];
   context?: context;
   readyToSubmit: boolean;
   setReadyToSubmit: (v: boolean) => void;
@@ -119,6 +116,14 @@ const defaultState = {
     whyKSM: "",
     similarSolution: "",
   },
+  milestones: [
+    {
+      name: "",
+      description: "",
+      deadline: "",
+      tasks: [],
+    },
+  ],
   readyToSubmit: false,
   setReadyToSubmit: (v: boolean) => {
     return;
@@ -131,7 +136,7 @@ const defaultState = {
   },
   changeMilestones: (milestone: any) => {
     return;
-  }
+  },
 };
 
 type Props = {
@@ -144,7 +149,7 @@ export const ProposalContextProvider = ({ children }: Props) => {
   const [step, setStep] = useState<number>(1);
   const [proposalIndex, setProposalIndex] = useState<number>();
   const [tldr, setTldr] = useState<tldr>();
-  const [milestones, setMilestones] = useState<Milestone[]>([])
+  const [milestones, setMilestones] = useState<milestone[]>([]);
   const [propolsalContext, setPropolsalContext] = useState<context>();
   const [readyToSubmit, setReadyToSubmit] = useState<boolean>(false);
 
@@ -157,9 +162,9 @@ export const ProposalContextProvider = ({ children }: Props) => {
   };
 
   const changeMilestones = (itemsToChange: any) => {
-    const newMilestone = [...milestones, itemsToChange]
-    setMilestones(newMilestone)
-  }
+    // const newMilestones = [...milestones, itemsToChange];
+    setMilestones(itemsToChange);
+  };
 
   function changeStepHandler(num: number) {
     setStep(num);
@@ -178,6 +183,7 @@ export const ProposalContextProvider = ({ children }: Props) => {
     changeTLDR: changeTLDR,
     changeMilestones,
     context: propolsalContext,
+    milestones,
     readyToSubmit,
     setReadyToSubmit,
     changeContext,

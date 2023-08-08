@@ -25,19 +25,22 @@ const SubmitPropolsalMilestones: React.FC<Props> = (props) => {
   // const walletCtx = useContext(WalletContext);
   const router = useRouter();
 
+  console.log(milestones);
+
   const [modalIsOpen, setModalisOpen] = useState(false);
-  const [milestoneList, setMilestoneList] = useState<any>([]);
+  const [milestoneList, setMilestoneList] = useState<any>(milestones);
 
   const changePropolsalSubPage = async (step: number, route: string) => {
     changeToStep(step);
     router.push(route);
   };
 
-  const addMilestone = (milestone: any) => {
+  const addMilestone = async (milestone: any) => {
     setMilestoneList([...milestoneList, milestone]);
+    changeMilestones([...milestoneList, milestone]);
   };
 
-  console.log(milestoneList);
+  // console.log(milestoneList);
 
   const removeMilestone = (id: any) => {
     for (let i = 0; i < milestoneList.length; i++) {
@@ -56,15 +59,18 @@ const SubmitPropolsalMilestones: React.FC<Props> = (props) => {
         <ProposalName />
 
         <ul className="mt-8 flex flex-col gap-4">
-          {milestoneList.map((item: any) => {
+          {milestoneList.map((item: any, index) => {
             return (
-              <MilestoneBasic
-                name={item.name}
-                description={item.description}
-                id={item.id}
-                key={item.id}
-                remove={removeMilestone}
-              />
+              <li key={index}>
+                {" "}
+                <MilestoneBasic
+                  name={item.name}
+                  description={item.description}
+                  id={item.id}
+                  key={item.id}
+                  remove={removeMilestone}
+                />
+              </li>
             );
           })}
         </ul>
@@ -97,7 +103,7 @@ const SubmitPropolsalMilestones: React.FC<Props> = (props) => {
         <button
           className="bg-black text-white py-2 md:py-4"
           onClick={() => {
-            changeMilestones(milestoneList);
+            // changeMilestones(milestoneList);
             changePropolsalSubPage(5, "/submitproposal/review");
           }}
         >

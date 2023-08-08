@@ -157,6 +157,7 @@ const Task: React.FC<Props> = (props) => {
           placeholder="Total cost "
           min="0"
           value={numberOfHours * costPerHour}
+          readOnly
           // onChange={(e) => setTotalCost(e.target.value)}
         />
       </div>
