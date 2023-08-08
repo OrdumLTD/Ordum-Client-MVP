@@ -45,60 +45,64 @@ type Props = {
   ifYouHaveSeenSimilar?: string;
 };
 
-const SubmitProposalToDB = (
-  token: string,
-  name: string,
-  tldr: any,
-  context: any,
-  milestones: any,
-  owner: string
-) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
 
-  console.log(milestones);
-
-  const bodyParameters = {
-    name: tldr.teamName,
-    tldr: {
-      teamAccount: owner,
-      projectType: tldr.projectType || ['Governance'],
-      contact: tldr.contact,
-      startDate: tldr?.startingDate,
-      fundingAmmount: tldr.fundingAmount,
-      deliveryDeadline: tldr?.deadLine,
-      shortDescription: tldr?.shortDescription,
-      externalLinks: ["wikipedia.com", "gihub.com"],
-    },
-    context,
-    milestones,
-    owner,
-  };
-
-  console.log(bodyParameters);
-
-  axios
-    // .post("http://localhost:4000/proposals", bodyParameters, config)
-
-    .post(
-      "https://ordum-mvp-api-9de49c774d76.herokuapp.com/",
-      bodyParameters,
-      config
-    )
-    .then((res) => {
-      console.log(res);
-      // return (res)
-    })
-    .catch((e) => console.log(e));
-};
 
 const SubmitPropolsalPreview: React.FC<Props> = (props) => {
   const [hash, setHash] = useState<string>();
 
+  const [dbJSON, setDbJSON] =  useState()
+
   const [menu, setMenu] = useState(ReviewMenu.Summary);
+
+  const SubmitProposalToDB = (
+    token: string,
+    name: string,
+    tldr: any,
+    context: any,
+    milestones: any,
+    owner: string
+  ) => {
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+  
+    console.log(milestones);
+  
+    const bodyParameters = {
+      name: tldr.teamName,
+      tldr: {
+        teamAccount: owner,
+        projectType: tldr.projectType || ['Governance'],
+        contact: tldr.contact,
+        startDate: tldr?.startingDate,
+        fundingAmmount: tldr.fundingAmount,
+        deliveryDeadline: tldr?.deadLine,
+        shortDescription: tldr?.shortDescription,
+        externalLinks: tldr?.externalLinks,
+      },
+      context,
+      milestones,
+      owner,
+    };
+  
+    console.log(bodyParameters);
+  
+    axios
+      // .post("http://localhost:4000/proposals", bodyParameters, config)
+  
+      .post(
+        "https://ordum-mvp-api-9de49c774d76.herokuapp.com/proposals",
+        bodyParameters,
+        config
+      )
+      .then((res) => {
+        console.log(res);
+        setDbJSON(res.data)
+      })
+      .catch((e) => console.log(e));
+  };
 
   // Context
   const {

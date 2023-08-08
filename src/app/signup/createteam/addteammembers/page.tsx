@@ -24,6 +24,8 @@ const AddTeamMembers = () => {
   const [passkeyStatus, setPasskeyStatus] = useState(false);
   const [secret, setSecret] = useState<ContractCallOutcome>();
 
+
+
   const { poc5 } = useChainApiContext();
 
   const [teamMembers, setTeamMembers] = useState<any[]>([]);
@@ -101,17 +103,20 @@ const AddTeamMembers = () => {
   console.log(secret?.output.toHuman().Ok.Ok[1]);
 
   if (profileCreation) {
+    //@ts-ignore
+    const passkey = secret?.output.toHuman().Ok.Ok[1];
+
     axios
       // .post("http://localhost:4000/organizations", {
-        .post("https://ordum-mvp-api-9de49c774d76.herokuapp.com/", {
+      .post("https://ordum-mvp-api-9de49c774d76.herokuapp.com/organizations", {
         name: profileData.teamName,
-        passkey: secret,
+        passkey: passkey,
       })
       // if succsful it will return a token
       .then((res) => {
         console.log(res.data);
 
-        userCtx.logInUser(res.data?.token, res.data?.toSend?._id)
+        userCtx.logInUser(res.data?.token, res.data?.toSend?._id, passkey);
       })
       .catch((e) => console.log(e));
   }

@@ -15,7 +15,8 @@ export interface user {
 const defaultState = {
   userToken: "",
   userID: "",
-  logInUser: function (token: string, id: string) {
+  passkey: "",
+  logInUser: function (token: string, id: string, passkey: string) {
     return;
   },
   logOutUser: function () {
@@ -28,11 +29,13 @@ const UserContext = createContext(defaultState);
 export const UserContextProvider = ({ children }: Props) => {
   const [userID, setUserID] = useState<user["userID"]>("");
   const [userToken, setUserToken] = useState<user["userToken"]>("");
+  const [passkey, setPasskey] = useState("")
 
-  const logInUser = (token: string, id: string) => {
+  const logInUser = (token: string, id: string, passkey: string) => {
     if (userToken === "" && userID === "") {
       setUserToken(token);
       setUserID(id);
+      setPasskey(passkey)
       console.log("User added to ctx");
     } else {
       console.log("Failed to add user");
@@ -43,6 +46,7 @@ export const UserContextProvider = ({ children }: Props) => {
     console.log("Log out user");
     setUserToken("");
     setUserID("");
+    setPasskey("");
   };
 
   const context = {
@@ -50,6 +54,7 @@ export const UserContextProvider = ({ children }: Props) => {
     // userName,
     userToken,
     userID,
+    passkey,
     logInUser,
     logOutUser,
   };
