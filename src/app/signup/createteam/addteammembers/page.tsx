@@ -291,7 +291,7 @@ const AddTeamMembers = () => {
             w-full
             flex flex-col gap-4"
           >
-            {profileCreation ? (
+            {(profileCreation && secret)? (
               <button
                 onClick={() => router.push("/home")}
                 className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl"
