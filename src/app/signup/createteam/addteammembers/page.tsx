@@ -24,8 +24,6 @@ const AddTeamMembers = () => {
   const [passkeyStatus, setPasskeyStatus] = useState(false);
   const [secret, setSecret] = useState<ContractCallOutcome>();
 
-
-
   const { poc5 } = useChainApiContext();
 
   const [teamMembers, setTeamMembers] = useState<any[]>([]);
@@ -100,11 +98,12 @@ const AddTeamMembers = () => {
   };
 
   //@ts-ignore
-  console.log(secret?.output.toHuman().Ok.Ok[1]);
+  // console.log(secret?.output.toHuman().Ok.Ok[1]);
 
-  if (profileCreation) {
+  if (profileCreation && secret) {
     //@ts-ignore
     const passkey = secret?.output.toHuman().Ok.Ok[1];
+    console.log("pk " + passkey);
 
     axios
       // .post("http://localhost:4000/organizations", {
@@ -249,7 +248,7 @@ const AddTeamMembers = () => {
             w-full
             flex flex-col gap-4"
           >
-            {profileCreation ? (
+            {(profileCreation && secret)? (
               <button
                 onClick={() => router.push("/home")}
                 className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl"
