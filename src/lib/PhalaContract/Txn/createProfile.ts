@@ -3,11 +3,10 @@
 import { CertificateData, PinkContractPromise} from "@phala/sdk";
 import type { InjectedAccountWithMeta} from "@polkadot/extension-inject/types";
 import { Categories,Chains,AccountId, MemberRole, UserRole} from "../Types/types";
-import { ContractPromise } from "@polkadot/api-contract";
 import { Signer } from "@polkadot/types/types";
 import { ContractCallOutcome } from "@polkadot/api-contract/types";
 import { Dispatch } from "react";
-import { getPasscode, setPasscode } from "@/lib/AntaLite/dbAuth";
+import { setPasscode } from "@/lib/AntaLite/dbAuth";
 import { ApiPromise } from '@polkadot/api'
 
 
@@ -77,15 +76,9 @@ export const createTeamApplicantProfile = async(
             console.log("Completed")
 
             console.log("Finalized Applicant Profile Creation")
-            profileCreationStatus(true)
 
             // Set the passcode
-            await setPasscode(passcodeStatus,account,signer,certificate,contract,name);
-
-            // Fetch the secret
-            let returnValue = await getPasscode(contract,api,signer,account,certificate);
-            
-            setSecret(returnValue)
+            await setPasscode(passcodeStatus,setSecret,account,signer,certificate,contract,api,name);   
 
         };
         // events.forEach(({event:{method, section}}) =>{
@@ -109,6 +102,7 @@ export const createTeamApplicantProfile = async(
 export const createIndividualProfile = async(
     profileCreationStatus:(v:boolean)=>void,
     passcodeStatus: Dispatch<boolean>,
+    setSecret: Dispatch<ContractCallOutcome>,
     account:InjectedAccountWithMeta,
     signer: Signer,
     certificate: CertificateData,
@@ -168,10 +162,7 @@ export const createIndividualProfile = async(
             profileCreationStatus(true)
 
               // Set the passcode
-              await setPasscode(passcodeStatus,account,signer,certificate,contract,name);
-
-              // Fetch the secret
-              returnValue = await getPasscode(contract,api,signer,account,certificate);
+              await setPasscode(passcodeStatus,setSecret,account,signer,certificate,contract,api,name);
 
         };
         // Events

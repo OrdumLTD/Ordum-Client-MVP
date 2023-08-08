@@ -1,6 +1,6 @@
 {
   "source": {
-    "hash": "0xc5ea4e207c6c0ba64fcad4df6442af913646d0fe47eee4989ee5dbf6d9c01c11",
+    "hash": "0x1ae2c874bef09e3d4c03307e36c0d1377d98d9458b27c3f5c7096f4140f55298",
     "language": "ink! 4.2.1",
     "compiler": "rustc 1.69.0",
     "build_info": {
@@ -2231,6 +2231,14 @@
               {
                 "index": 6,
                 "name": "UnexpectedError"
+              },
+              {
+                "index": 7,
+                "name": "SecretKeyNotAuthorized"
+              },
+              {
+                "index": 8,
+                "name": "SecretKeyAccountDontExists"
               }
             ]
           }

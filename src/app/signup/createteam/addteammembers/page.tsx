@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 
 import Button from "@/Components/ui/buttons/Button";
@@ -14,6 +14,11 @@ import { useWalletContext } from "@/Context/WalletStore";
 import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
 import { useChainApiContext } from "@/Context/ChainApiStore";
 
+// Antd
+import type { NotificationPlacement } from 'antd/es/notification/interface';
+import { Space, notification } from 'antd';
+
+
 const AddTeamMembers = () => {
   const { signer, account } = useWalletContext();
   const { cache, contractApi } = usePhalaContractContext();
@@ -23,8 +28,8 @@ const AddTeamMembers = () => {
   const [profileCreation, setProfileCreation] = useState(false);
   const [passkeyStatus, setPasskeyStatus] = useState(false);
   const [secret, setSecret] = useState<ContractCallOutcome>();
-
-
+  const [secretInner, setSecretInner] = useState<string[]>([]);
+  const [ secretError, setSecretError] = useState<string>("");
 
   const { poc5 } = useChainApiContext();
 
@@ -85,6 +90,7 @@ const AddTeamMembers = () => {
         profileData.teamMembers,
         profileData.links
       );
+
     } else {
       console.log("Missing some params in Creation of Applicant");
       console.log(
@@ -93,34 +99,69 @@ const AddTeamMembers = () => {
     }
   };
 
+  const [api] = notification.useNotification();
+
+  const errorNotification = (placement: NotificationPlacement) => {
+    api.info({
+      message: `Notification ${placement}`,
+      description: secretError,
+      placement,
+    });
+  };
+
+  useMemo(()=>{
+    errorNotification("topLeft")
+  },[secretError])
+
   const removeTeamMember = (i: number) => {
     let newTeamMembers = [...teamMembers];
     newTeamMembers.splice(i, 1);
     setTeamMembers(newTeamMembers);
   };
 
-  //@ts-ignore
-  console.log(secret?.output.toHuman().Ok.Ok[1]);
+  console.log("Secret \n")
 
-  if (profileCreation) {
-    //@ts-ignore
-    const passkey = secret?.output.toHuman().Ok.Ok[1];
+  useMemo(()=>{
+    if(secret){
+      if(secret.output.toJSON().valueOf()["ok"]["err"] == "SecretKeyNotAuthorized"){
+        console.log("Error returning the secret")
+        // set to the state
+        setSecretError("Not Authorized to access account secret key")
+      }else{
+        console.log(secret.output.toJSON().valueOf()["ok"]["ok"]);
+        let secretData = secret?.output.toJSON().valueOf()["ok"]["ok"];
+        setSecretInner(secretData);
+      }
+      
+    }
+  },[secret])
+  
+  
+  
+  useMemo(() =>{
 
-    axios
-      // .post("http://localhost:4000/organizations", {
-      .post("https://ordum-mvp-api-9de49c774d76.herokuapp.com/organizations", {
-        name: profileData.teamName,
-        passkey: passkey,
-      })
-      // if succsful it will return a token
-      .then((res) => {
-        console.log("Db User Return : \n");
-        console.log(res.data);
+    if (profileCreation && secretInner) {
+    
 
-        userCtx.logInUser(res.data?.token, res.data?.toSend?._id, passkey);
-      })
-      .catch((e) => console.log(e));
-  }
+      axios
+        // .post("http://localhost:4000/organizations", {
+        .post("https://ordum-mvp-api-9de49c774d76.herokuapp.com/organizations", {
+          name: secretInner[0],
+          passkey: secretInner[1],
+        })
+        // if succsful it will return a token
+        .then((res) => {
+          console.log("Db User Return : \n");
+          console.log(res.data);
+  
+          userCtx.logInUser(res.data?.token, res.data?.toSend?._id, secretInner[1]);
+        })
+        .catch((e) => console.log(e));
+    }
+
+  },[secretInner])
+
+
   return (
     <div className="grid h-screen place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-cover text-sm md:text-base">
       <div
@@ -268,7 +309,8 @@ const AddTeamMembers = () => {
               </button>
             )}
 
-            <button className="rounded-full py-2.5 md:py-3 bg-ordum-purple font-semibold shadow-md shadow-md hover:shadow-2xl">
+            <button
+             className="rounded-full py-2.5 md:py-3 bg-ordum-purple font-semibold shadow-md shadow-md hover:shadow-2xl">
               Back
             </button>
           </div>
