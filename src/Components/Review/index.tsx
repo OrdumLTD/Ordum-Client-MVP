@@ -100,11 +100,11 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
     context,
     milestones,
   } = useProposalContext();
-  console.log({ tldr, context, milestones });
+
   const { account, signer } = useWalletContext();
   const { api, fetchChainApi } = useChainApiContext();
   const userCtx = useUserContext();
-
+  console.log({ tldr, context, milestones, userCtx });
   const router = useRouter();
 
   const changePropolsalSubPage = async (step: number, route: string) => {
