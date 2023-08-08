@@ -6,6 +6,7 @@ import { ChainApiContextProvider } from '@/Context/ChainApiStore'
 import { PhalaContractContextProvider } from '@/Context/PhalaContractApiStore'
 import { ApplicantNameNIdContextProvider, FetchedIndividualProfileContextProvider, FetchedProfileContextProvider, IndidvualNameNIdContextProvider, IndividualProfileContextProvider, ProfileContextProvider } from '@/Context/ProfileStore'
 import { ProposalContextProvider } from '@/Context/submitPropolsal';
+import { UserContextProvider } from '@/Context/user';
 
 
 
@@ -37,7 +38,9 @@ export default function RootLayout({
                       <ProposalContextProvider>
                         <ApplicantNameNIdContextProvider>
                           <IndidvualNameNIdContextProvider>
+                            <UserContextProvider>
                             {children}
+                            </UserContextProvider>
                           </IndidvualNameNIdContextProvider>
                         </ApplicantNameNIdContextProvider>
                       </ProposalContextProvider>

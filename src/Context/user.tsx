@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, createContext, ReactNode, useContext } from "react";
 // import { createContext } from "react";
 
@@ -5,35 +7,42 @@ type Props = {
   children: ReactNode;
 };
 
-const UserContext = createContext({
-  //   userAddress: "",
-  //   userName: "",
+export interface user {
+  userID: string;
+  userToken: string;
+}
+
+const defaultState = {
   userToken: "",
   userID: "",
-  //   logInUser: function (token: string, address: string, name: string) {},
-  logInUser: function (token: string, id: string) {},
-  logOutUser: function () {},
-});
+  logInUser: function (token: string, id: string) {
+    return;
+  },
+  logOutUser: function () {
+    return;
+  },
+};
+
+const UserContext = createContext(defaultState);
 
 export const UserContextProvider = ({ children }: Props) => {
-  //   const [userAddress, setUserAddress] = useState("");
-  //   const [userName, setUserName] = useState("");
-  const [userID, setUserID] = useState("");
-  const [userToken, setUserToken] = useState("");
+  const [userID, setUserID] = useState<user["userID"]>("");
+  const [userToken, setUserToken] = useState<user["userToken"]>("");
 
-  //   const logInUser = (token: string, address: string, name: string) => {
   const logInUser = (token: string, id: string) => {
-    setUserToken(token);
-    setUserID(id)
-    // setUserName(name);
-    // setUserAddress(address);
+    if (userToken === "" && userID === "") {
+      setUserToken(token);
+      setUserID(id);
+      console.log("User added to ctx");
+    } else {
+      console.log("Failed to add user");
+    }
   };
 
   const logOutUser = () => {
+    console.log("Log out user");
     setUserToken("");
-    setUserID("")
-    // setUserName("");
-    // setUserAddress("");
+    setUserID("");
   };
 
   const context = {
