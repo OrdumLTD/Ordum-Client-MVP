@@ -60,7 +60,7 @@ const pin = async(authHeader: string, cid: string,team_id:string) => {
 
 
 // ---------- Place order function ----------
-const placeNewOrder =async (
+export const placeNewOrder =async (
     placed:Dispatch<boolean>,
     api:ApiPromise,account:string,
     signer:Signer,cid:string,
