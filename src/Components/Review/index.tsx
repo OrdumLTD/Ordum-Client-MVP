@@ -74,7 +74,7 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
       name: tldr.teamName,
       tldr: {
         teamAccount: owner,
-        projectType: tldr.projectType || ['Governance'],
+        projectType: tldr.projectType,
         contact: tldr.contact,
         startDate: tldr?.startingDate,
         fundingAmmount: tldr.fundingAmount,
