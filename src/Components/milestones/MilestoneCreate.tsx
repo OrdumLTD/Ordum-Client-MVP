@@ -66,7 +66,7 @@ const MilestoneCreate: React.FC<Props> = (props) => {
       <input
         className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
         placeholder="When do you think you'll be done with all tasks"
-        type="text"
+        type="date"
         value={deadline}
         onChange={(e) => setDeadline(e.target.value)}
       />

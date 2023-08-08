@@ -188,7 +188,7 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
             onChange={(e) => {
               const selected = e.target.value;
               //@ts-ignore
-              handleTLDRchange({ projectType: [...selected, selected] });
+              handleTLDRchange({ projectType: [selected] });
             }}
             className="mt-2  text-gray-500
             w-[33rem] pl-2  md:py-2 border border-black rounded-md text-xs md:text-sm shadow-sm bg-white focus:outline-none focus:border-sky-500"

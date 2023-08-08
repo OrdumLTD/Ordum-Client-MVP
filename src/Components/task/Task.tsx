@@ -168,7 +168,7 @@ const Task: React.FC<Props> = (props) => {
       <input
         className="mt-4 text-gray-500 text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
         placeholder="10/10/25"
-        type="text"
+        type="date"
         value={taskDeadLine}
         onChange={(e) => setTaskDeadLine(e.target.value)}
       />

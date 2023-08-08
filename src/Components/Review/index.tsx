@@ -48,32 +48,34 @@ type Props = {
 const SubmitProposalToDB = (
   token: string,
   name: string,
-  tlrd: any,
+  tldr: any,
   context: any,
   milestones: any,
   owner: string
 ) => {
   const config = {
     headers: {
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NGQwYThmMWQ0ZjVkMTgzNDc2NTg0OGYiLCJpYXQiOjE2OTE0MzIyODN9._Feal-4CjVoYvMy6vSA9EOQRITRlqTTbfxwPZZ8zmaY`,
+      Authorization: `Bearer ${token}`,
     },
   };
 
-  const toTest = {
-    name,
-    tlrd,
-    context,
-    owner,
-    milestones,
-  };
+  console.log(milestones)
 
   const bodyParameters = {
-    token,
-    name,
-    tlrd,
+    name: tldr.teamName,
+    tldr: {
+      teamAccount: owner,
+      projectType: "DeFi",
+      contact: tldr.contact,
+      startDate: tldr?.startingDate,
+      fundingAmmount: tldr.fundingAmount,
+      deliveryDeadline: tldr?.deadLine,
+      shortDescription: tldr?.shortDescription,
+      externalLinks: ["wikipedia.com", "gihub.com"],
+    },
     context,
-    milestones: "sa",
-    owner
+    milestones,
+    owner,
   };
 
   console.log(bodyParameters);
@@ -123,9 +125,6 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
 
   // Referenda Test
   const submit = async () => {
-
-   
-
     if (tldr?.fundingAmount && tldr.recieveDate) {
       const rate = tldr.exchangeRate || 24;
       // await PreimageAndReferendum(
