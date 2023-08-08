@@ -59,13 +59,13 @@ const SubmitProposalToDB = (
     },
   };
 
-  console.log(milestones)
+  console.log(milestones);
 
   const bodyParameters = {
     name: tldr.teamName,
     tldr: {
       teamAccount: owner,
-      projectType: "DeFi",
+      projectType: tldr.projectType || ['Governance'],
       contact: tldr.contact,
       startDate: tldr?.startingDate,
       fundingAmmount: tldr.fundingAmount,
@@ -81,9 +81,16 @@ const SubmitProposalToDB = (
   console.log(bodyParameters);
 
   axios
-    .post("http://localhost:4000/proposals", bodyParameters, config)
+    // .post("http://localhost:4000/proposals", bodyParameters, config)
+
+    .post(
+      "https://ordum-mvp-api-9de49c774d76.herokuapp.com/",
+      bodyParameters,
+      config
+    )
     .then((res) => {
       console.log(res);
+      // return (res)
     })
     .catch((e) => console.log(e));
 };

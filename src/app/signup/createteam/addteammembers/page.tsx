@@ -102,7 +102,8 @@ const AddTeamMembers = () => {
 
   if (profileCreation) {
     axios
-      .post("http://localhost:4000/organizations", {
+      // .post("http://localhost:4000/organizations", {
+        .post("https://ordum-mvp-api-9de49c774d76.herokuapp.com/", {
         name: profileData.teamName,
         passkey: secret,
       })
