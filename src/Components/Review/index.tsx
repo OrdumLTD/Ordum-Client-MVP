@@ -45,12 +45,10 @@ type Props = {
   ifYouHaveSeenSimilar?: string;
 };
 
-
-
 const SubmitPropolsalPreview: React.FC<Props> = (props) => {
   const [hash, setHash] = useState<string>();
 
-  const [dbJSON, setDbJSON] =  useState()
+  const [dbJSON, setDbJSON] = useState();
 
   const [menu, setMenu] = useState(ReviewMenu.Summary);
 
@@ -67,9 +65,9 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
         Authorization: `Bearer ${token}`,
       },
     };
-  
+
     console.log(milestones);
-  
+
     const bodyParameters = {
       name: tldr.teamName,
       tldr: {
@@ -86,12 +84,12 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
       milestones,
       owner,
     };
-  
+
     console.log(bodyParameters);
-  
+
     axios
       // .post("http://localhost:4000/proposals", bodyParameters, config)
-  
+
       .post(
         "https://ordum-mvp-api-9de49c774d76.herokuapp.com/proposals",
         bodyParameters,
@@ -99,7 +97,7 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
       )
       .then((res) => {
         console.log(res);
-        setDbJSON(res.data)
+        setDbJSON(res.data);
       })
       .catch((e) => console.log(e));
   };

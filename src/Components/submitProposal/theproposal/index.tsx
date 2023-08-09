@@ -78,6 +78,8 @@ const SubmitProposalContext: React.FC<Props> = (props) => {
             className="text-black mt-5"
           />
 
+          <p>{context?.contextOfTheProposal}</p>
+
           {/* <div className="mt-5">
             <p className="hover:cursor-pointer text-gray-400">
               Click here to type and open text editor.
