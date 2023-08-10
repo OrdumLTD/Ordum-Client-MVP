@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
@@ -19,8 +19,12 @@ import { useChainApiContext } from "@/Context/ChainApiStore";
 import Summary from "./reviewSubmenu/Summary";
 import ViewProposal from "./reviewSubmenu/ViewProposal";
 import Milestones from "./reviewSubmenu/Milestones/milestones";
-import { newFileIpfs } from "@/lib/DeStorage/storeFile";
+import { ReturnIpfs, newFileIpfs } from "@/lib/DeStorage/storeFile";
 import { useUserContext } from "@/Context/user";
+import { submitProposal } from "@/lib/PhalaContract/Txn/submitProject";
+import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
+import { chain } from "@polkadot/types/interfaces/definitions";
+import { Chains } from "@/lib/PhalaContract/Types/types";
 
 enum ReviewMenu {
   Summary,
@@ -48,9 +52,28 @@ type Props = {
 
 
 const SubmitPropolsalPreview: React.FC<Props> = (props) => {
+
+  // Context
+  const {cache,contractApi} = usePhalaContractContext();
+  const { account, signer } = useWalletContext();
+  const { api, fetchChainApi,crustApi,fetchCrustApi } = useChainApiContext();
+  const userCtx = useUserContext();
+  const {
+    changeToStep,
+    setProposalIndex,
+    proposalIndex,
+    tldr,
+    context,
+    milestones,
+  } = useProposalContext();
+
+
   const [hash, setHash] = useState<string>();
 
-  const [dbJSON, setDbJSON] =  useState()
+  const [dbJSON, setDbJSON] =  useState();
+  const [storageOrderPlaced, setStorageOrderPlaced] = useState<boolean>(false);
+  const [returnIpfs,setReturnIpfs] = useState<ReturnIpfs>();
+  const [proposalStatus,setProposalStatus] = useState<boolean>(false);
 
   const [menu, setMenu] = useState(ReviewMenu.Summary);
 
@@ -104,19 +127,9 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
       .catch((e) => console.log(e));
   };
 
-  // Context
-  const {
-    changeToStep,
-    setProposalIndex,
-    proposalIndex,
-    tldr,
-    context,
-    milestones,
-  } = useProposalContext();
 
-  const { account, signer } = useWalletContext();
-  const { api, fetchChainApi } = useChainApiContext();
-  const userCtx = useUserContext();
+
+
   console.log({ tldr, context, milestones, userCtx });
   const router = useRouter();
 
@@ -125,37 +138,54 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
     router.push(route);
   };
 
-  // useEffect(() => {
-  //   if (!api) {
-  //     fetchChainApi();
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!api) {
+      fetchChainApi();
+    }
+    if(!crustApi){
+      fetchCrustApi()
+    }
+  }, []);
 
-  // callBack fn
-  const fetchIndex = (index: number) => [setProposalIndex(index)];
+ 
 
-  // Referenda Test
-  const submit = async () => {
+  // 1. Submit To Db
+  
+
+  const submitToDb = () =>{
+    console.log("Submitting proposal to Db")
+    SubmitProposalToDB(
+      userCtx.userToken,
+      tldr.teamName,
+      tldr,
+      context,
+      milestones,
+      userCtx.userID
+    );
+  }
+
+
+
+  // 2. Submit On Chain (eg,Kusama)
+   // callBack fn
+   const fetchIndex = (index: number) => [setProposalIndex(index)];
+
+
+  useMemo(async() =>{
+    // Referenda Test
     if (tldr?.fundingAmount && tldr.recieveDate) {
       const rate = tldr.exchangeRate || 24;
-      // await PreimageAndReferendum(
-      //   fetchIndex,
-      //   rate,
-      //   signer,
-      //   account,
-      //   tldr.fundingAmount,
-      //   tldr.beneficiary,
-      //   api,
-      //   tldr.recieveDate
-      // );
-      SubmitProposalToDB(
-        userCtx.userToken,
-        tldr.teamName,
-        tldr,
-        context,
-        milestones,
-        userCtx.userID
+      await PreimageAndReferendum(
+        fetchIndex,
+        rate,
+        signer,
+        account,
+        tldr.fundingAmount,
+        tldr.beneficiary,
+        api,
+        tldr.recieveDate
       );
+     
     } else {
       console.log(
         "Missing some field Funding " +
@@ -164,7 +194,48 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
           tldr?.recieveDate
       );
     }
-  };
+  },[dbJSON])
+
+
+
+  // 3. Take the Returned JSON and submit to Crust & Ipfs
+  useMemo(async()=>{
+    if(dbJSON){
+      console.log("Submitting Proposal to Ipfs & Crust")
+
+     const ipfsReturn = await newFileIpfs(
+
+      setStorageOrderPlaced,
+      crustApi,account.address,
+      signer,dbJSON,tldr.teamName
+      );
+
+      setReturnIpfs(ipfsReturn);
+    }
+
+  },[dbJSON])
+
+  // 4. Submitting Proposal Cid to contract 
+  useMemo(async() =>{
+    if(returnIpfs && storageOrderPlaced && proposalIndex){
+      console.log(`Submitting proposal to the contract ( CID: ${returnIpfs.cid} , SIZE: ${returnIpfs.size} ) `)
+        await submitProposal(
+          setProposalStatus,
+          account,
+          signer,
+          cache,
+          contractApi,
+          Chains.kusama, // By default is Kusama as for now
+          proposalIndex,
+          returnIpfs.cid,
+          returnIpfs.size
+        );
+    }
+  },[returnIpfs,proposalIndex,storageOrderPlaced])
+
+ console.log("Placed Proposal in the contract \n")
+ console.log(proposalStatus)
+
 
   return (
     <div className="p-10 w-full">
@@ -366,7 +437,7 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
           <button
             className="bg-ordum-purple text-white border border-white py-2 md:py-4 rounded"
             onClick={() => {
-              submit();
+              submitToDb();
             }}
           >
             Submit

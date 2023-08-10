@@ -15,7 +15,6 @@ import { onSignCertificate } from "../PhalaContract/Utils/phalaCertificate";
 // Set New Passcode
 export const setPasscode = async(
     passcodeStatus: Dispatch<boolean>,
-    setSecret: Dispatch<ContractCallOutcome>,
     account:InjectedAccountWithMeta,
     signer: Signer,
     certificate: CertificateData,
@@ -62,9 +61,7 @@ export const setPasscode = async(
             if (method === 'ExtrinsicSuccess') {
                 console.log(`✅  Success Placed User's Secret to Contract`);
                 passcodeStatus(true)
-                // Fetch the passcode
-                await getPasscode(setSecret,contract,api,signer,account,certificate);
-
+                
             }
         })
     })
@@ -75,29 +72,25 @@ export const setPasscode = async(
 
 // Getting the stored passcode per user's address
 export const getPasscode = async(
-    setSecret: Dispatch<ContractCallOutcome>,
     contract:PinkContractPromise,
     api:ApiPromise,
     signer: Signer,
     account:InjectedAccountWithMeta,
     Certificate?: CertificateData,
     
-) =>{
+):Promise<ContractCallOutcome>=>{
     console.log("Getting the stored passcode")
     // Check if Certificate is there, If not then sign the Cert
     if(Certificate){
         const data = await contract.query.getPasscode(account.address, {cert:Certificate});
-        
-        console.log("Secret Inner \n")
-        console.log(data.output.toJSON().valueOf()["ok"])
 
-        setSecret(data)
+        return data
     }else{
         // Sign the new Certificate and it will update the cache
         const certificate = await onSignCertificate(api,signer,account);
         const data = await contract.query.getPasscode(account.address, {cert:certificate});
         
-       setSecret(data)
+       return data
     }
 }
 

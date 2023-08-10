@@ -64,14 +64,14 @@ export const placeNewOrder =async (
     placed:Dispatch<boolean>,
     api:ApiPromise,account:string,
     signer:Signer,cid:string,
-    size:number, project_no:number,
+    size:number,
     team_id:string
     ) => {
 
-    const memo = `Ordum/${team_id}/${project_no}`;
+    const memo = `Ordum/${team_id}`;
     const txn = api.tx.market.placeStorageOrder(cid, size, 0, memo);
 
-    txn.signAndSend(account,{signer},({events,isCompleted,isFinalized})=>{
+    txn.signAndSend(account,{signer},({events,isFinalized})=>{
         if (isFinalized){
             events.forEach(({event:{method, section}})=>{
                 if (method === 'ExtrinsicSuccess') {
@@ -118,7 +118,7 @@ export const newFileIpfs = async(
     placed:Dispatch<boolean>,
     api:ApiPromise,
     account:string, signer:Signer,
-    file:any, project_no:number,
+    file:any,
     team_id:string
     ):Promise<ReturnIpfs> =>{
     
@@ -146,7 +146,7 @@ export const newFileIpfs = async(
     if (isOnline) {
 
         // test encoding the file and store the encoded format (Hex)
-        const {cid,size,path} = await ipfs.add({path:`ordum/${team_id}/${project_no}`,content:file});
+        const {cid,size,path} = await ipfs.add({path:`ordum/${team_id}`,content:file});
         returnData.cid = cid;
         returnData.size = size;
         returnData.path = path;
@@ -156,7 +156,7 @@ export const newFileIpfs = async(
         returnData.pinData = pinData;
 
         // ------ Place order in Crust -----------
-        await placeNewOrder(placed,api,account,signer,cid.toString(),size,project_no,team_id);
+        await placeNewOrder(placed,api,account,signer,cid.toString(),size,team_id);
 
     }else{
         // connect to another node url function

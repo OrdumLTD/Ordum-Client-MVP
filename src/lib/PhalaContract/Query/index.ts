@@ -15,7 +15,7 @@ import { onSignCertificate } from "../Utils/phalaCertificate";
 
 // Applicant Profile Query
 // Pass the context value directly
-export const getApplicant = async(
+export const getTeamApplicant = async(
     contract:PinkContractPromise,
     api:ApiPromise,
     signer: Signer,

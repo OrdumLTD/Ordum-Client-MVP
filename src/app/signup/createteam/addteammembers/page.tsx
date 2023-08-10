@@ -14,12 +14,26 @@ import { useWalletContext } from "@/Context/WalletStore";
 import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
 import { useChainApiContext } from "@/Context/ChainApiStore";
 
+
 // Antd
 import type { NotificationPlacement } from 'antd/es/notification/interface';
 import { Space, notification } from 'antd';
-
+import { useContract, useEventSubscription, useEvents } from "useink";
+import { SmileOutlined,CheckCircleTwoTone } from '@ant-design/icons';
+//
+import ordumJson from "../../../../lib/PhalaContract/Utils/ordum.json"
+import { getTeamApplicant } from "@/lib/PhalaContract/Query";
+import { getPasscode } from "@/lib/AntaLite/dbAuth";
 
 const AddTeamMembers = () => {
+
+
+
+  // console.log("Test Contracts Events");
+  // allContractEvents.map(event => {
+  //   console.log(event.name)
+  // })
+
   const { signer, account } = useWalletContext();
   const { cache, contractApi } = usePhalaContractContext();
   const { profileData, setProfile } = useProfileContext();
@@ -27,9 +41,8 @@ const AddTeamMembers = () => {
 
   const [profileCreation, setProfileCreation] = useState(false);
   const [passkeyStatus, setPasskeyStatus] = useState(false);
-  const [secret, setSecret] = useState<ContractCallOutcome>();
-  const [secretInner, setSecretInner] = useState<string[]>([]);
   const [ secretError, setSecretError] = useState<string>("");
+  const [preSecretfetching, setPreSecretFetching] = useState<boolean>(false);
 
   const { poc5 } = useChainApiContext();
 
@@ -38,6 +51,8 @@ const AddTeamMembers = () => {
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [role, setRole] = useState<MemberRole>(null);
+
+  const [dBStatus, setDbStatus] = useState<number>();
 
   const router = useRouter();
 
@@ -70,48 +85,121 @@ const AddTeamMembers = () => {
   };
 
   const createUser = async () => {
-    addTeamMembersToState();
-    if (account && signer && cache && contractApi && poc5) {
-      await createTeamApplicantProfile(
-        setProfileCreation,
-        setPasskeyStatus,
-        setSecret,
-        account,
-        signer,
-        cache,
-        contractApi,
-        poc5,
-        profileData.teamName,
-        account.address,
-        profileData.description,
-        profileData.mission,
-        profileData.projectType,
-        profileData.residentChain,
-        profileData.teamMembers,
-        profileData.links
-      );
 
-    } else {
-      console.log("Missing some params in Creation of Applicant");
-      console.log(
-        `Account: ${account} \n Signer: ${signer} \n Cache: ${cache} \n ContractApi ${contractApi} Api ${poc5}`
-      );
+    // Fetch the team profile if its there instruct the user to log in, if not continue
+    const returnedTeam =  await getTeamApplicant(
+      contractApi,
+      poc5,
+      signer,
+      account,
+      cache,
+      null
+    );
+
+    if(returnedTeam.output.toJSON().valueOf()["ok"]["ok"]){
+        console.log("Account is there")
+        setSecretError("Log In to Access your account")
+        errorNotification("error")
+
+    }else{
+
+      console.log(" Account is not there")
+      addTeamMembersToState();
+      if (account && signer && cache && contractApi && poc5) {
+        await createTeamApplicantProfile(
+          setProfileCreation,
+          setPasskeyStatus,
+          setPreSecretFetching,
+          account,
+          signer,
+          cache,
+          contractApi,
+          poc5,
+          profileData.teamName,
+          account.address,
+          profileData.description,
+          profileData.mission,
+          profileData.projectType,
+          profileData.residentChain,
+          profileData.teamMembers,
+          profileData.links
+        );
+  
+      } else {
+        console.log("Missing some params in Creation of Applicant");
+        console.log(
+          `Account: ${account} \n Signer: ${signer} \n Cache: ${cache} \n ContractApi ${contractApi} Api ${poc5}`
+        );
+      }
     }
+
+
+
   };
 
-  const [api] = notification.useNotification();
+  type NotificationType = 'success' | 'info' | 'warning' | 'error';
 
-  const errorNotification = (placement: NotificationPlacement) => {
-    api.info({
-      message: `Notification ${placement}`,
-      description: secretError,
-      placement,
+  const [api, contextHolder] = notification.useNotification();
+
+  // Notification for Error
+  const errorNotification = (placement: NotificationType) => {
+    api.error({
+      message: "Please",
+      description: "Account is possibly registered please log in",
+      btn: <button
+            onClick={() => router.push("/")}
+            className="rounded-full py-2 bg-ordum-purple text-white w-20">
+            Log In
+          </button>,
+      duration: null,
+      icon: <SmileOutlined style={{ color: '#108ee9' }} />,
     });
+    
+  };
+
+  // Notification for sucess
+
+  const successNotification = (placement: NotificationType, text: string) => {
+    api.error({
+      message: "Congratulations",
+      description: text,
+      duration:6,
+      icon: <CheckCircleTwoTone />
+    });
+    
+  };
+
+  const dbErrorNotification = (placement: NotificationType, text: string) => {
+    api.error({
+      message: "Unexpected Error",
+      description: text,
+      duration:6
+    });
+    
   };
 
   useMemo(()=>{
-    errorNotification("topLeft")
-  },[secretError])
+    if(profileCreation){
+      successNotification("success","Profile Registered On-Chain");
+    }
+    
+  },[profileCreation])
+
+  useMemo(()=>{
+    if(dBStatus === 201){
+      successNotification("success","All Done! Welcome")
+    }else{
+      dbErrorNotification("error","Something went wrong!!")
+    }
+    
+  },[dBStatus ])
+
+  useMemo(()=>{
+    if(preSecretfetching){
+      errorNotification("error")
+    }
+    
+  },[preSecretfetching ])
 
   const removeTeamMember = (i: number) => {
     let newTeamMembers = [...teamMembers];
@@ -119,51 +207,53 @@ const AddTeamMembers = () => {
     setTeamMembers(newTeamMembers);
   };
 
-  console.log("Secret \n")
 
-  useMemo(()=>{
-    if(secret){
-      if(secret.output.toJSON().valueOf()["ok"]["err"] == "SecretKeyNotAuthorized"){
-        console.log("Error returning the secret")
-        // set to the state
-        setSecretError("Not Authorized to access account secret key")
+ 
+  
+  useMemo(async() =>{
+
+    if (profileCreation && passkeyStatus) {
+      console.log("Secret Inner \n");
+      const secret = await getPasscode(contractApi,poc5,signer,account,cache);
+
+      if( secret.output.toJSON().valueOf()["ok"]["ok"]){
+          const secretInner = secret.output.toJSON().valueOf()["ok"]["ok"];
+          console.log(secretInner);
+    
+          axios
+            // .post("http://localhost:4000/organizations", {
+            .post("https://ordum-mvp-api-9de49c774d76.herokuapp.com/organizations", {
+              name: secretInner[0],
+              passkey: secretInner[1],
+            })
+            // if succsful it will return a token
+            .then((res) => {
+              console.log("Db User Return : \n");
+              console.log(res.data);
+              console.log(res.status)
+              setDbStatus(res.status)
+      
+              userCtx.logInUser(res.data?.token, res.data?.toSend?._id, secretInner[1]);
+            })
+            .catch((e) => console.log(e));
+        }
+    
       }else{
-        console.log(secret.output.toJSON().valueOf()["ok"]["ok"]);
-        let secretData = secret?.output.toJSON().valueOf()["ok"]["ok"];
-        setSecretInner(secretData);
+        dbErrorNotification("error","Something went wrong!!")
       }
       
-    }
-  },[secret])
-  
-  
-  
-  useMemo(() =>{
-
-    if (profileCreation && secretInner) {
-    
-
-      axios
-        // .post("http://localhost:4000/organizations", {
-        .post("https://ordum-mvp-api-9de49c774d76.herokuapp.com/organizations", {
-          name: secretInner[0],
-          passkey: secretInner[1],
-        })
-        // if succsful it will return a token
-        .then((res) => {
-          console.log("Db User Return : \n");
-          console.log(res.data);
-  
-          userCtx.logInUser(res.data?.token, res.data?.toSend?._id, secretInner[1]);
-        })
-        .catch((e) => console.log(e));
-    }
-
-  },[secretInner])
+      
+  },[passkeyStatus,profileCreation])
 
 
   return (
     <div className="grid h-screen place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-cover text-sm md:text-base">
+      <div>
+      {
+        contextHolder
+      }
+      </div>
+      
       <div
         className="
        my-10 xl:my-28
@@ -246,9 +336,9 @@ const AddTeamMembers = () => {
           <Button
             primeColor
             className="w-full mt-4"
-            onClick={() => {
-              addTeamMember();
-            }}
+            // onClick={() => {
+            //   addTeamMember();
+            // }}
           >
             {" "}
             Add More
@@ -291,7 +381,7 @@ const AddTeamMembers = () => {
             w-full
             flex flex-col gap-4"
           >
-            {(profileCreation && secret)? (
+            {(profileCreation && dBStatus === 201)? (
               <button
                 onClick={() => router.push("/home")}
                 className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl"
