@@ -67,7 +67,7 @@ export const setPasscode = async(
                     passcodeStatus(true)
                 }else{
                     // Wait for 2 seconds
-                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    await new Promise(resolve => setTimeout(resolve, 3000));
                     const secretValue = await getPasscode(contract,api,signer,account,certificate);
                     if(secretValue.output.toJSON().valueOf()["ok"]["ok"]){
                         console.log("Setting pascode status to True 2nd attempt")
