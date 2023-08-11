@@ -22,8 +22,8 @@ function ConnectWallet() {
   const {account,setAccount,signer,setSigner,accounts,setAccounts} = useWalletContext();
   //----------------------------------------------
 
-  const [isWallet, setIsWallet] = useState<boolean>();
-  const [selectedAcc, setSelectedAcc] = useState<InjectedAccountWithMeta>();
+  const [isWallet, setIsWallet] = useState<boolean>(false);
+  const [selectedAcc, setSelectedAcc] = useState<InjectedAccountWithMeta| undefined>(undefined);
 
   const getAccounts = async() =>{
     // Check if the Wallet is installed

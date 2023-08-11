@@ -5,7 +5,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { cookies } from 'next/headers'
-
+import { useWallet, useInstalledWallets  } from 'useink'
 import OrdumLogoLight from "@/assets/svg-icons/ordum-logo-light.svg";
 // import ConnectWallet from "../ConnectWallet/";
 import { useWalletContext } from "../../Context/WalletStore";
@@ -24,6 +24,10 @@ const ConnectWallet = dynamic(() => import("../ConnectWallet/"), {
 });
 
 const LogIn: React.FC = () => {
+  const wallets = useInstalledWallets ()
+  const { isConnected, connect, disconnect, setAccount } = useWallet()
+
+
   const [walletType, setWalletType] = useState(LogInWalletType.NONE);
 
   const { account } = useWalletContext();
@@ -126,6 +130,7 @@ const LogIn: React.FC = () => {
             </div>
           )}
         </div>
+    
       </div>
     </div>
   );

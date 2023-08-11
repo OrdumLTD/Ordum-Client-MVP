@@ -8,7 +8,7 @@ import Skills from "@/Components/profileAbout/Skills"
 import Work from "@/Components/profileAbout/Work"
 
 import { useEffect, useState } from "react";
-import { getApplicant } from "@/lib/PhalaContract/Query";
+import { getTeamApplicant } from "@/lib/PhalaContract/Query";
 import { useWalletContext } from "@/Context/WalletStore";
 import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
 import { useChainApiContext } from "@/Context/ChainApiStore";
@@ -36,12 +36,13 @@ const TeamMembersProfile = () => {
   }
   const fetchApplicantProfile = async () => {
     if (contractApi && poc5 && signer && account) {
-      const profile = await getApplicant(
+      const profile = await getTeamApplicant(
         contractApi,
         poc5,
         signer,
         account,
-        cache
+        cache,
+        null
       );
       console.log(profile.output?.toHuman());
     } else {

@@ -7,7 +7,7 @@ import GrantDetails from "./Overview/subpages/Grants";
 import Team from "@/Components/profileAbout/team/team";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { useEffect, useState } from "react";
-import { getApplicant } from "@/lib/PhalaContract/Query";
+import { getTeamApplicant } from "@/lib/PhalaContract/Query";
 import { useWalletContext } from "@/Context/WalletStore";
 import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
 import { useChainApiContext } from "@/Context/ChainApiStore";
@@ -38,7 +38,7 @@ const GrantPage = () => {
   }
   const fetchApplicantProfile = async () => {
     if (contractApi && poc5 && signer && account) {
-      const profile = await getApplicant(
+      const profile = await getTeamApplicant(
         contractApi,
         poc5,
         signer,

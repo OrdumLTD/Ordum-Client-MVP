@@ -211,7 +211,7 @@ const AddTeamMembers = () => {
  
   
   useMemo(async() =>{
-
+    console.log("Db section")
     if (profileCreation && passkeyStatus) {
       console.log("Secret Inner \n");
       const secret = await getPasscode(contractApi,poc5,signer,account,cache);

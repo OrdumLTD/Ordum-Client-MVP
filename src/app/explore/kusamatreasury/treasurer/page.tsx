@@ -8,7 +8,7 @@ const Treasurer = () => {
     let myHeaders = new Headers();
     myHeaders.append("x-network", "kusama");
 
-    let requestOptions = {
+    let requestOptions:RequestInit = {
       method: "GET",
       headers: myHeaders,
       redirect: "follow",

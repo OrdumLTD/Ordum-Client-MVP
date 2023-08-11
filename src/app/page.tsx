@@ -8,7 +8,7 @@ import LogIn from "@/Components/Login/";
 export default function Home() {
   return (
     <main className="">
-      <LogIn />
+      <LogIn /> 
     </main>
   );
 }
