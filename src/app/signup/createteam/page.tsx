@@ -70,9 +70,6 @@ const CreateTeam = () => {
     setProfile(profile);
   };
 
-  // const { user } = useSelector((state: RootState) => state.user);
-  // const dispatch = useDispatch()
-
   // const logInTest = () => {
   //   dispatch(logInTestUser())
   // }
