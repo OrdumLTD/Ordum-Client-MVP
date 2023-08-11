@@ -164,6 +164,7 @@ export interface createIndividualData {
   projectType: Categories[];
   residentChain: Chains[];
   links: Array<string> | null;
+  role: UserRole
 }
 
 const defaultIndividualData: createIndividualData = {
@@ -172,6 +173,7 @@ const defaultIndividualData: createIndividualData = {
   projectType: [],
   residentChain: [],
   links: null,
+  role: UserRole.applicant
 };
 
 interface createIndividualProfile {
@@ -182,9 +184,9 @@ interface createIndividualProfile {
 }
 
 const defaultIndividualProfile: createIndividualProfile = {
-  profileData: defaultProfileData,
+  profileData: defaultIndividualData,
   creationStatus: false,
-  setProfile: (value: createProfileData) => {
+  setProfile: (value: createIndividualData) => {
     return;
   },
   setCreationStatus: (v: boolean) => {

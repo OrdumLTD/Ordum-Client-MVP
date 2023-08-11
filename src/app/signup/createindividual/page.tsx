@@ -14,13 +14,26 @@ import { useChainApiContext } from "@/Context/ChainApiStore";
 import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
 import { useEffect, useState } from "react";
 import { useWalletContext } from "@/Context/WalletStore";
-import { UserRole } from "@/lib/PhalaContract/Types/types";
+import { Categories, Chains, UserRole } from "@/lib/PhalaContract/Types/types";
+
+let categoriesArray = [];
+for (const key in Categories) {
+  if (Categories.hasOwnProperty(key)) {
+    categoriesArray.push({ [key]: Categories[key] });
+  }
+}
 
 const CreateIndividualProfile = () => {
+  const [projectType, setProjectType] = useState<Categories>(null);
+  const [projects, setProjects] = useState<Categories[]>([]);
+
+  const [blockchain, setBlockchain] = useState<Chains>(null);
+  const [blockchains, setBlockchains] = useState<Chains[]>([]);
+
   //Context
   const { profileData, setProfile, setCreationStatus, creationStatus } =
     useProfileContext();
-  const {  teamName } = profileData;
+  const { teamName } = profileData;
   const { account, signer } = useWalletContext();
 
   const { fetchPoc5Api, poc5 } = useChainApiContext();
@@ -36,8 +49,8 @@ const CreateIndividualProfile = () => {
       return updatedState;
     });
   };
-  console.log("State link " + links);
-  console.log("Links " + profileData.links);
+
+  console.log(projectType);
 
   useEffect(() => {
     if (poc5) {
@@ -62,31 +75,6 @@ const CreateIndividualProfile = () => {
     const profileCreationStatus = (v: boolean) => {
       setCreationStatus(v);
     };
-
-    // const { teamType, userType } = profileData;
-    // if (account && signer && cache && contractApi && account.meta.name) {
-    //   //1. (Individual && Applicant)
-
-    //   await createApplicantProfile(
-    //     //utill fn
-    //     profileCreationStatus,
-    //     //---------
-    //     account,
-    //     signer,
-    //     cache,
-    //     contractApi,
-    //     //Params
-    //     account.meta.name,
-    //     account.address,
-    //     profileData.description,
-    //     profileData.mission,
-    //     profileData.projectType,
-    //     profileData.residentChain,
-    //     //ProfileCtx.profileData.projectType, // Work on this
-    //     profileData.teamMembers,
-    //     profileData.links
-    //   );
-    // }
   };
 
   return (
@@ -98,10 +86,10 @@ const CreateIndividualProfile = () => {
       >
         <div className="grid place-items-center text-white">
           <div className="justify-self-start text-2xl md:text-4xl">
-            Create your profile
+            Finish you profile
           </div>
 
-          <h3 className="mt-5 justify-self-start font-medium">About</h3>
+          {/* <h3 className="mt-5 justify-self-start font-medium">About</h3>
           <textarea
             onChange={(e) => {
               //@ts-ignore
@@ -117,9 +105,9 @@ const CreateIndividualProfile = () => {
         text-[#CAC9C9]
         py-2 px-3 "
             placeholder="What does your team want to achieve? "
-          />
+          /> */}
 
-          <h3 className="mt-5 justify-self-start font-medium">Project type</h3>
+          {/* <h3 className="mt-5 justify-self-start font-medium">Project type</h3>
 
           <div
             className=" \
@@ -128,7 +116,7 @@ const CreateIndividualProfile = () => {
             w-full
             "
           >
-      <select
+            <select
               className=" 
              mr-4 
             w-full
@@ -140,7 +128,7 @@ const CreateIndividualProfile = () => {
                 All
               </option>
               <option value="All">
-                What are you creating? Chooce a category
+                What are you creating? Choose categories
               </option>
               <option value="All">What chain are you building on?</option>
               <option value="DeFi">DeFi </option>
@@ -160,12 +148,92 @@ const CreateIndividualProfile = () => {
             <button className="w-40 rounded py-2.5 md:py-3 bg-ordum-purple font-semibold shadow shadow-md hover:shadow-2xl">
               + Add More
             </button>
+          </div> */}
+
+          <h3 className="mt-5 justify-self-start font-medium">Project type</h3>
+
+          <div
+            className=" 
+justify-self-start mt-4
+ flex justify-between
+ w-full
+ "
+          >
+            <select
+              className=" 
+              mr-4 
+              w-full
+              pl-2 md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
+              focus:outline-none bg-inherit
+              text-[#CAC9C9]"
+              value={Categories[projectType]}
+              onChange={(e) => {
+                const toSet = e.target.value as keyof typeof Categories;
+                setProjectType(Categories[toSet]);
+              }}
+            >
+              <option value="" className="" disabled hidden>
+                All
+              </option>
+              <option value={"All"} selected disabled>
+                What are you creating? Chooce a category
+              </option>
+              {categoriesArray.map((category) => {
+                const val = Object.keys(category)[0];
+                const toShow = Object.values(category)[0];
+                // const toShow = String(val)
+                return (
+                  <option key={val} value={val}>
+                    {String(toShow)}
+                  </option>
+                );
+              })}
+            </select>
+
+            <button
+              className="w-40 rounded py-2.5 md:py-3 bg-ordum-purple font-semibold shadow shadow-md hover:shadow-2xl"
+              onClick={() => {
+                if (projectType !== null && !projects.includes(projectType)) {
+                  setProjects([...projects, projectType]);
+                  setProjectType(null);
+                }
+              }}
+            >
+              + Add More
+            </button>
           </div>
 
+          <div
+            className=" mt-4
+           w-full"
+          >
+            <ul className="flex flex-col">
+              {projects.map((item, index) => {
+                return (
+                  <li key={index}>
+                    <div className="w-11/12 border rounded mt-3 px-4 py-2  flex justify-between">
+                      {" "}
+                      <span>{item}</span>{" "}
+                      <button
+                        className="bg-red-500 rounded-md px-2"
+                        onClick={() => {
+                          const newArray = [...projects];
+                          newArray.splice(index, 1);
+                          setProjects(newArray);
+                        }}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
           <h3 className="mt-5 justify-self-start font-medium">Blockchain</h3>
 
           <div
-            className=" \
+          className=" \
             justify-self-start mt-4
             flex justify-between
             w-full
@@ -178,20 +246,59 @@ const CreateIndividualProfile = () => {
             block pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
             focus:outline-none bg-inherit
             text-[#CAC9C9]"
+              value={blockchain}
+              onChange={(e) => {
+                const toSet = e.target.value as keyof typeof Chains;
+                setBlockchain(Chains[toSet]);
+              }}
             >
-              <option value="" className="" disabled hidden>
-                All
-              </option>
-              <option value="All">What chain are you building on?</option>
-              <option value="Option 1">Option 1</option>
-              <option value="Option 2">Option 2</option>
+              <option value="" selected disabled>What chain are you building on?</option>
+              <option value="kusama">kusama</option>
+              <option value="polkadot">polkadot</option>
+              <option value="offChain">offChain</option>
+
             </select>
 
-            <button className="w-40 rounded py-2.5 md:py-3 bg-ordum-purple font-semibold shadow shadow-md hover:shadow-2xl">
+            <button
+              className="w-40 rounded py-2.5 md:py-3 bg-ordum-purple font-semibold shadow shadow-md hover:shadow-2xl"
+              onClick={() => {
+                if (blockchain !== null && !blockchains.includes(blockchain)) {
+                  setBlockchains([...blockchains, blockchain]);
+                  setBlockchain(null);
+                }
+              }}
+            >
               + Add More
             </button>
           </div>
 
+          <div
+            className=" mt-4
+ w-full"
+          >
+            <ul className="flex flex-col">
+              {blockchains.map((item, index) => {
+                return (
+                  <li key={index}>
+                    <div className="w-11/12 border rounded mt-3 px-4 py-2  flex justify-between">
+                      {" "}
+                      <span>{item}</span>{" "}
+                      <button
+                        className="bg-red-500 rounded-md px-2"
+                        onClick={() => {
+                          const newArray = [...blockchains];
+                          newArray.splice(index, 1);
+                          setBlockchains(newArray);
+                        }}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
           <h3 className="mt-5 justify-self-start font-medium">Mission</h3>
           <textarea
             onChange={(e) => {
@@ -207,13 +314,13 @@ const CreateIndividualProfile = () => {
         bg-inherit
         text-[#CAC9C9]
         py-2 px-3 "
-            placeholder="What does your team want to achieve? "
+            placeholder="What does you want to achieve? "
           />
 
           <div className="mt-5 justify-self-start w-full">
             <h3 className="mb-4">Links</h3>
             <div className="flex">
-              <Image src={Email} alt="Email" height={36} />{" "}
+              <Image src={Email} alt="Email" height={36} width={38} />{" "}
               <input
                 className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit "
@@ -222,7 +329,7 @@ const CreateIndividualProfile = () => {
               />
             </div>
             <div className="mt-4 flex">
-              <Image src={Discord} alt="Discord" height={36} />{" "}
+              <Image src={Discord} alt="Discord" height={36} width={36} />{" "}
               <input
                 className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit"
@@ -231,7 +338,7 @@ const CreateIndividualProfile = () => {
               />
             </div>
             <div className="mt-4 flex">
-              <Image src={Twitter} alt="Twitter" height={36} />{" "}
+              <Image src={Twitter} alt="Twitter" height={36} width={36} />{" "}
               <input
                 className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit"
@@ -241,7 +348,7 @@ const CreateIndividualProfile = () => {
             </div>
 
             <div className="mt-4 flex">
-              <Image src={Matrix} alt="Matrix" height={36} />{" "}
+              <Image src={Matrix} alt="Matrix" height={36} width={36} />{" "}
               <input
                 className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit"
@@ -250,7 +357,7 @@ const CreateIndividualProfile = () => {
               />
             </div>
             <div className="mt-4 flex">
-              <Image src={Website} alt="Website" height={36} />{" "}
+              <Image src={Website} alt="Website" height={36} width={36} />{" "}
               <input
                 className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit"
@@ -280,18 +387,6 @@ const CreateIndividualProfile = () => {
             >
               Create Profile
             </button>
-            {creationStatus ? (
-              <button className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl">
-                <Link href={"/home"}>Continue</Link>
-              </button>
-            ) : (
-              <button
-                disabled
-                className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl"
-              >
-                <Link href={"/home"}>Continue</Link>
-              </button>
-            )}
 
             <button className="rounded-full py-2.5 md:py-3 bg-ordum-purple font-semibold shadow-md shadow-md hover:shadow-2xl">
               Back
