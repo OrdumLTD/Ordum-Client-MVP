@@ -20,7 +20,7 @@ import Twitter from "@/assets/svg-icons/twitter-light-icon.svg";
 import Matrix from "@/assets/svg-icons/matric-light-icon.svg";
 import Website from "@/assets/svg-icons/web-light-icon.svg";
 
-// import { createApplicantProfile } from "@/lib/PhalaContract/Txn/createProfile";
+import { createTeamApplicantProfile } from "@/lib/PhalaContract/Txn/createProfile";
 
 const CreateTeam = () => {
   const { signer, account } = useWalletContext();

@@ -83,7 +83,7 @@ interface milestone {
 
 export type submitContext = {
   proposalStep?: number;
-  proposalIndex?: number;
+  proposalIndex: number | null;
   setProposalIndex: (index: number) => void;
   changeToStep: (number: number) => void;
   tldr?: tldr;
@@ -98,7 +98,7 @@ export type submitContext = {
 
 const defaultState = {
   proposalStep: undefined,
-  proposalIndex: undefined,
+  proposalIndex: null,
   setProposalIndex: (index: number) => {
     return;
   },

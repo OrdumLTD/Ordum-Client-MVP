@@ -8,6 +8,7 @@ import { ApiPromise } from '@polkadot/api';
 import { useChainApiContext } from "./ChainApiStore";
 import ordumJson from '../lib/PhalaContract/Utils/ordum.json'
 import { PinkContractPromise } from "@phala/sdk";
+import { useEventSubscription, useContract } from 'useink'
 
 
 type Props = {
@@ -49,7 +50,7 @@ export const PhalaContractContextProvider = ({ children }: Props) => {
 
   const loadContract =  async():Promise<PinkContractPromise|null> =>{
     if(poc5){
-      const contractId:string = '0xb6745e6e7df72c68568cf843416a9c88e9c349be6e87a8379b0d666a9fd839a3';
+      const contractId:string = '0x2416c8b2865de80ffa7bd6b432ad4d95263396c737b210269623c28ff5677c62';
       
       const pruntime:string = 'https://poc5.phala.network/tee-api-1';
   
@@ -59,6 +60,7 @@ export const PhalaContractContextProvider = ({ children }: Props) => {
 
       const contractKey = await phalaRegistry.getContractKeyOrFail(contractId);
       const contract = new PinkContractPromise(poc5, phalaRegistry, ordumJson, contractId, contractKey);
+
   
       // const contract = new ContractPromise(
       //   //@ts-ignore
