@@ -60,7 +60,24 @@ export const setPasscode = async(
         events.forEach(async({event:{method, section}})=>{
             if (method === 'ExtrinsicSuccess') {
                 console.log(`✅  Success Placed User's Secret to Contract`);
-                passcodeStatus(true)
+                // Waiting function
+                const secretValue = await getPasscode(contract,api,signer,account,certificate);
+                if(secretValue.output.toJSON().valueOf()["ok"]["ok"]){
+                    console.log("Setting pascode status to True 1st attempt")
+                    passcodeStatus(true)
+                }else{
+                    // Wait for 2 seconds
+                    await new Promise(resolve => setTimeout(resolve, 3000));
+                    const secretValue = await getPasscode(contract,api,signer,account,certificate);
+                    if(secretValue.output.toJSON().valueOf()["ok"]["ok"]){
+                        console.log("Setting pascode status to True 2nd attempt")
+                        passcodeStatus(true)
+                    }else{
+                        console.log("Setting pascode status Unexpected error")
+                        passcodeStatus(false)
+                    }
+                }
+                
                 
             }
         })
