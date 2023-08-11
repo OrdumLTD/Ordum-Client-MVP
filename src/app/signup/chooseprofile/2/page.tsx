@@ -154,7 +154,7 @@ const ChooseProfileStep2 = () => {
             ""
           )}
 
-{profileType === "team" ? (
+          {profileType === "team" ? (
             <div className="mt-8">
               <div className="w-full">
                 <label className="mt-4 text-xl flex">
@@ -164,7 +164,7 @@ const ChooseProfileStep2 = () => {
                 <input
                   className="mt-2 text-gray-300 mt-2 w-full bg-inherit text-sm placeholder:font-italitc placeholder:text-xs placeholder-gray-300 border border-gray-500
              rounded py-2 pl-2 pr-4 focus:outline-none resize-none"
-                  placeholder="Eg. Dream Team 17"
+                  placeholder="Eg. Dream_Team_17"
                   // value={bio}
                   // onChange={(e) => setBio(e.target.value)}
                 />

@@ -69,7 +69,6 @@ const CreateTeam = () => {
 
     setProfile(profile);
   };
-  // const dispatch = useDispatch()
 
   // const logInTest = () => {
   //   dispatch(logInTestUser())

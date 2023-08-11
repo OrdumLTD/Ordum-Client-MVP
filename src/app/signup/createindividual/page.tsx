@@ -23,6 +23,24 @@ for (const key in Categories) {
   }
 }
 
+// axios
+
+// .post("https://ordum-mvp-api-9de49c774d76.herokuapp.com/individuals", {
+//   name: secretInner[0],
+//   passkey: secretInner[1],
+// })
+// // if succsful it will return a token
+// .then((res) => {
+//   console.log("Db User Return : \n");
+//   console.log(res.data);
+//   console.log(res.status)
+//   setDbStatus(res.status)
+
+//   userCtx.logInUser(res.data?.token, res.data?.toSend?._id, secretInner[1]);
+// })
+// .catch((e) => console.log(e));
+// }
+
 const CreateIndividualProfile = () => {
   const [projectType, setProjectType] = useState<Categories>(null);
   const [projects, setProjects] = useState<Categories[]>([]);
@@ -86,7 +104,27 @@ const CreateIndividualProfile = () => {
       >
         <div className="grid place-items-center text-white">
           <div className="justify-self-start text-2xl md:text-4xl">
-            Finish you profile
+            Create your individual profile
+          </div>
+
+          <div className="mt-8 w-full">
+            <span>User Name</span>
+            <input
+            onChange={(e) => {
+              //@ts-ignore
+              setProfile({ teamName: e.target.value });
+            }}
+            className="
+        justify-self-start mt-4
+        resize-none
+        w-full
+     
+        rounded-md border border-grey-200
+        bg-inherit
+  
+        py-2 px-3 "
+            placeholder="Eg - Super_Anon_12 "
+          />
           </div>
 
           {/* <h3 className="mt-5 justify-self-start font-medium">About</h3>
@@ -154,10 +192,10 @@ const CreateIndividualProfile = () => {
 
           <div
             className=" 
-justify-self-start mt-4
- flex justify-between
- w-full
- "
+            justify-self-start mt-4
+            flex justify-between
+            w-full
+            "
           >
             <select
               className=" 
@@ -230,10 +268,12 @@ justify-self-start mt-4
               })}
             </ul>
           </div>
+
+
           <h3 className="mt-5 justify-self-start font-medium">Blockchain</h3>
 
           <div
-          className=" \
+            className=" \
             justify-self-start mt-4
             flex justify-between
             w-full
@@ -252,11 +292,12 @@ justify-self-start mt-4
                 setBlockchain(Chains[toSet]);
               }}
             >
-              <option value="" selected disabled>What chain are you building on?</option>
+              <option value="" selected disabled>
+                What chain are you building on?
+              </option>
               <option value="kusama">kusama</option>
               <option value="polkadot">polkadot</option>
               <option value="offChain">offChain</option>
-
             </select>
 
             <button
