@@ -37,6 +37,14 @@ const LogIn: React.FC = () => {
   const { account, signer } = useWalletContext();
   const { fetchPoc5Api, poc5 } = useChainApiContext();
 
+  console.log({ 
+    contractApi,
+    //  poc5, 
+    //  signer,
+    //  account,
+      // cache 
+    });
+
   useEffect(() => {
     if (poc5) {
       if (contractApi) {
@@ -59,14 +67,14 @@ const LogIn: React.FC = () => {
         cache
       );
       console.log(secret.output.toJSON().valueOf()["ok"]);
-    }else{
+    } else {
       loadContractApi();
       fetchPoc5Api();
-      console.log("Missing some params in Creation of Applicant")
-        console.log(
-          `Account: ${account} \n Signer: ${signer} \n ContractApi ${contractApi} Api ${poc5}`
-        );
-        }
+      console.log("Missing some params in Creation of Applicant");
+      console.log(
+        `Account: ${account} \n Signer: ${signer} \n ContractApi ${contractApi} Api ${poc5}`
+      );
+    }
   };
 
   return (

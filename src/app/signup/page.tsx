@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import OrdumLogoLight from "@/assets/svg-icons/ordum-logo-light.svg"
+import OrdumLogoLight from "@/assets/svg-icons/ordum-logo-light.svg";
 import ConnectWallet from "@/Components/ConnectWallet";
 
 const SignUp = () => {
@@ -22,42 +22,23 @@ const SignUp = () => {
             className="scale-50 sm:scale-75 lg:scale-100 mb-4 sm:mb-0"
           />
         </div>
-      
+
         {/* <p className="mt-5 md:text-lg">
           In order to get paid in cryptocurrency you will need a wallet. If you
           don’t have one:
         </p> */}
         <div className="grid place-items-center">
-        <div className="text-lg md:text-3xl font-base mt-5">Sign Up</div>
+          <div className="text-lg md:text-3xl font-base mt-5">Sign Up</div>
           <div className="mt-5 w-full grid gap-4">
-            {/* <button className="w-full border border-black rounded-full border-2 py-4">
-              {" "}
-              Polkadot JS
-            </button>
 
-            <button className="w-full border border-black rounded-full border-2 py-4">
-              {" "}
-              Talisman{" "}
-            </button> */}
-
-            {/* <button className="w-full border border-black rounded-full border-2 py-4">
-              {" "}
-              Wallet Connect{" "}
-            </button> */}
-
-            {/* <button className="w-full border border-white rounded-full py-4 text-white text-sm md:text-lg ">
-              {" "}
-              "Wallet Conect"
-            </button> */}
-
-            {/* <ConnectWallet /> */}
-
+            <ConnectWallet />
+{/* 
             <Link href={"/signup/chooseprofile"}>
               <button className="w-full border border-white rounded-full py-4 text-white text-sm md:text-lg ">
                 {" "}
                 Sign up!
               </button>
-            </Link>
+            </Link> */}
 
             <Link href={"/signup/chooseprofile"}>
               <button className="mt-4 w-full border border-white rounded-full py-4 text-white text-sm md:text-lg ">
