@@ -213,15 +213,19 @@ const AddTeamMembers = () => {
   useMemo(async() =>{
     console.log("Db section")
     console.log("passKeyStatus Outer: "+ passkeyStatus)
+
     if ( passkeyStatus) {
+
       console.log("passKeyStatus Inner: "+ passkeyStatus)
       console.log("Secret Inner \n");
+
       const secret = await getPasscode(contractApi,poc5,signer,account,cache);
 
       console.log("secret outer \n");
       console.log(secret.output.toJSON().valueOf()["ok"]);
 
       if( secret.output.toJSON().valueOf()["ok"]["ok"]){
+        
           const secretInner = secret.output.toJSON().valueOf()["ok"]["ok"];
           console.log("secretInner \n")
           console.log(secretInner);
