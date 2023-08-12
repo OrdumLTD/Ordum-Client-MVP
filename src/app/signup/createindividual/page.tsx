@@ -3,7 +3,10 @@
 // import Link from "next/link";
 import Image from "next/image";
 
-import { useProfileContext } from "@/Context/ProfileStore";
+import {
+  useIndividualProfileContext,
+  useProfileContext,
+} from "@/Context/ProfileStore";
 import { useChainApiContext } from "@/Context/ChainApiStore";
 import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
 import { useEffect, useMemo, useState } from "react";
@@ -68,7 +71,7 @@ const CreateIndividualProfile = () => {
   const [projects, setProjects] = useState<Categories[]>([]);
   const [blockchain, setBlockchain] = useState<Chains>(null);
   const [blockchains, setBlockchains] = useState<Chains[]>([]);
-  const [teamName, setTeamName] = useState("");
+  const [userName, setUserName] = useState("");
   const [about, setAbout] = useState("");
   const [mission, setMission] = useState("");
   const [email, setEmail] = useState("");
@@ -81,13 +84,11 @@ const CreateIndividualProfile = () => {
 
   const addUserToSate = () => {
     const profile = {
-      teamName: teamName,
-      description: about,
-      mission: mission,
+      teamName: profileData.teamName,
+      description: profileData.description,
+      // mission: profileData.mission,
       projectType: projects,
       residentChain: blockchains,
-      teamMembers: [],
-      allowedAccounts: [],
       links: [email, discord, twitter, website, element, git],
     };
 
@@ -96,7 +97,7 @@ const CreateIndividualProfile = () => {
 
   const router = useRouter();
   const { profileData, setProfile, setCreationStatus, creationStatus } =
-    useProfileContext();
+    useIndividualProfileContext();
   const { account, signer } = useWalletContext();
   const userCtx = useUserContext();
   const { fetchPoc5Api, poc5 } = useChainApiContext();
@@ -110,7 +111,7 @@ const CreateIndividualProfile = () => {
     });
   };
 
-  console.log(projectType);
+  // console.log(projectType);
 
   useEffect(() => {
     if (poc5) {
@@ -139,6 +140,7 @@ const CreateIndividualProfile = () => {
 
   const createUser = async () => {
     // Fetch the team profile if its there instruct the user to log in, if not continue
+    console.log("prefetching individual profile");
     const returnedTeam = await getIndividual(
       contractApi,
       poc5,
@@ -211,6 +213,7 @@ const CreateIndividualProfile = () => {
     });
   };
 
+  // Not for DB Error
   const dbErrorNotification = (placement: NotificationType, text: string) => {
     api.error({
       message: "Unexpected Error",
@@ -264,7 +267,7 @@ const CreateIndividualProfile = () => {
         axios
           // .post("http://localhost:4000/organizations", {
           .post(
-            "https://ordum-mvp-api-9de49c774d76.herokuapp.com/",
+            "https://ordum-mvp-api-9de49c774d76.herokuapp.com/individuals",
             {
               name: secretInner[0],
               passkey: secretInner[1],
@@ -306,10 +309,10 @@ const CreateIndividualProfile = () => {
           <div className="mt-8 w-full">
             <span>User Name</span>
             <input
-              value={teamName}
+              // value={userName}
               onChange={(e) => {
                 //@ts-ignore
-                setTeamName(e.target.value);
+                setProfile({ teamName: e.target.value });
               }}
               className="
         justify-self-start mt-4
@@ -323,67 +326,6 @@ const CreateIndividualProfile = () => {
               placeholder="Eg - Super_Anon_12 "
             />
           </div>
-
-          {/* <h3 className="mt-5 justify-self-start font-medium">About</h3>
-          <textarea
-            onChange={(e) => {
-              //@ts-ignore
-              setProfile({ description: e.target.value });
-            }}
-            className="
-        justify-self-start mt-4
-        resize-none
-        w-full
-        h-20 md:h-36 2xl:h-40
-        rounded-md border border-grey-200
-        bg-inherit
-        text-[#CAC9C9]
-        py-2 px-3 "
-            placeholder="What does your team want to achieve? "
-          /> */}
-
-          {/* <h3 className="mt-5 justify-self-start font-medium">Project type</h3>
-
-          <div
-            className=" \
-            justify-self-start mt-4
-            flex justify-between
-            w-full
-            "
-          >
-            <select
-              className=" 
-             mr-4 
-            w-full
-            pl-2 md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
-            focus:outline-none bg-inherit
-            text-[#CAC9C9]"
-            >
-              <option value="" className="" disabled hidden>
-                All
-              </option>
-              <option value="All">
-                What are you creating? Choose categories
-              </option>
-              <option value="All">What chain are you building on?</option>
-              <option value="DeFi">DeFi </option>
-              <option value="Privacy ">Privacy </option>
-              <option value="Infrastructure">Infrastructure</option>
-              <option value="Network Changes">IdNetwork Changesentity</option>
-              <option value="Art">Art</option>
-              <option value="Media">Media</option>
-              <option value="Gaming">Gaming</option>
-              <option value="Events">Events</option>
-              <option value="Educationtity">Education</option>
-              <option value="NFTs">NFTs</option>
-              <option value="Translations">Translations</option>
-              <option value="Other">Other</option>
-            </select>
-
-            <button className="w-40 rounded py-2.5 md:py-3 bg-ordum-purple font-semibold shadow shadow-md hover:shadow-2xl">
-              + Add More
-            </button>
-          </div> */}
 
           <h3 className="mt-5 justify-self-start font-medium">Project type</h3>
 
@@ -618,16 +560,22 @@ const CreateIndividualProfile = () => {
             w-full
             flex flex-col gap-4"
           >
-            <button
-              onClick={() => {
-                addUserToSate();
-                saveNDone();
-                createUser();
-              }}
-              className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl"
-            >
-              Create Profile
-            </button>
+            {profileCreation && dBStatus === 201 ? (
+              <button
+                onClick={() => {
+                  addUserToSate();
+                  saveNDone();
+                  createUser();
+                }}
+                className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl"
+              >
+                Create Profile
+              </button>
+            ) : (
+              <button className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl">
+                Go to Dashboard
+              </button>
+            )}
 
             <button className="rounded-full py-2.5 md:py-3 bg-ordum-purple font-semibold shadow-md shadow-md hover:shadow-2xl">
               Back

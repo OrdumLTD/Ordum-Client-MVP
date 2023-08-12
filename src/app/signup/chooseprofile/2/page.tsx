@@ -124,17 +124,14 @@ const ChooseProfileStep2 = () => {
 
           {profileType === "team" ? (
             <div>
-              <div className="w-full">
+              {/* <div className="w-full">
                 <label className="mt-4 text-xl flex">
                   <span className="text-sm">Username</span>
                 </label>
-                {/* ToDo fix line break for plaeholder */}
                 <input
                   className="mt-2 text-gray-300 mt-2 w-full bg-inherit text-sm placeholder:font-italitc placeholder:text-xs placeholder-gray-300 border border-gray-500
              rounded py-2 pl-2 pr-4 focus:outline-none resize-none"
                   placeholder="Eg. Anon_10"
-                  // value={bio}
-                  // onChange={(e) => setBio(e.target.value)}
                 />
               </div>
 
@@ -142,16 +139,13 @@ const ChooseProfileStep2 = () => {
                 <label className="mt-4 text-xl flex">
                   <span className="text-sm">Bio</span>
                 </label>
-                {/* ToDo fix line break for plaeholder */}
                 <textarea
                   className="mt-2 text-gray-300 mt-2 w-full bg-inherit text-sm placeholder:font-italitc placeholder:text-xs placeholder-gray-300 border border-gray-500
              rounded py-2 pl-2 pr-4 focus:outline-none resize-none
               min-h-[4rem]"
                   placeholder="In a few sentences describe who you are , what you do, interests, etc."
-                  // value={bio}
-                  // onChange={(e) => setBio(e.target.value)}
                 />
-              </div>
+              </div> */}
             </div>
           ) : (
             ""
@@ -159,17 +153,15 @@ const ChooseProfileStep2 = () => {
 
           {profileType === "individual" ? (
             <div>
-              <div className="w-full">
+              {/* <div className="w-full">
                 <label className="mt-4 text-xl flex">
                   <span className="text-sm">Username</span>
                 </label>
-                {/* ToDo fix line break for plaeholder */}
+
                 <input
                   className="mt-2 text-gray-300 mt-2 w-full bg-inherit text-sm placeholder:font-italitc placeholder:text-xs placeholder-gray-300 border border-gray-500
              rounded py-2 pl-2 pr-4 focus:outline-none resize-none"
                   placeholder="Eg. Anon_10"
-                  // value={bio}
-                  // onChange={(e) => setBio(e.target.value)}
                 />
               </div>
 
@@ -177,16 +169,13 @@ const ChooseProfileStep2 = () => {
                 <label className="mt-4 text-xl flex">
                   <span className="text-sm">Bio</span>
                 </label>
-                {/* ToDo fix line break for plaeholder */}
                 <textarea
                   className="mt-2 text-gray-300 mt-2 w-full bg-inherit text-sm placeholder:font-italitc placeholder:text-xs placeholder-gray-300 border border-gray-500
              rounded py-2 pl-2 pr-4 focus:outline-none resize-none
               min-h-[4rem]"
                   placeholder="In a few sentences describe who you are , what you do, interests, etc."
-                  // value={bio}
-                  // onChange={(e) => setBio(e.target.value)}
                 />
-              </div>
+              </div> */}
             </div>
           ) : (
             ""
@@ -196,10 +185,11 @@ const ChooseProfileStep2 = () => {
             <Image
               src={PfpCircle}
               alt="Add an image"
+              width={80}
               className="hover:cursor-pointer"
             />
             <span className="place-self-center text-lg font-medium hover:cursor-pointer">
-              Add Profile Picture
+              Add Profile Picture (soon)
             </span>
           </div>
           {/* <ConnectWallet/> */}
