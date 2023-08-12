@@ -50,24 +50,13 @@ export const PhalaContractContextProvider = ({ children }: Props) => {
 
   const loadContract =  async():Promise<PinkContractPromise|null> =>{
     if(poc5){
-      const contractId:string = '0xa871d3db888ea021575b1ac7ea39c7e10887277547aec45977259d42e55e0f65';
+      const contractId:string = '0x52ea197a6163112d2a5b75f7a65e57c2a09e8b796bed275b7d831119f0430bdf';
       
-      const pruntime:string = 'https://poc5.phala.network/tee-api-1';
-  
-      // check for undefined Erros
-      //@ts-ignore
-     // const contrapi: ApiPromise = await((await create({api:poc5,baseURL:pruntime,contractId})).api).isReady;
 
       const contractKey = await phalaRegistry.getContractKeyOrFail(contractId);
       const contract = new PinkContractPromise(poc5, phalaRegistry, ordumJson, contractId, contractKey);
 
   
-      // const contract = new ContractPromise(
-      //   //@ts-ignore
-      //   contrapi,
-      //   ordumJson,
-      //   contractId
-      // );
       return contract
 
     }else{
