@@ -15,7 +15,7 @@ import { useWalletContext } from "@/Context/WalletStore";
 const ChooseProfileStep2 = () => {
   //Context
   const { profileData, setProfile } = useProfileContext();
-  const { teamName} = profileData;
+  const { teamName } = profileData;
 
   const [profileType, setProfileType] = useState("");
 
@@ -24,17 +24,15 @@ const ChooseProfileStep2 = () => {
     usePhalaContractContext();
   const { account, signer } = useWalletContext();
 
-  
-
-  const chooseLink = (str:string) => {
-    if(str === "team") {
-      return "/signup/createteam"
-    } else if(str === "individual") {
-      return "/signup/createindividual"
+  const chooseLink = (str: string) => {
+    if (str === "team") {
+      return "/signup/createteam";
+    } else if (str === "individual") {
+      return "/signup/createindividual";
     } else {
-      return "#"
+      return "#";
     }
-  }
+  };
 
   useEffect(() => {
     if (poc5) {
@@ -52,7 +50,6 @@ const ChooseProfileStep2 = () => {
     if (poc5 && signer && account) {
       const certData = await onSignCertificate(poc5, signer, account);
       setCertificate(certData);
-      
     } else {
       console.log("Failing to sign certificate due to missing params");
     }
@@ -62,7 +59,6 @@ const ChooseProfileStep2 = () => {
     if (poc5 && signer && account) {
       const certData = await onSignCertificate(poc5, signer, account);
       setCertificate(certData);
-    
     } else {
       console.log("Failing to sign certificate due to missing params");
     }
@@ -72,6 +68,14 @@ const ChooseProfileStep2 = () => {
     <div className="grid h-screen place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-cover text-sm md:text-base">
       <div className="border border-2 border-white backdrop-blur-md rounded-lg p-5 xl:p-16 w-7/12 xl:w-6/12 2xl:w-5/12 grid">
         <div className="grid text-white">
+          <div className="mb-8">
+            <p className="font-medium mb-2">
+              Please, us a crypto wallet to create your account. You can only
+              have one Ordum account per wallet.
+            </p>
+
+            <ConnectWallet />
+          </div>
           <div className="justify-self-start font-medium">
             Are you a team or an individual
           </div>
@@ -86,7 +90,7 @@ const ChooseProfileStep2 = () => {
             flex justify-around gap-2"
           >
             {/* <Link href="/signup/createteam"> */}
-            
+
             <button
               //@ts-ignore
               onClick={() => {
@@ -118,40 +122,85 @@ const ChooseProfileStep2 = () => {
             {/* </Link> */}
           </div>
 
-          <div className="w-full">
-            <label className="mt-4 text-xl flex">
-              <span className="text-sm">Username</span>
-            </label>
-            {/* ToDo fix line break for plaeholder */}
-            <input
-              className="mt-2 text-gray-300 mt-2 w-full bg-inherit text-sm placeholder:font-italitc placeholder:text-xs placeholder-gray-300 border border-gray-500
+          {profileType === "team" ? (
+            <div>
+              <div className="w-full">
+                <label className="mt-4 text-xl flex">
+                  <span className="text-sm">Username</span>
+                </label>
+                {/* ToDo fix line break for plaeholder */}
+                <input
+                  className="mt-2 text-gray-300 mt-2 w-full bg-inherit text-sm placeholder:font-italitc placeholder:text-xs placeholder-gray-300 border border-gray-500
              rounded py-2 pl-2 pr-4 focus:outline-none resize-none"
-              placeholder="Eg. Anon_10"
-              // value={bio}
-              // onChange={(e) => setBio(e.target.value)}
-            />
-          </div>
+                  placeholder="Eg. Anon_10"
+                  // value={bio}
+                  // onChange={(e) => setBio(e.target.value)}
+                />
+              </div>
 
-          <div className="w-full">
-            <label className="mt-4 text-xl flex">
-              <span className="text-sm">Bio</span>
-            </label>
-            {/* ToDo fix line break for plaeholder */}
-            <textarea
-              className="mt-2 text-gray-300 mt-2 w-full bg-inherit text-sm placeholder:font-italitc placeholder:text-xs placeholder-gray-300 border border-gray-500
+              <div className="w-full">
+                <label className="mt-4 text-xl flex">
+                  <span className="text-sm">Bio</span>
+                </label>
+                {/* ToDo fix line break for plaeholder */}
+                <textarea
+                  className="mt-2 text-gray-300 mt-2 w-full bg-inherit text-sm placeholder:font-italitc placeholder:text-xs placeholder-gray-300 border border-gray-500
              rounded py-2 pl-2 pr-4 focus:outline-none resize-none
               min-h-[4rem]"
-              placeholder="In a few sentences describe who you are , what you do, interests, etc."
-              // value={bio}
-              // onChange={(e) => setBio(e.target.value)}
-            />
-          </div>
+                  placeholder="In a few sentences describe who you are , what you do, interests, etc."
+                  // value={bio}
+                  // onChange={(e) => setBio(e.target.value)}
+                />
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
 
-          <ConnectWallet />
+          {profileType === "individual" ? (
+            <div>
+              <div className="w-full">
+                <label className="mt-4 text-xl flex">
+                  <span className="text-sm">Username</span>
+                </label>
+                {/* ToDo fix line break for plaeholder */}
+                <input
+                  className="mt-2 text-gray-300 mt-2 w-full bg-inherit text-sm placeholder:font-italitc placeholder:text-xs placeholder-gray-300 border border-gray-500
+             rounded py-2 pl-2 pr-4 focus:outline-none resize-none"
+                  placeholder="Eg. Anon_10"
+                  // value={bio}
+                  // onChange={(e) => setBio(e.target.value)}
+                />
+              </div>
+
+              <div className="w-full">
+                <label className="mt-4 text-xl flex">
+                  <span className="text-sm">Bio</span>
+                </label>
+                {/* ToDo fix line break for plaeholder */}
+                <textarea
+                  className="mt-2 text-gray-300 mt-2 w-full bg-inherit text-sm placeholder:font-italitc placeholder:text-xs placeholder-gray-300 border border-gray-500
+             rounded py-2 pl-2 pr-4 focus:outline-none resize-none
+              min-h-[4rem]"
+                  placeholder="In a few sentences describe who you are , what you do, interests, etc."
+                  // value={bio}
+                  // onChange={(e) => setBio(e.target.value)}
+                />
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
 
           <div className="mt-10 flex gap-4">
-            <Image src={PfpCircle} alt="Add an image" className="hover:cursor-pointer"/>
-            <span className="place-self-center text-lg font-medium hover:cursor-pointer">Add Profile Picture</span>
+            <Image
+              src={PfpCircle}
+              alt="Add an image"
+              className="hover:cursor-pointer"
+            />
+            <span className="place-self-center text-lg font-medium hover:cursor-pointer">
+              Add Profile Picture
+            </span>
           </div>
           {/* <ConnectWallet/> */}
           <div
@@ -160,8 +209,12 @@ const ChooseProfileStep2 = () => {
            flex flex-col gap-4"
           >
             <Link href={chooseLink(profileType)}>
-              <button 
-                className={"w-full rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-md hover:shadow-2xl " + ((poc5 && contractApi && account) ? " " : " bg-gray-400")} >
+              <button
+                className={
+                  "w-full rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-md hover:shadow-2xl " +
+                  (poc5 && contractApi && account ? " " : " bg-gray-400")
+                }
+              >
                 Continue
               </button>
             </Link>

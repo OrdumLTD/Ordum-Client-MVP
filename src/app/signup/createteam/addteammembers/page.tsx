@@ -34,27 +34,26 @@ const AddTeamMembers = () => {
   //   console.log(event.name)
   // })
 
+  const router = useRouter();
+
   const { signer, account } = useWalletContext();
   const { cache, contractApi } = usePhalaContractContext();
   const { profileData, setProfile } = useProfileContext();
   const userCtx = useUserContext();
+  const { poc5 } = useChainApiContext();
+
 
   const [profileCreation, setProfileCreation] = useState(false);
   const [passkeyStatus, setPasskeyStatus] = useState(false);
   const [ secretError, setSecretError] = useState<string>("");
   const [preSecretfetching, setPreSecretFetching] = useState<boolean>(false);
-
-  const { poc5 } = useChainApiContext();
-
   const [teamMembers, setTeamMembers] = useState<any[]>([]);
-
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [role, setRole] = useState<MemberRole>(null);
-
   const [dBStatus, setDbStatus] = useState<number>();
 
-  const router = useRouter();
+
 
   useEffect(() => {}, [profileCreation]);
 

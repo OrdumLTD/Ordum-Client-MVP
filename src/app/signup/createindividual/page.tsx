@@ -1,7 +1,27 @@
 "use client";
 
-import Link from "next/link";
+// import Link from "next/link";
 import Image from "next/image";
+
+import { useProfileContext } from "@/Context/ProfileStore";
+import { useChainApiContext } from "@/Context/ChainApiStore";
+import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
+import { useEffect, useMemo, useState } from "react";
+import { useWalletContext } from "@/Context/WalletStore";
+import { Categories, Chains, UserRole } from "@/lib/PhalaContract/Types/types";
+import { ContractCallOutcome } from "@polkadot/api-contract/types";
+import { useUserContext } from "@/Context/user";
+import { createIndividualProfile } from "@/lib/PhalaContract/Txn/createProfile";
+
+// Antd
+import type { NotificationPlacement } from "antd/es/notification/interface";
+import { Space, notification } from "antd";
+import { useContract, useEventSubscription, useEvents } from "useink";
+import { SmileOutlined, CheckCircleTwoTone } from "@ant-design/icons";
+//
+import ordumJson from "@/lib/PhalaContract/Utils/ordum.json";
+import { getIndividual } from "@/lib/PhalaContract/Query";
+import { getPasscode } from "@/lib/AntaLite/dbAuth";
 
 import GitHubIcon from "@/assets/svg-icons/github-light-icon.svg";
 import Email from "@/assets/svg-icons/email-light-icon.svg";
@@ -9,25 +29,78 @@ import Discord from "@/assets/svg-icons/discord-light-icon.svg";
 import Twitter from "@/assets/svg-icons/twitter-light-icon.svg";
 import Matrix from "@/assets/svg-icons/matric-light-icon.svg";
 import Website from "@/assets/svg-icons/web-light-icon.svg";
-import { useProfileContext } from "@/Context/ProfileStore";
-import { useChainApiContext } from "@/Context/ChainApiStore";
-import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
-import { useEffect, useState } from "react";
-import { useWalletContext } from "@/Context/WalletStore";
-import { UserRole } from "@/lib/PhalaContract/Types/types";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+
+let categoriesArray = [];
+for (const key in Categories) {
+  if (Categories.hasOwnProperty(key)) {
+    categoriesArray.push({ [key]: Categories[key] });
+  }
+}
+
+// axios
+
+// .post("https://ordum-mvp-api-9de49c774d76.herokuapp.com/individuals", {
+//   name: secretInner[0],
+//   passkey: secretInner[1],
+// })
+// // if succsful it will return a token
+// .then((res) => {
+//   console.log("Db User Return : \n");
+//   console.log(res.data);
+//   console.log(res.status)
+//   setDbStatus(res.status)
+
+//   userCtx.logInUser(res.data?.token, res.data?.toSend?._id, secretInner[1]);
+// })
+// .catch((e) => console.log(e));
+// }
 
 const CreateIndividualProfile = () => {
-  //Context
+  const [profileCreation, setProfileCreation] = useState(false);
+  const [passkeyStatus, setPasskeyStatus] = useState(false);
+  const [secretError, setSecretError] = useState<string>("");
+  const [preSecretfetching, setPreSecretFetching] = useState<boolean>(false);
+  const [dBStatus, setDbStatus] = useState<number>();
+
+  const [projectType, setProjectType] = useState<Categories>(null);
+  const [projects, setProjects] = useState<Categories[]>([]);
+  const [blockchain, setBlockchain] = useState<Chains>(null);
+  const [blockchains, setBlockchains] = useState<Chains[]>([]);
+  const [teamName, setTeamName] = useState("");
+  const [about, setAbout] = useState("");
+  const [mission, setMission] = useState("");
+  const [email, setEmail] = useState("");
+  const [discord, setDiscord] = useState("");
+  const [twitter, setTwitter] = useState("");
+  const [website, setWebsite] = useState("");
+  const [element, setElement] = useState("");
+  const [git, setGit] = useState("");
+  const [links, setLinks] = useState<string[]>([]);
+
+  const addUserToSate = () => {
+    const profile = {
+      teamName: teamName,
+      description: about,
+      mission: mission,
+      projectType: projects,
+      residentChain: blockchains,
+      teamMembers: [],
+      allowedAccounts: [],
+      links: [email, discord, twitter, website, element, git],
+    };
+
+    setProfile(profile);
+  };
+
+  const router = useRouter();
   const { profileData, setProfile, setCreationStatus, creationStatus } =
     useProfileContext();
-  const {  teamName } = profileData;
   const { account, signer } = useWalletContext();
-
+  const userCtx = useUserContext();
   const { fetchPoc5Api, poc5 } = useChainApiContext();
   const { loadContractApi, contractApi, cache } = usePhalaContractContext();
-
-  // Local state
-  const [links, setLinks] = useState<string[]>([]);
 
   const updateLink = (i: number, v: string) => {
     setLinks((prevState) => {
@@ -36,8 +109,8 @@ const CreateIndividualProfile = () => {
       return updatedState;
     });
   };
-  console.log("State link " + links);
-  console.log("Links " + profileData.links);
+
+  console.log(projectType);
 
   useEffect(() => {
     if (poc5) {
@@ -62,32 +135,161 @@ const CreateIndividualProfile = () => {
     const profileCreationStatus = (v: boolean) => {
       setCreationStatus(v);
     };
-
-    // const { teamType, userType } = profileData;
-    // if (account && signer && cache && contractApi && account.meta.name) {
-    //   //1. (Individual && Applicant)
-
-    //   await createApplicantProfile(
-    //     //utill fn
-    //     profileCreationStatus,
-    //     //---------
-    //     account,
-    //     signer,
-    //     cache,
-    //     contractApi,
-    //     //Params
-    //     account.meta.name,
-    //     account.address,
-    //     profileData.description,
-    //     profileData.mission,
-    //     profileData.projectType,
-    //     profileData.residentChain,
-    //     //ProfileCtx.profileData.projectType, // Work on this
-    //     profileData.teamMembers,
-    //     profileData.links
-    //   );
-    // }
   };
+
+  const createUser = async () => {
+    // Fetch the team profile if its there instruct the user to log in, if not continue
+    const returnedTeam = await getIndividual(
+      contractApi,
+      poc5,
+      signer,
+      account,
+      cache,
+      null
+    );
+
+    if (returnedTeam.output.toJSON().valueOf()["ok"]["ok"]) {
+      console.log("Account is there");
+      setSecretError("Log In to Access your account");
+      errorNotification("error");
+    } else {
+      console.log(" Account is not there");
+      if (account && signer && cache && contractApi && poc5) {
+        await createIndividualProfile(
+          setProfileCreation,
+          setPasskeyStatus,
+          setPreSecretFetching,
+          account,
+          signer,
+          cache,
+          contractApi,
+          poc5,
+          profileData.teamName,
+          profileData.description,
+          profileData.projectType,
+          profileData.residentChain,
+          profileData.links,
+          UserRole.applicant
+        );
+      } else {
+        console.log("Missing some params in Creation of Applicant");
+        console.log(
+          `Account: ${account} \n Signer: ${signer} \n Cache: ${cache} \n ContractApi ${contractApi} Api ${poc5}`
+        );
+      }
+    }
+  };
+
+  type NotificationType = "success" | "info" | "warning" | "error";
+
+  const [api, contextHolder] = notification.useNotification();
+
+  // Notification for Error
+  const errorNotification = (placement: NotificationType) => {
+    api.error({
+      message: "Please",
+      description: "Account is possibly registered please log in",
+      btn: (
+        <button
+          onClick={() => router.push("/")}
+          className="rounded-full py-2 bg-ordum-purple text-white w-20"
+        >
+          Log In
+        </button>
+      ),
+      duration: null,
+      icon: <SmileOutlined style={{ color: "#108ee9" }} />,
+    });
+  };
+  // Notification for sucess
+  const successNotification = (placement: NotificationType, text: string) => {
+    api.error({
+      message: "Congratulations",
+      description: text,
+      duration: 6,
+      icon: <CheckCircleTwoTone />,
+    });
+  };
+
+  const dbErrorNotification = (placement: NotificationType, text: string) => {
+    api.error({
+      message: "Unexpected Error",
+      description: text,
+      duration: 6,
+    });
+  };
+
+  useMemo(() => {
+    if (profileCreation) {
+      successNotification("success", "Profile Registered On-Chain");
+    }
+  }, [profileCreation]);
+
+  useMemo(() => {
+    if (dBStatus === 201) {
+      successNotification("success", "All Done! Welcome");
+    } else {
+      dbErrorNotification("error", "Something went wrong!!");
+    }
+  }, [dBStatus]);
+
+  useMemo(() => {
+    if (preSecretfetching) {
+      errorNotification("error");
+    }
+  }, [preSecretfetching]);
+
+  useMemo(async () => {
+    console.log("Db section");
+    console.log("passKeyStatus Outer: " + passkeyStatus);
+    if (passkeyStatus) {
+      console.log("passKeyStatus Inner: " + passkeyStatus);
+      console.log("Secret Inner \n");
+      const secret = await getPasscode(
+        contractApi,
+        poc5,
+        signer,
+        account,
+        cache
+      );
+
+      console.log("secret outer \n");
+      console.log(secret.output.toJSON().valueOf()["ok"]);
+
+      if (secret.output.toJSON().valueOf()["ok"]["ok"]) {
+        const secretInner = secret.output.toJSON().valueOf()["ok"]["ok"];
+        console.log("secretInner \n");
+        console.log(secretInner);
+
+        axios
+          // .post("http://localhost:4000/organizations", {
+          .post(
+            "https://ordum-mvp-api-9de49c774d76.herokuapp.com/",
+            {
+              name: secretInner[0],
+              passkey: secretInner[1],
+            }
+          )
+          // if succsful it will return a token
+          .then((res) => {
+            console.log("Db User Return : \n");
+            console.log(res.data);
+            console.log(res.status);
+            setDbStatus(res.status);
+
+            userCtx.logInUser(
+              res.data?.token,
+              res.data?.toSend?._id,
+              secretInner[1]
+            );
+          })
+          .catch((e) => console.log(e));
+      }
+    } else {
+      console.log("Something went wrong fetching token");
+      dbErrorNotification("error", "Something went wrong!!");
+    }
+  }, [passkeyStatus]);
 
   return (
     <div className="grid place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-contain text-sm md:text-base">
@@ -98,10 +300,31 @@ const CreateIndividualProfile = () => {
       >
         <div className="grid place-items-center text-white">
           <div className="justify-self-start text-2xl md:text-4xl">
-            Create your profile
+            Create your individual profile
           </div>
 
-          <h3 className="mt-5 justify-self-start font-medium">About</h3>
+          <div className="mt-8 w-full">
+            <span>User Name</span>
+            <input
+              value={teamName}
+              onChange={(e) => {
+                //@ts-ignore
+                setTeamName(e.target.value);
+              }}
+              className="
+        justify-self-start mt-4
+        resize-none
+        w-full
+     
+        rounded-md border border-grey-200
+        bg-inherit
+  
+        py-2 px-3 "
+              placeholder="Eg - Super_Anon_12 "
+            />
+          </div>
+
+          {/* <h3 className="mt-5 justify-self-start font-medium">About</h3>
           <textarea
             onChange={(e) => {
               //@ts-ignore
@@ -117,9 +340,9 @@ const CreateIndividualProfile = () => {
         text-[#CAC9C9]
         py-2 px-3 "
             placeholder="What does your team want to achieve? "
-          />
+          /> */}
 
-          <h3 className="mt-5 justify-self-start font-medium">Project type</h3>
+          {/* <h3 className="mt-5 justify-self-start font-medium">Project type</h3>
 
           <div
             className=" \
@@ -128,7 +351,7 @@ const CreateIndividualProfile = () => {
             w-full
             "
           >
-      <select
+            <select
               className=" 
              mr-4 
             w-full
@@ -140,7 +363,7 @@ const CreateIndividualProfile = () => {
                 All
               </option>
               <option value="All">
-                What are you creating? Chooce a category
+                What are you creating? Choose categories
               </option>
               <option value="All">What chain are you building on?</option>
               <option value="DeFi">DeFi </option>
@@ -160,6 +383,87 @@ const CreateIndividualProfile = () => {
             <button className="w-40 rounded py-2.5 md:py-3 bg-ordum-purple font-semibold shadow shadow-md hover:shadow-2xl">
               + Add More
             </button>
+          </div> */}
+
+          <h3 className="mt-5 justify-self-start font-medium">Project type</h3>
+
+          <div
+            className=" 
+            justify-self-start mt-4
+            flex justify-between
+            w-full
+            "
+          >
+            <select
+              className=" 
+              mr-4 
+              w-full
+              pl-2 md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
+              focus:outline-none bg-inherit
+              text-[#CAC9C9]"
+              value={Categories[projectType]}
+              onChange={(e) => {
+                const toSet = e.target.value as keyof typeof Categories;
+                setProjectType(Categories[toSet]);
+              }}
+            >
+              <option value="" className="" disabled hidden>
+                All
+              </option>
+              <option value={"All"} selected disabled>
+                What are you creating? Chooce a category
+              </option>
+              {categoriesArray.map((category) => {
+                const val = Object.keys(category)[0];
+                const toShow = Object.values(category)[0];
+                // const toShow = String(val)
+                return (
+                  <option key={val} value={val}>
+                    {String(toShow)}
+                  </option>
+                );
+              })}
+            </select>
+
+            <button
+              className="w-40 rounded py-2.5 md:py-3 bg-ordum-purple font-semibold shadow shadow-md hover:shadow-2xl"
+              onClick={() => {
+                if (projectType !== null && !projects.includes(projectType)) {
+                  setProjects([...projects, projectType]);
+                  setProjectType(null);
+                }
+              }}
+            >
+              + Add More
+            </button>
+          </div>
+
+          <div
+            className=" mt-4
+           w-full"
+          >
+            <ul className="flex flex-col">
+              {projects.map((item, index) => {
+                return (
+                  <li key={index}>
+                    <div className="w-11/12 border rounded mt-3 px-4 py-2  flex justify-between">
+                      {" "}
+                      <span>{item}</span>{" "}
+                      <button
+                        className="bg-red-500 rounded-md px-2"
+                        onClick={() => {
+                          const newArray = [...projects];
+                          newArray.splice(index, 1);
+                          setProjects(newArray);
+                        }}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
 
           <h3 className="mt-5 justify-self-start font-medium">Blockchain</h3>
@@ -178,20 +482,60 @@ const CreateIndividualProfile = () => {
             block pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
             focus:outline-none bg-inherit
             text-[#CAC9C9]"
+              value={blockchain}
+              onChange={(e) => {
+                const toSet = e.target.value as keyof typeof Chains;
+                setBlockchain(Chains[toSet]);
+              }}
             >
-              <option value="" className="" disabled hidden>
-                All
+              <option value="" selected disabled>
+                What chain are you building on?
               </option>
-              <option value="All">What chain are you building on?</option>
-              <option value="Option 1">Option 1</option>
-              <option value="Option 2">Option 2</option>
+              <option value="kusama">kusama</option>
+              <option value="polkadot">polkadot</option>
+              <option value="offChain">offChain</option>
             </select>
 
-            <button className="w-40 rounded py-2.5 md:py-3 bg-ordum-purple font-semibold shadow shadow-md hover:shadow-2xl">
+            <button
+              className="w-40 rounded py-2.5 md:py-3 bg-ordum-purple font-semibold shadow shadow-md hover:shadow-2xl"
+              onClick={() => {
+                if (blockchain !== null && !blockchains.includes(blockchain)) {
+                  setBlockchains([...blockchains, blockchain]);
+                  setBlockchain(null);
+                }
+              }}
+            >
               + Add More
             </button>
           </div>
 
+          <div
+            className=" mt-4
+ w-full"
+          >
+            <ul className="flex flex-col">
+              {blockchains.map((item, index) => {
+                return (
+                  <li key={index}>
+                    <div className="w-11/12 border rounded mt-3 px-4 py-2  flex justify-between">
+                      {" "}
+                      <span>{item}</span>{" "}
+                      <button
+                        className="bg-red-500 rounded-md px-2"
+                        onClick={() => {
+                          const newArray = [...blockchains];
+                          newArray.splice(index, 1);
+                          setBlockchains(newArray);
+                        }}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
           <h3 className="mt-5 justify-self-start font-medium">Mission</h3>
           <textarea
             onChange={(e) => {
@@ -207,13 +551,13 @@ const CreateIndividualProfile = () => {
         bg-inherit
         text-[#CAC9C9]
         py-2 px-3 "
-            placeholder="What does your team want to achieve? "
+            placeholder="What does you want to achieve? "
           />
 
           <div className="mt-5 justify-self-start w-full">
             <h3 className="mb-4">Links</h3>
             <div className="flex">
-              <Image src={Email} alt="Email" height={36} />{" "}
+              <Image src={Email} alt="Email" height={36} width={38} />{" "}
               <input
                 className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit "
@@ -222,7 +566,7 @@ const CreateIndividualProfile = () => {
               />
             </div>
             <div className="mt-4 flex">
-              <Image src={Discord} alt="Discord" height={36} />{" "}
+              <Image src={Discord} alt="Discord" height={36} width={36} />{" "}
               <input
                 className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit"
@@ -231,7 +575,7 @@ const CreateIndividualProfile = () => {
               />
             </div>
             <div className="mt-4 flex">
-              <Image src={Twitter} alt="Twitter" height={36} />{" "}
+              <Image src={Twitter} alt="Twitter" height={36} width={36} />{" "}
               <input
                 className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit"
@@ -241,7 +585,7 @@ const CreateIndividualProfile = () => {
             </div>
 
             <div className="mt-4 flex">
-              <Image src={Matrix} alt="Matrix" height={36} />{" "}
+              <Image src={Matrix} alt="Matrix" height={36} width={36} />{" "}
               <input
                 className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit"
@@ -250,7 +594,7 @@ const CreateIndividualProfile = () => {
               />
             </div>
             <div className="mt-4 flex">
-              <Image src={Website} alt="Website" height={36} />{" "}
+              <Image src={Website} alt="Website" height={36} width={36} />{" "}
               <input
                 className="ml-5 w-full pl-2  md:py-2 border border-grey-200 rounded-md text-sm md:text-base shadow-sm bg-gray-300
               focus:outline-none bg-inherit"
@@ -275,23 +619,15 @@ const CreateIndividualProfile = () => {
             flex flex-col gap-4"
           >
             <button
-              onClick={() => saveNDone()}
+              onClick={() => {
+                addUserToSate();
+                saveNDone();
+                createUser();
+              }}
               className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl"
             >
               Create Profile
             </button>
-            {creationStatus ? (
-              <button className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl">
-                <Link href={"/home"}>Continue</Link>
-              </button>
-            ) : (
-              <button
-                disabled
-                className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl"
-              >
-                <Link href={"/home"}>Continue</Link>
-              </button>
-            )}
 
             <button className="rounded-full py-2.5 md:py-3 bg-ordum-purple font-semibold shadow-md shadow-md hover:shadow-2xl">
               Back

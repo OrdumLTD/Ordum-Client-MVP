@@ -2,13 +2,13 @@
 
 // import Link from "next/link";
 import Image from "next/image";
-import Link from "next/link";
+// import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+// import axios from "axios";
 
-import { useWalletContext } from "@/Context/WalletStore";
-import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
+// import { useWalletContext } from "@/Context/WalletStore";
+// import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
 import { useProfileContext } from "@/Context/ProfileStore";
 import { Categories, Chains } from "@/lib/PhalaContract/Types/types";
 
@@ -20,11 +20,11 @@ import Twitter from "@/assets/svg-icons/twitter-light-icon.svg";
 import Matrix from "@/assets/svg-icons/matric-light-icon.svg";
 import Website from "@/assets/svg-icons/web-light-icon.svg";
 
-import { createTeamApplicantProfile } from "@/lib/PhalaContract/Txn/createProfile";
+// import { createTeamApplicantProfile } from "@/lib/PhalaContract/Txn/createProfile";
 
 const CreateTeam = () => {
-  const { signer, account } = useWalletContext();
-  const { cache, contractApi } = usePhalaContractContext();
+  // const { signer, account } = useWalletContext();
+  // const { cache, contractApi } = usePhalaContractContext();
   const { profileData, setProfile } = useProfileContext();
 
   const [profileCreation, setProfileCreation] = useState(false);
@@ -69,67 +69,6 @@ const CreateTeam = () => {
 
     setProfile(profile);
   };
-
-  // const { user } = useSelector((state: RootState) => state.user);
-  // const dispatch = useDispatch()
-
-  // const logInTest = () => {
-  //   dispatch(logInTestUser())
-  // }
-
-  // Name to be sent to smart contract save
-
-  // const createUser = (
-  //   name,
-  //   about,
-  //   projects,
-  //   mission,
-  //   blockchains,
-  //   email,
-  //   discord,
-  //   twitter,
-  //   website,
-  //   element,
-  //   git
-  // ) => {
-
-  //   createApplicantProfile(
-  //     setProfileCreation,
-  //     signer,
-  //     cache,
-  //     contractApi,
-  //     profileData.teamName,
-  //     account.address,
-  //     profileData.description,
-  //     profileData.mission,
-  //     profileData.mission,
-  //     projects,
-  //     blockchains,
-  //       );
-
-  //   axios
-  //     .post("http://localhost:3000/organizations", {
-  //       name: name,
-  //       passkey: "123421412",
-  //       // email: "test@example.com",
-
-  //       // projectType: { projects: projects },
-  //       // blockchain: { blockchains: blockchains },
-  //       // links: {
-  //       //   email: email,
-  //       //   discord: discord,
-  //       //   twitter: twitter,
-  //       //   matrix: element,
-  //       //   website: website,
-  //       //   git: git,
-  //       // },
-  //       // about: about,
-  //       // mission: mission,
-  //     })
-  //     // if succsful it will return a token
-  //     .then((res) => console.log(res.data?.token))
-  //     .catch((e) => console.log(e));
-  // };
 
   return (
     <div className="grid place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-contain text-sm md:text-base">
