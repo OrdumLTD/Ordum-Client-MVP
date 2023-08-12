@@ -52,21 +52,11 @@ export const PhalaContractContextProvider = ({ children }: Props) => {
     if(poc5){
       const contractId:string = '0x52ea197a6163112d2a5b75f7a65e57c2a09e8b796bed275b7d831119f0430bdf';
       
-      
-      // check for undefined Erros
-      //@ts-ignore
-     // const contrapi: ApiPromise = await((await create({api:poc5,baseURL:pruntime,contractId})).api).isReady;
 
       const contractKey = await phalaRegistry.getContractKeyOrFail(contractId);
       const contract = new PinkContractPromise(poc5, phalaRegistry, ordumJson, contractId, contractKey);
 
   
-      // const contract = new ContractPromise(
-      //   //@ts-ignore
-      //   contrapi,
-      //   ordumJson,
-      //   contractId
-      // );
       return contract
 
     }else{
