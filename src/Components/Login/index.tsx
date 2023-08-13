@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import Router from "next/navigation";
+import React, { use, useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,9 +11,11 @@ import OrdumLogoLight from "@/assets/svg-icons/ordum-logo-light.svg";
 // import ConnectWallet from "../ConnectWallet/";
 import { useWalletContext } from "../../Context/WalletStore";
 import { useChainApiContext } from "../../Context/ChainApiStore";
+import { useUserContext } from "@/Context/user";
 import Button from "../ui/buttons/Button";
 import { getPasscode } from "@/lib/AntaLite/dbAuth";
 import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
+import axios from "axios";
 
 enum LogInWalletType {
   NONE,
@@ -27,7 +29,9 @@ const ConnectWallet = dynamic(() => import("../ConnectWallet/"), {
 });
 
 const LogIn: React.FC = () => {
+  const userCtx = useUserContext();
   const wallets = useInstalledWallets();
+  const router = useRouter();
   const { isConnected, connect, disconnect, setAccount } = useWallet();
 
   const { loadContractApi, contractApi, cache } = usePhalaContractContext();
@@ -37,13 +41,15 @@ const LogIn: React.FC = () => {
   const { account, signer } = useWalletContext();
   const { fetchPoc5Api, poc5 } = useChainApiContext();
 
-  console.log({ 
-    contractApi,
-    //  poc5, 
-    //  signer,
-    //  account,
-      // cache 
-    });
+  const [acc, setAcc] = useState<any[]>([]);
+
+  // console.log({
+  //   contractApi,
+  //   poc5,
+  //   signer,
+  //   account,
+  //   cache,
+  // });
 
   useEffect(() => {
     if (poc5) {
@@ -55,7 +61,7 @@ const LogIn: React.FC = () => {
       fetchPoc5Api();
       loadContractApi();
     }
-  }, []);
+  });
 
   const checkLogIn = async () => {
     if (contractApi && poc5 && signer) {
@@ -67,6 +73,7 @@ const LogIn: React.FC = () => {
         cache
       );
       console.log(secret.output.toJSON().valueOf()["ok"]);
+      setAcc(secret.output.toJSON().valueOf()["ok"]["ok"]);
     } else {
       loadContractApi();
       fetchPoc5Api();
@@ -76,6 +83,47 @@ const LogIn: React.FC = () => {
       );
     }
   };
+
+  const loginUser = async () => {
+    console.log(acc);
+    axios
+      // .post("http://localhost:4000/organizations", {
+      .post("https://ordum-mvp-api-9de49c774d76.herokuapp.com/login", {
+        name: acc[0],
+        passkey: acc[1],
+      })
+      // if succsful it will return a token
+      .then((res) => {
+        console.log("Db User Return : \n");
+        console.log(res.data);
+        console.log(res.status);
+        if (res.data.hasOwnProperty("organization")) {
+          userCtx.logInUser(
+            res.data?.token,
+ 
+            res.data.organization._id,
+            res.data.organization.name,
+            res.data.type
+          );
+        } else {
+          userCtx.logInUser(
+            res.data?.token,
+            res.data.inividual._id,
+            res.data.individual.name,
+            res.data.type
+          );
+        }
+      })
+      .catch((e) => console.log(e));
+  };
+
+  if (acc && userCtx.userID === "") {
+    loginUser();
+  }
+
+  if (!(userCtx.userID === "")) {
+    router.push("./home/dashboard");
+  }
 
   return (
     <div className="grid h-screen place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-cover text-sm md:text-base text-white">
@@ -95,8 +143,7 @@ const LogIn: React.FC = () => {
           </Button>
         </div>
         <div className="grid place-items-center">
-          <p className="my-10">Please Log in with a wallet</p>
-
+          <p className="my-10">Please log in with a wallet</p>{" "}
           {walletType === LogInWalletType.NONE ? (
             <div className="mt-5 w-full grid gap-4">
               {/* <ConnectWallet /> */}
@@ -121,20 +168,14 @@ const LogIn: React.FC = () => {
             </div>
           ) : (
             <div className="mt-5 w-full grid gap-4">
-              <Button
-                onClick={() => {
-                  setWalletType(LogInWalletType.NONE);
-                }}
-              >
-                Choose another wallet{" "}
-              </Button>
-
               <ConnectWallet />
-
-              <Button onClick={() => checkLogIn()}>Print secret</Button>
               {account ? (
-                <Button borderWhite className="py-4 font-semibold">
-                  <Link href={"/home"}> Log in with Wallet</Link>
+                <Button
+                  borderWhite
+                  className="py-4 font-semibold"
+                  onClick={() => checkLogIn()}
+                >
+                  Log in with Wallet
                 </Button>
               ) : null}
             </div>

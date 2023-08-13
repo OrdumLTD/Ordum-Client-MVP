@@ -13,6 +13,7 @@ import { useWalletContext } from "@/Context/WalletStore";
 import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
 import { useChainApiContext } from "@/Context/ChainApiStore";
 import { useFetchedProfileContext } from "@/Context/ProfileStore";
+import { useUserContext } from "@/Context/user";
 
 
 import KittyIcon from "@/assets/svg-icons/kitty-icon.svg"
@@ -30,6 +31,9 @@ const TeamMembersProfile = () => {
   const { loadContractApi, cache, contractApi } = usePhalaContractContext();
   const { poc5 } = useChainApiContext();
   const { fetchedStatus } = useFetchedProfileContext();
+  const userCtx = useUserContext()
+
+  console.log(userCtx)
 
   {
     /* Handle the error */
@@ -73,7 +77,7 @@ const TeamMembersProfile = () => {
        backdrop-blur-md
        "/>
             <div className="ml-1 md:ml-5 md:mt-2 flex flex-col">
-              <span className="md:text-xl">Ordum Name</span>
+              <span className="md:text-xl">{userCtx.userName}</span>
               <span className="text-xs md:text-sm">Project type</span>
             </div>
           </div>

@@ -560,7 +560,7 @@ const CreateIndividualProfile = () => {
             w-full
             flex flex-col gap-4"
           >
-            {profileCreation && dBStatus === 201 ? (
+            {!(profileCreation && dBStatus === 201) ? (
               <button
                 onClick={() => {
                   addUserToSate();
