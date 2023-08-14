@@ -4,15 +4,20 @@ import Image from "next/image";
 
 import EyeIcon from "@/assets/svg-icons/eye.svg";
 import { useState } from "react";
+import Link from "next/link";
 
 type Props = {
   name: String;
   description: string | undefined;
-  id: any;
+  deadline: string;
+  id?: any;
+  tasks?: any[];
 
-  remove: (id: any) => void;
+  remove?: (id: any) => void;
   className?: string;
 };
+
+const calculateCost = () => {};
 
 const MileStoneReview: React.FC<Props> = (props) => {
   const [showOptions, setShowOptions] = useState(false);
@@ -25,7 +30,7 @@ const MileStoneReview: React.FC<Props> = (props) => {
           props.className
         }
       >
-        <span className="self-center font-bold text-xl">{props.name}</span>
+        <span className="self-center font-bold text-xl ml-4">{props.name}</span>
 
         <div className="flex gap-8">
           <div className="flex flex-col">
@@ -34,7 +39,7 @@ const MileStoneReview: React.FC<Props> = (props) => {
           </div>
           <div className="flex flex-col">
             <span>Deadline</span>
-            <span>00/00/00</span>
+            <span>{props.deadline}</span>
           </div>
 
           {!showOptions ? (
@@ -62,19 +67,11 @@ const MileStoneReview: React.FC<Props> = (props) => {
       </div>
 
       {showOptions ? (
-        <div className="mt-5">
+        <div className="mt-10">
           <h3 className="font-semibold bg-ordum-gray">Description</h3>
-          <p className="mt-2">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
-          </p>
+          <p className="mt-2">{props.description}</p>
 
-          <div className="mt-5 flex gap-5 justify-around">
+          <div className="mt-10 flex gap-5 justify-around">
             <button className="w-full rounded-full py-2 px-5 bg-ordum-purple border border-white">
               Submit Milestone
             </button>
@@ -86,7 +83,90 @@ const MileStoneReview: React.FC<Props> = (props) => {
             </button>
           </div>
 
-          <div className="mt-5">TASKS COMMING SOON</div>
+          <ul className="mt-4">
+            {props?.tasks.map((item, index) => {
+              return (
+                <li key={index} className="mt-2 w-full">
+                  <div className="border px-4 py-6 flex items-center w-full">
+                    <div className="basis-8/12 text-xl">{item?.name}</div>
+                    <div className="basis-4/12 w-full flex items-center justify-between">
+                      <div className=" flex flex-col">
+                        <span className="text-ordum-grey">Cost</span>
+                        <span>{item.totalCost} usd</span>
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-ordum-grey">Deadline</span>
+                        <span>{item.taskDeadline}</span>
+                      </div>
+                      <div className="text-sm px-8 py-2 rounded-xl bg-ordum-purple">
+                        {item.type}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 flex">
+                    {" "}
+                    <div className="basis-2/12 flex flex-col gap-4">
+                      <div className="flex flex-col">
+                        <span className="text-ordum-grey font-semibold">
+                          Deliverables
+                        </span>
+                        <ul>
+                          {item?.deliverables.map((deliverable, index) => {
+                            return (
+                              <li key={index}>
+                                {" "}
+                                <Link href={deliverable.link} className="underline text-blue-400">
+                                  {deliverable.name}
+                                </Link>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      </div>
+                      <div className="flex flex-col">
+                        {" "}
+                        <span className="text-ordum-grey font-semibold">
+                          Assigned
+                        </span>
+                        <span>Name</span>
+                      </div>
+                      <div className="flex flex-col">
+                        {" "}
+                        <span className="text-ordum-grey font-semibold">
+                          Task submitted
+                        </span>
+                        <span>With Link</span>
+                      </div>
+                      <div className="flex gap-5">
+                        {" "}
+                        <div className="flex flex-col">
+                          {" "}
+                          <span className="text-ordum-grey font-semibold">
+                            Edits
+                          </span>
+                          <span className="underline">XX</span>
+                        </div>
+                        <div className="flex flex-col">
+                          {" "}
+                          <span className="text-ordum-grey font-semibold">
+                            Pivots
+                          </span>
+                          <span className="underline">XX</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="">
+                      <h3 className="text-ordum-grey font-semibold">
+                        Description
+                      </h3>
+                      <p>{item?.description}</p>
+                    </div>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       ) : null}
     </div>

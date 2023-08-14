@@ -19,7 +19,7 @@ export type tldr = {
   deadLine: string;
   shortDescription: string;
   whyDifferentDescription: string;
-  externalLinks: string;
+  externalLinks: string[];
 };
 
 // The context of the proposal
