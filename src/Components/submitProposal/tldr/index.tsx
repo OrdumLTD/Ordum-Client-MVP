@@ -46,6 +46,7 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
   // Local state
   const [accountBalance, setAccountBalance] = useState<number>(0.0);
   const [suggestDate, setSuggestDate] = useState<Date>();
+  const [externalLink, setExternalLink] = useState("");
 
   console.log(
     "tldr " + tldr?.teamName,
@@ -79,7 +80,6 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
     }
   };
 
-  // Solve CORS issue in localhost
   const storeKsmPrice = async () => {
     const ksmPrice = await fetchKsmPrice();
     //@ts-ignore
@@ -227,20 +227,20 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
             }}
           />
 
-          <label className="mt-4 text-xl flex">
+          {/* <label className="mt-4 text-xl flex">
             <span>Proposal Name</span>
           </label>
           <input
             className="mt-2 text-gray-500  w-[33rem] text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
             placeholder="Name your propolsal"
-            value={tldrCtx.propolsalName}
+            value={tldrCtx.proposalName}
             onChange={(e) => {
               console.log(e.target.value);
               //@ts-ignore
-              handleTLDRchange({ propolsalName: e.target.value });
+              handleTLDRchange({ proposalName: e.target.value });
             }}
             type="text"
-          />
+          /> */}
 
           {/* <label className="mt-4 text-xl flex">
             <span>Recieve Date</span>
@@ -332,7 +332,7 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
               //@ts-ignore
               handleTLDRchange({ shortDescription: e.target.value });
             }}
-            className="mt-2 w-full text-black text-sm bg-white placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]"
+            className="mt-2 w-full text-sm text-black bg-white placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none resize-none min-h-[10rem]"
             placeholder="Describe your procet in 800 characters max"
           />
 
@@ -340,18 +340,62 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
           <label className="mt-4 text-xl flex">
             <span>Add external links</span>
           </label>
+
+          <ul className="mt-4">
+            {" "}
+            {tldrCtx?.externalLinks?.map((item, index) => {
+              return (
+                <li key={index} className="my-2">
+                  <div className="border px-4 py-2 rounded-xl flex justify-between">
+                    <span>{item}</span>
+                    <button
+                      className="bg-red-500 px-2 rounded"
+                      onClick={() => {
+                        const newExternalLinks = tldr?.externalLinks;
+                        newExternalLinks.splice(index, 1);
+                        //@ts-ignore
+                        handleTLDRchange({ externalLinks: newExternalLinks });
+                      }}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+
           <div className="mt-2 flex flex-col justify-between">
             <input
-              value={tldrCtx.externalLinks}
+              value={externalLink}
               onChange={(e) => {
                 //@ts-ignore
-                handleTLDRchange({ externalLinks: e.target.value });
+                setExternalLink(e.target.value);
               }}
               className="text-gray-500 text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
-              placeholder="eg Gihub, Figma"
+              placeholder="eg Gihub, Figma (up to 5)"
               type="text"
             />
-            <button className="mt-4 border border-black rounded-xl py-2 bg-ordum-blue">
+            <button
+              className="mt-4 border border-black rounded-xl py-2 bg-ordum-blue"
+              onClick={() => {
+                if (externalLink) {
+                  if (!tldr?.externalLinks) {
+                    //@ts-ignore
+                    handleTLDRchange({ externalLinks: [externalLink] });
+                    setExternalLink("");
+                  } else {
+                    if (tldr?.externalLinks.length < 5) {
+                      const newExternalLinks: string[] = tldr?.externalLinks;
+                      newExternalLinks.push(externalLink);
+                      //@ts-ignore
+                      handleTLDRchange({ externalLinks: newExternalLinks });
+                      setExternalLink("");
+                    }
+                  }
+                }
+              }}
+            >
               + Add Link
             </button>
           </div>

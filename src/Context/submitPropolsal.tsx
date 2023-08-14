@@ -11,7 +11,7 @@ export type tldr = {
   teamName: string;
   track: string;
   contact: string;
-  propolsalName: string;
+  proposalName: string[];
   recieveDate: string;
   startingDate: string;
   fundingAmount: number;
