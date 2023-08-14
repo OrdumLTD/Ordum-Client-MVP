@@ -7,7 +7,7 @@ import axios from "axios";
 import Button from "@/Components/ui/buttons/Button";
 import { useProfileContext } from "@/Context/ProfileStore";
 import { useUserContext } from "@/Context/user";
-import { MemberRole } from "@/lib/PhalaContract/Types/types";
+import { MemberRole, UserRole } from "@/lib/PhalaContract/Types/types";
 import { createTeamApplicantProfile } from "@/lib/PhalaContract/Txn/createProfile";
 import { ContractCallOutcome } from "@polkadot/api-contract/types";
 import { useWalletContext } from "@/Context/WalletStore";
@@ -242,7 +242,7 @@ const AddTeamMembers = () => {
               console.log(res.status)
               setDbStatus(res.status)
       
-              userCtx.logInUser(res.data?.token, res.data?.toSend?._id, secretInner[1]);
+              userCtx.logInUser(res.data?.token, res.data?.toSend?._id, secretInner[1],UserRole.applicant);
             })
             .catch((e) => console.log(e));
         }

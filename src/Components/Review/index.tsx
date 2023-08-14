@@ -85,6 +85,7 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
     milestones: any,
     owner: string
   ) => {
+    console.log(" Db section")
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -121,6 +122,7 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
         config
       )
       .then((res) => {
+        console.log("Return DB")
         console.log(res);
         setDbJSON(res.data)
       })
@@ -173,6 +175,7 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
 
   useMemo(async() =>{
     // Referenda Test
+    console.log("Referenda section")
     if (tldr?.fundingAmount && tldr.recieveDate) {
       const rate = tldr.exchangeRate || 24;
       await PreimageAndReferendum(

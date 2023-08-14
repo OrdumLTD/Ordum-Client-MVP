@@ -443,7 +443,7 @@
         ],
         "default": false,
         "docs": [],
-        "label": "reate_individual_profile",
+        "label": "create_individual_profile",
         "mutates": true,
         "payable": false,
         "returnType": {
