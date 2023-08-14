@@ -7,7 +7,6 @@
 // NOTE: Experiment with folder association storage
 
 import {create} from "ipfs-http-client";
-import { AccountId } from "../PhalaContract/Types/types";
 import { Signer } from "@polkadot/types/types";
 import {stringToHex, u8aToHex} from "@polkadot/util";
 import { ApiPromise} from "@polkadot/api";
@@ -96,7 +95,7 @@ const placeOrder =async (
     const memo = `Ordum/${team_id}/${project_no}/${milestone_no}`;
     const txn = api.tx.market.placeStorageOrder(cid, size, 0, memo);
 
-    txn.signAndSend(account,{signer},({events,isCompleted,isFinalized})=>{
+    txn.signAndSend(account,{signer},({events,isFinalized})=>{
         if (isFinalized){
             events.forEach(({event:{method, section}})=>{
                 if (method === 'ExtrinsicSuccess') {
@@ -171,7 +170,21 @@ export const newFileIpfs = async(
 
 
 
-const uploadFile = async(account:AccountId,signer:Signer,file:any,milestoneNo:number) =>{
+export const uploadFile = async(
+    placedOrder: Dispatch<boolean>,
+    api:ApiPromise,
+    account:string,signer:Signer,
+    team_id:string,file:any,
+    projectNo: number,
+    milestoneNo:number,
+    ) =>{
+
+        let returnData:ReturnIpfs = {
+            cid:"",
+            path:"",
+            size:0,
+            pinData:undefined
+        }; 
 
     // Signature of the address
     //@ts-ignore
@@ -189,6 +202,19 @@ const uploadFile = async(account:AccountId,signer:Signer,file:any,milestoneNo:nu
     // Add the file to existing folder per user
     const isOnline = ipfs.isOnline();
     if (isOnline) {
+
+        // test encoding the file and store the encoded format (Hex)
+        const {cid,size,path} = await ipfs.add({path:`ordum/${team_id}`,content:file});
+        returnData.cid = cid;
+        returnData.size = size;
+        returnData.path = path;
+
+        // ------ Pin the file --------//
+        const pinData = await pin(authHeader,cid.toString(),team_id); 
+        returnData.pinData = pinData;
+
+        // ------ Place order in Crust -----------
+        await placeOrder(placedOrder,api,account,signer,cid.toString(),size,projectNo,milestoneNo,team_id);
 
     }else{
         throw Error("Ipfs Node is not Online")
