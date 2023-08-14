@@ -50,7 +50,7 @@ export const PhalaContractContextProvider = ({ children }: Props) => {
 
   const loadContract =  async():Promise<PinkContractPromise|null> =>{
     if(poc5){
-      const contractId:string = '0x52ea197a6163112d2a5b75f7a65e57c2a09e8b796bed275b7d831119f0430bdf';
+      const contractId:string = '0x5484856af003365826835c9bcc9a0ab23127aa7e76fa1e385df4c2760515803c';
       
 
       const contractKey = await phalaRegistry.getContractKeyOrFail(contractId);
