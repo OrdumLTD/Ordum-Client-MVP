@@ -100,7 +100,6 @@ const LogIn: React.FC = () => {
         if (res.data.hasOwnProperty("organization")) {
           userCtx.logInUser(
             res.data?.token,
- 
             res.data.organization._id,
             res.data.organization.name,
             res.data.type
@@ -108,7 +107,7 @@ const LogIn: React.FC = () => {
         } else {
           userCtx.logInUser(
             res.data?.token,
-            res.data.inividual._id,
+            res.data.individual._id,
             res.data.individual.name,
             res.data.type
           );
