@@ -32,13 +32,13 @@ const SignUp = () => {
           <div className="mt-5 w-full grid gap-4">
 
             <ConnectWallet />
-{/* 
+
             <Link href={"/signup/chooseprofile"}>
               <button className="w-full border border-white rounded-full py-4 text-white text-sm md:text-lg ">
                 {" "}
                 Sign up!
               </button>
-            </Link> */}
+            </Link>
 
             <Link href={"/signup/chooseprofile"}>
               <button className="mt-4 w-full border border-white rounded-full py-4 text-white text-sm md:text-lg ">

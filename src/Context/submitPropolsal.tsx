@@ -11,7 +11,7 @@ export type tldr = {
   teamName: string;
   track: string;
   contact: string;
-  propolsalName: string;
+  proposalName: string[];
   recieveDate: string;
   startingDate: string;
   fundingAmount: number;
@@ -19,7 +19,7 @@ export type tldr = {
   deadLine: string;
   shortDescription: string;
   whyDifferentDescription: string;
-  externalLinks: string;
+  externalLinks: string[];
 };
 
 // The context of the proposal

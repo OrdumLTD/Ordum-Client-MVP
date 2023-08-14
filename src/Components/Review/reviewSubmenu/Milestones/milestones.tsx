@@ -1,14 +1,19 @@
+"use client";
 
 import { useState } from "react";
 import MileStoneReview from "./MileStoneReview";
+import { useProposalContext } from "@/Context/submitPropolsal";
 
 const Milestones = () => {
-  const [milestones, setMilestones] = useState<any>([]);
+  const { milestones } = useProposalContext();
+  console.log(milestones);
+
+  const [milestonez, setMilestones] = useState<any>([]);
 
   const removeMilestone = (id: any) => {
-    for (let i = 0; i < milestones.length; i++) {
-      if (milestones[i]?.id === id) {
-        const newArray = [...milestones];
+    for (let i = 0; i < milestonez.length; i++) {
+      if (milestonez[i]?.id === id) {
+        const newArray = [...milestonez];
         newArray.splice(i, 1);
         setMilestones(newArray);
         return;
@@ -18,18 +23,18 @@ const Milestones = () => {
   return (
     <div>
       <div className="mt-10 flex flex-col gap-8">
-        <MileStoneReview
-          name={"Kilt Integration"}
-          description="Testng"
-          id="1235325"
-          remove={removeMilestone}
-        />
-        <MileStoneReview
-          name={"Kilt Integration"}
-          description="Testng"
-          id="1235325"
-          remove={removeMilestone}
-        />
+        {milestones.map((item, index) => {
+          return (
+            <li key={index}>
+              <MileStoneReview
+                name={item.name}
+                description={item.description}
+                deadline={item.deadline}
+                tasks={item.tasks}
+              />
+            </li>
+          );
+        })}
       </div>
     </div>
   );
