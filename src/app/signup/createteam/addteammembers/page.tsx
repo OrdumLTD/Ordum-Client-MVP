@@ -346,9 +346,9 @@ const AddTeamMembers = () => {
           <Button
             primeColor
             className="w-full mt-4"
-            // onClick={() => {
-            //   addTeamMember();
-            // }}
+            onClick={() => {
+              addTeamMember();
+            }}
           >
             {" "}
             Add More

@@ -16,8 +16,15 @@ const defaultState = {
   userToken: "",
   userID: "",
   userName: "",
-  accountType: "", //organization or individual
-  logInUser: function (token: string, id: string, name:string, type: string) {
+  accountType: "", //organization or individual,
+  accountChainInfo: {}, //will be populated on profile login or creation
+  logInUser: function (
+    token: string,
+    id: string,
+    name: string,
+    type: string,
+    chainInfo: Object
+  ) {
     return;
   },
   logOutUser: function () {
@@ -30,15 +37,23 @@ const UserContext = createContext(defaultState);
 export const UserContextProvider = ({ children }: Props) => {
   const [userID, setUserID] = useState<user["userID"]>("");
   const [userToken, setUserToken] = useState<user["userToken"]>("");
-  const [accountType, setAccountType] = useState("")
-  const [userName, serUserName] = useState("")
+  const [accountType, setAccountType] = useState("");
+  const [userName, serUserName] = useState("");
+  const [accountChainInfo, setAccountChainInfo] = useState({});
 
-  const logInUser = (token: string, id: string, name: string, type: string) => {
+  const logInUser = (
+    token: string,
+    id: string,
+    name: string,
+    type: string,
+    chainInfo: Object
+  ) => {
     if (userToken === "" && userID === "") {
       setUserToken(token);
       setUserID(id);
       serUserName(name);
       setAccountType(type);
+      setAccountChainInfo(chainInfo);
       console.log("User added to ctx");
     } else {
       console.log("Failed to add user");
@@ -51,6 +66,7 @@ export const UserContextProvider = ({ children }: Props) => {
     setUserID("");
     serUserName("");
     setAccountType("");
+    setAccountChainInfo({});
   };
 
   const context = {
@@ -58,6 +74,7 @@ export const UserContextProvider = ({ children }: Props) => {
     userID,
     userName,
     accountType,
+    accountChainInfo,
     logInUser,
     logOutUser,
   };
