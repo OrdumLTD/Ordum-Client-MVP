@@ -19,7 +19,11 @@ import {
   $wrapNodes,
   $isAtNodeEnd,
 } from "@lexical/selection";
-import { $getNearestNodeOfType, mergeRegister } from "@lexical/utils";
+import {
+  $findMatchingParent,
+  $getNearestNodeOfType,
+  mergeRegister,
+} from "@lexical/utils";
 import {
   INSERT_ORDERED_LIST_COMMAND,
   INSERT_UNORDERED_LIST_COMMAND,
@@ -39,17 +43,25 @@ import {
   getDefaultCodeLanguage,
   getCodeLanguages,
 } from "@lexical/code";
+import { $isTableNode } from "@lexical/table";
+
+import { InsertNewTableDialog, InsertTableDialog } from "./TablePlugin";
+
+import useModal from "../hooks/useModal";
 
 const LowPriority = 1;
+
+const rootTypeToRootName = {
+  root: "Root",
+  table: "Table",
+};
 
 const supportedBlockTypes = new Set([
   "paragraph",
   "quote",
   "code",
   "h1",
-  "h2",
-  "ul",
-  "ol",
+  "h2"
 ]);
 
 const blockTypeToBlockName = {
@@ -63,6 +75,8 @@ const blockTypeToBlockName = {
   paragraph: "Normal",
   quote: "Quote",
   ul: "Bulleted List",
+  number: "Numbered List",
+  bullet: "Bulleted List",
 };
 
 function Divider() {
@@ -252,172 +266,173 @@ function getSelectedNode(selection) {
   }
 }
 
-function BlockOptionsDropdownList({
-  editor,
-  blockType,
-  toolbarRef,
-  setShowBlockOptionsDropDown,
-}) {
-  const dropDownRef = useRef(null);
+// function BlockOptionsDropdownList({
+//   editor,
+//   blockType,
+//   toolbarRef,
+//   setShowBlockOptionsDropDown,
+// }) {
+//   const dropDownRef = useRef(null);
 
-  useEffect(() => {
-    const toolbar = toolbarRef.current;
-    const dropDown = dropDownRef.current;
+//   useEffect(() => {
+//     const toolbar = toolbarRef.current;
+//     const dropDown = dropDownRef.current;
 
-    if (toolbar !== null && dropDown !== null) {
-      const { top, left } = toolbar.getBoundingClientRect();
-      dropDown.style.top = `${top + 40}px`;
-      dropDown.style.left = `${left}px`;
-    }
-  }, [dropDownRef, toolbarRef]);
+//     if (toolbar !== null && dropDown !== null) {
+//       const { top, left } = toolbar.getBoundingClientRect();
+//       dropDown.style.top = `${top + 40}px`;
+//       dropDown.style.left = `${left}px`;
+//     }
+//   }, [dropDownRef, toolbarRef]);
 
-  useEffect(() => {
-    const dropDown = dropDownRef.current;
-    const toolbar = toolbarRef.current;
+//   useEffect(() => {
+//     const dropDown = dropDownRef.current;
+//     const toolbar = toolbarRef.current;
 
-    if (dropDown !== null && toolbar !== null) {
-      const handle = (event) => {
-        const target = event.target;
+//     if (dropDown !== null && toolbar !== null) {
+//       const handle = (event) => {
+//         const target = event.target;
 
-        if (!dropDown.contains(target) && !toolbar.contains(target)) {
-          setShowBlockOptionsDropDown(false);
-        }
-      };
-      document.addEventListener("click", handle);
+//         if (!dropDown.contains(target) && !toolbar.contains(target)) {
+//           setShowBlockOptionsDropDown(false);
+//         }
+//       };
+//       document.addEventListener("click", handle);
 
-      return () => {
-        document.removeEventListener("click", handle);
-      };
-    }
-  }, [dropDownRef, setShowBlockOptionsDropDown, toolbarRef]);
+//       return () => {
+//         document.removeEventListener("click", handle);
+//       };
+//     }
+//   }, [dropDownRef, setShowBlockOptionsDropDown, toolbarRef]);
 
-  const formatParagraph = () => {
-    if (blockType !== "paragraph") {
-      editor.update(() => {
-        const selection = $getSelection();
+//   const formatParagraph = () => {
+//     if (blockType !== "paragraph") {
+//       editor.update(() => {
+//         const selection = $getSelection();
 
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createParagraphNode());
-        }
-      });
-    }
-    setShowBlockOptionsDropDown(false);
-  };
+//         if ($isRangeSelection(selection)) {
+//           $wrapNodes(selection, () => $createParagraphNode());
+//         }
+//       });
+//     }
+//     setShowBlockOptionsDropDown(false);
+//   };
 
-  const formatLargeHeading = () => {
-    if (blockType !== "h1") {
-      editor.update(() => {
-        const selection = $getSelection();
+//   const formatLargeHeading = () => {
+//     if (blockType !== "h1") {
+//       editor.update(() => {
+//         const selection = $getSelection();
 
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createHeadingNode("h1"));
-        }
-      });
-    }
-    setShowBlockOptionsDropDown(false);
-  };
+//         if ($isRangeSelection(selection)) {
+//           $wrapNodes(selection, () => $createHeadingNode("h1"));
+//         }
+//       });
+//     }
+//     setShowBlockOptionsDropDown(false);
+//   };
 
-  const formatSmallHeading = () => {
-    if (blockType !== "h2") {
-      editor.update(() => {
-        const selection = $getSelection();
+//   const formatSmallHeading = () => {
+//     if (blockType !== "h2") {
+//       editor.update(() => {
+//         const selection = $getSelection();
 
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createHeadingNode("h2"));
-        }
-      });
-    }
-    setShowBlockOptionsDropDown(false);
-  };
+//         if ($isRangeSelection(selection)) {
+//           $wrapNodes(selection, () => $createHeadingNode("h2"));
+//         }
+//       });
+//     }
+//     setShowBlockOptionsDropDown(false);
+//   };
 
-  const formatBulletList = () => {
-    if (blockType !== "ul") {
-      editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND);
-    } else {
-      editor.dispatchCommand(REMOVE_LIST_COMMAND);
-    }
-    setShowBlockOptionsDropDown(false);
-  };
+//   const formatBulletList = () => {
+//     if (blockType !== "bullet") {
+//       editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND);
+//     } else {
+//       editor.dispatchCommand(REMOVE_LIST_COMMAND);
+//     }
+//     setShowBlockOptionsDropDown(false);
+//   };
 
-  const formatNumberedList = () => {
-    if (blockType !== "ol") {
-      editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND);
-    } else {
-      editor.dispatchCommand(REMOVE_LIST_COMMAND);
-    }
-    setShowBlockOptionsDropDown(false);
-  };
+//   const formatNumberedList = () => {
+//     if (blockType !== "ol") {
+//       editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND);
+//     } else {
+//       editor.dispatchCommand(REMOVE_LIST_COMMAND);
+//     }
+//     setShowBlockOptionsDropDown(false);
+//   };
 
-  const formatQuote = () => {
-    if (blockType !== "quote") {
-      editor.update(() => {
-        const selection = $getSelection();
+//   const formatQuote = () => {
+//     if (blockType !== "quote") {
+//       editor.update(() => {
+//         const selection = $getSelection();
 
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createQuoteNode());
-        }
-      });
-    }
-    setShowBlockOptionsDropDown(false);
-  };
+//         if ($isRangeSelection(selection)) {
+//           $wrapNodes(selection, () => $createQuoteNode());
+//         }
+//       });
+//     }
+//     setShowBlockOptionsDropDown(false);
+//   };
 
-  const formatCode = () => {
-    if (blockType !== "code") {
-      editor.update(() => {
-        const selection = $getSelection();
+//   const formatCode = () => {
+//     if (blockType !== "code") {
+//       editor.update(() => {
+//         const selection = $getSelection();
 
-        if ($isRangeSelection(selection)) {
-          $wrapNodes(selection, () => $createCodeNode());
-        }
-      });
-    }
-    setShowBlockOptionsDropDown(false);
-  };
+//         if ($isRangeSelection(selection)) {
+//           $wrapNodes(selection, () => $createCodeNode());
+//         }
+//       });
+//     }
+//     setShowBlockOptionsDropDown(false);
+//   };
 
-  return (
-    <div className="dropdown" ref={dropDownRef}>
-      <button className="item" onClick={formatParagraph}>
-        <span className="icon paragraph" />
-        <span className="text">Normal</span>
-        {blockType === "paragraph" && <span className="active" />}
-      </button>
-      <button className="item" onClick={formatLargeHeading}>
-        <span className="icon large-heading" />
-        <span className="text">Large Heading</span>
-        {blockType === "h1" && <span className="active" />}
-      </button>
-      <button className="item" onClick={formatSmallHeading}>
-        <span className="icon small-heading" />
-        <span className="text">Small Heading</span>
-        {blockType === "h2" && <span className="active" />}
-      </button>
-      <button className="item" onClick={formatBulletList}>
-        <span className="icon bullet-list" />
-        <span className="text">Bullet List</span>
-        {blockType === "ul" && <span className="active" />}
-      </button>
-      <button className="item" onClick={formatNumberedList}>
-        <span className="icon numbered-list" />
-        <span className="text">Numbered List</span>
-        {blockType === "ol" && <span className="active" />}
-      </button>
-      <button className="item" onClick={formatQuote}>
-        <span className="icon quote" />
-        <span className="text">Quote</span>
-        {blockType === "quote" && <span className="active" />}
-      </button>
-      <button className="item" onClick={formatCode}>
-        <span className="icon code" />
-        <span className="text">Code Block</span>
-        {blockType === "code" && <span className="active" />}
-      </button>
-    </div>
-  );
-}
+//   return (
+//     <div className="dropdown" ref={dropDownRef}>
+//       <button className="item" onClick={formatParagraph}>
+//         <span className="icon paragraph" />
+//         <span className="text">Normal</span>
+//         {blockType === "paragraph" && <span className="active" />}
+//       </button>
+//       <button className="item" onClick={formatLargeHeading}>
+//         <span className="icon large-heading" />
+//         <span className="text">Large Heading</span>
+//         {blockType === "h1" && <span className="active" />}
+//       </button>
+//       <button className="item" onClick={formatSmallHeading}>
+//         <span className="icon small-heading" />
+//         <span className="text">Small Heading</span>
+//         {blockType === "h2" && <span className="active" />}
+//       </button>
+//       <button className="item" onClick={formatBulletList}>
+//         <span className="icon bullet-list" />
+//         <span className="text">Bullet List</span>
+//         {blockType === "ul" && <span className="active" />}
+//       </button>
+//       <button className="item" onClick={formatNumberedList}>
+//         <span className="icon numbered-list" />
+//         <span className="text">Numbered List</span>
+//         {blockType === "ol" && <span className="active" />}
+//       </button>
+//       <button className="item" onClick={formatQuote}>
+//         <span className="icon quote" />
+//         <span className="text">Quote</span>
+//         {blockType === "quote" && <span className="active" />}
+//       </button>
+//       <button className="item" onClick={formatCode}>
+//         <span className="icon code" />
+//         <span className="text">Code Block</span>
+//         {blockType === "code" && <span className="active" />}
+//       </button>
+//     </div>
+//   );
+// }
 
 export default function ToolbarPlugin() {
   const [editor] = useLexicalComposerContext();
   const toolbarRef = useRef(null);
+  const [activeEditor, setActiveEditor] = useState(editor);
   const [canUndo, setCanUndo] = useState(false);
   const [canRedo, setCanRedo] = useState(false);
   const [blockType, setBlockType] = useState("paragraph");
@@ -431,7 +446,14 @@ export default function ToolbarPlugin() {
   const [isItalic, setIsItalic] = useState(false);
   const [isUnderline, setIsUnderline] = useState(false);
   const [isStrikethrough, setIsStrikethrough] = useState(false);
+  const [isOL, setIsOL] = useState(false);
+  const [isUL, setIsUL] = useState(false);
   const [isCode, setIsCode] = useState(false);
+  // Need to fix this
+  //   const [rootType, setRootType] = useState<keyof typeof rootTypeToRootName>('root');
+  const [rootType, setRootType] = useState("root");
+
+  const [modal, showModal] = useModal();
 
   const updateToolbar = useCallback(() => {
     const selection = $getSelection();
@@ -465,6 +487,8 @@ export default function ToolbarPlugin() {
       setIsUnderline(selection.hasFormat("underline"));
       setIsStrikethrough(selection.hasFormat("strikethrough"));
       setIsCode(selection.hasFormat("code"));
+      setIsUL(selection.hasFormat("ul"));
+      setIsOL(selection.hasFormat("ol"));
       setIsRTL($isParentElementRTL(selection));
 
       // Update links
@@ -474,6 +498,14 @@ export default function ToolbarPlugin() {
         setIsLink(true);
       } else {
         setIsLink(false);
+      }
+
+      // Update table
+      const tableNode = $findMatchingParent(node, $isTableNode);
+      if ($isTableNode(tableNode)) {
+        setRootType("table");
+      } else {
+        setRootType("root");
       }
     }
   }, [editor]);
@@ -512,20 +544,20 @@ export default function ToolbarPlugin() {
     );
   }, [editor, updateToolbar]);
 
-  const codeLanguges = useMemo(() => getCodeLanguages(), []);
-  const onCodeLanguageSelect = useCallback(
-    (e) => {
-      editor.update(() => {
-        if (selectedElementKey !== null) {
-          const node = $getNodeByKey(selectedElementKey);
-          if ($isCodeNode(node)) {
-            node.setLanguage(e.target.value);
-          }
-        }
-      });
-    },
-    [editor, selectedElementKey]
-  );
+  // const codeLanguges = useMemo(() => getCodeLanguages(), []);
+  // const onCodeLanguageSelect = useCallback(
+  //   (e) => {
+  //     editor.update(() => {
+  //       if (selectedElementKey !== null) {
+  //         const node = $getNodeByKey(selectedElementKey);
+  //         if ($isCodeNode(node)) {
+  //           node.setLanguage(e.target.value);
+  //         }
+  //       }
+  //     });
+  //   },
+  //   [editor, selectedElementKey]
+  // );
 
   const insertLink = useCallback(() => {
     if (!isLink) {
@@ -534,6 +566,23 @@ export default function ToolbarPlugin() {
       editor.dispatchCommand(TOGGLE_LINK_COMMAND, null);
     }
   }, [editor, isLink]);
+
+  const formatBulletList = () => {
+    if (blockType !== "bullet") {
+      editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
+    } else {
+      editor.dispatchCommand(REMOVE_LIST_COMMAND);
+    }
+    setShowBlockOptionsDropDown(false);
+  };
+
+  const formatNumberedList = () => {
+    if (blockType !== "number") {
+      editor.dispatchCommand(INSERT_ORDERED_LIST_COMMAND, undefined);
+    } else {
+      editor.dispatchCommand(REMOVE_LIST_COMMAND, undefined);
+    }
+  };
 
   return (
     <div className="toolbar" ref={toolbarRef}>
@@ -635,24 +684,7 @@ export default function ToolbarPlugin() {
         >
           <i className="format strikethrough" />
         </button>
-        <button
-          onClick={() => {
-            editor.dispatchCommand(FORMAT_TEXT_COMMAND, "code");
-          }}
-          className={"toolbar-item spaced " + (isCode ? "active" : "")}
-          aria-label="Insert Code"
-        >
-          <i className="format code" />
-        </button>
-        <button
-          onClick={insertLink}
-          className={"toolbar-item spaced " + (isLink ? "active" : "")}
-          aria-label="Insert Link"
-        >
-          <i className="format link" />
-        </button>
-        {isLink &&
-          createPortal(<FloatingLinkEditor editor={editor} />, document.body)}
+
         <Divider />
         <button
           onClick={() => {
@@ -691,11 +723,67 @@ export default function ToolbarPlugin() {
             <i className="format justify-align" />
           </button>{" "} */}
         <Divider />
-        <div>OL</div>
-        <div>UL</div>
+        <button
+          onClick={formatBulletList}
+          className={"toolbar-item spaced " + (isUL ? "active" : "")}
+          aria-label="Unordered List"
+        >
+          <i className="format ul" />
+        </button>
+        <button
+          onClick={formatNumberedList}
+          className="toolbar-item spaced"
+          aria-label="Ordered List"
+        >
+          <i className="format ol" />
+        </button>
         <Divider />
+        <button
+          onClick={() => {
+            showModal("Insert Table", (onClose) => {
+              console.log("Add Table")
+              return (
+                <InsertNewTableDialog
+                  activeEditor={activeEditor}
+                  onClose={onClose}
+                />
+              );
+            });
+          }}
+          className="toolbar-item spaced"
+          aria-label="Adding Table"
+        >
+          <i className="format table" />
+        </button>
+        <button
+          onClick={() => {
+            editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "right");
+          }}
+          className="toolbar-item spaced"
+          aria-label="Adding Picture"
+        >
+          <i className="format picture" />
+        </button>
+        <button
+          onClick={() => {
+            editor.dispatchCommand(FORMAT_TEXT_COMMAND, "code");
+          }}
+          className={"toolbar-item spaced " + (isCode ? "active" : "")}
+          aria-label="Insert Code"
+        >
+          <i className="format code" />
+        </button>
+        <button
+          onClick={insertLink}
+          className={"toolbar-item spaced " + (isLink ? "active" : "")}
+          aria-label="Insert Link"
+        >
+          <i className="format link" />
+        </button>
+        {isLink &&
+          createPortal(<FloatingLinkEditor editor={editor} />, document.body)}
       </>
-      {/* )} */}
+      {modal}
     </div>
   );
 }

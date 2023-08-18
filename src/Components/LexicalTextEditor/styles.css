@@ -251,12 +251,14 @@ body {
     padding: 0;
     margin: 0;
     margin-left: 16px;
+    list-style-type: decimal;
   }
   
   .editor-list-ul {
     padding: 0;
     margin: 0;
     margin-left: 16px;
+    list-style-type: disc;
   }
   
   .editor-listitem {
@@ -708,6 +710,22 @@ body {
   
   .icon.code {
     background-image: url(images/icons/code.svg);
+  }
+  
+  i.picture {
+    background-image: url(images/icons/picture.svg);
+  }
+
+  i.table {
+    background-image: url(images/icons/tables.svg);
+  }
+
+  i.ol {
+    background-image: url(images/icons/list-ol.svg);
+  }
+
+  i.ul {
+    background-image: url(images/icons/list-ul.svg);
   }
   
   i.bold {

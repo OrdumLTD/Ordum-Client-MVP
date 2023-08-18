@@ -60,7 +60,7 @@ const CustomModal: React.FC<ModalProps> = (props) => {
   }
 
   function afterOpenModal() {
-    // references are now sync'd and can be accessed.
+
   }
 
   function closeModal() {
@@ -82,12 +82,6 @@ const CustomModal: React.FC<ModalProps> = (props) => {
         <div className="overflow-y-auto flex place-content-center justify-center items-center">
           {props.children}
         </div>
-        {/* <button
-          onClick={closeModal}
-          className="border px-2 absolute top-2 right-2"
-        >
-        
-        </button> */}
       </Modal>
     </div>
   );

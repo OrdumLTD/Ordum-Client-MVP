@@ -21,6 +21,7 @@ import { TRANSFORMERS } from "@lexical/markdown";
 import ListMaxIndentLevelPlugin from "./plugins/ListMaxIndentLevelPlugin";
 import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin";
 import AutoLinkPlugin from "./plugins/AutoLinkPlugin";
+import {TablePlugin} from '@lexical/react/LexicalTablePlugin';
 
 function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
@@ -69,6 +70,10 @@ export default function Editor() {
           <AutoLinkPlugin />
           <ListMaxIndentLevelPlugin maxDepth={7} />
           <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
+          <TablePlugin
+              // hasCellMerge={tableCellMerge}
+              // hasCellBackgroundColor={tableCellBackgroundColor}
+            />
         </div>
       </div>
     </LexicalComposer>
