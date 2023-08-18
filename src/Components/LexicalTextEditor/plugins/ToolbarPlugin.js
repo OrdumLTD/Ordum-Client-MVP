@@ -44,6 +44,11 @@ import {
   getCodeLanguages,
 } from "@lexical/code";
 import { $isTableNode } from "@lexical/table";
+import {
+  INSERT_IMAGE_COMMAND,
+  InsertImageDialog,
+  InsertImagePayload,
+} from "../plugins/ImagesPlugin";
 
 import { InsertNewTableDialog, InsertTableDialog } from "./TablePlugin";
 
@@ -56,13 +61,7 @@ const rootTypeToRootName = {
   table: "Table",
 };
 
-const supportedBlockTypes = new Set([
-  "paragraph",
-  "quote",
-  "code",
-  "h1",
-  "h2"
-]);
+const supportedBlockTypes = new Set(["paragraph", "quote", "code", "h1", "h2"]);
 
 const blockTypeToBlockName = {
   code: "Code Block",
@@ -741,9 +740,9 @@ export default function ToolbarPlugin() {
         <button
           onClick={() => {
             showModal("Insert Table", (onClose) => {
-              console.log("Add Table")
+              console.log("Add Table");
               return (
-                <InsertNewTableDialog
+                <InsertTableDialog
                   activeEditor={activeEditor}
                   onClose={onClose}
                 />
@@ -753,11 +752,16 @@ export default function ToolbarPlugin() {
           className="toolbar-item spaced"
           aria-label="Adding Table"
         >
-          <i className="format table" />
+          <i className="format tableIcon" />
         </button>
         <button
           onClick={() => {
-            editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "right");
+            showModal("Insert Image", (onClose) => (
+              <InsertImageDialog
+                activeEditor={activeEditor}
+                onClose={onClose}
+              />
+            ));
           }}
           className="toolbar-item spaced"
           aria-label="Adding Picture"

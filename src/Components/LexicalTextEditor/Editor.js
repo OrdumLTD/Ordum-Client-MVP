@@ -1,4 +1,4 @@
-import "./styles.css"
+import "./styles.css";
 import ExampleTheme from "./themes/ExampleTheme";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
@@ -21,7 +21,9 @@ import { TRANSFORMERS } from "@lexical/markdown";
 import ListMaxIndentLevelPlugin from "./plugins/ListMaxIndentLevelPlugin";
 import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin";
 import AutoLinkPlugin from "./plugins/AutoLinkPlugin";
-import {TablePlugin} from '@lexical/react/LexicalTablePlugin';
+import { TablePlugin } from "@lexical/react/LexicalTablePlugin";
+import ImagesPlugin from "./plugins/ImagesPlugin";
+import { ImageNode } from "./nodes/ImageNode";
 
 function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
@@ -46,8 +48,9 @@ const editorConfig = {
     TableCellNode,
     TableRowNode,
     AutoLinkNode,
-    LinkNode
-  ]
+    LinkNode,
+    ImageNode
+  ],
 };
 
 export default function Editor() {
@@ -71,9 +74,10 @@ export default function Editor() {
           <ListMaxIndentLevelPlugin maxDepth={7} />
           <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
           <TablePlugin
-              // hasCellMerge={tableCellMerge}
-              // hasCellBackgroundColor={tableCellBackgroundColor}
-            />
+            // hasCellMerge={tableCellMerge}
+            // hasCellBackgroundColor={tableCellBackgroundColor}
+          />
+          <ImagesPlugin captionsEnabled={false} />
         </div>
       </div>
     </LexicalComposer>
