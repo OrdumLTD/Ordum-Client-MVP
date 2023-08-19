@@ -287,7 +287,8 @@ const CreateIndividualProfile = () => {
               res.data?.token,
               res.data?.toSend?._id,
               secretInner[1],
-              UserRole.applicant
+              UserRole.applicant,
+              {}
             );
           })
           .catch((e) => console.log(e));

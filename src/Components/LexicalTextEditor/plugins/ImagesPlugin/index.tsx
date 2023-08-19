@@ -1,5 +1,4 @@
-'use client'
-
+"use client";
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -172,7 +171,7 @@ export function InsertImageDialog({
     <>
       {!mode && (
         <DialogButtonsList>
-          <Button
+          {/* <Button
             data-test-id="image-modal-option-sample"
             onClick={() =>
               onClick(
@@ -191,7 +190,7 @@ export function InsertImageDialog({
             }
           >
             Sample
-          </Button>
+          </Button> */}
           <Button
             data-test-id="image-modal-option-url"
             onClick={() => setMode("url")}
