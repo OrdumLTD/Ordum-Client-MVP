@@ -3,8 +3,9 @@
 "useclient";
 
 // import Editor from "@/Components/LexicalTextEditor/Editor";
-import Editor from "@/Components/OrdumTextEditor/Editor";
+// import Editor from "@/Components/OrdumTextEditor/Editor";
 // import Editor from "@/Components/TestEditor/packages/lexical-playground/src/Editor";
+import Editor from "@/Components/OrdumTextEditor/src/app"
 import { useState } from "react";
 
 const TextEditor: React.FC = () => {

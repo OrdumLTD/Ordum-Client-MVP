@@ -10,7 +10,6 @@ import ContentEditable from './ui/ContentEditable';
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
-import TreeViewPlugin from "./plugins/TreeViewPlugin";
 import ToolbarPlugin from "./plugins/ToolbarPlugin";
 import { HeadingNode, QuoteNode } from "@lexical/rich-text";
 import { TableCellNode, TableNode, TableRowNode } from "@lexical/table";
@@ -26,9 +25,6 @@ import ListMaxIndentLevelPlugin from "./plugins/ListMaxIndentLevelPlugin";
 import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin";
 import AutoLinkPlugin from "./plugins/AutoLinkPlugin";
 import { TablePlugin } from "@lexical/react/LexicalTablePlugin";
-import {TablePlugin as NewTablePlugin} from './plugins/TablePlugin';
-// import TableCellNodes from './nodes/TableCellNodes';
-import TableCellActionMenuPlugin from './plugins/TableActionMenuPlugin';
 import TableCellResizer from './plugins/TableCellResizer';
 const DynamicImagesPluginHandler = dynamic(() => import("./plugins/ImagesPlugin"), {
   loading: () => <p>Loading...</p>,
