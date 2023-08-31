@@ -828,11 +828,18 @@ i.chevron-down {
 
 
 .actions {
-  position: absolute;
+  /* position: absolute; */
   /* text-align: right; */
   /* /* margin: 10px; */
-  bottom: 200px;
+  /* bottom: 200px; */
+  /* right: 0;  */
+  position: absolute; 
+  left: 0; 
   right: 0; 
+  margin-left: auto; 
+  margin-right: auto; 
+  margin-top: 10px;
+  max-width: 1000px;
 }
 
 .actions.tree-view {

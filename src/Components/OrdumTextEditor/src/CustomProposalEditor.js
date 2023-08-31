@@ -1,5 +1,5 @@
-import dynamic from 'next/dynamic'
-import React from "react";
+import dynamic from "next/dynamic";
+import React, { useState } from "react";
 
 import ExampleTheme from "./themes/ExampleTheme";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
@@ -13,13 +13,13 @@ import ToolbarPlugin from "./plugins/ToolbarPlugin";
 import { HeadingNode, QuoteNode } from "@lexical/rich-text";
 import { TableCellNode, TableNode, TableRowNode } from "@lexical/table";
 import { TablePlugin } from "@lexical/react/LexicalTablePlugin";
-const TableCellResizer = dynamic(() => import('./plugins/TableCellResizer'), {
-  ssr: false
-})
-const ImagesPlugin = dynamic(() => import('./plugins/ImagesPlugin'), {
-  ssr: false
-})
-import { ImageNode } from './nodes/ImageNode';
+const TableCellResizer = dynamic(() => import("./plugins/TableCellResizer"), {
+  ssr: false,
+});
+const ImagesPlugin = dynamic(() => import("./plugins/ImagesPlugin"), {
+  ssr: false,
+});
+import { ImageNode } from "./nodes/ImageNode";
 import { ListItemNode, ListNode } from "@lexical/list";
 import { CodeHighlightNode, CodeNode } from "@lexical/code";
 import { AutoLinkNode, LinkNode } from "@lexical/link";
@@ -27,11 +27,16 @@ import { LinkPlugin } from "@lexical/react/LexicalLinkPlugin";
 import { ListPlugin } from "@lexical/react/LexicalListPlugin";
 import { MarkdownShortcutPlugin } from "@lexical/react/LexicalMarkdownShortcutPlugin";
 import { TRANSFORMERS } from "@lexical/markdown";
-// import {OnChangePlugin} from '@lexical/react/LexicalOnChangePlugin';
+import { OnChangePlugin } from "@lexical/react/LexicalOnChangePlugin";
 import ListMaxIndentLevelPlugin from "./plugins/ListMaxIndentLevelPlugin";
 import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin";
 import AutoLinkPlugin from "./plugins/AutoLinkPlugin";
-import ActionsPlugin from './plugins/ActionsPlugin';
+import ActionsPlugin from "./plugins/ActionsPlugin";
+
+//Handles state management
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import { useProposalContext } from "../../../Context/submitPropolsal";
+import { addFileToState } from "./plugins/ActionsPlugin/fileHandling";
 
 function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
@@ -57,13 +62,23 @@ const editorConfig = {
     TableRowNode,
     ImageNode,
     AutoLinkNode,
-    LinkNode
-  ]
+    LinkNode,
+  ],
 };
 
 export default function Editor() {
+  const { contextProposal } = useProposalContext();
+  console.log(contextProposal);
+  // handle on save in Actions Component - refractor later
+  const [trigger, setTrigger] = useState(0);
   return (
-    <LexicalComposer initialConfig={editorConfig}>
+    <LexicalComposer
+      initialConfig={{
+        ...editorConfig,
+        editorState: contextProposal.editorState
+      }}
+    >
+      <ActionsPlugin isRichText={true} trigger={trigger} />
       <div className="editor-container">
         <ToolbarPlugin />
         <div className="editor-inner">
@@ -84,7 +99,11 @@ export default function Editor() {
           <ImagesPlugin />
           <ListMaxIndentLevelPlugin maxDepth={7} />
           <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
-          <ActionsPlugin isRichText={true}/>
+          <OnChangePlugin
+            onChange={() => {
+              setTrigger((trigger) => trigger + 1);
+            }}
+          />
         </div>
       </div>
     </LexicalComposer>

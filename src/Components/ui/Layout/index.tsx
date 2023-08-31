@@ -22,6 +22,7 @@ interface Props {
   title?: string;
   grant?: boolean;
   hideSidePanel?: boolean | undefined;
+  isProposalEditor?: boolean | undefined;
   children: string | JSX.Element | JSX.Element[] | any;
 }
 
@@ -29,6 +30,10 @@ const Layout: React.FC<Props> = (props) => {
   const pathName = usePathname();
 
   console.log(pathName);
+
+  if(props.isProposalEditor){
+    return (props.children)
+  }
 
   return (
     // <main className="flex h-screen bg-[url('/background/dashboard.png')] text-white">

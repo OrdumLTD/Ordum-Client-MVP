@@ -34,6 +34,11 @@ export type context = {
   similarSolution: string;
 };
 
+// The context (text file) of the proposal
+export type proposalContext = {
+  editorState: object | null;
+};
+
 // Teammember
 interface teamMember {
   name: string;
@@ -78,7 +83,6 @@ interface milestone {
   tasks: task[];
 }
 
-
 // SUBMIT CONTEXT
 
 export type submitContext = {
@@ -90,6 +94,8 @@ export type submitContext = {
   milestones: milestone[];
   context?: context;
   readyToSubmit: boolean;
+  contextProposal: object | null;
+  changeProposalContext: (proposal: object) => void;
   setReadyToSubmit: (v: boolean) => void;
   changeTLDR: (tldr: tldr) => void;
   changeContext: (changeCtx: any) => void;
@@ -124,6 +130,7 @@ const defaultState = {
       tasks: [],
     },
   ],
+  contextProposal: {},
   readyToSubmit: false,
   setReadyToSubmit: (v: boolean) => {
     return;
@@ -152,6 +159,9 @@ export const ProposalContextProvider = ({ children }: Props) => {
   const [milestones, setMilestones] = useState<milestone[]>([]);
   const [propolsalContext, setPropolsalContext] = useState<context>();
   const [readyToSubmit, setReadyToSubmit] = useState<boolean>(false);
+  const [contextProposal, setProposalContext] = useState<object>({
+    editorState:'{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+});
 
   const changeTLDR = (itemToChange: tldr) => {
     setTldr({ ...tldr, ...itemToChange });
@@ -159,6 +169,10 @@ export const ProposalContextProvider = ({ children }: Props) => {
 
   const changeContext = (itemToChange: any) => {
     setPropolsalContext({ ...propolsalContext, ...itemToChange });
+  };
+
+  const changeProposalContext = (proposal: object) => {
+    setProposalContext({editorState: proposal});
   };
 
   const changeMilestones = (itemsToChange: any) => {
@@ -183,6 +197,8 @@ export const ProposalContextProvider = ({ children }: Props) => {
     changeTLDR: changeTLDR,
     changeMilestones,
     context: propolsalContext,
+    contextProposal,
+    changeProposalContext,
     milestones,
     readyToSubmit,
     setReadyToSubmit,

@@ -1,10 +1,20 @@
 "use client";
 
-const ProposalPreview = () => {
+import React, { FC } from 'react'
+
+interface ProposalPreveiwProps {
+  title?: string,
+  proposer?: string,
+  post_id?: number,
+  origin?: string,
+  showOrign?: boolean
+} 
+
+const ProposalPreview: FC<ProposalPreveiwProps> = (props) => {
   return (
     <div className="w-full border border-grey-300 border-2 rounded py-4 px-16 flex flex-col">
       <div className="w-full flex justify-between">
-        <div className="text-xl font-semibold">Title</div>
+        <div className="text-xl font-semibold">{props.title}</div>
         <div className="flex gap-20">
           <div className="text-sm font-semibold">
             <div>Name</div> <div className="text-ordum-grey">Type</div>

@@ -15,9 +15,11 @@ const SubmitProposal: React.FC = () => {
     //     <SubmitProposalContext />
     //   </div>
     // </Layout>
-    <div className="bg-white h-screen">
-      <Editor />
-    </div>
+    <Layout isProposalEditor>
+      <div className="bg-white h-screen">
+        <Editor />
+      </div>
+    </Layout>
   );
 };
 
