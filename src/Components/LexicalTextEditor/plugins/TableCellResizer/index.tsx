@@ -78,7 +78,7 @@ function TableCellResizer({ editor }: { editor: LexicalEditor }): JSX.Element {
 
         return false;
       },
-      COMMAND_PRIORITY_HIGH
+      COMMAND_PRIORITY_HIGH,
     );
   });
 
@@ -181,7 +181,7 @@ function TableCellResizer({ editor }: { editor: LexicalEditor }): JSX.Element {
         tableRow.setHeight(newHeight);
       });
     },
-    [activeCell, editor]
+    [activeCell, editor],
   );
 
   const updateColumnWidth = useCallback(
@@ -225,7 +225,7 @@ function TableCellResizer({ editor }: { editor: LexicalEditor }): JSX.Element {
         }
       });
     },
-    [activeCell, editor]
+    [activeCell, editor],
   );
 
   const toggleResize = useCallback(
@@ -255,8 +255,8 @@ function TableCellResizer({ editor }: { editor: LexicalEditor }): JSX.Element {
             updateRowHeight(
               Math.max(
                 isShrinking ? height - heightChange : heightChange + height,
-                MIN_ROW_HEIGHT
-              )
+                MIN_ROW_HEIGHT,
+              ),
             );
           } else {
             const widthChange = Math.abs(event.clientX - x);
@@ -266,8 +266,8 @@ function TableCellResizer({ editor }: { editor: LexicalEditor }): JSX.Element {
             updateColumnWidth(
               Math.max(
                 isShrinking ? width - widthChange : widthChange + width,
-                MIN_COLUMN_WIDTH
-              )
+                MIN_COLUMN_WIDTH,
+              ),
             );
           }
 
@@ -287,7 +287,7 @@ function TableCellResizer({ editor }: { editor: LexicalEditor }): JSX.Element {
       resetState,
       updateColumnWidth,
       updateRowHeight,
-    ]
+    ],
   );
 
   const getResizers = useCallback(() => {
@@ -380,12 +380,10 @@ export default function TableCellResizerPlugin(): null | ReactPortal {
   const isEditable = useLexicalEditable();
 
   return useMemo(
-    
     () =>
       isEditable
-
         ? createPortal(<TableCellResizer editor={editor} />, document.body)
         : null,
-    [editor, isEditable]
+    [editor, isEditable],
   );
 }

@@ -23,7 +23,7 @@ const defaultState = {
     id: string,
     name: string,
     type: string,
-    chainInfo: Object
+    chainInfo: Object,
   ) {
     return;
   },
@@ -46,7 +46,7 @@ export const UserContextProvider = ({ children }: Props) => {
     id: string,
     name: string,
     type: string,
-    chainInfo: Object
+    chainInfo: Object,
   ) => {
     if (userToken === "" && userID === "") {
       setUserToken(token);

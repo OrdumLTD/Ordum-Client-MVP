@@ -52,25 +52,22 @@ const CustomModal: React.FC<ModalProps> = (props) => {
   const [modalIsOpen, setIsOpen] = React.useState(false);
 
   useEffect(() => {
-    setIsOpen(props.isOpen)
-  }, [props.isOpen])
+    setIsOpen(props.isOpen);
+  }, [props.isOpen]);
 
   function openModal() {
     setIsOpen(true);
   }
 
-  function afterOpenModal() {
-
-  }
+  function afterOpenModal() {}
 
   function closeModal() {
-    props.handleIsOpen(false)
+    props.handleIsOpen(false);
     setIsOpen(false);
   }
 
   return (
     <div>
-
       <Modal
         isOpen={modalIsOpen}
         onAfterOpen={afterOpenModal}

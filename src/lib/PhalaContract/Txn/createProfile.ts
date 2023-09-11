@@ -32,7 +32,7 @@ export const createTeamApplicantProfile = async (
   categories: Array<Categories> | null,
   chain: Array<Chains>,
   members: Array<[AccountId, MemberRole]> | null,
-  links: Array<string> | null
+  links: Array<string> | null,
 ) => {
   console.log("Profile Creation Initiates");
 
@@ -47,7 +47,7 @@ export const createTeamApplicantProfile = async (
     categories,
     chain,
     members,
-    links
+    links,
   );
 
   // Gas params
@@ -67,7 +67,7 @@ export const createTeamApplicantProfile = async (
     categories,
     chain,
     members,
-    links
+    links,
   );
 
   // Sign and Send
@@ -95,7 +95,7 @@ export const createTeamApplicantProfile = async (
             certificate,
             contract,
             api,
-            name
+            name,
           );
         }
         // events.forEach(({event:{method, section}}) =>{
@@ -108,7 +108,7 @@ export const createTeamApplicantProfile = async (
             profileCreationStatus(true);
           }
         });
-      }
+      },
     );
   } else {
     // Return a state error
@@ -132,7 +132,7 @@ export const createIndividualProfile = async (
   categories: Array<Categories> | null,
   chain: Array<Chains>,
   links: Array<string> | null,
-  role: UserRole
+  role: UserRole,
 ) => {
   // Query txn
   const data = await contract.query.createIndividualProfile(
@@ -143,7 +143,7 @@ export const createIndividualProfile = async (
     categories,
     chain,
     links,
-    role
+    role,
   );
 
   // Gas params
@@ -161,7 +161,7 @@ export const createIndividualProfile = async (
     categories,
     chain,
     links,
-    role
+    role,
   );
 
   // Sign and Send
@@ -170,43 +170,41 @@ export const createIndividualProfile = async (
   if (secret.output.toJSON().valueOf()["ok"]["err"]) {
     console.log("Secret is not registered, Continue");
     txnData.signAndSend(
-        account.address,
-        { signer },
-        async ({ isInBlock, events, isCompleted, isFinalized }) => {
-          if (isInBlock) {
-            console.log("In Block");
-          } else if (isCompleted) {
-            console.log("Completed");
-    
-            console.log("Finalized Applicant Profile Creation");
-    
-            profileCreationStatus(true);
-    
-            // Set the passcode
-            await setPasscode(
-              passcodeStatus,
-              account,
-              signer,
-              certificate,
-              contract,
-              api,
-              name
-            );
-          }
-          // Events
-          events.forEach(({ event: { method, section } }) => {
-            if (method === "ExtrinsicSuccess") {
-              console.log(`✅  Success Individaul Profile Creation`);
-              profileCreationStatus(true);
-            }
-          });
+      account.address,
+      { signer },
+      async ({ isInBlock, events, isCompleted, isFinalized }) => {
+        if (isInBlock) {
+          console.log("In Block");
+        } else if (isCompleted) {
+          console.log("Completed");
+
+          console.log("Finalized Applicant Profile Creation");
+
+          profileCreationStatus(true);
+
+          // Set the passcode
+          await setPasscode(
+            passcodeStatus,
+            account,
+            signer,
+            certificate,
+            contract,
+            api,
+            name,
+          );
         }
-      );
-  } else{
+        // Events
+        events.forEach(({ event: { method, section } }) => {
+          if (method === "ExtrinsicSuccess") {
+            console.log(`✅  Success Individaul Profile Creation`);
+            profileCreationStatus(true);
+          }
+        });
+      },
+    );
+  } else {
     // Return a state error
     console.log("Secret Key is already registered");
     preSecretFetching(true);
   }
-
-
 };

@@ -121,10 +121,14 @@ const AddSkills: React.FC<Props> = (props) => {
         </Button>
 
         <div className=" mt-5 w-full flex flex-col gap-2">
-          <Button primeColor className="text-white" onClick={() =>{
-            props.save(skillList);
-            props.close();
-          }}>
+          <Button
+            primeColor
+            className="text-white"
+            onClick={() => {
+              props.save(skillList);
+              props.close();
+            }}
+          >
             {" "}
             Save{" "}
           </Button>
@@ -132,7 +136,7 @@ const AddSkills: React.FC<Props> = (props) => {
             secondaryColor
             className="text-white"
             onClick={() => {
-              setSkillList([])
+              setSkillList([]);
               setSkillLevel("");
               setSkillname("");
               setDescription("");

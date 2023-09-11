@@ -41,7 +41,7 @@ const Task: React.FC<Props> = (props) => {
 
   const calucalteTotal = (
     costPerHour: number | string,
-    totalCost: number | string
+    totalCost: number | string,
   ) => {
     return +costPerHour * +totalCost;
   };
@@ -260,8 +260,6 @@ const Task: React.FC<Props> = (props) => {
       >
         + Add Task
       </button>
-
-     
     </div>
   );
 };

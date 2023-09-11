@@ -81,14 +81,12 @@ const ActivityPanel: React.FC<Props> = (props) => {
             <span className="mt-2.5">Ordum</span>
           </div>
           <div className="">
-          <div className="w-40 text-center mt-1 bg-[#E7FFDF] py-2 rounded-full text-black">
+            <div className="w-40 text-center mt-1 bg-[#E7FFDF] py-2 rounded-full text-black">
               New Discussion
             </div>
           </div>
           <div className="  flex flex-col">
-            <span className="font-medium text-ordum-grey">
-              ReferendaName
-            </span>
+            <span className="font-medium text-ordum-grey">ReferendaName</span>
             <span className="font-bold">@Username</span>
           </div>
           <button className="basis-1/12 bg-[#467EEE] px-2 rounded-full">
@@ -107,9 +105,7 @@ const ActivityPanel: React.FC<Props> = (props) => {
             </div>
           </div>
           <div className="  flex flex-col">
-            <span className="font-medium text-ordum-grey">
-              Off chain rants
-            </span>
+            <span className="font-medium text-ordum-grey">Off chain rants</span>
             <span className="font-bold">Sumbmiter 00/00/00</span>
           </div>
           <button className="basis-1/12 bg-[#467EEE] px-2 rounded-full">

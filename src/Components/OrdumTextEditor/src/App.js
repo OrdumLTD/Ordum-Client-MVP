@@ -18,7 +18,7 @@ export default function App() {
     <div className="App">
       <h1>Ordum`s Text Editor Example</h1>
       <p>This may look different in the app</p>
-      <Editor/>
+      <Editor />
       {/* <FileUploadDownload onLoad={onLoad} json={json} html={html} templateVariables={templateVariables} /> */}
     </div>
   );

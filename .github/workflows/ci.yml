@@ -2,15 +2,14 @@ name: CI
 
 on:
   push:
-    branches: [ mhl-ordum ]
+    branches: mhl-ordum
   pull_request:
-    branches: [ mhl-ordum ]
+    branches: mhl-ordum
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - run: yarn
+      - uses: actions/checkout@v4
+      - run: yarn

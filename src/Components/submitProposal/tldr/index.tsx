@@ -57,7 +57,7 @@ const SubmitProposalTLDR: React.FC<Props> = (props) => {
     tldr?.projectType,
     tldr?.shortDescription,
     tldr?.startingDate,
-    tldr?.exchangeRate
+    tldr?.exchangeRate,
   );
 
   const handleTLDRchange = changeTLDR;

@@ -60,18 +60,17 @@ const AddSkills: React.FC<Props> = (props) => {
 
         <div className="flex flex-col gap-3">
           <label className="font-semibold">Project Name</label>
-       
-            <input
-              className="text-gray-500 text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
-              placeholder="Eg. React, Figma, Substarate"
-              value={skillName}
-              onChange={(e) => {
-                //@ts-ignore
-                setSkillname(e.target.value);
-              }}
-              type="text"
-            />
-     
+
+          <input
+            className="text-gray-500 text-xs md:text-sm bg-white border border-black rounded pl-2  md:py-2 focus:outline-none"
+            placeholder="Eg. React, Figma, Substarate"
+            value={skillName}
+            onChange={(e) => {
+              //@ts-ignore
+              setSkillname(e.target.value);
+            }}
+            type="text"
+          />
         </div>
 
         <div className="mt-5">
@@ -105,10 +104,14 @@ const AddSkills: React.FC<Props> = (props) => {
         </Button>
 
         <div className=" mt-5 w-full flex flex-col gap-2">
-          <Button primeColor className="text-white" onClick={() =>{
-            props.save(skillList);
-            props.close();
-          }}>
+          <Button
+            primeColor
+            className="text-white"
+            onClick={() => {
+              props.save(skillList);
+              props.close();
+            }}
+          >
             {" "}
             Save{" "}
           </Button>
@@ -116,7 +119,7 @@ const AddSkills: React.FC<Props> = (props) => {
             secondaryColor
             className="text-white"
             onClick={() => {
-              setSkillList([])
+              setSkillList([]);
               setSkillLevel("");
               setSkillname("");
               setDescription("");

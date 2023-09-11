@@ -16,11 +16,11 @@ import { CLEAR_HISTORY_COMMAND } from "lexical";
  */
 export function importFile(editor: LexicalEditor) {
   readTextFileFromSystem((text) => {
-    console.log(text)
+    console.log(text);
     const json = JSON.parse(text);
-    console.log( JSON.stringify(json.editorState))
+    console.log(JSON.stringify(json.editorState));
     const editorState = editor.parseEditorState(
-      JSON.stringify(json.editorState)
+      JSON.stringify(json.editorState),
     );
     editor.setEditorState(editorState);
     editor.dispatchCommand(CLEAR_HISTORY_COMMAND, undefined);
@@ -67,10 +67,10 @@ export function exportFile(
   config: Readonly<{
     fileName?: string;
     source?: string;
-  }> = Object.freeze({})
+  }> = Object.freeze({}),
 ) {
   const now = new Date();
-  const editorState = editor.getEditorState(); 
+  const editorState = editor.getEditorState();
   const documentJSON: DocumentJSON = {
     editorState: editorState,
     lastSaved: now.getTime(),
@@ -110,7 +110,7 @@ export function addFileToState(
   config: Readonly<{
     fileName?: string;
     source?: string;
-  }> = Object.freeze({})
+  }> = Object.freeze({}),
 ) {
   const now = new Date();
   const editorState = editor.getEditorState();
@@ -120,7 +120,7 @@ export function addFileToState(
     lastSaved: now.getTime(),
     source: config.source || "Lexical",
   };
-//  console.log(documentJSON.editorState)
+  //  console.log(documentJSON.editorState)
   const json = JSON.stringify(documentJSON.editorState);
   // console.log(json)
   // const blob = new Blob([json], {
@@ -128,7 +128,6 @@ export function addFileToState(
   // });
   addToState(json);
 }
-
 
 // FIX THIS NOW
 export function readFileFromState(editor: LexicalEditor) {
@@ -144,6 +143,4 @@ export function readFileFromState(editor: LexicalEditor) {
   // }))
 }
 
-function readTextFileFromState(callback: (text: string) => void){
-
-}
+function readTextFileFromState(callback: (text: string) => void) {}

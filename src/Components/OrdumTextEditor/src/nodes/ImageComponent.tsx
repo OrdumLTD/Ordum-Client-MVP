@@ -153,7 +153,7 @@ export default function ImageComponent({
       }
       return false;
     },
-    [isSelected, nodeKey]
+    [isSelected, nodeKey],
   );
 
   const onEnter = useCallback(
@@ -182,7 +182,7 @@ export default function ImageComponent({
       }
       return false;
     },
-    [caption, isSelected, showCaption]
+    [caption, isSelected, showCaption],
   );
 
   const onEscape = useCallback(
@@ -203,7 +203,7 @@ export default function ImageComponent({
       }
       return false;
     },
-    [caption, editor, setSelected]
+    [caption, editor, setSelected],
   );
 
   useEffect(() => {
@@ -220,7 +220,7 @@ export default function ImageComponent({
           activeEditorRef.current = activeEditor;
           return false;
         },
-        COMMAND_PRIORITY_LOW
+        COMMAND_PRIORITY_LOW,
       ),
       editor.registerCommand<MouseEvent>(
         CLICK_COMMAND,
@@ -242,7 +242,7 @@ export default function ImageComponent({
 
           return false;
         },
-        COMMAND_PRIORITY_LOW
+        COMMAND_PRIORITY_LOW,
       ),
       editor.registerCommand(
         DRAGSTART_COMMAND,
@@ -255,20 +255,24 @@ export default function ImageComponent({
           }
           return false;
         },
-        COMMAND_PRIORITY_LOW
+        COMMAND_PRIORITY_LOW,
       ),
       editor.registerCommand(
         KEY_DELETE_COMMAND,
         onDelete,
-        COMMAND_PRIORITY_LOW
+        COMMAND_PRIORITY_LOW,
       ),
       editor.registerCommand(
         KEY_BACKSPACE_COMMAND,
         onDelete,
-        COMMAND_PRIORITY_LOW
+        COMMAND_PRIORITY_LOW,
       ),
       editor.registerCommand(KEY_ENTER_COMMAND, onEnter, COMMAND_PRIORITY_LOW),
-      editor.registerCommand(KEY_ESCAPE_COMMAND, onEscape, COMMAND_PRIORITY_LOW)
+      editor.registerCommand(
+        KEY_ESCAPE_COMMAND,
+        onEscape,
+        COMMAND_PRIORITY_LOW,
+      ),
     );
     return () => {
       isMounted = false;
@@ -297,7 +301,7 @@ export default function ImageComponent({
 
   const onResizeEnd = (
     nextWidth: "inherit" | number,
-    nextHeight: "inherit" | number
+    nextHeight: "inherit" | number,
   ) => {
     // Delay hiding the resize bars for click case
     setTimeout(() => {

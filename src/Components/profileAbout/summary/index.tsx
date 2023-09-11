@@ -1,11 +1,9 @@
-'use client'
+"use client";
 
 import AccountInfo from "./AccountInfo";
 import Mission from "./Mission";
 // import Bio from "@/Components/profileAbout/summary/Bio";
 // import GoverenceActivity from "./governanceActivity";
-
-
 
 export default function Summary() {
   return (
@@ -14,7 +12,7 @@ export default function Summary() {
       <div className="pl-0.5 md:pl-16 flex flex-1 flex-col overflow-y-auto paragraph">
         <AccountInfo />
         {/* <Bio className="mt-8"/> */}
-        <Mission className="mt-8"/>
+        <Mission className="mt-8" />
       </div>
     </div>
   );

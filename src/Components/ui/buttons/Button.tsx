@@ -27,7 +27,7 @@ const Button: React.FC<Button> = ({
   const defineStyle = (style: string) => {
     if (primeColor && secondaryColor) {
       throw new Error(
-        "Button element can have either primeColor and/or a secondaryColor, but not both"
+        "Button element can have either primeColor and/or a secondaryColor, but not both",
       );
     }
 
@@ -40,7 +40,11 @@ const Button: React.FC<Button> = ({
     return style;
   };
 
-  return <button className={defineStyle(btnClass)} onClick={onClick}>{children}</button>;
+  return (
+    <button className={defineStyle(btnClass)} onClick={onClick}>
+      {children}
+    </button>
+  );
 };
 
 export default Button;

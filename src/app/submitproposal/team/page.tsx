@@ -1,11 +1,10 @@
-'use client'
+"use client";
 
 import Layout from "@/Components/ui/Layout";
-import SubmitPropolsalSidePanel from "@/Components/submitProposal/sidePanel"; 
+import SubmitPropolsalSidePanel from "@/Components/submitProposal/sidePanel";
 import SubmitPropolsalTeam from "@/Components/submitProposal/team";
 
 const submitProposalTeam = () => {
-
   return (
     <Layout hideSidePanel>
       <div className="flex">

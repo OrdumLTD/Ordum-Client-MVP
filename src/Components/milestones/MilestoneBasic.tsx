@@ -21,7 +21,10 @@ const MilestoneBasic: React.FC<Props> = (props) => {
       }
     >
       <div className="mt-2 flex flex-col gap-2">
-        <div><span className="font-semibold">Name:</span>  <span className="font-bold text-xl">{props.name}</span></div>
+        <div>
+          <span className="font-semibold">Name:</span>{" "}
+          <span className="font-bold text-xl">{props.name}</span>
+        </div>
         <div>
           <span className="font-bold">Description:</span> {props.description}
         </div>

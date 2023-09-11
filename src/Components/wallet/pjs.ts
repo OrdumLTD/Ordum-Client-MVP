@@ -10,16 +10,16 @@ export const enablePolkadotExtension = async (): Promise<boolean> => {
     const extensions = await web3Enable("Vane Trust");
 
     if (extensions.length === 0) {
-        return false
+      return false;
     }
-    return true
+    return true;
   })();
 
   return enablePolkadotExtensionCache;
 };
 
 export const getSigner = async (
-  account: InjectedAccountWithMeta
+  account: InjectedAccountWithMeta,
 ): Promise<Signer> => {
   await enablePolkadotExtension();
   const { web3FromSource } = await import("@polkadot/extension-dapp");

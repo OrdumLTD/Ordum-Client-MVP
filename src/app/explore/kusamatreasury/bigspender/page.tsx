@@ -27,7 +27,7 @@ const BigSpender: FC = () => {
     fetch(
       "https://api.polkassembly.io/api/v1/listing/on-chain-posts?page=1&proposalType=referendums_v2&listingLimit=1000&trackNo=34&trackStatus=All&sortBy=newest",
       //@ts-ignore
-      requestOptions
+      requestOptions,
     )
       .then((response) => response.text())
       .then((result) => setPolkassemblyProposals(JSON.parse(result).posts))
@@ -35,7 +35,7 @@ const BigSpender: FC = () => {
   };
 
   const bigSpenderSubScan = referendaCtx?.propsals?.filter(
-    (post) => post?.origins === "big_spender"
+    (post) => post?.origins === "big_spender",
   );
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const BigSpender: FC = () => {
 
   polkassemblyProposals?.forEach((item) => {
     const match = subscanProposals?.find(
-      (item2) => item.post_id === item2.referendum_index
+      (item2) => item.post_id === item2.referendum_index,
     );
     if (match) {
       matchedProposals.push({ ...item, ...match });

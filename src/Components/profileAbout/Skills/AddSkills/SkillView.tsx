@@ -1,12 +1,11 @@
 "use client";
 
 type Props = {
-    name: string,
-    level: string
-}
+  name: string;
+  level: string;
+};
 
 const SkillView: React.FC<Props> = (props) => {
-
   return (
     <div>
       <span>Name: {props.name}</span>
@@ -15,4 +14,4 @@ const SkillView: React.FC<Props> = (props) => {
   );
 };
 
-export default SkillView
+export default SkillView;

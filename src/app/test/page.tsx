@@ -45,7 +45,7 @@ const Test = () => {
         "https://kusama.api.subscan.io/api/scan/referenda/referendums",
         raw,
         //@ts-ignore
-        subscanApiHeaders
+        subscanApiHeaders,
       )
       .then((res) => {
         result = res.data.data.count;
@@ -79,7 +79,7 @@ const Test = () => {
             "https://kusama.api.subscan.io/api/scan/referenda/referendums",
             raw,
             //@ts-ignore
-            subscanApiHeaders
+            subscanApiHeaders,
           )
           .then((res) => {
             result = [...result, ...res.data.data.list];
@@ -123,7 +123,9 @@ const Test = () => {
         </button>
       </div>
       <div>Data: </div>
-      {referendaCtx.propsals ? <ul>{referendaCtx.propsals.map(() => 1)}</ul> : null}
+      {referendaCtx.propsals ? (
+        <ul>{referendaCtx.propsals.map(() => 1)}</ul>
+      ) : null}
     </div>
   );
 };

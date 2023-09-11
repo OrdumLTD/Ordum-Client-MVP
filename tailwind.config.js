@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
-const plugin = require('tailwindcss/plugin')
+const plugin = require("tailwindcss/plugin");
 
 module.exports = {
   content: [
@@ -20,7 +20,7 @@ module.exports = {
         "ordum-purple": "#0A1D47",
         "ordum-grey": "#CAC9C9",
         "ordum-light-green": "#E7FFDF",
-        "ordum-light-blue": "#0395C2"
+        "ordum-light-blue": "#0395C2",
       },
     },
   },

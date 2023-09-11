@@ -171,14 +171,14 @@ export const fetchKsmPrice = async () => {
   const url: string =
     "https://api.coingecko.com/api/v3/simple/price?ids=kusama&vs_currencies=usd";
   const price = await fetch(url).catch((err) =>
-    console.log("Failed to fetch KSM price " + err)
+    console.log("Failed to fetch KSM price " + err),
   );
   return price;
 };
 
 export const fetchAcountTokens = async (
   api: ApiPromise,
-  account: AccountId
+  account: AccountId,
 ) => {
   const tokens = await api.query.system.account(account);
   return tokens;

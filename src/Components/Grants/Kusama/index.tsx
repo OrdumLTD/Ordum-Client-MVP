@@ -44,7 +44,7 @@ const GrantPage = () => {
         signer,
         account,
         cache,
-        null // This should be optional account id
+        null, // This should be optional account id
       );
       console.log(profile.output?.toHuman());
     } else {

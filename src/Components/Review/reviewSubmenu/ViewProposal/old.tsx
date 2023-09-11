@@ -58,7 +58,9 @@ const ViewProposal = () => {
           </h3>
         </div>
 
-        <span className="my-8">{context?.ksmImprovements ?? goBackCotext()}</span>
+        <span className="my-8">
+          {context?.ksmImprovements ?? goBackCotext()}
+        </span>
       </div>
 
       <div className="mt-8 flex flex-col gap-4 ">
@@ -68,7 +70,9 @@ const ViewProposal = () => {
           </h3>
         </div>
 
-        <span className="my-8">{context?.targetAudience ?? goBackCotext()}</span>
+        <span className="my-8">
+          {context?.targetAudience ?? goBackCotext()}
+        </span>
       </div>
     </div>
   );

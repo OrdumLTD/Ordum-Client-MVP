@@ -1,11 +1,14 @@
-'use client'
+"use client";
 
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { InjectedAccountWithMeta , InjectedExtension} from "@polkadot/extension-inject/types";
+import {
+  InjectedAccountWithMeta,
+  InjectedExtension,
+} from "@polkadot/extension-inject/types";
 import OrdumPreview from "@/Components/preview";
 
-import '@polkadot/api-augment/kusama';
+import "@polkadot/api-augment/kusama";
 import { useProposalContext } from "@/Context/submitPropolsal";
 import { useWalletContext } from "@/Context/WalletStore";
 import { PreimageAndReferendum } from "@/lib/Kusama/Txn/submitReferenda";
@@ -18,9 +21,10 @@ type Props = {
 const SubmitPropolsalPreview: React.FC<Props> = (props) => {
   const [hash, setHash] = useState<string>();
   // Context
-  const {changeToStep, setProposalIndex,proposalIndex,tldr,context} =  useProposalContext();
-  const {account,signer} = useWalletContext();
-  const {api,fetchChainApi} = useChainApiContext();
+  const { changeToStep, setProposalIndex, proposalIndex, tldr, context } =
+    useProposalContext();
+  const { account, signer } = useWalletContext();
+  const { api, fetchChainApi } = useChainApiContext();
 
   const router = useRouter();
 
@@ -29,22 +33,18 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
     router.push(route);
   };
 
-  useEffect(()=>{
-    if(!api){
-      fetchChainApi()
+  useEffect(() => {
+    if (!api) {
+      fetchChainApi();
     }
-  },[])
-
+  }, []);
 
   // callBack fn
-  const fetchIndex = (index:number) =>[
-    setProposalIndex(index)
-  ]
+  const fetchIndex = (index: number) => [setProposalIndex(index)];
 
   // Referenda Test
   const submit = async () => {
-    
-    if(tldr?.fundingAmount && tldr.recieveDate){
+    if (tldr?.fundingAmount && tldr.recieveDate) {
       const rate = tldr.exchangeRate || 24;
       await PreimageAndReferendum(
         fetchIndex,
@@ -54,12 +54,16 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
         tldr.fundingAmount,
         tldr.beneficiary,
         api,
-        tldr.recieveDate
-      )
-    }else{
-      console.log("Missing some field Funding "+ tldr?.fundingAmount + "ReceiveData "+ tldr?.recieveDate)
+        tldr.recieveDate,
+      );
+    } else {
+      console.log(
+        "Missing some field Funding " +
+          tldr?.fundingAmount +
+          "ReceiveData " +
+          tldr?.recieveDate,
+      );
     }
-   
   };
 
   return (
@@ -67,10 +71,9 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
       <div className="w-full flex flex-col">
         Preview
         {/* Context */}
-        
         <div className="mt-10 ">
           <OrdumPreview
-          //@ts-ignore
+            //@ts-ignore
             teamName={tldr?.teamName}
             //@ts-ignore
             propolsalName={tldr?.propolsalName}
@@ -90,7 +93,6 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
             solution={context?.goal}
             ifYouHaveSeenSimilar={tldr?.whyDifferentDescription}
           />
-
         </div>
         <div className="mt-10 flex flex-col gap-4">
           {/* Buttons and whatnot */}
@@ -100,7 +102,7 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
           <button
             className="bg-ordum-purple text-white py-2 md:py-4 rounded"
             onClick={() => {
-              submit()
+              submit();
             }}
           >
             Submit

@@ -12,7 +12,12 @@ type Props = {
 
 const TaskPreview: React.FC<Props> = (props) => {
   return (
-    <div className={"border border-white rounded-full w-7/12 px-1.5 py-0.5  backdrop-blur-sm bg-white/30 " + props.className}>
+    <div
+      className={
+        "border border-white rounded-full w-7/12 px-1.5 py-0.5  backdrop-blur-sm bg-white/30 " +
+        props.className
+      }
+    >
       <div className="flex justify-between">
         <div className="m-2 flex gap-1">
           <div>
@@ -21,8 +26,12 @@ const TaskPreview: React.FC<Props> = (props) => {
           </div>
         </div>
         <div className="self-center mr-2 flex gap-4">
-            <button className="p-2 rounded-xl bg-ordum-blue underline">Edit</button>
-            <button className="p-2 rounded-xl bg-ordum-blue underline">Remove</button>
+          <button className="p-2 rounded-xl bg-ordum-blue underline">
+            Edit
+          </button>
+          <button className="p-2 rounded-xl bg-ordum-blue underline">
+            Remove
+          </button>
         </div>
       </div>
     </div>

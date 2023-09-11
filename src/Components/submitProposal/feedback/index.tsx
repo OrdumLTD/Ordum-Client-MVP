@@ -1,17 +1,15 @@
-'use client';
+"use client";
 
 import Image from "next/image";
 
 import { useContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { ApiPromise, Keyring, WsProvider } from '@polkadot/api';
-import '@polkadot/types-augment/registry/kusama'
-import '@polkadot/types-augment/lookup/types-kusama'
-import * as kTypes from '@polkadot/types-augment/lookup/kusama';
+import { ApiPromise, Keyring, WsProvider } from "@polkadot/api";
+import "@polkadot/types-augment/registry/kusama";
+import "@polkadot/types-augment/lookup/types-kusama";
+import * as kTypes from "@polkadot/types-augment/lookup/kusama";
 
-
-
-import '@polkadot/api-augment/kusama';
+import "@polkadot/api-augment/kusama";
 import { useWalletContext } from "@/Context/WalletStore";
 import { useProposalContext } from "@/Context/submitPropolsal";
 
@@ -25,14 +23,9 @@ type Props = {
 //api.tx.send()
 
 const SubmitPropolsalFeedback: React.FC<Props> = (props) => {
-  const {changeToStep} = useProposalContext();
+  const { changeToStep } = useProposalContext();
   const router = useRouter();
 
-
-  
-
-
-   
   //-------------------**------------------------------------------------//
   const changePropolsalSubPage = async (step: number, route: string) => {
     changeToStep(step);
@@ -67,10 +60,7 @@ const SubmitPropolsalFeedback: React.FC<Props> = (props) => {
           {/* ToDo Indexing on the menu show Context, even after weswitch to Problem Solution */}
           {/* Where to go from here? */}
           <div className="mt-10 flex flex-col gap-4">
-            <button
-              className="bg-black text-white py-2 md:py-4"
-              
-            >
+            <button className="bg-black text-white py-2 md:py-4">
               Submit Discussion
             </button>
             <button

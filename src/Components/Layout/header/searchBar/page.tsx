@@ -1,8 +1,8 @@
-'use client'
+"use client";
 
-import SearchIcon from '@mui/icons-material/Search';
+import SearchIcon from "@mui/icons-material/Search";
 
-import Image from "next/image"
+import Image from "next/image";
 
 function SearchBar() {
   return (
@@ -10,7 +10,7 @@ function SearchBar() {
       <form>
         <label className="relative block">
           <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-            <SearchIcon/>
+            <SearchIcon />
           </span>
           <input
             className="w-full bg-white placeholder:font-italitc border border-black rounded-full py-2 pl-10 pr-4 focus:outline-none"

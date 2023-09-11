@@ -1,4 +1,4 @@
-'use client'
+"use client";
 /**
  * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
@@ -7,7 +7,7 @@
  *
  */
 
-import * as React from 'react';
+import * as React from "react";
 import {
   createContext,
   ReactNode,
@@ -15,7 +15,7 @@ import {
   useEffect,
   useMemo,
   useState,
-} from 'react';
+} from "react";
 
 type Suggestion = null | string;
 type CallbackFn = (newSuggestion: Suggestion) => void;

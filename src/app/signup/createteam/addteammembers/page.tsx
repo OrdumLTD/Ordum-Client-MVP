@@ -14,21 +14,17 @@ import { useWalletContext } from "@/Context/WalletStore";
 import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
 import { useChainApiContext } from "@/Context/ChainApiStore";
 
-
 // Antd
-import type { NotificationPlacement } from 'antd/es/notification/interface';
-import { Space, notification } from 'antd';
+import type { NotificationPlacement } from "antd/es/notification/interface";
+import { Space, notification } from "antd";
 import { useContract, useEventSubscription, useEvents } from "useink";
-import { SmileOutlined,CheckCircleTwoTone } from '@ant-design/icons';
+import { SmileOutlined, CheckCircleTwoTone } from "@ant-design/icons";
 //
-import ordumJson from "../../../../lib/PhalaContract/Utils/ordum.json"
+import ordumJson from "../../../../lib/PhalaContract/Utils/ordum.json";
 import { getTeamApplicant } from "@/lib/PhalaContract/Query";
 import { getPasscode } from "@/lib/AntaLite/dbAuth";
 
 const AddTeamMembers = () => {
-
-
-
   // console.log("Test Contracts Events");
   // allContractEvents.map(event => {
   //   console.log(event.name)
@@ -42,18 +38,15 @@ const AddTeamMembers = () => {
   const userCtx = useUserContext();
   const { poc5 } = useChainApiContext();
 
-
   const [profileCreation, setProfileCreation] = useState(false);
   const [passkeyStatus, setPasskeyStatus] = useState(false);
-  const [ secretError, setSecretError] = useState<string>("");
+  const [secretError, setSecretError] = useState<string>("");
   const [preSecretfetching, setPreSecretFetching] = useState<boolean>(false);
   const [teamMembers, setTeamMembers] = useState<any[]>([]);
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [role, setRole] = useState<MemberRole>(null);
   const [dBStatus, setDbStatus] = useState<number>();
-
-
 
   useEffect(() => {}, [profileCreation]);
 
@@ -84,25 +77,22 @@ const AddTeamMembers = () => {
   };
 
   const createUser = async () => {
-
     // Fetch the team profile if its there instruct the user to log in, if not continue
-    const returnedTeam =  await getTeamApplicant(
+    const returnedTeam = await getTeamApplicant(
       contractApi,
       poc5,
       signer,
       account,
       cache,
-      null
+      null,
     );
 
-    if(returnedTeam.output.toJSON().valueOf()["ok"]["ok"]){
-        console.log("Account is there")
-        setSecretError("Log In to Access your account")
-        errorNotification("error")
-
-    }else{
-
-      console.log(" Account is not there")
+    if (returnedTeam.output.toJSON().valueOf()["ok"]["ok"]) {
+      console.log("Account is there");
+      setSecretError("Log In to Access your account");
+      errorNotification("error");
+    } else {
+      console.log(" Account is not there");
       addTeamMembersToState();
       if (account && signer && cache && contractApi && poc5) {
         await createTeamApplicantProfile(
@@ -121,22 +111,18 @@ const AddTeamMembers = () => {
           profileData.projectType,
           profileData.residentChain,
           profileData.teamMembers,
-          profileData.links
+          profileData.links,
         );
-  
       } else {
         console.log("Missing some params in Creation of Applicant");
         console.log(
-          `Account: ${account} \n Signer: ${signer} \n Cache: ${cache} \n ContractApi ${contractApi} Api ${poc5}`
+          `Account: ${account} \n Signer: ${signer} \n Cache: ${cache} \n ContractApi ${contractApi} Api ${poc5}`,
         );
       }
     }
-
-
-
   };
 
-  type NotificationType = 'success' | 'info' | 'warning' | 'error';
+  type NotificationType = "success" | "info" | "warning" | "error";
 
   const [api, contextHolder] = notification.useNotification();
 
@@ -145,15 +131,17 @@ const AddTeamMembers = () => {
     api.error({
       message: "Please",
       description: "Account is possibly registered please log in",
-      btn: <button
-            onClick={() => router.push("/")}
-            className="rounded-full py-2 bg-ordum-purple text-white w-20">
-            Log In
-          </button>,
+      btn: (
+        <button
+          onClick={() => router.push("/")}
+          className="rounded-full py-2 bg-ordum-purple text-white w-20"
+        >
+          Log In
+        </button>
+      ),
       duration: null,
-      icon: <SmileOutlined style={{ color: '#108ee9' }} />,
+      icon: <SmileOutlined style={{ color: "#108ee9" }} />,
     });
-    
   };
 
   // Notification for sucess
@@ -162,43 +150,38 @@ const AddTeamMembers = () => {
     api.error({
       message: "Congratulations",
       description: text,
-      duration:6,
-      icon: <CheckCircleTwoTone />
+      duration: 6,
+      icon: <CheckCircleTwoTone />,
     });
-    
   };
 
   const dbErrorNotification = (placement: NotificationType, text: string) => {
     api.error({
       message: "Unexpected Error",
       description: text,
-      duration:6
+      duration: 6,
     });
-    
   };
 
-  useMemo(()=>{
-    if(profileCreation){
-      successNotification("success","Profile Registered On-Chain");
+  useMemo(() => {
+    if (profileCreation) {
+      successNotification("success", "Profile Registered On-Chain");
     }
-    
-  },[profileCreation])
+  }, [profileCreation]);
 
-  useMemo(()=>{
-    if(dBStatus === 201){
-      successNotification("success","All Done! Welcome")
-    }else{
-      dbErrorNotification("error","Something went wrong!!")
+  useMemo(() => {
+    if (dBStatus === 201) {
+      successNotification("success", "All Done! Welcome");
+    } else {
+      dbErrorNotification("error", "Something went wrong!!");
     }
-    
-  },[dBStatus ])
+  }, [dBStatus]);
 
-  useMemo(()=>{
-    if(preSecretfetching){
-      errorNotification("error")
+  useMemo(() => {
+    if (preSecretfetching) {
+      errorNotification("error");
     }
-    
-  },[preSecretfetching ])
+  }, [preSecretfetching]);
 
   const removeTeamMember = (i: number) => {
     let newTeamMembers = [...teamMembers];
@@ -206,64 +189,66 @@ const AddTeamMembers = () => {
     setTeamMembers(newTeamMembers);
   };
 
+  useMemo(async () => {
+    console.log("Db section");
+    console.log("passKeyStatus Outer: " + passkeyStatus);
 
- 
-  
-  useMemo(async() =>{
-    console.log("Db section")
-    console.log("passKeyStatus Outer: "+ passkeyStatus)
-
-    if ( passkeyStatus) {
-
-      console.log("passKeyStatus Inner: "+ passkeyStatus)
+    if (passkeyStatus) {
+      console.log("passKeyStatus Inner: " + passkeyStatus);
       console.log("Secret Inner \n");
 
-      const secret = await getPasscode(contractApi,poc5,signer,account,cache);
+      const secret = await getPasscode(
+        contractApi,
+        poc5,
+        signer,
+        account,
+        cache,
+      );
 
       console.log("secret outer \n");
       console.log(secret.output.toJSON().valueOf()["ok"]);
 
-      if( secret.output.toJSON().valueOf()["ok"]["ok"]){
-        
-          const secretInner = secret.output.toJSON().valueOf()["ok"]["ok"];
-          console.log("secretInner \n")
-          console.log(secretInner);
-    
-          axios
-            // .post("http://localhost:4000/organizations", {
-            .post("https://ordum-mvp-api-9de49c774d76.herokuapp.com/organizations", {
+      if (secret.output.toJSON().valueOf()["ok"]["ok"]) {
+        const secretInner = secret.output.toJSON().valueOf()["ok"]["ok"];
+        console.log("secretInner \n");
+        console.log(secretInner);
+
+        axios
+          // .post("http://localhost:4000/organizations", {
+          .post(
+            "https://ordum-mvp-api-9de49c774d76.herokuapp.com/organizations",
+            {
               name: secretInner[0],
               passkey: secretInner[1],
-            })
-            // if succsful it will return a token
-            .then((res) => {
-              console.log("Db User Return : \n");
-              console.log(res.data);
-              console.log(res.status)
-              setDbStatus(res.status)
-      
-              userCtx.logInUser(res.data?.token, res.data?.toSend?._id, secretInner[1],UserRole.applicant, secret.output.toJSON().valueOf()["ok"]);
-            })
-            .catch((e) => console.log(e));
-        }
-    
-      }else{
-        console.log("Something went wrong fetching token")
-        dbErrorNotification("error","Something went wrong!!")
-      }
-      
-      
-  },[passkeyStatus])
+            },
+          )
+          // if succsful it will return a token
+          .then((res) => {
+            console.log("Db User Return : \n");
+            console.log(res.data);
+            console.log(res.status);
+            setDbStatus(res.status);
 
+            userCtx.logInUser(
+              res.data?.token,
+              res.data?.toSend?._id,
+              secretInner[1],
+              UserRole.applicant,
+              secret.output.toJSON().valueOf()["ok"],
+            );
+          })
+          .catch((e) => console.log(e));
+      }
+    } else {
+      console.log("Something went wrong fetching token");
+      dbErrorNotification("error", "Something went wrong!!");
+    }
+  }, [passkeyStatus]);
 
   return (
     <div className="grid h-screen place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-cover text-sm md:text-base">
-      <div>
-      {
-        contextHolder
-      }
-      </div>
-      
+      <div>{contextHolder}</div>
+
       <div
         className="
        my-10 xl:my-28
@@ -391,7 +376,7 @@ const AddTeamMembers = () => {
             w-full
             flex flex-col gap-4"
           >
-            {(profileCreation && dBStatus === 201)? (
+            {profileCreation && dBStatus === 201 ? (
               <button
                 onClick={() => router.push("/home")}
                 className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl"
@@ -409,8 +394,7 @@ const AddTeamMembers = () => {
               </button>
             )}
 
-            <button
-             className="rounded-full py-2.5 md:py-3 bg-ordum-purple font-semibold shadow-md shadow-md hover:shadow-2xl">
+            <button className="rounded-full py-2.5 md:py-3 bg-ordum-purple font-semibold shadow-md shadow-md hover:shadow-2xl">
               Back
             </button>
           </div>

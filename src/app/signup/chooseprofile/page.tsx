@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -9,11 +9,8 @@ import { useChainApiContext } from "@/Context/ChainApiStore";
 import { useRouter } from "next/navigation";
 import { onSignCertificate } from "@/lib/PhalaContract/Utils/phalaCertificate";
 
-
-
 const ChooseProfile = () => {
-  const router =useRouter();
-  
+  const router = useRouter();
 
   return (
     <div className="grid h-screen place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-cover text-sm md:text-base">
@@ -35,12 +32,10 @@ const ChooseProfile = () => {
               Anon (comming soon)
             </button>
             <Link href="/signup/chooseprofile/2">
-              <button
-              className="font-medium w-[5rem] sm:w-[8rem] md:w-[12rem] xl:w-[16rem] 2xl:w-[20rem] rounded-full py-2.5 bg-[#0A1D47] shadow-md hover:bg-ordum-blue shadow-md hover:shadow-2xl">
+              <button className="font-medium w-[5rem] sm:w-[8rem] md:w-[12rem] xl:w-[16rem] 2xl:w-[20rem] rounded-full py-2.5 bg-[#0A1D47] shadow-md hover:bg-ordum-blue shadow-md hover:shadow-2xl">
                 Create Profile
               </button>
             </Link>
-            
           </div>
 
           <div></div>

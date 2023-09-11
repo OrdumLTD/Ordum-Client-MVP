@@ -2,8 +2,6 @@ import { useUserContext } from "@/Context/user";
 import { useProposalContext } from "@/Context/submitPropolsal";
 
 const Summary = () => {
-
-
   return (
     <div>
       <div className="mt-8 flex gap-4">

@@ -23,7 +23,6 @@ const OrdumPreview: React.FC<Props> = (props) => {
   return (
     <div className="flex flex-col">
       <div className="">
-
         <h1 className="font-bold text-4xl">
           Name of prop Name of prop Name of prop{" "}
         </h1>

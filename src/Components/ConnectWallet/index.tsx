@@ -97,7 +97,15 @@ function ConnectWallet() {
             <button>
               <Link href="/sign-in">Wallet Connect</Link>
             </button>
-            <p>Or try the <Link href="https://polkadot.js.org/extension/" className="underlie">PJS extenson</Link></p>
+            <p>
+              Or try the{" "}
+              <Link
+                href="https://polkadot.js.org/extension/"
+                className="underlie"
+              >
+                PJS extenson
+              </Link>
+            </p>
           </h1>
         )}
       </div>

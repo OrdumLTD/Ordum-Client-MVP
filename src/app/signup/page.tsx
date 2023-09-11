@@ -30,7 +30,6 @@ const SignUp = () => {
         <div className="grid place-items-center">
           <div className="text-lg md:text-3xl font-base mt-5">Sign Up</div>
           <div className="mt-5 w-full grid gap-4">
-
             <ConnectWallet />
 
             <Link href={"/signup/chooseprofile"}>

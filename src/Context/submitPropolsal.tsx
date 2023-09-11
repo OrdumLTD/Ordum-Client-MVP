@@ -160,8 +160,9 @@ export const ProposalContextProvider = ({ children }: Props) => {
   const [propolsalContext, setPropolsalContext] = useState<context>();
   const [readyToSubmit, setReadyToSubmit] = useState<boolean>(false);
   const [contextProposal, setProposalContext] = useState<object>({
-    editorState:'{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
-});
+    editorState:
+      '{"root":{"children":[{"children":[],"direction":null,"format":"","indent":0,"type":"paragraph","version":1}],"direction":null,"format":"","indent":0,"type":"root","version":1}}',
+  });
 
   const changeTLDR = (itemToChange: tldr) => {
     setTldr({ ...tldr, ...itemToChange });
@@ -172,7 +173,7 @@ export const ProposalContextProvider = ({ children }: Props) => {
   };
 
   const changeProposalContext = (proposal: object) => {
-    setProposalContext({editorState: proposal});
+    setProposalContext({ editorState: proposal });
   };
 
   const changeMilestones = (itemsToChange: any) => {

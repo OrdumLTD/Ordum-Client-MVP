@@ -125,12 +125,12 @@ const defaultFetchedProfile: FetchedProfile = {
 };
 
 const FetchedProfileContext = createContext<FetchedProfile>(
-  defaultFetchedProfile
+  defaultFetchedProfile,
 );
 
 export const FetchedProfileContextProvider = ({ children }: Props) => {
   const [profileData, setProfileData] = useState<TeamApplicantProfile>(
-    defaultFetchedProfileData
+    defaultFetchedProfileData,
   );
   const [fetchedStatus, setFetchedStatus] = useState<boolean>(false);
 
@@ -193,12 +193,12 @@ const defaultIndividualProfile: createIndividualProfile = {
 };
 
 const IndividualProfileContext = createContext<createIndividualProfile>(
-  defaultIndividualProfile
+  defaultIndividualProfile,
 );
 
 export const IndividualProfileContextProvider = ({ children }: Props) => {
   const [profileData, setProfileData] = useState<createIndividualData>(
-    defaultIndividualData
+    defaultIndividualData,
   );
   const [creationStatus, setCreationStatus] = useState<boolean>(false);
 
@@ -258,14 +258,14 @@ const defaultFetchedIndividualProfile: FetchedIndividualProfile = {
 };
 
 const FetchedIndividualProfileContext = createContext<FetchedIndividualProfile>(
-  defaultFetchedIndividualProfile
+  defaultFetchedIndividualProfile,
 );
 
 export const FetchedIndividualProfileContextProvider = ({
   children,
 }: Props) => {
   const [profileData, setProfileData] = useState<IndividualProfile>(
-    defaultFetchedIndividualProfileData
+    defaultFetchedIndividualProfileData,
   );
   const [fetchedStatus, setFetchedStatus] = useState<boolean>(false);
 
@@ -317,7 +317,7 @@ const defaultApplicantNameNId: ApplicantNameNId = {
 };
 
 const ApplicantNameNIdContext = createContext<ApplicantNameNId>(
-  defaultApplicantNameNId
+  defaultApplicantNameNId,
 );
 
 export const ApplicantNameNIdContextProvider = ({ children }: Props) => {
@@ -357,7 +357,7 @@ const defaultIndividualNameNId: IndividualNameNId = {
 };
 
 const IndividualNameNIdContext = createContext<IndividualNameNId>(
-  defaultIndividualNameNId
+  defaultIndividualNameNId,
 );
 
 export const IndidvualNameNIdContextProvider = ({ children }: Props) => {
