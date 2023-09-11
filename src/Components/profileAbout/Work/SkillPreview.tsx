@@ -12,9 +12,8 @@ const SkillPreview: React.FC<Props> = (props) => {
   const [userSkills, setSkills] = useState<any[]>(props.skills);
 
   useEffect(() => {
-    setSkills(props.skills)
-  }, [props.skills])
-
+    setSkills(props.skills);
+  }, [props.skills]);
 
   return (
     <ul className="w-full">
@@ -34,7 +33,6 @@ const SkillPreview: React.FC<Props> = (props) => {
                     className="bg-red-500 px-4 rounded"
                     onClick={() => {
                       props.remove(index);
-                
                     }}
                   >
                     Remove

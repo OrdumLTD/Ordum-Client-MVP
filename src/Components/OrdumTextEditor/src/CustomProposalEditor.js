@@ -75,7 +75,7 @@ export default function Editor() {
     <LexicalComposer
       initialConfig={{
         ...editorConfig,
-        editorState: contextProposal.editorState
+        editorState: contextProposal.editorState,
       }}
     >
       <ActionsPlugin isRichText={true} trigger={trigger} />

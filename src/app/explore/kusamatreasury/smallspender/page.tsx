@@ -2,7 +2,6 @@
 import ProposalPreview from "@/Components/proposalExplorer/ProposalPreview";
 import Layout from "@/Components/ui/Layout";
 
-
 import { usePolkassemblyContext } from "@/Context/PolkassembyContext";
 import { useReferendaContext } from "@/Context/ReferendaContext";
 import React, { FC, useEffect, useState } from "react";
@@ -28,7 +27,7 @@ const SmallSpender: FC = () => {
     fetch(
       "https://api.polkassembly.io/api/v1/listing/on-chain-posts?page=1&proposalType=referendums_v2&listingLimit=1000&trackNo=32&trackStatus=All&sortBy=newest",
       //@ts-ignore
-      requestOptions
+      requestOptions,
     )
       .then((response) => response.text())
       .then((result) => setPolkassemblyProposals(JSON.parse(result).posts))
@@ -36,7 +35,7 @@ const SmallSpender: FC = () => {
   };
 
   const smallSpenderSubScan = referendaCtx?.propsals?.filter(
-    (post) => post?.origins === "small_spender"
+    (post) => post?.origins === "small_spender",
   );
 
   useEffect(() => {
@@ -52,7 +51,7 @@ const SmallSpender: FC = () => {
 
   polkassemblyProposals?.forEach((item) => {
     const match = subscanProposals?.find(
-      (item2) => item.post_id === item2.referendum_index
+      (item2) => item.post_id === item2.referendum_index,
     );
     if (match) {
       matchedProposals.push({ ...item, ...match });

@@ -21,7 +21,7 @@ import type { NotificationPlacement } from "antd/es/notification/interface";
 import { Space, notification } from "antd";
 import { useContract, useEventSubscription, useEvents } from "useink";
 import { SmileOutlined, CheckCircleTwoTone } from "@ant-design/icons";
-import { Spin } from 'antd';
+import { Spin } from "antd";
 //
 import ordumJson from "@/lib/PhalaContract/Utils/ordum.json";
 import { getIndividual } from "@/lib/PhalaContract/Query";
@@ -67,7 +67,6 @@ const CreateIndividualProfile = () => {
   const [secretError, setSecretError] = useState<string>("");
   const [preSecretfetching, setPreSecretFetching] = useState<boolean>(false);
   const [dBStatus, setDbStatus] = useState<number>();
-  
 
   const [projectType, setProjectType] = useState<Categories>(null);
   const [projects, setProjects] = useState<Categories[]>([]);
@@ -149,7 +148,7 @@ const CreateIndividualProfile = () => {
       signer,
       account,
       cache,
-      null
+      null,
     );
 
     if (returnedTeam.output.toJSON().valueOf()["ok"]["ok"]) {
@@ -173,12 +172,12 @@ const CreateIndividualProfile = () => {
           profileData.projectType,
           profileData.residentChain,
           profileData.links,
-          UserRole.applicant
+          UserRole.applicant,
         );
       } else {
         console.log("Missing some params in Creation of Applicant");
         console.log(
-          `Account: ${account} \n Signer: ${signer} \n Cache: ${cache} \n ContractApi ${contractApi} Api ${poc5}`
+          `Account: ${account} \n Signer: ${signer} \n Cache: ${cache} \n ContractApi ${contractApi} Api ${poc5}`,
         );
       }
     }
@@ -224,7 +223,6 @@ const CreateIndividualProfile = () => {
     });
   };
 
-
   useMemo(() => {
     if (profileCreation) {
       successNotification("success", "Profile Registered On-Chain");
@@ -256,7 +254,7 @@ const CreateIndividualProfile = () => {
         poc5,
         signer,
         account,
-        cache
+        cache,
       );
 
       console.log("secret outer \n");
@@ -274,7 +272,7 @@ const CreateIndividualProfile = () => {
             {
               name: secretInner[0],
               passkey: secretInner[1],
-            }
+            },
           )
           // if succsful it will return a token
           .then((res) => {
@@ -288,7 +286,7 @@ const CreateIndividualProfile = () => {
               res.data?.toSend?._id,
               secretInner[1],
               UserRole.applicant,
-              {}
+              {},
             );
           })
           .catch((e) => console.log(e));
@@ -298,8 +296,6 @@ const CreateIndividualProfile = () => {
       dbErrorNotification("error", "Something went wrong!!");
     }
   }, [passkeyStatus]);
-
- 
 
   return (
     <div className="grid place-items-center text-sm sm:text-base bg-[url('/background/grain-cover.png')] bg-contain text-sm md:text-base">
@@ -578,12 +574,8 @@ const CreateIndividualProfile = () => {
               >
                 Create Profile
               </button>
-
-            ) : 
-
-            (
+            ) : (
               <button className="rounded-full py-2.5 md:py-3 bg-ordum-blue font-semibold shadow-md shadow-xl hover:shadow-2xl">
-                
                 Go to Dashboard
               </button>
             )}

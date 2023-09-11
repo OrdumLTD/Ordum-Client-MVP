@@ -4,7 +4,6 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;700;900&display=swap");
 
-
 /* TitTap Editor Design */
 .ProseMirror {
   padding: 10px;
@@ -77,7 +76,7 @@
   border: 1px solid grey;
 }
 .menuBar {
-    background-color: #fff;
+  background-color: #fff;
   padding-bottom: 5px;
   display: flex;
   align-items: center;

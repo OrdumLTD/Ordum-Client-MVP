@@ -1,11 +1,11 @@
 import ActivityPanel from "../AcitivityPanel";
 
 type Props = {
-    activeGrants: number;
-    nextDeadline?: string | undefined;
-    pendingGrants: number;
-    className?: string;
-  };
+  activeGrants: number;
+  nextDeadline?: string | undefined;
+  pendingGrants: number;
+  className?: string;
+};
 
 const TeamDashboard: React.FC<Props> = (props) => {
   return (
@@ -17,8 +17,12 @@ const TeamDashboard: React.FC<Props> = (props) => {
         flex flex-col
         "
         >
-          <span className="text-[#A0AEC0] font-semibold w-[8rem]">Active Grants</span>
-          <span className="self-center">{props.activeGrants ? props.activeGrants : 0}</span>
+          <span className="text-[#A0AEC0] font-semibold w-[8rem]">
+            Active Grants
+          </span>
+          <span className="self-center">
+            {props.activeGrants ? props.activeGrants : 0}
+          </span>
         </div>
         <div
           className="border border-teal-800 border-2 py-4 px-28 
@@ -26,8 +30,12 @@ const TeamDashboard: React.FC<Props> = (props) => {
         flex flex-col
         "
         >
-          <span className="text-[#A0AEC0] font-semibold w-[8rem]">Next Deadline</span>
-          <span className="self-center">{props.nextDeadline ? props.nextDeadline : "N/A"}</span>
+          <span className="text-[#A0AEC0] font-semibold w-[8rem]">
+            Next Deadline
+          </span>
+          <span className="self-center">
+            {props.nextDeadline ? props.nextDeadline : "N/A"}
+          </span>
         </div>
         <div
           className="border border-teal-800 border-2 py-4 px-28 
@@ -35,15 +43,19 @@ const TeamDashboard: React.FC<Props> = (props) => {
         flex flex-col
         "
         >
-          <span className="text-[#A0AEC0] font-semibold w-[8rem]">Pending Grants</span>
-          <span className="self-center">{props.pendingGrants ? props.pendingGrants : 0}</span>
+          <span className="text-[#A0AEC0] font-semibold w-[8rem]">
+            Pending Grants
+          </span>
+          <span className="self-center">
+            {props.pendingGrants ? props.pendingGrants : 0}
+          </span>
         </div>
       </div>
       <div className="mt-8">
-      <ActivityPanel />
+        <ActivityPanel />
       </div>
     </div>
-  )
+  );
 };
 
 export default TeamDashboard;

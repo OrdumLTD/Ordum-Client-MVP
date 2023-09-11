@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { useReferendaContext } from "@/Context/ReferendaContext";
 import axios from "axios";
 
-
 import subscanApiHeaders from "@/global/subscanHeader";
 import ExploreContent from "@/Components/explore/exploreContent";
 import Layout from "../../Components/ui/Layout";
@@ -14,8 +13,6 @@ enum About {
   Web3Fundation,
   Kusama,
 }
-
-
 
 const Explore = () => {
   const [aboutMenu, setAboutMenu] = useState(About.Web3Fundation);
@@ -33,7 +30,7 @@ const Explore = () => {
         "https://kusama.api.subscan.io/api/scan/referenda/referendums",
         raw,
         // @ts-ignore
-        subscanApiHeaders
+        subscanApiHeaders,
       )
       .then((res) => {
         result = res.data.data.count;
@@ -44,15 +41,15 @@ const Explore = () => {
       });
     return result;
   };
-  
+
   const getAllReferenda = async (count: number) => {
     let result = [];
-  
+
     //Subscan use pagination - 100 rows per page
     const rows = 100;
     const reminder = count % 100;
     const numberOfPages = (count - reminder) / rows;
-  
+
     const populateReferendaContext = async () => {
       for (let i = numberOfPages + 1; i > 0; i--) {
         const raw = JSON.stringify({
@@ -64,7 +61,7 @@ const Explore = () => {
             "https://kusama.api.subscan.io/api/scan/referenda/referendums",
             raw,
             // @ts-ignore
-            subscanApiHeaders
+            subscanApiHeaders,
           )
           .then((res) => {
             result = [...result, ...res.data.data.list];
@@ -84,14 +81,14 @@ const Explore = () => {
       referendaCtx.addProposals(proposals);
       // console.log(proposals)
     };
-  
+
     populateReferendaContext();
   };
 
   useEffect(() => {
-    console.log('use effect eplore')
-    getReferendumCount().then((res) => getAllReferenda(res))
-   }, [])
+    console.log("use effect eplore");
+    getReferendumCount().then((res) => getAllReferenda(res));
+  }, []);
 
   return (
     <Layout title="Explore Grants">

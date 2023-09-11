@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image"
+import Image from "next/image";
 
 import MailIcon from "@mui/icons-material/Mail";
 import GitHub from "@/assets/svg-icons/github.png";
@@ -9,7 +9,6 @@ import TwitterIcon from "@mui/icons-material/Twitter";
 import Matrix from "@/assets/svg-icons/matrix.png";
 import LanguageIcon from "@mui/icons-material/Language";
 import GitHubIcon from "@mui/icons-material/GitHub";
-
 
 export default function TeamMember() {
   return (

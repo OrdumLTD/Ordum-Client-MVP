@@ -31,15 +31,18 @@ const Layout: React.FC<Props> = (props) => {
 
   console.log(pathName);
 
-  if(props.isProposalEditor){
-    return (props.children)
+  if (props.isProposalEditor) {
+    return props.children;
   }
 
   return (
     // <main className="flex h-screen bg-[url('/background/dashboard.png')] text-white">
     <main className="flex h-screen bg-gradient-to-b from-blue-900  to-ordum-purple  text-white">
       <div className="flex h-screen ">
-        <Link href="/home/dashboard" className=" w-20 h-full border-r border-r-[#6e7182] border-r-2 flex-col pt-2 px-3">
+        <Link
+          href="/home/dashboard"
+          className=" w-20 h-full border-r border-r-[#6e7182] border-r-2 flex-col pt-2 px-3"
+        >
           <Image
             src={KittyIcon}
             alt="You personal profile"
@@ -164,11 +167,29 @@ const Layout: React.FC<Props> = (props) => {
                   </h3>
 
                   <ul className="mt-2 ml-2 list-disc text-sm flex flex-col gap-1">
-                    <li><Link href="/explore/kusamatreasury">Overview</Link></li>
-                    <li><Link href="/explore/kusamatreasury/all">All proposals</Link></li>
-                    <li><Link href="/explore/kusamatreasury/smallspender">Small Spender</Link></li>
-                    <li><Link href="/explore/kusamatreasury/mediumspender">Medium Speder</Link></li>
-                    <li><Link href="/explore/kusamatreasury/bigspender">Big Spender</Link></li>
+                    <li>
+                      <Link href="/explore/kusamatreasury">Overview</Link>
+                    </li>
+                    <li>
+                      <Link href="/explore/kusamatreasury/all">
+                        All proposals
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/explore/kusamatreasury/smallspender">
+                        Small Spender
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/explore/kusamatreasury/mediumspender">
+                        Medium Speder
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/explore/kusamatreasury/bigspender">
+                        Big Spender
+                      </Link>
+                    </li>
                   </ul>
                 </div>
               ) : null}

@@ -4,10 +4,7 @@ import { goBackTLDR, goBackCotext } from "../../goBackFucntions";
 import Link from "next/link";
 
 const Summary = () => {
-  const {
-    tldr,
-    context,
-  } = useProposalContext();
+  const { tldr, context } = useProposalContext();
 
   return (
     <div>
@@ -61,16 +58,14 @@ const Summary = () => {
 
         <div className="my-4 font-medium text-lg">Introduction</div>
         <p>
-        <p>{context?.contextOfTheProposal ?? goBackCotext()}</p>
+          <p>{context?.contextOfTheProposal ?? goBackCotext()}</p>
         </p>
         <div className="my-4 font-medium text-lg">Problem</div>
         <p>{context?.problemStatement ?? goBackCotext()}</p>
         <div className="my-4 font-medium text-lg">Solution</div>
         <p>{context?.solution ?? goBackCotext()}</p>
         <div className="my-4 font-medium text-lg">Team Credentials</div>
-        <p>
-          Coming soon
-        </p>
+        <p>Coming soon</p>
       </div>
     </div>
   );

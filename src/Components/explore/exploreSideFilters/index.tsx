@@ -6,9 +6,7 @@ const ExporeSideFilters: React.FC<Props> = (props) => {
   return (
     <div className={"pt w-[20rem] " + props.className}>
       <div className="grid gap-3 ">
-        <button className="mr-16 underline text-white ">
-          Clear Filters
-        </button>
+        <button className="mr-16 underline text-white ">Clear Filters</button>
         <select
           className=" ml-12
             w-44 block pl-2  md:py-2 border border-black rounded-md text-sm md:text-base shadow-sm bg-gray-700
@@ -76,7 +74,7 @@ const ExporeSideFilters: React.FC<Props> = (props) => {
               placeholder="Min"
               type="text"
             />
-             <input
+            <input
               className="mt-2 w-20 text-sm font-thin bg-gray-900 placeholder:font-italitc border border-black rounded py-2 pl-2 pr-4 focus:outline-none"
               placeholder="Max"
               type="text"

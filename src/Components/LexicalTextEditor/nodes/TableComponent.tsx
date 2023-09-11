@@ -6,18 +6,18 @@
  *
  */
 
-import type {RangeSelection, TextFormatType} from 'lexical';
+import type { RangeSelection, TextFormatType } from "lexical";
 
 import {
   $generateJSONFromSelectedNodes,
   $generateNodesFromSerializedNodes,
   $insertGeneratedNodes,
-} from '@lexical/clipboard';
-import {$generateHtmlFromNodes, $generateNodesFromDOM} from '@lexical/html';
-import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
-import {LexicalNestedComposer} from '@lexical/react/LexicalNestedComposer';
-import {useLexicalNodeSelection} from '@lexical/react/useLexicalNodeSelection';
-import {mergeRegister} from '@lexical/utils';
+} from "@lexical/clipboard";
+import { $generateHtmlFromNodes, $generateNodesFromDOM } from "@lexical/html";
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import { LexicalNestedComposer } from "@lexical/react/LexicalNestedComposer";
+import { useLexicalNodeSelection } from "@lexical/react/useLexicalNodeSelection";
+import { mergeRegister } from "@lexical/utils";
 import {
   $addUpdateTag,
   $createParagraphNode,
@@ -46,7 +46,7 @@ import {
   LexicalEditor,
   NodeKey,
   PASTE_COMMAND,
-} from 'lexical';
+} from "lexical";
 import {
   useCallback,
   useContext,
@@ -54,12 +54,12 @@ import {
   useMemo,
   useRef,
   useState,
-} from 'react';
-import * as React from 'react';
-import {createPortal} from 'react-dom';
-import {IS_APPLE} from '../shared/environment';
+} from "react";
+import * as React from "react";
+import { createPortal } from "react-dom";
+import { IS_APPLE } from "../shared/environment";
 
-import {CellContext} from '../plugins/TablePlugin';
+import { CellContext } from "../plugins/TablePlugin";
 import {
   $isTableNode,
   Cell,
@@ -71,15 +71,15 @@ import {
   extractRowsFromHTML,
   Rows,
   TableNode,
-} from './TableNode';
+} from "./TableNode";
 
-type SortOptions = {type: 'ascending' | 'descending'; x: number};
+type SortOptions = { type: "ascending" | "descending"; x: number };
 
 const NO_CELLS: [] = [];
 
 function $createSelectAll(): RangeSelection {
   const sel = $createRangeSelection();
-  sel.focus.set('root', $getRoot().getChildrenSize(), 'element');
+  sel.focus.set("root", $getRoot().getChildrenSize(), "element");
   return sel;
 }
 
@@ -96,7 +96,7 @@ function focusCell(tableElem: HTMLElement, id: string): void {
 }
 
 function isStartingResize(target: HTMLElement): boolean {
-  return target.nodeType === 1 && target.hasAttribute('data-table-resize');
+  return target.nodeType === 1 && target.hasAttribute("data-table-resize");
 }
 
 function generateHTMLFromJSON(
@@ -170,7 +170,7 @@ function isPaste(
 function getCellID(domElement: HTMLElement): null | string {
   let node: null | HTMLElement = domElement;
   while (node !== null) {
-    const possibleID = node.getAttribute('data-id');
+    const possibleID = node.getAttribute("data-id");
     if (possibleID != null) {
       return possibleID;
     }
@@ -182,7 +182,7 @@ function getCellID(domElement: HTMLElement): null | string {
 function getTableCellWidth(domElement: HTMLElement): number {
   let node: null | HTMLElement = domElement;
   while (node !== null) {
-    if (node.nodeName === 'TH' || node.nodeName === 'TD') {
+    if (node.nodeName === "TH" || node.nodeName === "TD") {
       return node.getBoundingClientRect().width;
     }
     node = node.parentElement;
@@ -204,12 +204,12 @@ function $updateCells(
       const editorState = cellEditor.parseEditorState(cell.json);
       cellEditor._headless = true;
       cellEditor.setEditorState(editorState);
-      cellEditor.update(fn, {discrete: true});
+      cellEditor.update(fn, { discrete: true });
       cellEditor._headless = false;
       const newJSON = JSON.stringify(cellEditor.getEditorState());
       updateTableNode((tableNode) => {
         const [x, y] = cellCoordMap.get(id) as [number, number];
-        $addUpdateTag('history-push');
+        $addUpdateTag("history-push");
         tableNode.updateCellJSON(x, y, newJSON);
       });
     }
@@ -221,9 +221,9 @@ function isTargetOnPossibleUIControl(target: HTMLElement): boolean {
   while (node !== null) {
     const nodeName = node.nodeName;
     if (
-      nodeName === 'BUTTON' ||
-      nodeName === 'INPUT' ||
-      nodeName === 'TEXTAREA'
+      nodeName === "BUTTON" ||
+      nodeName === "INPUT" ||
+      nodeName === "TEXTAREA"
     ) {
       return true;
     }
@@ -236,7 +236,7 @@ function getSelectedRect(
   startID: string,
   endID: string,
   cellCoordMap: Map<string, [number, number]>,
-): null | {startX: number; endX: number; startY: number; endY: number} {
+): null | { startX: number; endX: number; startY: number; endY: number } {
   const startCoords = cellCoordMap.get(startID);
   const endCoords = cellCoordMap.get(endID);
   if (startCoords === undefined || endCoords === undefined) {
@@ -265,7 +265,7 @@ function getSelectedIDs(
   if (rect === null) {
     return [];
   }
-  const {startX, endY, endX, startY} = rect;
+  const { startX, endY, endX, startY } = rect;
   const ids = [];
 
   for (let x = startX; x <= endX; x++) {
@@ -278,16 +278,16 @@ function getSelectedIDs(
 
 function extractCellsFromRows(
   rows: Rows,
-  rect: {startX: number; endX: number; startY: number; endY: number},
+  rect: { startX: number; endX: number; startY: number; endY: number },
 ): Rows {
-  const {startX, endY, endX, startY} = rect;
+  const { startX, endY, endX, startY } = rect;
   const newRows: Rows = [];
 
   for (let y = startY; y <= endY; y++) {
     const row = rows[y];
     const newRow = createRow();
     for (let x = startX; x <= endX; x++) {
-      const cellClone = {...row.cells[x]};
+      const cellClone = { ...row.cells[x] };
       cellClone.id = createUID();
       newRow.cells.push(cellClone);
     }
@@ -296,8 +296,8 @@ function extractCellsFromRows(
   return newRows;
 }
 
-function TableCellEditor({cellEditor}: {cellEditor: LexicalEditor}) {
-  const {cellEditorConfig, cellEditorPlugins} = useContext(CellContext);
+function TableCellEditor({ cellEditor }: { cellEditor: LexicalEditor }) {
+  const { cellEditorConfig, cellEditorPlugins } = useContext(CellContext);
 
   if (cellEditorPlugins === null || cellEditorConfig === null) {
     return null;
@@ -308,7 +308,8 @@ function TableCellEditor({cellEditor}: {cellEditor: LexicalEditor}) {
       initialEditor={cellEditor}
       initialTheme={cellEditorConfig.theme}
       initialNodes={cellEditorConfig.nodes}
-      skipCollabChecks={true}>
+      skipCollabChecks={true}
+    >
       {cellEditorPlugins}
     </LexicalNestedComposer>
   );
@@ -371,8 +372,8 @@ function TableActionMenu({
       }
     };
 
-    window.addEventListener('click', handleClickOutside);
-    return () => window.removeEventListener('click', handleClickOutside);
+    window.addEventListener("click", handleClickOutside);
+    return () => window.removeEventListener("click", handleClickOutside);
   }, [onClose]);
   const coords = cellCoordMap.get(cell.id);
 
@@ -397,22 +398,24 @@ function TableActionMenu({
       }}
       onClick={(e) => {
         e.stopPropagation();
-      }}>
+      }}
+    >
       <button
         className="item"
         onClick={() => {
           updateTableNode((tableNode) => {
-            $addUpdateTag('history-push');
+            $addUpdateTag("history-push");
             tableNode.updateCellType(
               x,
               y,
-              cell.type === 'normal' ? 'header' : 'normal',
+              cell.type === "normal" ? "header" : "normal",
             );
           });
           onClose();
-        }}>
+        }}
+      >
         <span className="text">
-          {cell.type === 'normal' ? 'Make header' : 'Remove header'}
+          {cell.type === "normal" ? "Make header" : "Remove header"}
         </span>
       </button>
       <button
@@ -424,11 +427,12 @@ function TableActionMenu({
             root.append($createParagraphNode());
           });
           onClose();
-        }}>
+        }}
+      >
         <span className="text">Clear cell</span>
       </button>
       <hr />
-      {cell.type === 'header' && y === 0 && (
+      {cell.type === "header" && y === 0 && (
         <>
           {sortingOptions !== null && sortingOptions.x === x && (
             <button
@@ -436,31 +440,34 @@ function TableActionMenu({
               onClick={() => {
                 setSortingOptions(null);
                 onClose();
-              }}>
+              }}
+            >
               <span className="text">Remove sorting</span>
             </button>
           )}
           {(sortingOptions === null ||
             sortingOptions.x !== x ||
-            sortingOptions.type === 'descending') && (
+            sortingOptions.type === "descending") && (
             <button
               className="item"
               onClick={() => {
-                setSortingOptions({type: 'ascending', x});
+                setSortingOptions({ type: "ascending", x });
                 onClose();
-              }}>
+              }}
+            >
               <span className="text">Sort ascending</span>
             </button>
           )}
           {(sortingOptions === null ||
             sortingOptions.x !== x ||
-            sortingOptions.type === 'ascending') && (
+            sortingOptions.type === "ascending") && (
             <button
               className="item"
               onClick={() => {
-                setSortingOptions({type: 'descending', x});
+                setSortingOptions({ type: "descending", x });
                 onClose();
-              }}>
+              }}
+            >
               <span className="text">Sort descending</span>
             </button>
           )}
@@ -471,22 +478,24 @@ function TableActionMenu({
         className="item"
         onClick={() => {
           updateTableNode((tableNode) => {
-            $addUpdateTag('history-push');
+            $addUpdateTag("history-push");
             tableNode.insertRowAt(y);
           });
           onClose();
-        }}>
+        }}
+      >
         <span className="text">Insert row above</span>
       </button>
       <button
         className="item"
         onClick={() => {
           updateTableNode((tableNode) => {
-            $addUpdateTag('history-push');
+            $addUpdateTag("history-push");
             tableNode.insertRowAt(y + 1);
           });
           onClose();
-        }}>
+        }}
+      >
         <span className="text">Insert row below</span>
       </button>
       <hr />
@@ -494,22 +503,24 @@ function TableActionMenu({
         className="item"
         onClick={() => {
           updateTableNode((tableNode) => {
-            $addUpdateTag('history-push');
+            $addUpdateTag("history-push");
             tableNode.insertColumnAt(x);
           });
           onClose();
-        }}>
+        }}
+      >
         <span className="text">Insert column left</span>
       </button>
       <button
         className="item"
         onClick={() => {
           updateTableNode((tableNode) => {
-            $addUpdateTag('history-push');
+            $addUpdateTag("history-push");
             tableNode.insertColumnAt(x + 1);
           });
           onClose();
-        }}>
+        }}
+      >
         <span className="text">Insert column right</span>
       </button>
       <hr />
@@ -518,11 +529,12 @@ function TableActionMenu({
           className="item"
           onClick={() => {
             updateTableNode((tableNode) => {
-              $addUpdateTag('history-push');
+              $addUpdateTag("history-push");
               tableNode.deleteColumnAt(x);
             });
             onClose();
-          }}>
+          }}
+        >
           <span className="text">Delete column</span>
         </button>
       )}
@@ -531,11 +543,12 @@ function TableActionMenu({
           className="item"
           onClick={() => {
             updateTableNode((tableNode) => {
-              $addUpdateTag('history-push');
+              $addUpdateTag("history-push");
               tableNode.deleteRowAt(y);
             });
             onClose();
-          }}>
+          }}
+        >
           <span className="text">Delete row</span>
         </button>
       )}
@@ -543,12 +556,13 @@ function TableActionMenu({
         className="item"
         onClick={() => {
           updateTableNode((tableNode) => {
-            $addUpdateTag('history-push');
+            $addUpdateTag("history-push");
             tableNode.selectNext();
             tableNode.remove();
           });
           onClose();
-        }}>
+        }}
+      >
         <span className="text">Delete table</span>
       </button>
     </div>
@@ -584,9 +598,9 @@ function TableCell({
 }) {
   const [showMenu, setShowMenu] = useState(false);
   const menuRootRef = useRef(null);
-  const isHeader = cell.type !== 'normal';
+  const isHeader = cell.type !== "normal";
   const editorStateJSON = cell.json;
-  const CellComponent = isHeader ? 'th' : 'td';
+  const CellComponent = isHeader ? "th" : "td";
   const cellWidth = cell.width;
   const menuElem = menuRootRef.current;
   const coords = cellCoordMap.get(cell.id);
@@ -604,16 +618,17 @@ function TableCell({
 
   return (
     <CellComponent
-      className={`${theme.tableCell} ${isHeader ? theme.tableCellHeader : ''} ${
-        isSelected ? theme.tableCellSelected : ''
+      className={`${theme.tableCell} ${isHeader ? theme.tableCellHeader : ""} ${
+        isSelected ? theme.tableCellSelected : ""
       }`}
       data-id={cell.id}
       tabIndex={-1}
-      style={{width: cellWidth !== null ? cellWidth : undefined}}>
+      style={{ width: cellWidth !== null ? cellWidth : undefined }}
+    >
       {isPrimarySelected && (
         <div
           className={`${theme.tableCellPrimarySelected} ${
-            isEditing ? theme.tableCellEditing : ''
+            isEditing ? theme.tableCellEditing : ""
           }`}
         />
       )}
@@ -624,7 +639,7 @@ function TableCell({
           <div
             dangerouslySetInnerHTML={{
               __html:
-                editorStateJSON === ''
+                editorStateJSON === ""
                   ? createEmptyParagraphHTML(theme)
                   : generateHTMLFromJSON(editorStateJSON, cellEditor),
             }}
@@ -639,7 +654,8 @@ function TableCell({
             onClick={(e) => {
               setShowMenu(!showMenu);
               e.stopPropagation();
-            }}>
+            }}
+          >
             <i className="chevron-down" />
           </button>
         </div>
@@ -676,7 +692,7 @@ export default function TableComponent({
 }) {
   const [isSelected, setSelected, clearSelection] =
     useLexicalNodeSelection(nodeKey);
-  const resizeMeasureRef = useRef<{size: number; point: number}>({
+  const resizeMeasureRef = useRef<{ size: number; point: number }>({
     point: 0,
     size: 0,
   });
@@ -686,7 +702,7 @@ export default function TableComponent({
   const addRowsRef = useRef(null);
   const lastCellIDRef = useRef<string | null>(null);
   const tableResizerRulerRef = useRef<null | HTMLDivElement>(null);
-  const {cellEditorConfig} = useContext(CellContext);
+  const { cellEditorConfig } = useContext(CellContext);
   const [isEditing, setIsEditing] = useState(false);
   const [showAddColumns, setShowAddColumns] = useState(false);
   const [showAddRows, setShowAddRows] = useState(false);
@@ -716,12 +732,12 @@ export default function TableComponent({
       const aCells = a.cells;
       const bCells = b.cells;
       const x = sortingOptions.x;
-      const aContent = cellTextContentCache.get(aCells[x].json) || '';
-      const bContent = cellTextContentCache.get(bCells[x].json) || '';
-      if (aContent === '' || bContent === '') {
+      const aContent = cellTextContentCache.get(aCells[x].json) || "";
+      const bContent = cellTextContentCache.get(bCells[x].json) || "";
+      if (aContent === "" || bContent === "") {
         return 1;
       }
-      if (sortingOptions.type === 'ascending') {
+      if (sortingOptions.type === "ascending") {
         return aContent.localeCompare(bContent);
       }
       return bContent.localeCompare(aContent);
@@ -775,14 +791,14 @@ export default function TableComponent({
 
   const addColumns = () => {
     updateTableNode((tableNode) => {
-      $addUpdateTag('history-push');
+      $addUpdateTag("history-push");
       tableNode.addColumns(1);
     });
   };
 
   const addRows = () => {
     updateTableNode((tableNode) => {
-      $addUpdateTag('history-push');
+      $addUpdateTag("history-push");
       tableNode.addRows(1);
     });
   };
@@ -816,7 +832,7 @@ export default function TableComponent({
         if (coords === undefined) {
           return;
         }
-        $addUpdateTag('history-push');
+        $addUpdateTag("history-push");
         const [x, y] = coords;
         tableNode.updateCellJSON(x, y, json);
       });
@@ -827,7 +843,7 @@ export default function TableComponent({
     setTimeout(() => {
       const parentRootElement = editor.getRootElement();
       if (parentRootElement !== null) {
-        parentRootElement.focus({preventScroll: true});
+        parentRootElement.focus({ preventScroll: true });
         window.getSelection()?.removeAllRanges();
       }
     }, 20);
@@ -862,7 +878,7 @@ export default function TableComponent({
         setSelected(false);
         if (isStartingResize(event.target as HTMLElement)) {
           setResizingID(possibleID);
-          tableElem.style.userSelect = 'none';
+          tableElem.style.userSelect = "none";
           resizeMeasureRef.current = {
             point: event.clientX,
             size: getTableCellWidth(event.target as HTMLElement),
@@ -903,7 +919,7 @@ export default function TableComponent({
       if (resizingID !== null) {
         const tableResizerRulerElem = tableResizerRulerRef.current;
         if (tableResizerRulerElem !== null) {
-          const {size, point} = resizeMeasureRef.current;
+          const { size, point } = resizeMeasureRef.current;
           const diff = event.clientX - point;
           const newWidth = size + diff;
           let x = event.clientX - tableRect.x;
@@ -919,8 +935,8 @@ export default function TableComponent({
         return;
       }
       if (!isEditing) {
-        const {clientX, clientY} = event;
-        const {width, x, y, height} = tableRect;
+        const { clientX, clientY } = event;
+        const { width, x, y, height } = tableRect;
         const isOnRightEdge =
           clientX > x + width * 0.9 &&
           clientX < x + width + 40 &&
@@ -943,7 +959,7 @@ export default function TableComponent({
       const possibleID = getCellID(event.target as HTMLElement);
       if (possibleID !== null && possibleID !== lastCellIDRef.current) {
         if (selectedCellIDs.length === 0) {
-          tableElem.style.userSelect = 'none';
+          tableElem.style.userSelect = "none";
         }
         const selectedIDs = getSelectedIDs(
           rows,
@@ -962,7 +978,7 @@ export default function TableComponent({
 
     const handlePointerUp = (event: PointerEvent) => {
       if (resizingID !== null) {
-        const {size, point} = resizeMeasureRef.current;
+        const { size, point } = resizeMeasureRef.current;
         const diff = event.clientX - point;
         let newWidth = size + diff;
         if (newWidth < 10) {
@@ -970,7 +986,7 @@ export default function TableComponent({
         }
         updateTableNode((tableNode) => {
           const [x] = cellCoordMap.get(resizingID) as [number, number];
-          $addUpdateTag('history-push');
+          $addUpdateTag("history-push");
           tableNode.updateColumnWidth(x, newWidth);
         });
         setResizingID(null);
@@ -980,20 +996,20 @@ export default function TableComponent({
         selectedCellIDs.length > 1 &&
         mouseDownRef.current
       ) {
-        tableElem.style.userSelect = 'text';
+        tableElem.style.userSelect = "text";
         window.getSelection()?.removeAllRanges();
       }
       mouseDownRef.current = false;
     };
 
-    doc.addEventListener('pointerdown', handlePointerDown);
-    doc.addEventListener('pointermove', handlePointerMove);
-    doc.addEventListener('pointerup', handlePointerUp);
+    doc.addEventListener("pointerdown", handlePointerDown);
+    doc.addEventListener("pointermove", handlePointerMove);
+    doc.addEventListener("pointerup", handlePointerUp);
 
     return () => {
-      doc.removeEventListener('pointerdown', handlePointerDown);
-      doc.removeEventListener('pointermove', handlePointerMove);
-      doc.removeEventListener('pointerup', handlePointerUp);
+      doc.removeEventListener("pointerdown", handlePointerDown);
+      doc.removeEventListener("pointermove", handlePointerMove);
+      doc.removeEventListener("pointerup", handlePointerUp);
     };
   }, [
     cellEditor,
@@ -1057,7 +1073,7 @@ export default function TableComponent({
           !isEditing &&
           primarySelectedCellID !== null &&
           editor.getEditorState().read(() => $getSelection() === null) &&
-          (event.target as HTMLElement).contentEditable !== 'true'
+          (event.target as HTMLElement).contentEditable !== "true"
         ) {
           if (isCopy(keyCode, event.shiftKey, event.metaKey, event.ctrlKey)) {
             editor.dispatchCommand(COPY_COMMAND, event);
@@ -1081,12 +1097,12 @@ export default function TableComponent({
         setSelectedCellIDs(NO_CELLS);
       };
 
-      doc.addEventListener('dblclick', handleDblClick);
-      doc.addEventListener('keydown', handleKeyDown);
+      doc.addEventListener("dblclick", handleDblClick);
+      doc.addEventListener("keydown", handleKeyDown);
 
       return () => {
-        doc.removeEventListener('dblclick', handleDblClick);
-        doc.removeEventListener('keydown', handleKeyDown);
+        doc.removeEventListener("dblclick", handleDblClick);
+        doc.removeEventListener("keydown", handleKeyDown);
       };
     }
   }, [
@@ -1115,7 +1131,7 @@ export default function TableComponent({
       return true;
     } else if (isSelected) {
       updateTableNode((tableNode) => {
-        $addUpdateTag('history-push');
+        $addUpdateTag("history-push");
         tableNode.selectNext();
         tableNode.remove();
       });
@@ -1147,9 +1163,9 @@ export default function TableComponent({
       event.preventDefault();
 
       if (clipboardData != null) {
-        clipboardData.setData('text/html', htmlString);
-        clipboardData.setData('text/plain', plainTextString);
-        clipboardData.setData('application/x-lexical-editor', lexicalString);
+        clipboardData.setData("text/html", htmlString);
+        clipboardData.setData("text/plain", plainTextString);
+        clipboardData.setData("application/x-lexical-editor", lexicalString);
       } else {
         const clipboard = navigator.clipboard;
         if (clipboard != null) {
@@ -1157,8 +1173,8 @@ export default function TableComponent({
           // So we optimize by only putting in HTML.
           const data = [
             new ClipboardItem({
-              'text/html': new Blob([htmlString as BlobPart], {
-                type: 'text/html',
+              "text/html": new Blob([htmlString as BlobPart], {
+                type: "text/html",
               }),
             }),
           ];
@@ -1176,9 +1192,9 @@ export default function TableComponent({
           ? clipboardData.getData(type)
           : clipboardData instanceof ClipboardItem
           ? await (await clipboardData.getType(type)).text()
-          : '';
+          : "";
       } catch {
-        return '';
+        return "";
       }
     };
 
@@ -1201,9 +1217,9 @@ export default function TableComponent({
           clipboardData !== null
             ? await getTypeFromObject(
                 clipboardData,
-                'application/x-lexical-editor',
+                "application/x-lexical-editor",
               )
-            : '';
+            : "";
 
         if (lexicalString) {
           try {
@@ -1239,14 +1255,14 @@ export default function TableComponent({
         }
         const htmlString =
           clipboardData !== null
-            ? await getTypeFromObject(clipboardData, 'text/html')
-            : '';
+            ? await getTypeFromObject(clipboardData, "text/html")
+            : "";
 
         if (htmlString) {
           try {
             const parser = new DOMParser();
-            const dom = parser.parseFromString(htmlString, 'text/html');
-            const possibleTableElement = dom.querySelector('table');
+            const dom = parser.parseFromString(htmlString, "text/html");
+            const possibleTableElement = dom.querySelector("table");
 
             if (possibleTableElement != null) {
               const pasteRows = extractRowsFromHTML(possibleTableElement);
@@ -1255,7 +1271,7 @@ export default function TableComponent({
                   number,
                   number,
                 ];
-                $addUpdateTag('history-push');
+                $addUpdateTag("history-push");
                 tableNode.mergeRows(x, y, pasteRows);
               });
               return;
@@ -1287,8 +1303,8 @@ export default function TableComponent({
         // instead of single paragraph with linebreaks.
         const text =
           clipboardData !== null
-            ? await getTypeFromObject(clipboardData, 'text/plain')
-            : '';
+            ? await getTypeFromObject(clipboardData, "text/plain")
+            : "";
 
         if (text != null) {
           $updateCells(
@@ -1652,9 +1668,9 @@ export default function TableComponent({
           if (selection.isCollapsed()) {
             const anchor = selection.anchor;
             if (
-              (anchor.type === 'text' &&
+              (anchor.type === "text" &&
                 anchor.offset === anchor.getNode().getTextContentSize()) ||
-              (anchor.type === 'element' &&
+              (anchor.type === "element" &&
                 anchor.offset === anchor.getNode().getChildrenSize())
             ) {
               event.preventDefault();
@@ -1716,16 +1732,17 @@ export default function TableComponent({
   }
 
   return (
-    <div style={{position: 'relative'}}>
+    <div style={{ position: "relative" }}>
       <table
-        className={`${theme.table} ${isSelected ? theme.tableSelected : ''}`}
+        className={`${theme.table} ${isSelected ? theme.tableSelected : ""}`}
         ref={tableRef}
-        tabIndex={-1}>
+        tabIndex={-1}
+      >
         <tbody>
           {rows.map((row) => (
             <tr key={row.id} className={theme.tableRow}>
               {row.cells.map((cell) => {
-                const {id} = cell;
+                const { id } = cell;
                 return (
                   <TableCell
                     key={id}

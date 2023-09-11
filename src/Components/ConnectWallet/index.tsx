@@ -1,20 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import React from "react";
-import Button from "@mui/material/Button";
 import { useState, useEffect } from "react";
 import type { InjectedAccountWithMeta } from "@polkadot/extension-inject/types";
-import { Signer } from "@polkadot/types/types";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { blue } from "@mui/material/colors";
 import {
   enablePolkadotExtension,
   getSigner,
-} from "../../Components//wallet/pjs";
+} from "../../Components/wallet/pjs";
 import { useWalletContext } from "../../Context/WalletStore";
 import { web3Accounts } from "@polkadot/extension-dapp";
 
@@ -97,7 +93,15 @@ function ConnectWallet() {
             <button>
               <Link href="/sign-in">Wallet Connect</Link>
             </button>
-            <p>Or try the <Link href="https://polkadot.js.org/extension/" className="underlie">PJS extenson</Link></p>
+            <p>
+              Or try the{" "}
+              <Link
+                href="https://polkadot.js.org/extension/"
+                className="underlie"
+              >
+                PJS extenson
+              </Link>
+            </p>
           </h1>
         )}
       </div>

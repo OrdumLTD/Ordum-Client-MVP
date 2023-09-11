@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import Modal from "@/Components/ui/Modal";
 import AddSkills from "./AddSkills";
-import SkillPreview from "./SkillPreview"
+import SkillPreview from "./SkillPreview";
 
 const Work = () => {
   const [showModal, setShowModal] = useState(false);

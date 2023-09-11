@@ -71,7 +71,7 @@ const LogIn: React.FC = () => {
         poc5,
         signer,
         account,
-        cache
+        cache,
       );
       console.log(secret.output.toJSON().valueOf()["ok"]);
       console.log(cache);
@@ -82,7 +82,7 @@ const LogIn: React.FC = () => {
       fetchPoc5Api();
       console.log("Missing some params in Creation of Applicant");
       console.log(
-        `Account: ${account} \n Signer: ${signer} \n ContractApi ${contractApi} Api ${poc5}`
+        `Account: ${account} \n Signer: ${signer} \n ContractApi ${contractApi} Api ${poc5}`,
       );
     }
   };
@@ -106,7 +106,7 @@ const LogIn: React.FC = () => {
             res.data.organization._id,
             res.data.organization.name,
             res.data.accountType,
-            chainInfo
+            chainInfo,
           );
         } else {
           userCtx.logInUser(
@@ -114,7 +114,7 @@ const LogIn: React.FC = () => {
             res.data.individual._id,
             res.data.individual.name,
             res.data.accountType,
-            chainInfo
+            chainInfo,
           );
         }
       })

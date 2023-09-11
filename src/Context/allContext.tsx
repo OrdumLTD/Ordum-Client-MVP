@@ -35,7 +35,7 @@ export const AllContextProvider = ({ children }: Props) => {
                         <UserContextProvider>
                           <PolskassemblyContextProvider>
                             <ReferendaContextProvider>
-                            {children}
+                              {children}
                             </ReferendaContextProvider>
                           </PolskassemblyContextProvider>
                         </UserContextProvider>

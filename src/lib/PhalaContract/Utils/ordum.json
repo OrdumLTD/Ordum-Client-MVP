@@ -16,9 +16,7 @@
   "contract": {
     "name": "ordum",
     "version": "1.0.0",
-    "authors": [
-      "[MrishoLukamba@Ordum] <[ordum@protonmail.com]>"
-    ]
+    "authors": ["[MrishoLukamba@Ordum] <[ordum@protonmail.com]>"]
   },
   "spec": {
     "constructors": [
@@ -29,10 +27,7 @@
         "label": "new",
         "payable": false,
         "returnType": {
-          "displayName": [
-            "ink_primitives",
-            "ConstructorResult"
-          ],
+          "displayName": ["ink_primitives", "ConstructorResult"],
           "type": 35
         },
         "selector": "0x9bae9d5e"
@@ -41,40 +36,28 @@
     "docs": [],
     "environment": {
       "accountId": {
-        "displayName": [
-          "AccountId"
-        ],
+        "displayName": ["AccountId"],
         "type": 1
       },
       "balance": {
-        "displayName": [
-          "Balance"
-        ],
+        "displayName": ["Balance"],
         "type": 75
       },
       "blockNumber": {
-        "displayName": [
-          "BlockNumber"
-        ],
+        "displayName": ["BlockNumber"],
         "type": 24
       },
       "chainExtension": {
-        "displayName": [
-          "ChainExtension"
-        ],
+        "displayName": ["ChainExtension"],
         "type": 77
       },
       "hash": {
-        "displayName": [
-          "Hash"
-        ],
+        "displayName": ["Hash"],
         "type": 76
       },
       "maxEventTopics": 4,
       "timestamp": {
-        "displayName": [
-          "Timestamp"
-        ],
+        "displayName": ["Timestamp"],
         "type": 16
       }
     },
@@ -86,9 +69,7 @@
             "indexed": true,
             "label": "name",
             "type": {
-              "displayName": [
-                "String"
-              ],
+              "displayName": ["String"],
               "type": 0
             }
           },
@@ -97,9 +78,7 @@
             "indexed": false,
             "label": "account",
             "type": {
-              "displayName": [
-                "AccountId"
-              ],
+              "displayName": ["AccountId"],
               "type": 1
             }
           },
@@ -108,16 +87,12 @@
             "indexed": false,
             "label": "time",
             "type": {
-              "displayName": [
-                "Timestamp"
-              ],
+              "displayName": ["Timestamp"],
               "type": 16
             }
           }
         ],
-        "docs": [
-          "Event for individual profile creation"
-        ],
+        "docs": ["Event for individual profile creation"],
         "label": "IndividualProfileCreated"
       },
       {
@@ -127,9 +102,7 @@
             "indexed": true,
             "label": "name",
             "type": {
-              "displayName": [
-                "String"
-              ],
+              "displayName": ["String"],
               "type": 0
             }
           },
@@ -138,9 +111,7 @@
             "indexed": false,
             "label": "account",
             "type": {
-              "displayName": [
-                "AccountId"
-              ],
+              "displayName": ["AccountId"],
               "type": 1
             }
           },
@@ -149,16 +120,12 @@
             "indexed": false,
             "label": "time",
             "type": {
-              "displayName": [
-                "Timestamp"
-              ],
+              "displayName": ["Timestamp"],
               "type": 16
             }
           }
         ],
-        "docs": [
-          "Event emitted when new Applicant is registered"
-        ],
+        "docs": ["Event emitted when new Applicant is registered"],
         "label": "TeamApplicantCreated"
       },
       {
@@ -168,9 +135,7 @@
             "indexed": true,
             "label": "name",
             "type": {
-              "displayName": [
-                "String"
-              ],
+              "displayName": ["String"],
               "type": 0
             }
           },
@@ -179,16 +144,12 @@
             "indexed": false,
             "label": "time",
             "type": {
-              "displayName": [
-                "Timestamp"
-              ],
+              "displayName": ["Timestamp"],
               "type": 16
             }
           }
         ],
-        "docs": [
-          "Event emitted when Applicant updates the profile"
-        ],
+        "docs": ["Event emitted when Applicant updates the profile"],
         "label": "TeamApplicantUpdated"
       },
       {
@@ -198,16 +159,12 @@
             "indexed": true,
             "label": "account",
             "type": {
-              "displayName": [
-                "AccountId"
-              ],
+              "displayName": ["AccountId"],
               "type": 1
             }
           }
         ],
-        "docs": [
-          "Event for setting passcode"
-        ],
+        "docs": ["Event for setting passcode"],
         "label": "PasscodeSet"
       },
       {
@@ -217,9 +174,7 @@
             "indexed": true,
             "label": "team_name",
             "type": {
-              "displayName": [
-                "String"
-              ],
+              "displayName": ["String"],
               "type": 0
             }
           },
@@ -228,9 +183,7 @@
             "indexed": false,
             "label": "team_id",
             "type": {
-              "displayName": [
-                "AccountId"
-              ],
+              "displayName": ["AccountId"],
               "type": 1
             }
           },
@@ -239,9 +192,7 @@
             "indexed": false,
             "label": "individual_id",
             "type": {
-              "displayName": [
-                "AccountId"
-              ],
+              "displayName": ["AccountId"],
               "type": 1
             }
           },
@@ -250,9 +201,7 @@
             "indexed": false,
             "label": "time",
             "type": {
-              "displayName": [
-                "Timestamp"
-              ],
+              "displayName": ["Timestamp"],
               "type": 16
             }
           }
@@ -264,10 +213,7 @@
       }
     ],
     "lang_error": {
-      "displayName": [
-        "ink",
-        "LangError"
-      ],
+      "displayName": ["ink", "LangError"],
       "type": 37
     },
     "messages": [
@@ -292,10 +238,7 @@
         "mutates": true,
         "payable": false,
         "returnType": {
-          "displayName": [
-            "ink",
-            "MessageResult"
-          ],
+          "displayName": ["ink", "MessageResult"],
           "type": 35
         },
         "selector": "0xc0de2000"
@@ -305,9 +248,7 @@
           {
             "label": "id",
             "type": {
-              "displayName": [
-                "Option"
-              ],
+              "displayName": ["Option"],
               "type": 38
             }
           }
@@ -318,10 +259,7 @@
         "mutates": false,
         "payable": false,
         "returnType": {
-          "displayName": [
-            "ink",
-            "MessageResult"
-          ],
+          "displayName": ["ink", "MessageResult"],
           "type": 39
         },
         "selector": "0xc0de1001"
@@ -334,10 +272,7 @@
         "mutates": false,
         "payable": false,
         "returnType": {
-          "displayName": [
-            "ink",
-            "MessageResult"
-          ],
+          "displayName": ["ink", "MessageResult"],
           "type": 43
         },
         "selector": "0xc0de1002"
@@ -347,9 +282,7 @@
           {
             "label": "id",
             "type": {
-              "displayName": [
-                "Option"
-              ],
+              "displayName": ["Option"],
               "type": 38
             }
           }
@@ -360,10 +293,7 @@
         "mutates": false,
         "payable": false,
         "returnType": {
-          "displayName": [
-            "ink",
-            "MessageResult"
-          ],
+          "displayName": ["ink", "MessageResult"],
           "type": 45
         },
         "selector": "0xc0de1003"
@@ -376,10 +306,7 @@
         "mutates": false,
         "payable": false,
         "returnType": {
-          "displayName": [
-            "ink",
-            "MessageResult"
-          ],
+          "displayName": ["ink", "MessageResult"],
           "type": 43
         },
         "selector": "0xc0de1004"
@@ -389,54 +316,42 @@
           {
             "label": "name",
             "type": {
-              "displayName": [
-                "String"
-              ],
+              "displayName": ["String"],
               "type": 0
             }
           },
           {
             "label": "description",
             "type": {
-              "displayName": [
-                "String"
-              ],
+              "displayName": ["String"],
               "type": 0
             }
           },
           {
             "label": "categories",
             "type": {
-              "displayName": [
-                "Vec"
-              ],
+              "displayName": ["Vec"],
               "type": 11
             }
           },
           {
             "label": "chain",
             "type": {
-              "displayName": [
-                "Vec"
-              ],
+              "displayName": ["Vec"],
               "type": 4
             }
           },
           {
             "label": "links",
             "type": {
-              "displayName": [
-                "Vec"
-              ],
+              "displayName": ["Vec"],
               "type": 13
             }
           },
           {
             "label": "role",
             "type": {
-              "displayName": [
-                "UserRole"
-              ],
+              "displayName": ["UserRole"],
               "type": 48
             }
           }
@@ -447,10 +362,7 @@
         "mutates": true,
         "payable": false,
         "returnType": {
-          "displayName": [
-            "ink",
-            "MessageResult"
-          ],
+          "displayName": ["ink", "MessageResult"],
           "type": 49
         },
         "selector": "0xc0de0001"
@@ -460,45 +372,35 @@
           {
             "label": "_description",
             "type": {
-              "displayName": [
-                "Option"
-              ],
+              "displayName": ["Option"],
               "type": 51
             }
           },
           {
             "label": "_categories",
             "type": {
-              "displayName": [
-                "Option"
-              ],
+              "displayName": ["Option"],
               "type": 52
             }
           },
           {
             "label": "_chain",
             "type": {
-              "displayName": [
-                "Option"
-              ],
+              "displayName": ["Option"],
               "type": 53
             }
           },
           {
             "label": "_links",
             "type": {
-              "displayName": [
-                "Option"
-              ],
+              "displayName": ["Option"],
               "type": 32
             }
           },
           {
             "label": "_role",
             "type": {
-              "displayName": [
-                "Option"
-              ],
+              "displayName": ["Option"],
               "type": 54
             }
           }
@@ -509,10 +411,7 @@
         "mutates": true,
         "payable": false,
         "returnType": {
-          "displayName": [
-            "ink",
-            "MessageResult"
-          ],
+          "displayName": ["ink", "MessageResult"],
           "type": 49
         },
         "selector": "0xc0de0002"
@@ -522,72 +421,56 @@
           {
             "label": "name",
             "type": {
-              "displayName": [
-                "String"
-              ],
+              "displayName": ["String"],
               "type": 0
             }
           },
           {
             "label": "account",
             "type": {
-              "displayName": [
-                "Option"
-              ],
+              "displayName": ["Option"],
               "type": 38
             }
           },
           {
             "label": "description",
             "type": {
-              "displayName": [
-                "String"
-              ],
+              "displayName": ["String"],
               "type": 0
             }
           },
           {
             "label": "mission",
             "type": {
-              "displayName": [
-                "String"
-              ],
+              "displayName": ["String"],
               "type": 0
             }
           },
           {
             "label": "categories",
             "type": {
-              "displayName": [
-                "Vec"
-              ],
+              "displayName": ["Vec"],
               "type": 11
             }
           },
           {
             "label": "chain",
             "type": {
-              "displayName": [
-                "Vec"
-              ],
+              "displayName": ["Vec"],
               "type": 4
             }
           },
           {
             "label": "members",
             "type": {
-              "displayName": [
-                "Vec"
-              ],
+              "displayName": ["Vec"],
               "type": 6
             }
           },
           {
             "label": "links",
             "type": {
-              "displayName": [
-                "Vec"
-              ],
+              "displayName": ["Vec"],
               "type": 13
             }
           }
@@ -598,10 +481,7 @@
         "mutates": true,
         "payable": false,
         "returnType": {
-          "displayName": [
-            "ink",
-            "MessageResult"
-          ],
+          "displayName": ["ink", "MessageResult"],
           "type": 49
         },
         "selector": "0xc0de0003"
@@ -611,18 +491,14 @@
           {
             "label": "account",
             "type": {
-              "displayName": [
-                "AccountId"
-              ],
+              "displayName": ["AccountId"],
               "type": 1
             }
           },
           {
             "label": "action",
             "type": {
-              "displayName": [
-                "KeyAction"
-              ],
+              "displayName": ["KeyAction"],
               "type": 55
             }
           }
@@ -633,10 +509,7 @@
         "mutates": true,
         "payable": false,
         "returnType": {
-          "displayName": [
-            "ink",
-            "MessageResult"
-          ],
+          "displayName": ["ink", "MessageResult"],
           "type": 49
         },
         "selector": "0xc0de0004"
@@ -646,36 +519,28 @@
           {
             "label": "chain",
             "type": {
-              "displayName": [
-                "Chains"
-              ],
+              "displayName": ["Chains"],
               "type": 5
             }
           },
           {
             "label": "ref_no",
             "type": {
-              "displayName": [
-                "Option"
-              ],
+              "displayName": ["Option"],
               "type": 23
             }
           },
           {
             "label": "file",
             "type": {
-              "displayName": [
-                "String"
-              ],
+              "displayName": ["String"],
               "type": 0
             }
           },
           {
             "label": "mem",
             "type": {
-              "displayName": [
-                "u32"
-              ],
+              "displayName": ["u32"],
               "type": 24
             }
           }
@@ -686,10 +551,7 @@
         "mutates": true,
         "payable": false,
         "returnType": {
-          "displayName": [
-            "ink",
-            "MessageResult"
-          ],
+          "displayName": ["ink", "MessageResult"],
           "type": 56
         },
         "selector": "0xc0de0014"
@@ -699,9 +561,7 @@
           {
             "label": "proposal_id",
             "type": {
-              "displayName": [
-                "u8"
-              ],
+              "displayName": ["u8"],
               "type": 3
             }
           }
@@ -712,10 +572,7 @@
         "mutates": false,
         "payable": false,
         "returnType": {
-          "displayName": [
-            "ink",
-            "MessageResult"
-          ],
+          "displayName": ["ink", "MessageResult"],
           "type": 59
         },
         "selector": "0xc0de0015"
@@ -728,10 +585,7 @@
         "mutates": false,
         "payable": false,
         "returnType": {
-          "displayName": [
-            "ink",
-            "MessageResult"
-          ],
+          "displayName": ["ink", "MessageResult"],
           "type": 61
         },
         "selector": "0xc0de0019"
@@ -741,27 +595,21 @@
           {
             "label": "project_id",
             "type": {
-              "displayName": [
-                "u8"
-              ],
+              "displayName": ["u8"],
               "type": 3
             }
           },
           {
             "label": "file",
             "type": {
-              "displayName": [
-                "String"
-              ],
+              "displayName": ["String"],
               "type": 0
             }
           },
           {
             "label": "mem",
             "type": {
-              "displayName": [
-                "u32"
-              ],
+              "displayName": ["u32"],
               "type": 24
             }
           }
@@ -772,10 +620,7 @@
         "mutates": true,
         "payable": false,
         "returnType": {
-          "displayName": [
-            "ink",
-            "MessageResult"
-          ],
+          "displayName": ["ink", "MessageResult"],
           "type": 56
         },
         "selector": "0xc0de0010"
@@ -785,36 +630,28 @@
           {
             "label": "project_id",
             "type": {
-              "displayName": [
-                "u8"
-              ],
+              "displayName": ["u8"],
               "type": 3
             }
           },
           {
             "label": "mile_no",
             "type": {
-              "displayName": [
-                "u8"
-              ],
+              "displayName": ["u8"],
               "type": 3
             }
           },
           {
             "label": "file",
             "type": {
-              "displayName": [
-                "String"
-              ],
+              "displayName": ["String"],
               "type": 0
             }
           },
           {
             "label": "mem",
             "type": {
-              "displayName": [
-                "u32"
-              ],
+              "displayName": ["u32"],
               "type": 24
             }
           }
@@ -825,10 +662,7 @@
         "mutates": true,
         "payable": false,
         "returnType": {
-          "displayName": [
-            "ink",
-            "MessageResult"
-          ],
+          "displayName": ["ink", "MessageResult"],
           "type": 56
         },
         "selector": "0xc0de0011"
@@ -838,36 +672,28 @@
           {
             "label": "_project",
             "type": {
-              "displayName": [
-                "u8"
-              ],
+              "displayName": ["u8"],
               "type": 3
             }
           },
           {
             "label": "_mile_no",
             "type": {
-              "displayName": [
-                "u8"
-              ],
+              "displayName": ["u8"],
               "type": 3
             }
           },
           {
             "label": "_file",
             "type": {
-              "displayName": [
-                "String"
-              ],
+              "displayName": ["String"],
               "type": 0
             }
           },
           {
             "label": "_mem",
             "type": {
-              "displayName": [
-                "u32"
-              ],
+              "displayName": ["u32"],
               "type": 24
             }
           }
@@ -878,10 +704,7 @@
         "mutates": true,
         "payable": false,
         "returnType": {
-          "displayName": [
-            "ink",
-            "MessageResult"
-          ],
+          "displayName": ["ink", "MessageResult"],
           "type": 56
         },
         "selector": "0xc0de0012"
@@ -891,18 +714,14 @@
           {
             "label": "project_id",
             "type": {
-              "displayName": [
-                "u8"
-              ],
+              "displayName": ["u8"],
               "type": 3
             }
           },
           {
             "label": "mile_no",
             "type": {
-              "displayName": [
-                "Option"
-              ],
+              "displayName": ["Option"],
               "type": 63
             }
           }
@@ -913,10 +732,7 @@
         "mutates": false,
         "payable": false,
         "returnType": {
-          "displayName": [
-            "ink",
-            "MessageResult"
-          ],
+          "displayName": ["ink", "MessageResult"],
           "type": 64
         },
         "selector": "0xc0de0013"
@@ -929,10 +745,7 @@
         "mutates": false,
         "payable": false,
         "returnType": {
-          "displayName": [
-            "ink",
-            "MessageResult"
-          ],
+          "displayName": ["ink", "MessageResult"],
           "type": 70
         },
         "selector": "0xc0de0016"
@@ -942,18 +755,14 @@
           {
             "label": "rand",
             "type": {
-              "displayName": [
-                "Vec"
-              ],
+              "displayName": ["Vec"],
               "type": 34
             }
           },
           {
             "label": "name",
             "type": {
-              "displayName": [
-                "String"
-              ],
+              "displayName": ["String"],
               "type": 0
             }
           }
@@ -964,10 +773,7 @@
         "mutates": true,
         "payable": false,
         "returnType": {
-          "displayName": [
-            "ink",
-            "MessageResult"
-          ],
+          "displayName": ["ink", "MessageResult"],
           "type": 49
         },
         "selector": "0xc0de0017"
@@ -980,10 +786,7 @@
         "mutates": false,
         "payable": false,
         "returnType": {
-          "displayName": [
-            "ink",
-            "MessageResult"
-          ],
+          "displayName": ["ink", "MessageResult"],
           "type": 72
         },
         "selector": "0xc0de0018"
@@ -1327,11 +1130,7 @@
             ]
           }
         },
-        "path": [
-          "ink_primitives",
-          "types",
-          "AccountId"
-        ]
+        "path": ["ink_primitives", "types", "AccountId"]
       }
     },
     {
@@ -1384,10 +1183,7 @@
             ]
           }
         },
-        "path": [
-          "ordum",
-          "Chains"
-        ]
+        "path": ["ordum", "Chains"]
       }
     },
     {
@@ -1404,10 +1200,7 @@
       "id": 7,
       "type": {
         "def": {
-          "tuple": [
-            1,
-            8
-          ]
+          "tuple": [1, 8]
         }
       }
     },
@@ -1428,10 +1221,7 @@
             ]
           }
         },
-        "path": [
-          "ordum",
-          "MemberRole"
-        ]
+        "path": ["ordum", "MemberRole"]
       }
     },
     {
@@ -1448,10 +1238,7 @@
       "id": 10,
       "type": {
         "def": {
-          "tuple": [
-            0,
-            3
-          ]
+          "tuple": [0, 3]
         }
       }
     },
@@ -1530,10 +1317,7 @@
             ]
           }
         },
-        "path": [
-          "ordum",
-          "Categories"
-        ]
+        "path": ["ordum", "Categories"]
       }
     },
     {
@@ -1560,10 +1344,7 @@
       "id": 15,
       "type": {
         "def": {
-          "tuple": [
-            0,
-            1
-          ]
+          "tuple": [0, 1]
         }
       }
     },
@@ -1609,10 +1390,7 @@
             ]
           }
         },
-        "path": [
-          "ordum",
-          "KeyManagement"
-        ]
+        "path": ["ordum", "KeyManagement"]
       }
     },
     {
@@ -1684,10 +1462,7 @@
             ]
           }
         },
-        "path": [
-          "ordum",
-          "Project"
-        ]
+        "path": ["ordum", "Project"]
       }
     },
     {
@@ -1714,10 +1489,7 @@
             ]
           }
         },
-        "path": [
-          "ordum",
-          "InnerProject"
-        ]
+        "path": ["ordum", "InnerProject"]
       }
     },
     {
@@ -1748,9 +1520,7 @@
             "type": 24
           }
         ],
-        "path": [
-          "Option"
-        ]
+        "path": ["Option"]
       }
     },
     {
@@ -1775,10 +1545,7 @@
       "id": 26,
       "type": {
         "def": {
-          "tuple": [
-            3,
-            27
-          ]
+          "tuple": [3, 27]
         }
       }
     },
@@ -1821,10 +1588,7 @@
             ]
           }
         },
-        "path": [
-          "ordum",
-          "EditedMile"
-        ]
+        "path": ["ordum", "EditedMile"]
       }
     },
     {
@@ -1866,10 +1630,7 @@
             ]
           }
         },
-        "path": [
-          "ordum",
-          "AddMilestone"
-        ]
+        "path": ["ordum", "AddMilestone"]
       }
     },
     {
@@ -1910,9 +1671,7 @@
             "type": 13
           }
         ],
-        "path": [
-          "Option"
-        ]
+        "path": ["Option"]
       }
     },
     {
@@ -1943,9 +1702,7 @@
             "type": 34
           }
         ],
-        "path": [
-          "Option"
-        ]
+        "path": ["Option"]
       }
     },
     {
@@ -1995,9 +1752,7 @@
             "type": 37
           }
         ],
-        "path": [
-          "Result"
-        ]
+        "path": ["Result"]
       }
     },
     {
@@ -2021,10 +1776,7 @@
             ]
           }
         },
-        "path": [
-          "ink_primitives",
-          "LangError"
-        ]
+        "path": ["ink_primitives", "LangError"]
       }
     },
     {
@@ -2055,9 +1807,7 @@
             "type": 1
           }
         ],
-        "path": [
-          "Option"
-        ]
+        "path": ["Option"]
       }
     },
     {
@@ -2097,9 +1847,7 @@
             "type": 37
           }
         ],
-        "path": [
-          "Result"
-        ]
+        "path": ["Result"]
       }
     },
     {
@@ -2139,9 +1887,7 @@
             "type": 42
           }
         ],
-        "path": [
-          "Result"
-        ]
+        "path": ["Result"]
       }
     },
     {
@@ -2208,10 +1954,7 @@
             ]
           }
         },
-        "path": [
-          "ordum",
-          "TeamApplicantProfile"
-        ]
+        "path": ["ordum", "TeamApplicantProfile"]
       }
     },
     {
@@ -2259,10 +2002,7 @@
             ]
           }
         },
-        "path": [
-          "ordum",
-          "Error"
-        ]
+        "path": ["ordum", "Error"]
       }
     },
     {
@@ -2302,9 +2042,7 @@
             "type": 37
           }
         ],
-        "path": [
-          "Result"
-        ]
+        "path": ["Result"]
       }
     },
     {
@@ -2344,9 +2082,7 @@
             "type": 42
           }
         ],
-        "path": [
-          "Result"
-        ]
+        "path": ["Result"]
       }
     },
     {
@@ -2386,9 +2122,7 @@
             "type": 37
           }
         ],
-        "path": [
-          "Result"
-        ]
+        "path": ["Result"]
       }
     },
     {
@@ -2428,9 +2162,7 @@
             "type": 42
           }
         ],
-        "path": [
-          "Result"
-        ]
+        "path": ["Result"]
       }
     },
     {
@@ -2492,10 +2224,7 @@
             ]
           }
         },
-        "path": [
-          "ordum",
-          "IndividualProfile"
-        ]
+        "path": ["ordum", "IndividualProfile"]
       }
     },
     {
@@ -2515,10 +2244,7 @@
             ]
           }
         },
-        "path": [
-          "ordum",
-          "UserRole"
-        ]
+        "path": ["ordum", "UserRole"]
       }
     },
     {
@@ -2558,9 +2284,7 @@
             "type": 37
           }
         ],
-        "path": [
-          "Result"
-        ]
+        "path": ["Result"]
       }
     },
     {
@@ -2600,9 +2324,7 @@
             "type": 42
           }
         ],
-        "path": [
-          "Result"
-        ]
+        "path": ["Result"]
       }
     },
     {
@@ -2633,9 +2355,7 @@
             "type": 0
           }
         ],
-        "path": [
-          "Option"
-        ]
+        "path": ["Option"]
       }
     },
     {
@@ -2666,9 +2386,7 @@
             "type": 11
           }
         ],
-        "path": [
-          "Option"
-        ]
+        "path": ["Option"]
       }
     },
     {
@@ -2699,9 +2417,7 @@
             "type": 4
           }
         ],
-        "path": [
-          "Option"
-        ]
+        "path": ["Option"]
       }
     },
     {
@@ -2732,9 +2448,7 @@
             "type": 48
           }
         ],
-        "path": [
-          "Option"
-        ]
+        "path": ["Option"]
       }
     },
     {
@@ -2758,10 +2472,7 @@
             ]
           }
         },
-        "path": [
-          "ordum",
-          "KeyAction"
-        ]
+        "path": ["ordum", "KeyAction"]
       }
     },
     {
@@ -2801,9 +2512,7 @@
             "type": 37
           }
         ],
-        "path": [
-          "Result"
-        ]
+        "path": ["Result"]
       }
     },
     {
@@ -2843,9 +2552,7 @@
             "type": 58
           }
         ],
-        "path": [
-          "Result"
-        ]
+        "path": ["Result"]
       }
     },
     {
@@ -2877,10 +2584,7 @@
             ]
           }
         },
-        "path": [
-          "ordum",
-          "MilestoneError"
-        ]
+        "path": ["ordum", "MilestoneError"]
       }
     },
     {
@@ -2920,9 +2624,7 @@
             "type": 37
           }
         ],
-        "path": [
-          "Result"
-        ]
+        "path": ["Result"]
       }
     },
     {
@@ -2962,9 +2664,7 @@
             "type": 58
           }
         ],
-        "path": [
-          "Result"
-        ]
+        "path": ["Result"]
       }
     },
     {
@@ -3004,9 +2704,7 @@
             "type": 37
           }
         ],
-        "path": [
-          "Result"
-        ]
+        "path": ["Result"]
       }
     },
     {
@@ -3046,9 +2744,7 @@
             "type": 58
           }
         ],
-        "path": [
-          "Result"
-        ]
+        "path": ["Result"]
       }
     },
     {
@@ -3079,9 +2775,7 @@
             "type": 3
           }
         ],
-        "path": [
-          "Option"
-        ]
+        "path": ["Option"]
       }
     },
     {
@@ -3121,9 +2815,7 @@
             "type": 37
           }
         ],
-        "path": [
-          "Result"
-        ]
+        "path": ["Result"]
       }
     },
     {
@@ -3163,9 +2855,7 @@
             "type": 58
           }
         ],
-        "path": [
-          "Result"
-        ]
+        "path": ["Result"]
       }
     },
     {
@@ -3202,10 +2892,7 @@
             ]
           }
         },
-        "path": [
-          "ordum",
-          "FetchedMilestone"
-        ]
+        "path": ["ordum", "FetchedMilestone"]
       }
     },
     {
@@ -3236,9 +2923,7 @@
             "type": 27
           }
         ],
-        "path": [
-          "Option"
-        ]
+        "path": ["Option"]
       }
     },
     {
@@ -3269,9 +2954,7 @@
             "type": 25
           }
         ],
-        "path": [
-          "Option"
-        ]
+        "path": ["Option"]
       }
     },
     {
@@ -3302,9 +2985,7 @@
             "type": 29
           }
         ],
-        "path": [
-          "Option"
-        ]
+        "path": ["Option"]
       }
     },
     {
@@ -3344,9 +3025,7 @@
             "type": 37
           }
         ],
-        "path": [
-          "Result"
-        ]
+        "path": ["Result"]
       }
     },
     {
@@ -3386,9 +3065,7 @@
             "type": 42
           }
         ],
-        "path": [
-          "Result"
-        ]
+        "path": ["Result"]
       }
     },
     {
@@ -3428,9 +3105,7 @@
             "type": 37
           }
         ],
-        "path": [
-          "Result"
-        ]
+        "path": ["Result"]
       }
     },
     {
@@ -3470,19 +3145,14 @@
             "type": 42
           }
         ],
-        "path": [
-          "Result"
-        ]
+        "path": ["Result"]
       }
     },
     {
       "id": 74,
       "type": {
         "def": {
-          "tuple": [
-            0,
-            0
-          ]
+          "tuple": [0, 0]
         }
       }
     },
@@ -3507,11 +3177,7 @@
             ]
           }
         },
-        "path": [
-          "ink_primitives",
-          "types",
-          "Hash"
-        ]
+        "path": ["ink_primitives", "types", "Hash"]
       }
     },
     {
@@ -3520,11 +3186,7 @@
         "def": {
           "variant": {}
         },
-        "path": [
-          "ink_env",
-          "types",
-          "NoChainExtension"
-        ]
+        "path": ["ink_env", "types", "NoChainExtension"]
       }
     }
   ],

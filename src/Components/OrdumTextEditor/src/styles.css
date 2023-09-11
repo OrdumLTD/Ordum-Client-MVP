@@ -1,7 +1,11 @@
 body {
   margin: 0;
   background: #eee;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, ".SFNSText-Regular",
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    ".SFNSText-Regular",
     sans-serif;
   font-weight: 500;
   -webkit-font-smoothing: antialiased;
@@ -604,7 +608,7 @@ i.chevron-down {
   background-position: center;
   background-repeat: no-repeat;
   display: block;
-  content: ' ';
+  content: " ";
   position: absolute;
   top: 0;
   left: 0;
@@ -632,7 +636,7 @@ i.chevron-down {
   background-position: center;
   background-repeat: no-repeat;
   display: block;
-  content: ' ';
+  content: " ";
   position: absolute;
   top: 0;
   left: 0;
@@ -686,7 +690,9 @@ i.chevron-down {
   z-index: 5;
   display: block;
   position: absolute;
-  box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1),
+  box-shadow:
+    0 12px 28px 0 rgba(0, 0, 0, 0.2),
+    0 2px 4px 0 rgba(0, 0, 0, 0.1),
     inset 0 0 0 1px rgba(255, 255, 255, 0.5);
   border-radius: 8px;
   min-width: 100px;
@@ -825,19 +831,17 @@ i.chevron-down {
 }
 
 .link-editor .button i,
-
-
 .actions {
   /* position: absolute; */
   /* text-align: right; */
   /* /* margin: 10px; */
   /* bottom: 200px; */
   /* right: 0;  */
-  position: absolute; 
-  left: 0; 
-  right: 0; 
-  margin-left: auto; 
-  margin-right: auto; 
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 10px;
   max-width: 1000px;
 }
@@ -854,7 +858,6 @@ i.chevron-down {
   width: 15px;
   vertical-align: -0.25em;
 }
-
 
 .action-button {
   background-color: #eee;

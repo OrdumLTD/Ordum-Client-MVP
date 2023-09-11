@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 export default function ActiveGrants() {
   return (
@@ -11,7 +11,7 @@ export default function ActiveGrants() {
             ml-2 mt-1 block px-2 md:px-6 md:py-2 bg-ordum-blue border border-slate-300 rounded-md text-sm md:text-base shadow-sm placeholder-slate-400
             focus:outline-none focus:border-sky-500"
           >
-            <option value="" className="" disabled  hidden>
+            <option value="" className="" disabled hidden>
               All
             </option>
             <option value="All">All</option>

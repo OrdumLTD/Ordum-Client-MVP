@@ -12,7 +12,12 @@ type Props = {
 
 const MemberBasic: React.FC<Props> = (props) => {
   return (
-    <div className={"border border-white rounded-full w-[33rem] p-1.5  backdrop-blur-sm bg-white/30 " + props.className}>
+    <div
+      className={
+        "border border-white rounded-full w-[33rem] p-1.5  backdrop-blur-sm bg-white/30 " +
+        props.className
+      }
+    >
       <div className="flex justify-between">
         <div className="m-2 flex gap-3">
           <div className="rounded-full bg-green-500 w-10 h-10 self-center p-1.5">
@@ -24,10 +29,16 @@ const MemberBasic: React.FC<Props> = (props) => {
           </div>
         </div>
         <div className="self-center mr-2 flex gap-4">
-            <button className="p-2 rounded-xl bg-ordum-purple">Sync</button>
-            <button className="p-2 rounded-xl bg-ordum-blue underline">View</button>
-            <button className="p-2 rounded-xl bg-ordum-blue underline">Edit</button>
-            <button className="p-2 rounded-xl bg-ordum-blue underline">Remove</button>
+          <button className="p-2 rounded-xl bg-ordum-purple">Sync</button>
+          <button className="p-2 rounded-xl bg-ordum-blue underline">
+            View
+          </button>
+          <button className="p-2 rounded-xl bg-ordum-blue underline">
+            Edit
+          </button>
+          <button className="p-2 rounded-xl bg-ordum-blue underline">
+            Remove
+          </button>
         </div>
       </div>
     </div>

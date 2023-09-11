@@ -116,7 +116,10 @@ const MileStoneReview: React.FC<Props> = (props) => {
                             return (
                               <li key={index}>
                                 {" "}
-                                <Link href={deliverable.link} className="underline text-blue-400">
+                                <Link
+                                  href={deliverable.link}
+                                  className="underline text-blue-400"
+                                >
                                   {deliverable.name}
                                 </Link>
                               </li>

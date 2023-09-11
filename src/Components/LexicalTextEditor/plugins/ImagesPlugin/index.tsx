@@ -220,7 +220,7 @@ export default function ImagesPlugin({
 
   useEffect(() => {
     if (!editor.hasNodes([ImageNode])) {
-      console.log(editor)
+      console.log(editor);
       throw new Error("ImagesPlugin: ImageNode not registered on editor");
     }
 
@@ -236,29 +236,29 @@ export default function ImagesPlugin({
 
           return true;
         },
-        COMMAND_PRIORITY_EDITOR
+        COMMAND_PRIORITY_EDITOR,
       ),
       editor.registerCommand<DragEvent>(
         DRAGSTART_COMMAND,
         (event) => {
           return onDragStart(event);
         },
-        COMMAND_PRIORITY_HIGH
+        COMMAND_PRIORITY_HIGH,
       ),
       editor.registerCommand<DragEvent>(
         DRAGOVER_COMMAND,
         (event) => {
           return onDragover(event);
         },
-        COMMAND_PRIORITY_LOW
+        COMMAND_PRIORITY_LOW,
       ),
       editor.registerCommand<DragEvent>(
         DROP_COMMAND,
         (event) => {
           return onDrop(event, editor);
         },
-        COMMAND_PRIORITY_HIGH
-      )
+        COMMAND_PRIORITY_HIGH,
+      ),
     );
   }, [captionsEnabled, editor]);
 
@@ -295,7 +295,7 @@ function onDragStart(event: DragEvent): boolean {
         width: node.__width,
       },
       type: "image",
-    })
+    }),
   );
 
   return true;

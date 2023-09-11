@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import Image from "next/image";
 
@@ -6,15 +6,13 @@ import { useContext } from "react";
 import { useRouter } from "next/router";
 import { useProposalContext } from "@/Context/submitPropolsal";
 
-
 type Props = {
   className?: string;
 };
 
 const SubmitPropolsalTeam: React.FC<Props> = (props) => {
-  const {changeToStep} = useProposalContext()
+  const { changeToStep } = useProposalContext();
   const router = useRouter();
-
 
   const changePropolsalSubPage = async (step: number, route: string) => {
     changeToStep(step);
@@ -84,7 +82,9 @@ const SubmitPropolsalTeam: React.FC<Props> = (props) => {
           <div className="mt-10 flex flex-col gap-4">
             <button
               className="bg-black text-white py-2 md:py-4"
-              onClick={() => changePropolsalSubPage(5, "/submitproposal/milestones")}
+              onClick={() =>
+                changePropolsalSubPage(5, "/submitproposal/milestones")
+              }
             >
               Save and continue
             </button>

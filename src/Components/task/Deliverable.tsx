@@ -24,8 +24,12 @@ const Deliverable: React.FC<Props> = (props) => {
       <div className="flex justify-between">
         <div className="m-2 flex gap-1">
           <div>
-            <div ><span className="font-bold">Name</span> {props.name}</div>
-            <div ><span className="font-bold">Link</span> {props.link}</div>
+            <div>
+              <span className="font-bold">Name</span> {props.name}
+            </div>
+            <div>
+              <span className="font-bold">Link</span> {props.link}
+            </div>
           </div>
         </div>
         <div className="self-center mr-2 flex gap-4">
@@ -34,7 +38,9 @@ const Deliverable: React.FC<Props> = (props) => {
           </button>
           <button
             className="p-2 rounded-xl bg-ordum-blue underline"
-            onClick={() => {props.remove(props.id)}}
+            onClick={() => {
+              props.remove(props.id);
+            }}
           >
             Remove
           </button>

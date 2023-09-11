@@ -22,11 +22,10 @@ const SignUp = () => {
         <div className="text-lg md:text-3xl font-base mt-5">Connect Wallet</div>
         <p className="mt-5 md:text-lg">
           In order to get paid in cryptocurrency you will need a wallet. If you
-          don’t have one, 
+          don’t have one,
         </p>
         <div className="grid place-items-center">
           <div className="mt-5 w-full grid gap-4">
-
             {/* <button className="w-full border border-black rounded-full border-2 py-4">
               {" "}
               Polkadot JS
@@ -41,7 +40,7 @@ const SignUp = () => {
               {" "}
               Wallet Connect{" "}
             </button> */}
-          
+
             {/* <Link href={"/profile"}>
             <button className="w-full border border-black rounded-full border-2 py-4 bg-black text-white text-sm md:text-lg font-thin md:font-medium">
               {" "}

@@ -29,9 +29,8 @@ const ActionsPlugin = ({
   // if contextProposal is not null: Populate
   useEffect(() => {
     //@ts-ignore
-      readFileFromState(editor, contextProposal);
-  }, );
-
+    readFileFromState(editor, contextProposal);
+  });
 
   useEffect(() => {
     //@ts-ignore

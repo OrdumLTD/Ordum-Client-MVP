@@ -49,14 +49,11 @@ type Props = {
   ifYouHaveSeenSimilar?: string;
 };
 
-
-
 const SubmitPropolsalPreview: React.FC<Props> = (props) => {
-
   // Context
-  const {cache,contractApi} = usePhalaContractContext();
+  const { cache, contractApi } = usePhalaContractContext();
   const { account, signer } = useWalletContext();
-  const { api, fetchChainApi,crustApi,fetchCrustApi } = useChainApiContext();
+  const { api, fetchChainApi, crustApi, fetchCrustApi } = useChainApiContext();
   const userCtx = useUserContext();
   const {
     changeToStep,
@@ -67,13 +64,12 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
     milestones,
   } = useProposalContext();
 
-
   const [hash, setHash] = useState<string>();
 
-  const [dbJSON, setDbJSON] =  useState();
+  const [dbJSON, setDbJSON] = useState();
   const [storageOrderPlaced, setStorageOrderPlaced] = useState<boolean>(false);
-  const [returnIpfs,setReturnIpfs] = useState<ReturnIpfs>();
-  const [proposalStatus,setProposalStatus] = useState<boolean>(false);
+  const [returnIpfs, setReturnIpfs] = useState<ReturnIpfs>();
+  const [proposalStatus, setProposalStatus] = useState<boolean>(false);
 
   const [menu, setMenu] = useState(ReviewMenu.Summary);
 
@@ -83,16 +79,16 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
     tldr: any,
     context: any,
     milestones: any,
-    owner: string
+    owner: string,
   ) => {
     const config = {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     };
-  
+
     console.log(milestones);
-  
+
     const bodyParameters = {
       name: tldr.teamName,
       tldr: {
@@ -109,26 +105,23 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
       milestones,
       owner,
     };
-  
+
     console.log(bodyParameters);
-  
+
     axios
       // .post("http://localhost:4000/proposals", bodyParameters, config)
-  
+
       .post(
         "https://ordum-mvp-api-9de49c774d76.herokuapp.com/proposals",
         bodyParameters,
-        config
+        config,
       )
       .then((res) => {
         console.log(res);
-        setDbJSON(res.data)
+        setDbJSON(res.data);
       })
       .catch((e) => console.log(e));
   };
-
-
-
 
   console.log({ tldr, context, milestones, userCtx });
   const router = useRouter();
@@ -142,36 +135,30 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
     if (!api) {
       fetchChainApi();
     }
-    if(!crustApi){
-      fetchCrustApi()
+    if (!crustApi) {
+      fetchCrustApi();
     }
   }, []);
 
- 
-
   // 1. Submit To Db
-  
 
-  const submitToDb = () =>{
-    console.log("Submitting proposal to Db")
+  const submitToDb = () => {
+    console.log("Submitting proposal to Db");
     SubmitProposalToDB(
       userCtx.userToken,
       tldr.teamName,
       tldr,
       context,
       milestones,
-      userCtx.userID
+      userCtx.userID,
     );
-  }
-
-
+  };
 
   // 2. Submit On Chain (eg,Kusama)
-   // callBack fn
-   const fetchIndex = (index: number) => [setProposalIndex(index)];
+  // callBack fn
+  const fetchIndex = (index: number) => [setProposalIndex(index)];
 
-
-  useMemo(async() =>{
+  useMemo(async () => {
     // Referenda Test
     if (tldr?.fundingAmount && tldr.recieveDate) {
       const rate = tldr.exchangeRate || 24;
@@ -183,59 +170,58 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
         tldr.fundingAmount,
         tldr.beneficiary,
         api,
-        tldr.recieveDate
+        tldr.recieveDate,
       );
-     
     } else {
       console.log(
         "Missing some field Funding " +
           tldr?.fundingAmount +
           "ReceiveData " +
-          tldr?.recieveDate
+          tldr?.recieveDate,
       );
     }
-  },[dbJSON])
-
-
+  }, [dbJSON]);
 
   // 3. Take the Returned JSON and submit to Crust & Ipfs
-  useMemo(async()=>{
-    if(dbJSON){
-      console.log("Submitting Proposal to Ipfs & Crust")
+  useMemo(async () => {
+    if (dbJSON) {
+      console.log("Submitting Proposal to Ipfs & Crust");
 
-     const ipfsReturn = await newFileIpfs(
-
-      setStorageOrderPlaced,
-      crustApi,account.address,
-      signer,dbJSON,tldr.teamName
+      const ipfsReturn = await newFileIpfs(
+        setStorageOrderPlaced,
+        crustApi,
+        account.address,
+        signer,
+        dbJSON,
+        tldr.teamName,
       );
 
       setReturnIpfs(ipfsReturn);
     }
+  }, [dbJSON]);
 
-  },[dbJSON])
-
-  // 4. Submitting Proposal Cid to contract 
-  useMemo(async() =>{
-    if(returnIpfs && storageOrderPlaced && proposalIndex){
-      console.log(`Submitting proposal to the contract ( CID: ${returnIpfs.cid} , SIZE: ${returnIpfs.size} ) `)
-        await submitProposal(
-          setProposalStatus,
-          account,
-          signer,
-          cache,
-          contractApi,
-          Chains.kusama, // By default is Kusama as for now
-          proposalIndex,
-          returnIpfs.cid,
-          returnIpfs.size
-        );
+  // 4. Submitting Proposal Cid to contract
+  useMemo(async () => {
+    if (returnIpfs && storageOrderPlaced && proposalIndex) {
+      console.log(
+        `Submitting proposal to the contract ( CID: ${returnIpfs.cid} , SIZE: ${returnIpfs.size} ) `,
+      );
+      await submitProposal(
+        setProposalStatus,
+        account,
+        signer,
+        cache,
+        contractApi,
+        Chains.kusama, // By default is Kusama as for now
+        proposalIndex,
+        returnIpfs.cid,
+        returnIpfs.size,
+      );
     }
-  },[returnIpfs,proposalIndex,storageOrderPlaced])
+  }, [returnIpfs, proposalIndex, storageOrderPlaced]);
 
- console.log("Placed Proposal in the contract \n")
- console.log(proposalStatus)
-
+  console.log("Placed Proposal in the contract \n");
+  console.log(proposalStatus);
 
   return (
     <div className="p-10 w-full">
@@ -330,8 +316,8 @@ const SubmitPropolsalPreview: React.FC<Props> = (props) => {
               {menu === ReviewMenu.Summary ? <Summary /> : null}
               {menu === ReviewMenu.ViewProposal ? <ViewProposal /> : null}
               {menu === ReviewMenu.Milestones ? <Milestones /> : null}
-              {menu === ReviewMenu.Team ? "Team": null}
-              {menu === ReviewMenu.Code ? "Code": null}
+              {menu === ReviewMenu.Team ? "Team" : null}
+              {menu === ReviewMenu.Code ? "Code" : null}
             </div>
 
             {/* <div className="mt-8 flex gap-4">

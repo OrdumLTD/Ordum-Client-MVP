@@ -1,4 +1,4 @@
-import dynamic from 'next/dynamic'
+import dynamic from "next/dynamic";
 import React from "react";
 
 import ExampleTheme from "./themes/ExampleTheme";
@@ -13,13 +13,13 @@ import ToolbarPlugin from "./plugins/ToolbarPlugin";
 import { HeadingNode, QuoteNode } from "@lexical/rich-text";
 import { TableCellNode, TableNode, TableRowNode } from "@lexical/table";
 import { TablePlugin } from "@lexical/react/LexicalTablePlugin";
-const TableCellResizer = dynamic(() => import('./plugins/TableCellResizer'), {
-  ssr: false
-})
-const ImagesPlugin = dynamic(() => import('./plugins/ImagesPlugin'), {
-  ssr: false
-})
-import { ImageNode } from './nodes/ImageNode';
+const TableCellResizer = dynamic(() => import("./plugins/TableCellResizer"), {
+  ssr: false,
+});
+const ImagesPlugin = dynamic(() => import("./plugins/ImagesPlugin"), {
+  ssr: false,
+});
+import { ImageNode } from "./nodes/ImageNode";
 import { ListItemNode, ListNode } from "@lexical/list";
 import { CodeHighlightNode, CodeNode } from "@lexical/code";
 import { AutoLinkNode, LinkNode } from "@lexical/link";
@@ -31,7 +31,7 @@ import { TRANSFORMERS } from "@lexical/markdown";
 import ListMaxIndentLevelPlugin from "./plugins/ListMaxIndentLevelPlugin";
 import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin";
 import AutoLinkPlugin from "./plugins/AutoLinkPlugin";
-import ActionsPlugin from './plugins/ActionsPlugin';
+import ActionsPlugin from "./plugins/ActionsPlugin";
 
 function Placeholder() {
   return <div className="editor-placeholder">Enter some rich text...</div>;
@@ -57,8 +57,8 @@ const editorConfig = {
     TableRowNode,
     ImageNode,
     AutoLinkNode,
-    LinkNode
-  ]
+    LinkNode,
+  ],
 };
 
 export default function Editor() {
@@ -84,7 +84,7 @@ export default function Editor() {
           <ImagesPlugin />
           <ListMaxIndentLevelPlugin maxDepth={7} />
           <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
-          <ActionsPlugin isRichText={true}/>
+          <ActionsPlugin isRichText={true} />
         </div>
       </div>
     </LexicalComposer>

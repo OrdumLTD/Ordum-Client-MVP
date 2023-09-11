@@ -1,12 +1,12 @@
 "use client";
 
 import "./styles.css";
-import dynamic from 'next/dynamic'
+import dynamic from "next/dynamic";
 import ExampleTheme from "./themes/ExampleTheme";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 // import { ContentEditable } from "@lexical/react/LexicalContentEditable";
-import ContentEditable from './ui/ContentEditable';
+import ContentEditable from "./ui/ContentEditable";
 import { HistoryPlugin } from "@lexical/react/LexicalHistoryPlugin";
 import { AutoFocusPlugin } from "@lexical/react/LexicalAutoFocusPlugin";
 import LexicalErrorBoundary from "@lexical/react/LexicalErrorBoundary";
@@ -25,11 +25,14 @@ import ListMaxIndentLevelPlugin from "./plugins/ListMaxIndentLevelPlugin";
 import CodeHighlightPlugin from "./plugins/CodeHighlightPlugin";
 import AutoLinkPlugin from "./plugins/AutoLinkPlugin";
 import { TablePlugin } from "@lexical/react/LexicalTablePlugin";
-import TableCellResizer from './plugins/TableCellResizer';
-const DynamicImagesPluginHandler = dynamic(() => import("./plugins/ImagesPlugin"), {
-  loading: () => <p>Loading...</p>,
-})
-import ImagesPlugin from "./plugins/ImagesPlugin";;
+import TableCellResizer from "./plugins/TableCellResizer";
+const DynamicImagesPluginHandler = dynamic(
+  () => import("./plugins/ImagesPlugin"),
+  {
+    loading: () => <p>Loading...</p>,
+  },
+);
+import ImagesPlugin from "./plugins/ImagesPlugin";
 import { ImageNode } from "./nodes/ImageNode";
 import TableActionMenuPlugin from "./plugins/TableActionMenuPlugin";
 
@@ -57,12 +60,11 @@ const editorConfig = {
     TableRowNode,
     AutoLinkNode,
     LinkNode,
-    ImageNode
+    ImageNode,
   ],
 };
 
 export default function Editor() {
-
   // const cellEditorConfig = {
   //   namespace: 'Playground',
   //   // nodes: [...TableCellNodes],
@@ -72,7 +74,7 @@ export default function Editor() {
   //   },
   //   theme: ExampleTheme,
   // };
-  
+
   return (
     <LexicalComposer initialConfig={editorConfig}>
       <div className="editor-container">
@@ -93,11 +95,11 @@ export default function Editor() {
           <ListMaxIndentLevelPlugin maxDepth={7} />
           <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
           <TablePlugin
-            // hasCellMerge={tableCellMerge}
-            // hasCellBackgroundColor={tableCellBackgroundColor}
+          // hasCellMerge={tableCellMerge}
+          // hasCellBackgroundColor={tableCellBackgroundColor}
           />
-           <TableCellResizer />
-           {/* <NewTablePlugin cellEditorConfig={cellEditorConfig}>
+          <TableCellResizer />
+          {/* <NewTablePlugin cellEditorConfig={cellEditorConfig}>
               <AutoFocusPlugin />
               <RichTextPlugin
                 contentEditable={

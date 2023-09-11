@@ -1,9 +1,8 @@
-'use client'
+"use client";
 
 import { useContext } from "react";
 import { useRouter } from "next/navigation";
 import { useProposalContext } from "@/Context/submitPropolsal";
-
 
 type Props = {
   className?: string;
@@ -15,15 +14,13 @@ type Props = {
 // };
 
 const SubmitPropolsalSidePanel: React.FC<Props> = (props) => {
-  const{proposalStep,changeToStep}= useProposalContext();
+  const { proposalStep, changeToStep } = useProposalContext();
   const router = useRouter();
 
   const changePropolsalSubPage = async (step: number, route: string) => {
     changeToStep(step);
-   await router.push(route);
+    await router.push(route);
   };
-
-
 
   return (
     <div className={"pt-16 " + props.className}>
@@ -48,7 +45,7 @@ const SubmitPropolsalSidePanel: React.FC<Props> = (props) => {
               (proposalStep === 2 ? "font-bold" : "")
             }
             onClick={() => {
-                changePropolsalSubPage(2, "/submitproposal/theproposal");
+              changePropolsalSubPage(2, "/submitproposal/theproposal");
             }}
           >
             2. The Proposal

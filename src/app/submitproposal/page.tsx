@@ -1,16 +1,16 @@
-'use client'
+"use client";
 
 import Layout from "@/Components/ui/Layout";
 import SubmitPropolsalSidePanel from "@/Components/submitProposal/sidePanel";
 
 const submitProposalIndex = () => {
- return (
+  return (
     // <PropolsalContextProvider>
-      <Layout>
-        <div className="">
-          <SubmitPropolsalSidePanel />
-        </div>
-      </Layout>
+    <Layout>
+      <div className="">
+        <SubmitPropolsalSidePanel />
+      </div>
+    </Layout>
     // </PropolsalContextProvider>
   );
 };

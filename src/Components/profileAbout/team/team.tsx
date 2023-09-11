@@ -1,7 +1,6 @@
 import SideNav from "../sideNav/sideNav";
 import TeamMember from "./teamMember";
 
-
 export default function Team() {
   return (
     <div className="md:mx-10 md:ml-16 md:mr-32 h-screen flex flex-row">

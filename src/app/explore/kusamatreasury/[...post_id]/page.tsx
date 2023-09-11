@@ -22,7 +22,7 @@ const ViewProposal: FC = () => {
   console.log(referendaCtx.propsals);
 
   const thisReferenda = referendaCtx?.propsals.find(
-    (item) => item.referendum_index == postId
+    (item) => item.referendum_index == postId,
   );
   const myHeaders = new Headers();
   myHeaders.append("x-network", "kusama");
@@ -36,7 +36,7 @@ const ViewProposal: FC = () => {
   fetch(
     `https://api.polkassembly.io/api/v1/posts/on-chain-post?proposalType=referendums_v2&postId=${postId}`,
     //@ts-ignore
-    requestOptions
+    requestOptions,
   )
     .then((response) => response.text())
     .then((result) => setPropsal(JSON.parse(result)))
