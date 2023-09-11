@@ -42,6 +42,7 @@ const LogIn: React.FC = () => {
   const { fetchPoc5Api, poc5 } = useChainApiContext();
 
   const [acc, setAcc] = useState<any[]>([]);
+  const [chainInfo, setChainInfo] = useState({});
 
   // console.log({
   //   contractApi,
@@ -73,7 +74,9 @@ const LogIn: React.FC = () => {
         cache
       );
       console.log(secret.output.toJSON().valueOf()["ok"]);
+      console.log(cache);
       setAcc(secret.output.toJSON().valueOf()["ok"]["ok"]);
+      setChainInfo(secret.output.toJSON().valueOf()["ok"]);
     } else {
       loadContractApi();
       fetchPoc5Api();
@@ -102,14 +105,16 @@ const LogIn: React.FC = () => {
             res.data?.token,
             res.data.organization._id,
             res.data.organization.name,
-            res.data.type
+            res.data.accountType,
+            chainInfo
           );
         } else {
           userCtx.logInUser(
             res.data?.token,
             res.data.individual._id,
             res.data.individual.name,
-            res.data.type
+            res.data.accountType,
+            chainInfo
           );
         }
       })

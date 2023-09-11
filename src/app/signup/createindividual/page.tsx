@@ -12,7 +12,7 @@ import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
 import { useEffect, useMemo, useState } from "react";
 import { useWalletContext } from "@/Context/WalletStore";
 import { Categories, Chains, UserRole } from "@/lib/PhalaContract/Types/types";
-import { ContractCallOutcome } from "@polkadot/api-contract/types";
+// import { ContractCallOutcome } from "@polkadot/api-contract/types";
 import { useUserContext } from "@/Context/user";
 import { createIndividualProfile } from "@/lib/PhalaContract/Txn/createProfile";
 
@@ -287,7 +287,8 @@ const CreateIndividualProfile = () => {
               res.data?.token,
               res.data?.toSend?._id,
               secretInner[1],
-              UserRole.applicant
+              UserRole.applicant,
+              {}
             );
           })
           .catch((e) => console.log(e));

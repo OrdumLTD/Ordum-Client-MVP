@@ -9,7 +9,7 @@ import { useProfileContext } from "@/Context/ProfileStore";
 import { useUserContext } from "@/Context/user";
 import { MemberRole, UserRole } from "@/lib/PhalaContract/Types/types";
 import { createTeamApplicantProfile } from "@/lib/PhalaContract/Txn/createProfile";
-import { ContractCallOutcome } from "@polkadot/api-contract/types";
+// import { ContractCallOutcome } from "@polkadot/api-contract/types";
 import { useWalletContext } from "@/Context/WalletStore";
 import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
 import { useChainApiContext } from "@/Context/ChainApiStore";
@@ -242,7 +242,7 @@ const AddTeamMembers = () => {
               console.log(res.status)
               setDbStatus(res.status)
       
-              userCtx.logInUser(res.data?.token, res.data?.toSend?._id, secretInner[1],UserRole.applicant);
+              userCtx.logInUser(res.data?.token, res.data?.toSend?._id, secretInner[1],UserRole.applicant, secret.output.toJSON().valueOf()["ok"]);
             })
             .catch((e) => console.log(e));
         }
@@ -346,9 +346,9 @@ const AddTeamMembers = () => {
           <Button
             primeColor
             className="w-full mt-4"
-            // onClick={() => {
-            //   addTeamMember();
-            // }}
+            onClick={() => {
+              addTeamMember();
+            }}
           >
             {" "}
             Add More

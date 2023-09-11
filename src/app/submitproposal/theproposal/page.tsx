@@ -1,25 +1,23 @@
-'use client'
+"use client";
 
 import Layout from "@/Components/ui/Layout";
-import SubmitPropolsalSidePanel from "@/Components/submitProposal/sidePanel"; 
-
+import SubmitPropolsalSidePanel from "@/Components/submitProposal/sidePanel";
+import Editor from "@/Components/OrdumTextEditor/src/ProposalEditor";
 import SubmitProposalContext from "@/Components/submitProposal/theproposal";
+import SubmitProposalTextEditor from "@/Components/submitProposal/SubmitProposalTextEditor/page";
 
-const SubmitProposal: React.FC = () =>  {
-  // const { user } = useSelector((state: RootState) => state.user);
-  // const dispatch = useDispatch()
-
-  // const logInTest = () => {
-  //   dispatch(logInTestUser())
-  // }
-  
-  
-  
+const SubmitProposal: React.FC = () => {
   return (
-    <Layout hideSidePanel>
-      <div className="flex scrollbar-hide">
-        <SubmitPropolsalSidePanel />
-        <SubmitProposalContext />
+    // <Layout>
+    //   <div className="flex scrow">
+    //     <SubmitPropolsalSidePanel />
+    //     {/* <SubmitProposalTextEditor /> */}
+    //     <SubmitProposalContext />
+    //   </div>
+    // </Layout>
+    <Layout isProposalEditor>
+      <div className="bg-white h-screen">
+        <Editor />
       </div>
     </Layout>
   );

@@ -30,10 +30,12 @@ const OrganizaitonDashboard = () => {
   const { account, signer } = useWalletContext();
   const { loadContractApi, cache, contractApi } = usePhalaContractContext();
   const { poc5 } = useChainApiContext();
-  const { fetchedStatus } = useFetchedProfileContext();
+  const { profileData, fetchedStatus } = useFetchedProfileContext();
   const userCtx = useUserContext()
 
+  console.log("/home/dashbord")
   console.log(userCtx)
+  console.log(profileData)
 
   {
     /* Handle the error */
