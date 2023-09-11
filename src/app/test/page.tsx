@@ -44,6 +44,7 @@ const Test = () => {
       .post(
         "https://kusama.api.subscan.io/api/scan/referenda/referendums",
         raw,
+        //@ts-ignore
         subscanApiHeaders
       )
       .then((res) => {
@@ -77,6 +78,7 @@ const Test = () => {
           .post(
             "https://kusama.api.subscan.io/api/scan/referenda/referendums",
             raw,
+            //@ts-ignore
             subscanApiHeaders
           )
           .then((res) => {
