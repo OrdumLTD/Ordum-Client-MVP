@@ -14,6 +14,7 @@ import { ProposalContextProvider } from "@/Context/submitPropolsal";
 import { UserContextProvider } from "@/Context/user";
 import { WalletContextProvider } from "@/Context/WalletStore";
 import { PolskassemblyContextProvider } from "./PolkassembyContext";
+import { ReferendaContextProvider } from "./ReferendaContext";
 
 type Props = {
   children: ReactNode;
@@ -33,7 +34,9 @@ export const AllContextProvider = ({ children }: Props) => {
                       <IndidvualNameNIdContextProvider>
                         <UserContextProvider>
                           <PolskassemblyContextProvider>
+                            <ReferendaContextProvider>
                             {children}
+                            </ReferendaContextProvider>
                           </PolskassemblyContextProvider>
                         </UserContextProvider>
                       </IndidvualNameNIdContextProvider>

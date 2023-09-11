@@ -7,7 +7,6 @@ import KsmAvatar from "@/assets/svg-icons/kusama-avatar.svg";
 // import ChainApiContext from "@/store/apiContext";
 // import { useContext, useEffect } from "react";
 // import { getReferendumInfo } from "@/components/Kusama/ApiQuery";
-//ToDo Fish out proer logos
 
 type Props = {
   className?: string;

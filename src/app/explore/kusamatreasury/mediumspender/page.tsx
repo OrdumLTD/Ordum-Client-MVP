@@ -3,35 +3,91 @@ import ProposalPreview from "@/Components/proposalExplorer/ProposalPreview";
 import Layout from "@/Components/ui/Layout";
 
 import { usePolkassemblyContext } from "@/Context/PolkassembyContext";
-import React, { FC } from "react";
+import { useReferendaContext } from "@/Context/ReferendaContext";
+import React, { FC, useEffect, useState } from "react";
 
 const MediumSpender: FC = () => {
   const polkassemblyCtx = usePolkassemblyContext();
+  const referendaCtx = useReferendaContext();
 
-  console.log(polkassemblyCtx.propsals);
+  const [polkassemblyProposals, setPolkassemblyProposals] = useState([]);
+  const [subscanProposals, setSubscanProposals] = useState([]);
 
-  const mediumSpenderProposals = polkassemblyCtx?.propsals?.filter(
-    (post) => post?.origin === "MediumSpender"
+  const getMediumSpenderFromPolkassembly = () => {
+    console.log("calling");
+    var myHeaders = new Headers();
+    myHeaders.append("x-network", "kusama");
+
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+
+    fetch(
+      "https://api.polkassembly.io/api/v1/listing/on-chain-posts?page=1&proposalType=referendums_v2&listingLimit=1000&trackNo=33&trackStatus=All&sortBy=newest",
+      //@ts-ignore
+      requestOptions
+    )
+      .then((response) => response.text())
+      .then((result) => setPolkassemblyProposals(JSON.parse(result).posts))
+      .catch((error) => console.log("error", error));
+  };
+
+  const mediumSpenderSubScan = referendaCtx?.propsals?.filter(
+    (post) => post?.origins === "medium_spender"
   );
+
+  useEffect(() => {
+    getMediumSpenderFromPolkassembly();
+    setSubscanProposals(mediumSpenderSubScan);
+  }, []);
+
+  // console.log(polkassemblyProposals);
+
+  // console.log(subscanProposals);
+
+  let matchedProposals = [];
+
+  polkassemblyProposals?.forEach((item) => {
+    const match = subscanProposals?.find(
+      (item2) => item.post_id === item2.referendum_index
+    );
+    if (match) {
+      matchedProposals.push({ ...item, ...match });
+    }
+  });
+
+  console.log(matchedProposals);
 
   return (
     <Layout title={"Explore | Kusama Treasury | Medium Spender"} grant>
       <div className="mx-4 flex flex-col">
         <h1 className="text-3xl">Medium Spender</h1>
-        <span className="mt-5">Number of proposals: {mediumSpenderProposals ? mediumSpenderProposals.length : "0"} </span>
+        <span className="mt-5">
+          Number of proposals:{" "}
+          {polkassemblyProposals ? polkassemblyProposals.length : "0"}{" "}
+        </span>
         <div className="mt-10">
-          {mediumSpenderProposals?.length > 0 ? (
+          {matchedProposals?.length > 0 ? (
             <ul>
-              {mediumSpenderProposals?.map((proposal, index) => {
+              {matchedProposals?.map((proposal, index) => {
                 return (
                   <li key={index} className="my-2">
-                    <ProposalPreview title={proposal.title} />
+                    <ProposalPreview
+                      title={proposal.title}
+                      proposerAddress={proposal.proposer}
+                      proposerDisplay={proposal.account.display}
+                      requestedAmount={proposal.requestedAmount}
+                      tags={proposal.tags}
+                      post_id={proposal.post_id}
+                    />
                   </li>
                 );
               })}
             </ul>
           ) : (
-            <p>Nothing here yet ...</p>
+            <p>Loading proposals ...</p>
           )}
         </div>
       </div>

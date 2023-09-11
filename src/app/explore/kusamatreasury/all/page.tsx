@@ -1,3 +1,4 @@
+
 "use client";
 import ProposalPreview from "@/Components/proposalExplorer/ProposalPreview";
 import Layout from "@/Components/ui/Layout";
@@ -6,7 +7,7 @@ import { usePolkassemblyContext } from "@/Context/PolkassembyContext";
 import { useReferendaContext } from "@/Context/ReferendaContext";
 import React, { FC, useEffect, useState } from "react";
 
-const SmallSpender: FC = () => {
+const AllProposals: FC = () => {
   const polkassemblyCtx = usePolkassemblyContext();
   const referendaCtx = useReferendaContext();
 
@@ -25,7 +26,7 @@ const SmallSpender: FC = () => {
     };
 
     fetch(
-      "https://api.polkassembly.io/api/v1/listing/on-chain-posts?page=1&proposalType=referendums_v2&listingLimit=1000&trackNo=32&trackStatus=All&sortBy=newest",
+      "https://api.polkassembly.io/api/v1/listing/on-chain-posts?page=1&proposalType=referendums_v2&listingLimit=1000&trackNo=34&trackStatus=All&sortBy=newest",
       //@ts-ignore
       requestOptions
     )
@@ -34,18 +35,14 @@ const SmallSpender: FC = () => {
       .catch((error) => console.log("error", error));
   };
 
-  const smallSpenderSubScan = referendaCtx?.propsals?.filter(
-    (post) => post?.origins === "small_spender"
+  const allSpenderSubScan = referendaCtx?.propsals?.filter(
+    (post) => ((post?.origins === "big_spender") || (post?.origins === "medium_spender") || (post?.origins === "small_spender"))
   );
 
   useEffect(() => {
     getSmallSpenderFromPolkassembly();
-    setSubscanProposals(smallSpenderSubScan);
+    setSubscanProposals(allSpenderSubScan);
   }, []);
-
-  // console.log(polkassemblyProposals);
-
-  // console.log(subscanProposals);
 
   let matchedProposals = [];
 
@@ -61,12 +58,12 @@ const SmallSpender: FC = () => {
   console.log(matchedProposals);
 
   return (
-    <Layout title={"Explore | Kusama Treasury | Small Spender"} grant>
+    <Layout title={"Explore | Kusama Treasury | All Proposals"} grant>
       <div className="mx-4 flex flex-col">
-        <h1 className="text-3xl">Small Spender</h1>
+        <h1 className="text-3xl">All Proposals</h1>
         <span className="mt-5">
           Number of proposals:{" "}
-          {polkassemblyProposals ? polkassemblyProposals.length : "0"}{" "}
+          {subscanProposals ? subscanProposals.length : "0"}{" "}
         </span>
         <div className="mt-10">
           {matchedProposals?.length > 0 ? (
@@ -87,7 +84,7 @@ const SmallSpender: FC = () => {
               })}
             </ul>
           ) : (
-            <p>Loading proposal ...</p>
+            <p>Loading proposals ...</p>
           )}
         </div>
       </div>
@@ -95,4 +92,4 @@ const SmallSpender: FC = () => {
   );
 };
 
-export default SmallSpender;
+export default AllProposals;

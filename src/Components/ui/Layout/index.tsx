@@ -165,8 +165,7 @@ const Layout: React.FC<Props> = (props) => {
 
                   <ul className="mt-2 ml-2 list-disc text-sm flex flex-col gap-1">
                     <li><Link href="/explore/kusamatreasury">Overview</Link></li>
-                    <li><Link href="/explore/kusamatreasury/discussions">Discussions</Link></li>
-                    <li><Link href="/explore/kusamatreasury/treasurer">Treasurer</Link></li>
+                    <li><Link href="/explore/kusamatreasury/all">All proposals</Link></li>
                     <li><Link href="/explore/kusamatreasury/smallspender">Small Spender</Link></li>
                     <li><Link href="/explore/kusamatreasury/mediumspender">Medium Speder</Link></li>
                     <li><Link href="/explore/kusamatreasury/bigspender">Big Spender</Link></li>
