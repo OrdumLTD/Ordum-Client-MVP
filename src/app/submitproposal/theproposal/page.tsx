@@ -2,9 +2,12 @@
 
 import Layout from "@/Components/ui/Layout";
 import SubmitPropolsalSidePanel from "@/Components/submitProposal/sidePanel";
-import Editor from "@/Components/OrdumTextEditor/src/ProposalEditor";
+// import Editor from "@/Components/OrdumTextEditor/src/ProposalEditor";
 import SubmitProposalContext from "@/Components/submitProposal/theproposal";
 import SubmitProposalTextEditor from "@/Components/submitProposal/SubmitProposalTextEditor/page";
+import dynamic from "next/dynamic";
+
+const Editor = dynamic(() => import('@/Components/OrdumTextEditor/src/ProposalEditor'), {ssr: false})
 
 const SubmitProposal: React.FC = () => {
   return (

@@ -5,9 +5,12 @@
 // import Editor from "@/Components/LexicalTextEditor/Editor";
 // import Editor from "@/Components/OrdumTextEditor/Editor";
 // import Editor from "@/Components/TestEditor/packages/lexical-playground/src/Editor";
-import Editor from "@/Components/OrdumTextEditor/src/app"
-import Viewer from "@/Components/OrdumTextEditor/src/Viewer"
+// import Editor from "@/Components/OrdumTextEditor/src/app"
+// import Viewer from "@/Components/OrdumTextEditor/src/Viewer"
+import dynamic from "next/dynamic";
 import { useState } from "react";
+
+const Viewer = dynamic(() => import('@/Components/OrdumTextEditor/src/Viewer'), {ssr: false})
 
 const TextEditor: React.FC = () => {
   const [text, setText] = useState("");

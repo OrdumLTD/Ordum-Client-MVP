@@ -3,7 +3,10 @@
 import Layout from "@/Components/ui/Layout";
 import SubmitPropolsalPreview from "@/Components/submitProposal/review";
 import SubmitPropolsalSidePanel from "@/Components/submitProposal/sidePanel";
-import Review from "@/Components/Review";
+// import Review from "@/Components/Review";
+import dynamic from "next/dynamic";
+
+const Review = dynamic(() => import('@/Components/Review'), {ssr:false})
 
 const submitProposalPreview = () => {
 

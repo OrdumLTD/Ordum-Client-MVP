@@ -6,7 +6,7 @@ import { useContext, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useProposalContext } from "@/Context/submitPropolsal";
 import ProposalName from "../ProposalName";
-import TextEditorDropdown from "@/Components/TextEditor/TextEditorDropdown";
+// import TextEditorDropdown from "@/Components/TextEditor/TextEditorDropdown";
 
 type Props = {
   className?: string;
@@ -72,11 +72,11 @@ const SubmitProposalContext: React.FC<Props> = (props) => {
             </p>
           </div>
 
-          <TextEditorDropdown
+          {/* <TextEditorDropdown
             text={context?.contextOfTheProposal}
             changeText={handleContextOfProposal}
             className="text-black mt-5"
-          />
+          /> */}
 
           {/* <div className="mt-5">
             <p className="hover:cursor-pointer text-gray-400">
@@ -105,11 +105,11 @@ const SubmitProposalContext: React.FC<Props> = (props) => {
             </p>
           </div>
 
-          <TextEditorDropdown
+          {/* <TextEditorDropdown
             text={context?.knownBackups}
             changeText={handleKnownBackups}
             className="text-black mt-5"
-          />
+          /> */}
 
           <div className="border border-black py-5 px-4 mt-10">
             <h2 className="text-xl">2. Problem Statement</h2>
@@ -120,11 +120,11 @@ const SubmitProposalContext: React.FC<Props> = (props) => {
             </p>
           </div>
 
-          <TextEditorDropdown
+          {/* <TextEditorDropdown
             text={context?.problemStatement}
             changeText={handleProblemStatement}
             className="text-black mt-5"
-          />
+          /> */}
 
           <div className="mt-10 border border-black py-5 px-4">
             <h2 className="text-xl">3. The Solution</h2>
@@ -137,11 +137,11 @@ const SubmitProposalContext: React.FC<Props> = (props) => {
             </p>
           </div>
 
-          <TextEditorDropdown
+          {/* <TextEditorDropdown
             text={context?.solution}
             changeText={handleSolution}
             className="text-black mt-5"
-          />
+          /> */}
 
           <div className="mt-10 border border-black py-5 px-4">
             <h2 className="text-xl">
@@ -158,11 +158,11 @@ const SubmitProposalContext: React.FC<Props> = (props) => {
             </p>
           </div>
 
-          <TextEditorDropdown
+          {/* <TextEditorDropdown
             text={context?.ksmImprovements}
             changeText={handleKsmImprovements}
             className="text-black mt-5"
-          />
+          /> */}
 
           <div className="mt-10 border border-black py-5 px-4">
             <h2 className="text-xl">b. Who does this solution help?</h2>
@@ -172,11 +172,11 @@ const SubmitProposalContext: React.FC<Props> = (props) => {
             </p>
           </div>
 
-          <TextEditorDropdown
+          {/* <TextEditorDropdown
             text={context?.targetAudience}
             changeText={handleTargetAudience}
             className="text-black mt-5"
-          />
+          /> */}
 
           <div className="mt-10 border border-black py-5 px-4">
             <h2 className="text-xl">4. Why Kusama</h2>
@@ -186,11 +186,11 @@ const SubmitProposalContext: React.FC<Props> = (props) => {
             </p>
           </div>
 
-          <TextEditorDropdown
+          {/* <TextEditorDropdown
             text={context?.whyKSM}
             changeText={handleWhyKSM}
             className="text-black mt-5"
-          />
+          /> */}
 
           <div className="mt-10 border border-black py-5 px-4">
             <h2 className="text-xl">
@@ -199,11 +199,11 @@ const SubmitProposalContext: React.FC<Props> = (props) => {
             </h2>
           </div>
 
-          <TextEditorDropdown
+          {/* <TextEditorDropdown
             text={context?.similarSolution}
             changeText={handleSimilarSolution}
             className="text-black mt-5"
-          />
+          /> */}
 
           {/* Button Row - take one level up */}
 

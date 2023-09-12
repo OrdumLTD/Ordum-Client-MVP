@@ -102,7 +102,7 @@ export type submitContext = {
   changeMilestones: (milestone: any) => void;
 };
 
-const defaultState = {
+const defaultState: submitContext = {
   proposalStep: undefined,
   proposalIndex: null,
   setProposalIndex: (index: number) => {
@@ -144,6 +144,7 @@ const defaultState = {
   changeMilestones: (milestone: any) => {
     return;
   },
+  changeProposalContext: () => {}
 };
 
 type Props = {
