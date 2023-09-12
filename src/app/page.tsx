@@ -1,14 +1,14 @@
 "use client";
 
-import { useEffect } from "react";
+// import LogIn from "@/Components/Login/";
+import dynamic from "next/dynamic";
 
-import LogIn from "@/Components/Login/";
-
+const LogIn = dynamic(() => import('@/Components/Login'), {ssr: false})
 
 export default function Home() {
   return (
     <main className="">
-      <LogIn /> 
+      <LogIn />
     </main>
   );
 }

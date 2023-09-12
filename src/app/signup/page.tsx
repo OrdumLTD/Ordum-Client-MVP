@@ -3,7 +3,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import OrdumLogoLight from "@/assets/svg-icons/ordum-logo-light.svg";
-import ConnectWallet from "@/Components/ConnectWallet";
+import dynamic from "next/dynamic";
+// import ConnectWallet from "@/Components/ConnectWallet";
+
+const ConnectWallet = dynamic(() => import('@/Components/ConnectWallet'), {ssr: false})
 
 const SignUp = () => {
   // const { user } = useSelector((state: RootState) => state.user);

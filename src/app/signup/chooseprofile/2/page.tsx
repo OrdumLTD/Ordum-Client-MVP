@@ -8,9 +8,12 @@ import { useProfileContext } from "@/Context/ProfileStore";
 import { useChainApiContext } from "@/Context/ChainApiStore";
 import { usePhalaContractContext } from "@/Context/PhalaContractApiStore";
 import { useEffect, useState } from "react";
-import ConnectWallet from "@/Components/ConnectWallet";
+// import ConnectWallet from "@/Components/ConnectWallet";
 import { onSignCertificate } from "@/lib/PhalaContract/Utils/phalaCertificate";
 import { useWalletContext } from "@/Context/WalletStore";
+import dynamic from "next/dynamic";
+
+const ConnectWallet = dynamic(() => import('@/Components/ConnectWallet'), {ssr: false})
 
 const ChooseProfileStep2 = () => {
   //Context
