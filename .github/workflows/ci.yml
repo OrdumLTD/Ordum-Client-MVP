@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: [ mhl-ordum ]
+    branches: [ main ]
   pull_request:
-    branches: [ mhl-ordum ]
+    branches: [ main ]
 
 jobs:
   build:
